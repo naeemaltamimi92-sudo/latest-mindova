@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Jobs\Concerns\RobustJob;
 use App\Models\Volunteer;
 use App\Services\AI\CVAnalysisService;
-use App\Services\Utilities\CVTextExtractor;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -60,15 +59,11 @@ class AnalyzeVolunteerCV implements ShouldQueue, ShouldBeUnique
     /**
      * Execute the job.
      */
-    public function handle(
-        CVTextExtractor $extractor,
-        CVAnalysisService $analysisService
-    ): void {
-        $this->executeWithRobustHandling(function () use ($extractor, $analysisService) {
-            // Refresh the model
+    public function handle(CVAnalysisService $analysisService): void
+    {
+        $this->executeWithRobustHandling(function () use ($analysisService) {
             $this->volunteer->refresh();
 
-            // Skip if already completed
             if ($this->volunteer->ai_analysis_status === 'completed') {
                 Log::info('CV analysis already completed, skipping', [
                     'volunteer_id' => $this->volunteer->id,
@@ -76,37 +71,29 @@ class AnalyzeVolunteerCV implements ShouldQueue, ShouldBeUnique
                 return;
             }
 
-            // Update status to processing
             $this->volunteer->update([
                 'ai_analysis_status' => 'processing',
             ]);
 
-            // Extract text from CV
             if (!$this->volunteer->cv_file_path) {
                 throw new \Exception('No CV file path found for volunteer');
             }
 
-            $cvText = $extractor->extract($this->volunteer->cv_file_path);
-
-            // Validate extracted text
-            if (!$extractor->validateExtractedText($cvText)) {
-                throw new \Exception('Extracted CV text is too short or invalid');
-            }
-
-            Log::info('CV text extracted successfully', [
+            Log::info('Starting CV analysis', [
                 'volunteer_id' => $this->volunteer->id,
-                'text_length' => strlen($cvText),
+                'file_path' => $this->volunteer->cv_file_path,
             ]);
 
-            // Analyze CV with AI
-            $analysis = $analysisService->analyze($cvText, $this->volunteer);
+            $analysis = $analysisService->analyzeFromFile(
+                $this->volunteer->cv_file_path,
+                $this->volunteer
+            );
 
             Log::info('CV analysis completed', [
                 'volunteer_id' => $this->volunteer->id,
                 'confidence_score' => $analysis['confidence_score'] ?? 0,
             ]);
 
-            // Store results
             $analysisService->storeResults($this->volunteer, $analysis);
 
             Log::info('CV analysis results stored successfully', [
@@ -123,7 +110,6 @@ class AnalyzeVolunteerCV implements ShouldQueue, ShouldBeUnique
     {
         $this->logJobFailed($exception, ['volunteer_id' => $this->volunteer->id]);
 
-        // Store failure reason
         $this->storeFailureReason($exception->getMessage(), [
             'volunteer_id' => $this->volunteer->id,
             'volunteer_name' => $this->volunteer->user->name ?? 'Unknown',

@@ -19,17 +19,33 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Anthropic Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure your Anthropic API credentials and default settings.
+    |
+    */
+
+    'anthropic' => [
+        'api_key' => env('ANTHROPIC_API_KEY'),
+        'base_url' => env('ANTHROPIC_BASE_URL', 'https://api.anthropic.com'),
+        'timeout' => env('ANTHROPIC_TIMEOUT', 120),
+        'max_tokens' => env('ANTHROPIC_MAX_TOKENS', 4096),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | AI Models Configuration
     |--------------------------------------------------------------------------
     |
-    | Define which OpenAI model to use for each operation.
-    | gpt-4o: Most capable, higher cost
-    | gpt-4o-mini: Fast and cost-effective for simpler tasks
+    | Define which model to use for each operation.
+    | CV analysis uses Claude (Anthropic)
+    | Other operations use OpenAI models
     |
     */
 
     'models' => [
-        'cv_analysis' => env('AI_MODEL_CV_ANALYSIS', 'gpt-4o'),
+        'cv_analysis' => env('AI_MODEL_CV_ANALYSIS', 'claude-sonnet-4-20250514'),
         'challenge_analysis' => env('AI_MODEL_CHALLENGE_ANALYSIS', 'gpt-4o'),
         'task_generation' => env('AI_MODEL_TASK_GENERATION', 'gpt-4o'),
         'volunteer_matching' => env('AI_MODEL_VOLUNTEER_MATCHING', 'gpt-4o-mini'),
@@ -75,6 +91,14 @@ return [
         'gpt-4o-mini' => [
             'input' => 0.150,  // USD per 1M input tokens
             'output' => 0.600, // USD per 1M output tokens
+        ],
+        'claude-sonnet-4-20250514' => [
+            'input' => 3.00,  // USD per 1M input tokens
+            'output' => 15.00, // USD per 1M output tokens
+        ],
+        'claude-opus-4-20250514' => [
+            'input' => 15.00,  // USD per 1M input tokens
+            'output' => 75.00, // USD per 1M output tokens
         ],
     ],
 

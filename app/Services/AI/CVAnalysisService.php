@@ -5,11 +5,11 @@ namespace App\Services\AI;
 use App\Models\Volunteer;
 use App\Models\VolunteerSkill;
 
-class CVAnalysisService extends OpenAIService
+class CVAnalysisService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.cv_analysis', 'gpt-4o');
+        return config('ai.models.cv_analysis', 'claude-sonnet-4-20250514');
     }
 
     protected function getRequestType(): string
@@ -18,28 +18,27 @@ class CVAnalysisService extends OpenAIService
     }
 
     /**
-     * Analyze a CV and extract structured information.
+     * Analyze a CV file directly using Claude's document understanding.
      *
-     * @param string $cvText The extracted text from the CV
+     * @param string $filePath The storage path to the CV file
      * @param Volunteer $volunteer The volunteer to analyze for
      * @return array Analysis results with confidence score
      */
-    public function analyze(string $cvText, Volunteer $volunteer): array
+    public function analyzeFromFile(string $filePath, Volunteer $volunteer): array
     {
-        $prompt = $this->buildPrompt($cvText);
+        $prompt = $this->buildPrompt();
         $systemPrompt = $this->getSystemPrompt();
 
-        $response = $this->makeRequest(
+        $response = $this->makeDocumentRequest(
             prompt: $prompt,
+            filePath: $filePath,
             options: [
                 'system_prompt' => $systemPrompt,
-                'temperature' => 0.3, // Lower temperature for more consistent extraction
             ],
             relatedType: Volunteer::class,
             relatedId: $volunteer->id
         );
 
-        // Validate response structure
         $requiredFields = [
             'confidence_score',
             'experience_level',
@@ -60,13 +59,10 @@ class CVAnalysisService extends OpenAIService
     /**
      * Build the analysis prompt.
      */
-    protected function buildPrompt(string $cvText): string
+    protected function buildPrompt(): string
     {
         return <<<PROMPT
-Analyze the following CV and extract structured information. Be thorough and accurate.
-
-CV Content:
-{$cvText}
+Analyze this CV/resume document and extract structured information. Be thorough and accurate.
 
 Please provide a comprehensive analysis in JSON format with the following structure:
 
@@ -119,6 +115,7 @@ Guidelines:
 - Be conservative with proficiency levels - only mark as Expert if clearly demonstrated
 - Professional domains should be broad categories (e.g., "Healthcare", "Finance", "Education")
 - If information is missing or unclear, use null values and note in validation_notes
+- Return ONLY valid JSON, no additional text
 PROMPT;
     }
 
@@ -148,13 +145,10 @@ SYSTEM;
      */
     public function storeResults(Volunteer $volunteer, array $analysis): void
     {
-        // Delete all existing CV-analyzed skills before storing new ones
-        // This ensures fresh analysis when CV is re-uploaded
         VolunteerSkill::where('volunteer_id', $volunteer->id)
             ->where('source', 'cv_analysis')
             ->delete();
 
-        // Update volunteer profile
         $volunteer->update([
             'experience_level' => $analysis['experience_level'],
             'years_of_experience' => $analysis['years_of_experience'],
@@ -169,9 +163,7 @@ SYSTEM;
                 : 'needs_review',
         ]);
 
-        // Store new skills from fresh analysis
         foreach ($analysis['skills'] as $skillData) {
-            // Map OpenAI proficiency level to database ENUM
             $proficiency = $this->mapProficiencyLevel($skillData['proficiency_level'] ?? 'intermediate');
 
             VolunteerSkill::create([
@@ -184,7 +176,6 @@ SYSTEM;
             ]);
         }
 
-        // Mark skills as normalized
         $volunteer->update(['skills_normalized' => true]);
     }
 
@@ -195,12 +186,10 @@ SYSTEM;
     {
         $level = strtolower(trim($level));
 
-        // Direct matches
         if (in_array($level, ['beginner', 'intermediate', 'advanced', 'expert'])) {
             return $level;
         }
 
-        // Fuzzy matching for common variations
         if (str_contains($level, 'expert') || str_contains($level, 'senior') || str_contains($level, 'master')) {
             return 'expert';
         }
@@ -217,7 +206,6 @@ SYSTEM;
             return 'beginner';
         }
 
-        // Default to intermediate if unknown
         return 'intermediate';
     }
 }
