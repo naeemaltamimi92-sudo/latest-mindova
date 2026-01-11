@@ -1,0 +1,1039 @@
+/* ========================================
+   MINDOVA - 2027 Language Transitions & Enhanced Design
+   Modern UI/UX for Multilingual Experience
+   ======================================== */
+
+/* ============================================
+   1. CSS Custom Properties for Dynamic Theming
+   ============================================ */
+:root {
+    /* Primary gradient colors */
+    --gradient-start: #6366f1;
+    --gradient-middle: #8b5cf6;
+    --gradient-end: #a855f7;
+
+    /* Glass morphism */
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: rgba(99, 102, 241, 0.15);
+
+    /* Animation timing */
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* Language switch transition duration */
+    --lang-transition-duration: 0.5s;
+
+    /* Typography */
+    --font-english: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-arabic: 'Tajawal', 'Cairo', 'Noto Sans Arabic', sans-serif;
+
+    /* Spacing multipliers */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+}
+
+/* RTL-specific custom properties */
+[dir="rtl"] {
+    --text-align-start: right;
+    --text-align-end: left;
+    --flex-direction-row: row-reverse;
+    --transform-flip: scaleX(-1);
+    --margin-inline-start: margin-right;
+    --margin-inline-end: margin-left;
+}
+
+[dir="ltr"] {
+    --text-align-start: left;
+    --text-align-end: right;
+    --flex-direction-row: row;
+    --transform-flip: scaleX(1);
+    --margin-inline-start: margin-left;
+    --margin-inline-end: margin-right;
+}
+
+/* ============================================
+   2. Page Transition Effects
+   ============================================ */
+/* Smooth page fade on language switch */
+.lang-switching {
+    animation: langSwitchFade 0.4s var(--transition-smooth);
+}
+
+@keyframes langSwitchFade {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.99); filter: blur(2px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* Page load animation after language change */
+.lang-loaded {
+    animation: langLoadedSlide 0.6s var(--transition-elastic);
+}
+
+@keyframes langLoadedSlide {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* RTL to LTR direction transition */
+[dir] * {
+    transition:
+        text-align var(--lang-transition-duration) var(--transition-smooth),
+        padding-left var(--lang-transition-duration) var(--transition-smooth),
+        padding-right var(--lang-transition-duration) var(--transition-smooth),
+        margin-left var(--lang-transition-duration) var(--transition-smooth),
+        margin-right var(--lang-transition-duration) var(--transition-smooth),
+        border-radius var(--lang-transition-duration) var(--transition-smooth),
+        transform var(--lang-transition-duration) var(--transition-smooth);
+}
+
+/* ============================================
+   3. Enhanced Language Switcher - 2027 Design
+   ============================================ */
+.language-switcher-2027 {
+    position: relative;
+    z-index: 100;
+}
+
+/* Main toggle button - Glassmorphism style */
+.lang-toggle-2027 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 1rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 255, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.3s var(--transition-smooth);
+    box-shadow:
+        0 4px 16px rgba(99, 102, 241, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated gradient border */
+.lang-toggle-2027::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end), var(--gradient-start));
+    background-size: 300% 300%;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s var(--transition-smooth);
+    animation: gradientBorder 4s ease infinite;
+}
+
+.lang-toggle-2027:hover::before {
+    opacity: 1;
+}
+
+.lang-toggle-2027::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 255, 0.95) 100%);
+    border-radius: calc(1rem - 1px);
+    z-index: -1;
+}
+
+@keyframes gradientBorder {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.lang-toggle-2027:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 32px rgba(99, 102, 241, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.lang-toggle-2027:active {
+    transform: translateY(0);
+    transition-duration: 0.1s;
+}
+
+.lang-toggle-2027.active {
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    border-color: #a5b4fc;
+}
+
+/* Flag container with 3D effect */
+.lang-flag-2027 {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.12),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s var(--transition-elastic);
+    flex-shrink: 0;
+}
+
+.lang-toggle-2027:hover .lang-flag-2027 {
+    transform: scale(1.1) rotate(-3deg);
+}
+
+.lang-flag-2027 svg,
+.lang-flag-2027 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Language name with gradient text */
+.lang-name-2027 {
+    min-width: 3.5rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.lang-toggle-2027:hover .lang-name-2027 {
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* Chevron with animation */
+.lang-chevron-2027 {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: #94a3b8;
+    transition: all 0.3s var(--transition-bounce);
+}
+
+.lang-toggle-2027:hover .lang-chevron-2027 {
+    color: var(--gradient-start);
+}
+
+.lang-toggle-2027.active .lang-chevron-2027 {
+    transform: rotate(180deg);
+    color: var(--gradient-start);
+}
+
+/* Dropdown panel - Modern glass morphism */
+.lang-dropdown-2027 {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    min-width: 14rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 255, 0.95) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 1.25rem;
+    box-shadow:
+        0 25px 60px -15px rgba(0, 0, 0, 0.2),
+        0 10px 30px -10px rgba(99, 102, 241, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transform-origin: top right;
+    transition: all 0.3s var(--transition-elastic);
+}
+
+[dir="rtl"] .lang-dropdown-2027 {
+    right: auto;
+    left: 0;
+    transform-origin: top left;
+}
+
+.lang-dropdown-2027.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Dropdown arrow */
+.lang-dropdown-arrow-2027 {
+    position: absolute;
+    top: -8px;
+    right: 1.5rem;
+    width: 16px;
+    height: 16px;
+    background: white;
+    transform: rotate(45deg);
+    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    border-left: 1px solid rgba(99, 102, 241, 0.1);
+    box-shadow: -3px -3px 10px rgba(99, 102, 241, 0.05);
+}
+
+[dir="rtl"] .lang-dropdown-arrow-2027 {
+    right: auto;
+    left: 1.5rem;
+}
+
+/* Language options container */
+.lang-options-2027 {
+    padding: 0.625rem;
+}
+
+/* Individual language option */
+.lang-option-2027 {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: none;
+    background: transparent;
+    border-radius: 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s var(--transition-smooth);
+    text-align: start;
+    position: relative;
+    overflow: hidden;
+}
+
+[dir="rtl"] .lang-option-2027 {
+    text-align: right;
+}
+
+/* Hover effect with animated gradient */
+.lang-option-2027::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    opacity: 0;
+    transition: opacity 0.2s var(--transition-smooth);
+}
+
+.lang-option-2027:hover::before {
+    opacity: 1;
+}
+
+.lang-option-2027:hover {
+    transform: translateX(4px);
+}
+
+[dir="rtl"] .lang-option-2027:hover {
+    transform: translateX(-4px);
+}
+
+/* Active language option */
+.lang-option-2027.active {
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    color: var(--gradient-start);
+    cursor: default;
+}
+
+.lang-option-2027.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end));
+    border-radius: 0 4px 4px 0;
+}
+
+[dir="rtl"] .lang-option-2027.active::after {
+    left: auto;
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+.lang-option-2027.active:hover {
+    transform: none;
+}
+
+/* Option flag */
+.lang-option-flag-2027 {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.lang-option-flag-2027 svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Option name */
+.lang-option-name-2027 {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+/* Check icon for active */
+.lang-check-2027 {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--gradient-start);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    animation: checkPop 0.3s var(--transition-elastic);
+}
+
+@keyframes checkPop {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Loading spinner */
+.lang-spinner-2027 {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--gradient-middle);
+    flex-shrink: 0;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Dropdown footer */
+.lang-dropdown-footer-2027 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.lang-dropdown-footer-2027 svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    animation: globeSpin 10s linear infinite;
+}
+
+@keyframes globeSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   4. Typography Enhancements for Multilingual
+   ============================================ */
+/* English typography */
+[lang="en"] body {
+    font-family: var(--font-english);
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Arabic typography with enhanced readability */
+[lang="ar"] body {
+    font-family: var(--font-arabic);
+    font-feature-settings: 'kern' 1;
+    text-rendering: optimizeLegibility;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+    word-spacing: 0.05em;
+}
+
+/* Heading adjustments for Arabic */
+[lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3,
+[lang="ar"] h4, [lang="ar"] h5, [lang="ar"] h6 {
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+[lang="ar"] p {
+    line-height: 2;
+}
+
+/* ============================================
+   5. Card & Container Transitions
+   ============================================ */
+/* Cards with smooth RTL transition */
+.card-2027 {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 255, 0.9) 100%);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    transition: all 0.4s var(--transition-smooth);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.05),
+        0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.card-2027:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.08),
+        0 4px 12px rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
+/* ============================================
+   6. Button Enhancements
+   ============================================ */
+.btn-2027 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: 0.875rem;
+    transition: all 0.3s var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary-2027 {
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-middle) 50%, var(--gradient-end) 100%);
+    background-size: 200% 200%;
+    color: white;
+    border: none;
+    box-shadow:
+        0 4px 16px rgba(99, 102, 241, 0.3),
+        0 1px 3px rgba(99, 102, 241, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary-2027:hover {
+    background-position: 100% 100%;
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 24px rgba(99, 102, 241, 0.4),
+        0 2px 8px rgba(99, 102, 241, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary-2027:active {
+    transform: translateY(0);
+    transition-duration: 0.1s;
+}
+
+/* Shimmer effect on hover */
+.btn-primary-2027::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s var(--transition-smooth);
+}
+
+.btn-primary-2027:hover::before {
+    left: 100%;
+}
+
+/* Secondary button */
+.btn-secondary-2027 {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    color: #334155;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary-2027:hover {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+    transform: translateY(-1px);
+}
+
+/* ============================================
+   7. Form Input Enhancements
+   ============================================ */
+.input-2027 {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1.5px solid rgba(226, 232, 240, 0.8);
+    border-radius: 0.875rem;
+    font-size: 0.9375rem;
+    color: #1e293b;
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.input-2027:focus {
+    outline: none;
+    border-color: var(--gradient-start);
+    box-shadow:
+        0 0 0 4px rgba(99, 102, 241, 0.1),
+        0 2px 8px rgba(99, 102, 241, 0.08);
+}
+
+[dir="rtl"] .input-2027 {
+    text-align: right;
+}
+
+/* Input with icon - RTL aware */
+.input-icon-wrapper-2027 {
+    position: relative;
+}
+
+.input-icon-wrapper-2027 .input-2027 {
+    padding-left: 2.75rem;
+}
+
+[dir="rtl"] .input-icon-wrapper-2027 .input-2027 {
+    padding-left: 1rem;
+    padding-right: 2.75rem;
+}
+
+.input-icon-2027 {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+    transition: color 0.3s var(--transition-smooth);
+}
+
+[dir="rtl"] .input-icon-2027 {
+    left: auto;
+    right: 1rem;
+}
+
+.input-2027:focus + .input-icon-2027,
+.input-icon-wrapper-2027:focus-within .input-icon-2027 {
+    color: var(--gradient-start);
+}
+
+/* ============================================
+   8. Navigation Enhancements
+   ============================================ */
+/* Nav link with animated underline */
+.nav-link-2027 {
+    position: relative;
+    padding: 0.5rem 0;
+    font-weight: 600;
+    color: #64748b;
+    transition: color 0.3s var(--transition-smooth);
+}
+
+.nav-link-2027::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    border-radius: 2px;
+    transition: all 0.3s var(--transition-smooth);
+    transform: translateX(-50%);
+}
+
+.nav-link-2027:hover,
+.nav-link-2027.active {
+    color: #1e293b;
+}
+
+.nav-link-2027:hover::after,
+.nav-link-2027.active::after {
+    width: 100%;
+}
+
+/* ============================================
+   9. Modal & Dropdown Enhancements
+   ============================================ */
+.modal-backdrop-2027 {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    animation: backdropFade 0.3s var(--transition-smooth);
+}
+
+@keyframes backdropFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content-2027 {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 255, 0.95) 100%);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    border-radius: 1.5rem;
+    box-shadow:
+        0 32px 64px -16px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    animation: modalSlide 0.4s var(--transition-elastic);
+}
+
+@keyframes modalSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ============================================
+   10. Table Enhancements
+   ============================================ */
+.table-2027 {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-2027 thead {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.table-2027 th {
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    text-align: start;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+[dir="rtl"] .table-2027 th {
+    text-align: right;
+}
+
+.table-2027 td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.4);
+    transition: background 0.2s var(--transition-smooth);
+}
+
+.table-2027 tbody tr:hover td {
+    background: rgba(99, 102, 241, 0.03);
+}
+
+/* ============================================
+   11. Badge & Tag Enhancements
+   ============================================ */
+.badge-2027 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    transition: all 0.2s var(--transition-smooth);
+}
+
+.badge-primary-2027 {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    color: var(--gradient-start);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.badge-success-2027 {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.badge-warning-2027 {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.badge-danger-2027 {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* ============================================
+   12. Loading States
+   ============================================ */
+.skeleton-2027 {
+    background: linear-gradient(
+        90deg,
+        rgba(226, 232, 240, 0.4) 25%,
+        rgba(241, 245, 249, 0.6) 50%,
+        rgba(226, 232, 240, 0.4) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton 1.5s ease-in-out infinite;
+    border-radius: 0.5rem;
+}
+
+@keyframes skeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   13. Toast Notifications
+   ============================================ */
+.toast-2027 {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+    border-radius: 1rem;
+    box-shadow:
+        0 16px 48px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    animation: toastSlide 0.4s var(--transition-elastic);
+}
+
+@keyframes toastSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-100%) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.toast-2027.toast-exit {
+    animation: toastExit 0.3s var(--transition-smooth) forwards;
+}
+
+@keyframes toastExit {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+}
+
+/* ============================================
+   14. Progress Indicators
+   ============================================ */
+.progress-2027 {
+    height: 0.5rem;
+    background: rgba(226, 232, 240, 0.5);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-bar-2027 {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+    background-size: 200% 100%;
+    border-radius: 9999px;
+    transition: width 0.5s var(--transition-smooth);
+    animation: progressGlow 2s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ============================================
+   15. RTL Specific Animations
+   ============================================ */
+/* Icons that should flip in RTL */
+[dir="rtl"] .icon-flip-rtl {
+    transform: scaleX(-1);
+}
+
+/* Arrows should point correctly */
+[dir="rtl"] .arrow-icon {
+    transform: rotate(180deg);
+}
+
+/* Slide animations RTL aware */
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+[dir="ltr"] .slide-in-start {
+    animation: slideInFromLeft 0.4s var(--transition-elastic);
+}
+
+[dir="rtl"] .slide-in-start {
+    animation: slideInFromRight 0.4s var(--transition-elastic);
+}
+
+/* ============================================
+   16. Mobile Responsive Language Switcher
+   ============================================ */
+@media (max-width: 640px) {
+    .lang-toggle-2027 {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .lang-name-2027 {
+        display: none;
+    }
+
+    .lang-dropdown-2027 {
+        right: -0.5rem;
+        min-width: 11rem;
+    }
+
+    [dir="rtl"] .lang-dropdown-2027 {
+        right: auto;
+        left: -0.5rem;
+    }
+
+    .lang-dropdown-arrow-2027 {
+        right: 1rem;
+    }
+
+    [dir="rtl"] .lang-dropdown-arrow-2027 {
+        right: auto;
+        left: 1rem;
+    }
+}
+
+/* ============================================
+   17. Print Styles
+   ============================================ */
+@media print {
+    .language-switcher-2027,
+    .lang-toggle-2027,
+    .lang-dropdown-2027 {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   18. Reduced Motion Support
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================
+   19. Dark Mode Support (Optional)
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --glass-bg: rgba(30, 41, 59, 0.9);
+        --glass-border: rgba(71, 85, 105, 0.3);
+        --glass-shadow: rgba(99, 102, 241, 0.2);
+    }
+
+    .lang-toggle-2027 {
+        background: linear-gradient(135deg, rgba(51, 65, 85, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
+        border-color: rgba(71, 85, 105, 0.5);
+        color: #e2e8f0;
+    }
+
+    .lang-toggle-2027::after {
+        background: linear-gradient(135deg, rgba(51, 65, 85, 0.98) 0%, rgba(30, 41, 59, 0.95) 100%);
+    }
+
+    .lang-dropdown-2027 {
+        background: linear-gradient(135deg, rgba(51, 65, 85, 0.98) 0%, rgba(30, 41, 59, 0.95) 100%);
+        border-color: rgba(71, 85, 105, 0.5);
+    }
+
+    .lang-option-2027 {
+        color: #e2e8f0;
+    }
+
+    .lang-option-2027::before {
+        background: linear-gradient(135deg, rgba(71, 85, 105, 0.3) 0%, rgba(51, 65, 85, 0.3) 100%);
+    }
+
+    .lang-option-2027.active {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    }
+
+    .lang-dropdown-footer-2027 {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+        border-color: rgba(71, 85, 105, 0.5);
+        color: #94a3b8;
+    }
+
+    .lang-dropdown-arrow-2027 {
+        background: #334155;
+        border-color: rgba(71, 85, 105, 0.5);
+    }
+}
+
+/* ============================================
+   20. Contextual Language Hints
+   ============================================ */
+/* Show language hint on specific elements */
+[data-lang-hint]::after {
+    content: attr(data-lang-hint);
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 0.625rem;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s var(--transition-smooth);
+}
+
+[data-lang-hint]:hover::after {
+    opacity: 1;
+    visibility: visible;
+}

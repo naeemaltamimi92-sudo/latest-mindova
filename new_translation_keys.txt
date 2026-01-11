@@ -1,0 +1,659 @@
+Total unique translation keys found: 813
+Already translated in ar.json: 162
+New keys needing translation: 651
+
+================================================================================
+NEW TRANSLATION KEYS THAT NEED ARABIC TRANSLATIONS
+================================================================================
+
+1. 127+ challenges completed with 85% success rate
+2. 403 - Access Denied
+3. 404 - Page Not Found
+4. 450+ Volunteers
+5. 500 - Server Error
+6. 85% Success Rate
+7. AI
+8. AI (40%) + Community (60%)
+9. AI Analysis Workflow
+10. AI Analysis in Progress...
+11. AI Analysis:
+12. AI Evaluation
+13. AI Feedback:
+14. AI Score
+15. AI Score:
+16. AI evaluation in progress...
+17. AI matches qualified volunteers to each task
+18. AI will analyze and refine your challenge brief
+19. AI will evaluate your idea across multiple dimensions (feasibility, innovation, impact)
+20. AI-Analyzed Task Requirements
+21. AI-Refined Brief
+22. AI-powered challenge analysis and task decomposition using natural language processing
+23. About Community Challenges
+24. About Mindova
+25. Accept Invitation
+26. Accepted
+27. Access Denied
+28. Access diverse talent, solve complex problems cost-effectively, and benefit from AI-optimized team formation and project management. Get results faster with perfectly matched volunteers.
+29. Account Settings
+30. Account Type
+31. Active Contributors
+32. Active Now
+33. Active Task in Progress
+34. Active Tasks
+35. Active Teams
+36. Active Volunteer
+37. Additional Challenge-Specific Terms:
+38. Advanced algorithms for optimal volunteer-task pairing with 80%+ accuracy
+39. Advanced algorithms form optimal teams based on skills and experience
+40. Agreement
+41. Alignment
+42. All Rankings
+43. All Statuses
+44. All Types
+45. All challenges submitted to Mindova are protected under challenge-specific NDAs, ensuring full confidentiality and controlled access.
+46. All time
+47. All volunteers must sign a general NDA before participating in challenges. This protects both you and the companies sharing their confidential information on our platform.
+48. All volunteers must sign a general NDA upon registration
+49. Analyze & Decompose Challenges
+50. Analyzing
+51. Analyzing Challenge Brief...
+52. Analyzing...
+53. Anonymous Updates:
+54. Apply Filters
+55. Are you sure you want to decline this invitation?
+56. Areas for Improvement:
+57. Areas to Develop:
+58. Areas to develop:
+59. Assigned Volunteers
+60. Attachments (Optional)
+61. Automated creation of balanced, high-performing teams with complementary skills
+62. Automatic Protection:
+63. Availability (hours per week)
+64. Availability (hours/week)
+65. Available Tasks for You
+66. Avg AI Score
+67. Avg Response Time
+68. Awaiting response
+69. Back to Challenge
+70. Back to Dashboard
+71. Back to Login
+72. Be the first to make an impact!
+73. Be the first to share your idea!
+74. Being worked on
+75. Best practices
+76. Bio (Optional)
+77. Blocked
+78. Breach of this agreement may result in legal action
+79. Break down complex problems into manageable tasks using advanced AI analysis and strategic planning.
+80. Browser information
+81. Build Your Reputation
+82. Build your portfolio, gain real-world experience, and make a meaningful impact while working on challenges that match your skills and interests. Grow your reputation and network with professionals.
+83. Built on
+84. Business
+85. Business Partnership
+86. Business Partnerships
+87. By checking this box and submitting this form, you are electronically signing this agreement and agree to be legally bound by its terms.
+88. By checking this box and submitting this form, you are electronically signing this agreement and agree to be legally bound by its terms. You acknowledge that:
+89. By clicking OK, you confirm that you have read and understood the NDA and agree to be legally bound by its terms. Do you wish to proceed?
+90. By clicking OK, you confirm that you have read and understood the challenge-specific NDA and agree to be legally bound by its terms.\n\nYou acknowledge that unauthorized disclosure of challenge information may result in legal consequences.\n\nDo you wish to proceed?
+91. By continuing, you agree to our
+92. CONFIDENTIALITY LEVEL
+93. CRITICAL
+94. CV Analysis Status
+95. CV:
+96. Celebrating the top contributors making impact on Mindova
+97. Challenge Analysis Complete
+98. Challenge Description
+99. Challenge Details
+100. Challenge ID:
+101. Challenge Info
+102. Challenge Submission:
+103. Challenge Timeline
+104. Challenge Title
+105. Challenge Types
+106. Challenge-Specific NDA
+107. Challenge-Specific NDA:
+108. Challenge:
+109. Challenges are matched to your field of expertise for relevant discussion opportunities.
+110. Champions
+111. Check back in a few minutes
+112. Check back later for challenges that need community input and discussion.
+113. Check out our Help Center for instant answers to common questions
+114. Chemical Engineering
+115. Choose Photo
+116. Choose a strong password to protect your account and data.
+117. Choose what email notifications you'd like to receive
+118. Clear All
+119. Clear Filters
+120. Collaborate with the community to refine and improve these challenges through discussion and feedback
+121. Collaborative Innovation
+122. Comments scored 7+ by AI boost your reputation and get noticed by challenge owners.
+123. Commercial Register Number
+124. Community Challenges
+125. Community Discussion
+126. Community Education
+127. Community Guidelines →
+128. Community Ideas
+129. Community Votes
+130. Community members can vote on your idea
+131. Community standing
+132. Company Logo
+133. Company Logo (Optional)
+134. Company Name
+135. Company Profile
+136. Complete Profile
+137. Complete Profile & Continue to NDA
+138. Complete Your
+139. Complete your active task first
+140. Complete your current task before joining new teams. You can only work on one task at a time.
+141. Completed Tasks
+142. Completed Work
+143. Completion Deadline
+144. Completion Rate
+145. Complexity
+146. Complexity & Priority
+147. Complexity Evaluation (Pending)
+148. Complexity Evaluation:
+149. Complexity Level
+150. Complexity Levels
+151. Complexity:
+152. Confidence:
+153. Confidentiality
+154. Confidentiality Level:
+155. Configure notifications you see in the platform
+156. Confirm your new password
+157. Congratulations! Your solution met the quality standards and has been approved.
+158. Connect skilled volunteers with projects that align perfectly with their expertise and career goals.
+159. Connect with talented volunteers or post challenges. Our AI-powered platform creates perfect teams for real-world projects.
+160. Contact Information
+161. Contact Support
+162. Contact Support →
+163. Contact Us
+164. Contact our support team
+165. Continue with LinkedIn
+166. Continue your journey of solving challenges and making an impact with talented teams worldwide.
+167. Contribute skills to challenges
+168. Contributors
+169. Covered Skills
+170. Create
+171. Create Account
+172. Create a New
+173. Create balanced "micro companies" with complementary skills for collaborative problem-solving.
+174. Cutting-Edge AI
+175. Daily digest
+176. Danger Zone
+177. Dashboard Active
+178. Data Protected
+179. Date and time of signing
+180. Date and time:
+181. Deadlines
+182. Declined
+183. Declined Invitations
+184. Decomposing into Tasks...
+185. Delete Account
+186. Deliverable URL (GitHub, CodePen, Live Demo, etc.)
+187. Describe your challenge in detail (minimum 100 characters)...
+188. Describe your challenge in detail. What problem are you trying to solve? What are your goals?
+189. Describe your idea in detail...
+190. Describe your solution, the approach you took, and any key decisions...
+191. Detailed insights and progress metrics
+192. Digital Signature Information:
+193. Digital Signature Notice:
+194. Done!
+195. Due:
+196. Earn rewards, badges, and recognition for quality contributions to the community
+197. Edit Profile
+198. Educational Focus:
+199. Efficiency
+200. Email Address
+201. Email Frequency
+202. Empowering collaboration between talented volunteers and forward-thinking companies
+203. Enable all in-app notifications
+204. Enable volunteers to build portfolios while solving real problems that make a difference.
+205. Engineering
+206. Enter hours (0-168)
+207. Enter new password
+208. Enter your email to receive a password reset link
+209. Enter your full legal name
+210. Enter your new password below
+211. Est
+212. Estimated Time
+213. Evaluating Complexity...
+214. Experience Level
+215. Explain what you built and how it solves the task
+216. Explain your idea in detail. How would it solve the challenge? What makes it effective?
+217. Extracted Skills
+218. FAQs and guides
+219. Facilitate Meaningful Work
+220. Feasibility
+221. Field Matching:
+222. Field of Expertise
+223. Field of Expertise *
+224. Filter by skill...
+225. Final
+226. Final Score
+227. Final score combines AI evaluation (40%) and community votes (60%)
+228. Finance
+229. Find the perfect challenge to showcase your skills and make meaningful impact
+230. Forgot
+231. Forgot password?
+232. Form Optimal Teams
+233. Full Legal Name
+234. General Inquiries
+235. General Inquiry
+236. Get In
+237. Get back to your work immediately after reset
+238. Get in Touch
+239. Get notified about changes to your assigned tasks
+240. Get notified immediately as things happen
+241. Get notified when AI finishes analyzing your challenge
+242. Get notified when someone submits an idea for your challenge
+243. Get notified when someone votes on your ideas
+244. Get notified when tasks in your challenges are completed
+245. Get notified when you reach reputation milestones
+246. Get notified when you're assigned to a new task
+247. Get notified when your ideas are scored by AI
+248. Get personalized task recommendations and optimal team matches powered by advanced AI
+249. Go Back
+250. Go to Dashboard
+251. HIGH
+252. Hall of
+253. Have questions about this NDA?
+254. Healthcare
+255. Help Center →
+256. Helpful Resources
+257. High-Quality Comments:
+258. High-Quality Insight
+259. High-Quality Insights
+260. Hours
+261. Hours Worked
+262. Hours you can contribute per week
+263. How often would you like to receive email notifications?
+264. I have read and agree to the terms of this Challenge-Specific NDA
+265. I have read and agree to the terms of this Non-Disclosure Agreement
+266. I want to register as
+267. IP address:
+268. Idea Feedback
+269. Idea Statistics
+270. Idea Title
+271. Idea Votes
+272. Ideas Submitted
+273. Identity Protection:
+274. If the problem persists, contact support
+275. If you believe this is an error, please contact support or check your account permissions.
+276. Impact
+277. Important platform updates and announcements
+278. In progress right now
+279. In-App Notifications
+280. Industry
+281. Industry-standard encryption for password resets
+282. Instant Access
+283. Intelligent Analysis
+284. Invitation
+285. Invitation Pending
+286. Irreversible actions require caution
+287. JPG, PNG or GIF (Max 2MB)
+288. John Doe
+289. Join Discussion
+290. Join Mindova to start solving challenges or finding talented volunteers
+291. Join our community and start transforming challenges into innovation
+292. Join the Future of
+293. Leader
+294. Legal Agreement
+295. Level 1-2 challenges matched to your field - share insights and learn
+296. Level:
+297. Link to your code repository, demo, or deliverable
+298. LinkedIn Profile
+299. Loading messages...
+300. Made Simple
+301. Manage how and when you receive notifications
+302. Manage invitations, collaborate with teammates, and achieve together
+303. Manage your account settings and preferences
+304. Marketing
+305. Marketing & Tips
+306. Match
+307. Match Score
+308. Match Talent with Opportunities
+309. Match:
+310. Matched based on your skills and experience
+311. Matching Volunteers...
+312. Max Complexity:
+313. Maximum 255 characters
+314. Member Since
+315. Micro Companies
+316. Mindova
+317. Mindova is an AI-powered collaboration platform that transforms how organizations solve complex challenges
+318. Minimum 100 characters, maximum 2000 characters
+319. Minimum 100 characters, maximum 5000 characters
+320. Minimum 8 characters
+321. Missing Requirements:
+322. Missing Skills
+323. Moderate
+324. Monitor tasks, achievements, and team collaboration in real-time with advanced analytics
+325. Most Active Companies
+326. My
+327. My Active Tasks
+328. My Profile
+329. My Task Invitations & Progress
+330. Need Immediate Assistance?
+331. Need at least
+332. Need help?
+333. New Challenge
+334. New Challenge Submission
+335. New Ideas
+336. New Task Assignments
+337. Next Step: NDA Signature Required
+338. No Challenges Found
+339. No Challenges Yet
+340. No Community Challenges Yet
+341. No Rankings Yet
+342. No Teams Yet
+343. No accepted assignments
+344. No available tasks matching your profile at the moment.
+345. No comments yet. Be the first to share your insights!
+346. No completed tasks yet
+347. No contributors yet
+348. No declined tasks
+349. No feedback available
+350. No ideas submitted yet
+351. No messages yet
+352. No pending assignments
+353. No pending invitations
+354. No skills extracted yet. Upload or update your CV for analysis.
+355. No tasks in progress
+356. Non-Disclosure
+357. Not analyzed
+358. Not connected
+359. Not set
+360. Not started
+361. Note:
+362. One-time secure token ensures only you can reset
+363. Or continue with
+364. Other
+365. Our Mission
+366. Our Technology
+367. Overall Coverage
+368. Overall Feedback
+369. Page Not Found
+370. Part of Challenge
+371. Participation Rate
+372. Password Recovery
+373. Pending Invitations
+374. Performance Metrics
+375. Performance Score
+376. Permanently delete your account and all associated data. This action cannot be undone.
+377. Play a sound when you receive a notification
+378. Play sound
+379. Please enter your full legal name.
+380. Please read and agree to the NDA terms before proceeding.
+381. Please read and sign the general NDA to continue using the platform
+382. Please sign in to join the discussion
+383. Post Comment
+384. Post challenges to solve
+385. Posted by
+386. Powered by GPT-4o and advanced algorithms for intelligent collaboration
+387. Privacy & Legal
+388. Professional profile based on CV analysis
+389. Profile Picture (Optional)
+390. Profile Settings
+391. Profile Setup
+392. Progress Tracking
+393. Proven Results
+394. Quality Ratings
+395. Quick Recovery
+396. Ready to Make a Difference?
+397. Real-time
+398. Real-time analytics and performance monitoring with comprehensive dashboards
+399. Reason for declining:
+400. Receive a daily summary of all notifications
+401. Receive a weekly summary of all notifications
+402. Receive reset link instantly in your inbox
+403. Receive weekly summaries of your challenge progress
+404. Refresh the page and try again
+405. Remember me
+406. Remember your password?
+407. Remove vote
+408. Reputation
+409. Reputation Level
+410. Reputation Milestones
+411. Reputation Score
+412. Reputation:
+413. Required Experience
+414. Required Skills
+415. Save Preferences
+416. Saving...
+417. Score:
+418. Scores
+419. Secure & Private
+420. Secure Password
+421. Secure Process
+422. Secure Reset
+423. Select your field...
+424. Send Message
+425. Send Reset Link
+426. Send us a Message
+427. Server Error
+428. Share Your Insights
+429. Share your innovation challenge with our community of talented volunteers
+430. Share your thoughts, suggestions, or ask clarifying questions about this challenge...
+431. Show notifications in the platform interface
+432. Sign Challenge NDA
+433. Sign General NDA
+434. Sign NDA & Continue
+435. Sign NDA & View Challenge
+436. Sign in
+437. Sign in to continue your innovation journey
+438. Sign the NDA to access full challenge details
+439. Sign up for free
+440. Simple challenges → community discussion, Complex → task decomposition
+441. Skills & Expertise
+442. Skills Coverage
+443. Smart Matching
+444. Smart Routing:
+445. Solution Description
+446. Solution Submitted - Under Review
+447. Solution submitted
+448. Something went wrong on our end.
+449. Specialist
+450. Start Working
+451. Start the conversation with your team!
+452. Start your innovation journey by submitting your first challenge to the community.
+453. Status:
+454. Strengths:
+455. Strong Encryption
+456. Subject
+457. Submission Deadline
+458. Submit Improved Solution
+459. Submit New Challenge
+460. Submit Your First Challenge
+461. Submit Your Idea
+462. Submit Your Solution
+463. Submit a
+464. Submitted
+465. Success Criteria
+466. Successfully finished
+467. Supported formats: PDF, DOC, DOCX (Max 10MB)
+468. System Updates
+469. System evaluates challenge complexity (simple vs complex)
+470. Task Assignments
+471. Task Completion
+472. Task Completions
+473. Task Decomposition (Pending)
+474. Task Description
+475. Task Details
+476. Task Info
+477. Task Management
+478. Task Progress by Workstream
+479. Task Status Distribution
+480. Task Updates
+481. Tasks Completed
+482. Tasks Done
+483. Tasks in Progress
+484. Team Chat
+485. Team Execution
+486. Team Invitations
+487. Team Leader View:
+488. Team Match
+489. Team Objectives
+490. Team Size
+491. Technical Support
+492. Technology
+493. Tell us about your company and your mission...
+494. Tell us about your experience, interests, and what motivates you...
+495. Tell us about yourself to get started on your innovation journey
+496. Tell us about yourself...
+497. Tell us how we can help...
+498. The page you requested could not be found. It might have been moved, deleted, or never existed in the first place.
+499. These level 1-2 challenges are great for learning and skill development. High-quality comments (scored 7+ by AI) boost your reputation and get noticed by challenge owners.
+500. These level 1-2 challenges are perfect for learning and skill development.
+501. These requirements were analyzed by AI to help you understand exactly what's needed and how to succeed.
+502. This action is unauthorized. You may not have the required permissions or your account type may not support this feature.
+503. This challenge contains highly sensitive information. Unauthorized disclosure may result in serious legal consequences. Please read the NDA carefully before proceeding.
+504. This company hasn't submitted any challenges yet.
+505. This information is stored securely for verification and audit purposes.
+506. This is a challenge-specific NDA in addition to the general NDA you signed upon registration. It contains specific terms and conditions for this particular challenge.
+507. This is your idea. You cannot vote on it.
+508. This should match the name on your official documents
+509. This signature will be cryptographically hashed and stored securely for verification purposes.
+510. This task will be offered to other volunteers
+511. Time Remaining
+512. Tips, best practices, and promotional content
+513. To democratize access to talent and meaningful work by connecting skilled volunteers with companies facing real-world challenges, powered by intelligent AI matching.
+514. Top Contributors
+515. Top Performers
+516. Top Rated Ideas
+517. Total Challenges
+518. Total Comments
+519. Total Community Votes
+520. Total Hours
+521. Total Ideas
+522. Total Tasks
+523. Touch
+524. Track Your Progress
+525. Track progress and manage your submitted challenges
+526. Track your challenges, monitor team progress, and drive innovation forward
+527. Track your invitations, manage active work, and celebrate completions
+528. Transforming Challenges Into
+529. Try Again
+530. Try adjusting your filters or check back later for new challenges.
+531. Try these instead:
+532. Type your message...
+533. Upload CV Now
+534. Upload New CV
+535. Upload New Photo
+536. Upload Your CV (Optional)
+537. Upload a new CV (PDF, DOC, or DOCX) - AI will automatically analyze and extract your skills
+538. Upload supporting files (max 10MB each)
+539. Upload your CV for AI-powered skill analysis
+540. Upload your CV to automatically extract your skills and experience level.
+541. Upload your CV to improve task matching!
+542. User account:
+543. User:
+544. View All My Tasks
+545. View Company Profile
+546. View Details
+547. View Documentation
+548. View Full Task Details
+549. View My Tasks
+550. View Profile
+551. View Task
+552. View Team
+553. View all
+554. View all teams
+555. View and manage your assignments
+556. Visit Help Center
+557. Volunteer Commitment:
+558. Volunteer Matching (Pending)
+559. Volunteer Matching:
+560. Volunteer Profile
+561. Volunteer identities are kept confidential to maintain impartiality
+562. Volunteers accept invitations and start working on tasks
+563. Volunteers must sign an additional NDA before viewing your challenge details
+564. Vote on this idea
+565. We Do
+566. Weekly Progress Reports
+567. Weekly digest
+568. Welcome Back to
+569. Welcome back,
+570. What
+571. What can you do?
+572. What to Deliver
+573. Why
+574. Why You Were Matched
+575. Why is this required?
+576. Work Begins:
+577. Work in small, focused teams for maximum efficiency and collaboration
+578. Workstream
+579. Workstreams & Tasks
+580. Years of Experience
+581. You can see all workstreams and tasks as a team manager.
+582. You can see the full challenge context as a team manager.
+583. You currently have an active task:
+584. You haven't been invited to any teams. Complete your profile and wait for task invitations!
+585. You receive progress updates while volunteer identities remain confidential
+586. You will maintain strict confidentiality of all challenge information
+587. You will not disclose any details outside your assigned team
+588. Your Assignment
+589. Your Challenge is Protected by NDA
+590. Your Challenges
+591. Your Comment
+592. Your Field:
+593. Your Innovation Hub
+594. Your Profile & Skills
+595. Your Role:
+596. Your Skills
+597. Your Skills:
+598. Your Strengths:
+599. Your challenge is securely stored in our database
+600. Your challenge requires NDA signing by default
+601. Your command center for tasks, teams, and community impact
+602. Your comment will be analyzed by AI for quality and relevance. High-quality contributions (score 7+) will notify the challenge owner.
+603. Your electronic signature will be recorded along with:
+604. Your information is always safe with us
+605. Your name
+606. Your password is encrypted with industry-leading security
+607. Your solution is being analyzed by AI. This usually takes 30-60 seconds.
+608. Your solution must meet all criteria below
+609. Your solution scored below the 70% threshold and needs improvement.
+610. avg score
+611. comment
+612. completed
+613. e.g., 5.5
+614. e.g., CR-123456789
+615. e.g., Healthcare, Technology, Finance
+616. e.g., Reduce office energy consumption
+617. e.g., Smart Lighting with Motion Sensors
+618. final score
+619. h left
+620. h/week available
+621. high-quality insights
+622. hours
+623. hours contributed
+624. hours logged
+625. hours to accept
+626. https://yourcompany.com
+627. ideas submitted
+628. john@example.com
+629. logged
+630. more characters
+631. points
+632. recently
+633. score
+634. task
+635. tasks
+636. tasks completed
+637. unique volunteers engaged
+638. volunteers working
+639. years
+640. years experience
+641. your.email@example.com
+642. your@email.com
+643. {1} comment|[2,*] comments
+644. {1} vote|[2,*] votes
+645. ← Back to Challenge
+646. ← Back to Community Challenges
+647. ⏳ Your CV is being analyzed... Skills will appear here soon.
+648. ⚠ Areas for Improvement
+649. ✓ Brief Analyzed & Refined
+650. ✓ Strengths
+651. ✓ Volunteers Matched & Invited

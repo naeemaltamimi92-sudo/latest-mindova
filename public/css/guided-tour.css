@@ -1,0 +1,327 @@
+/**
+ * Guided Tour System - Professional Styling
+ * Contextual tooltips for new user onboarding
+ */
+
+/* ========================================
+   Tooltip Container
+   ======================================== */
+
+.guided-tour-tooltip {
+    position: absolute;
+    z-index: 10000;
+    max-width: 360px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95) translateY(-10px);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.guided-tour-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+}
+
+/* ========================================
+   Tooltip Content
+   ======================================== */
+
+.guided-tour-content {
+    padding: 20px;
+}
+
+/* Header */
+.guided-tour-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+/* Icon */
+.guided-tour-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Close Button */
+.guided-tour-close {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    color: #9CA3AF;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.guided-tour-close:hover {
+    background: #F3F4F6;
+    color: #374151;
+}
+
+.guided-tour-close:active {
+    transform: scale(0.9);
+}
+
+/* Text */
+.guided-tour-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 16px;
+}
+
+/* Footer */
+.guided-tour-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* Dismiss Button */
+.guided-tour-dismiss {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.guided-tour-dismiss:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+}
+
+.guided-tour-dismiss:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   Arrow (Pointer)
+   ======================================== */
+
+.guided-tour-arrow {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: white;
+    transform: rotate(45deg);
+    box-shadow: -3px -3px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Arrow Positioning */
+.guided-tour-tooltip.position-top .guided-tour-arrow {
+    bottom: -7px;
+    left: 50%;
+    margin-left: -7px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.guided-tour-tooltip.position-bottom .guided-tour-arrow {
+    top: -7px;
+    left: 50%;
+    margin-left: -7px;
+}
+
+.guided-tour-tooltip.position-left .guided-tour-arrow {
+    right: -7px;
+    top: 50%;
+    margin-top: -7px;
+    box-shadow: 2px -2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.guided-tour-tooltip.position-right .guided-tour-arrow {
+    left: -7px;
+    top: 50%;
+    margin-top: -7px;
+}
+
+/* ========================================
+   Element Highlighting
+   ======================================== */
+
+.guided-tour-highlight {
+    position: relative;
+    z-index: 9999;
+}
+
+/* Pulse Animation */
+@keyframes guided-tour-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5),
+                    0 0 0 0 rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(59, 130, 246, 0),
+                    0 0 0 12px rgba(59, 130, 246, 0);
+    }
+}
+
+.guided-tour-highlight {
+    animation: guided-tour-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 640px) {
+    .guided-tour-tooltip {
+        max-width: calc(100vw - 32px);
+        left: 16px !important;
+        right: 16px;
+        width: auto !important;
+    }
+
+    .guided-tour-content {
+        padding: 16px;
+    }
+
+    .guided-tour-text {
+        font-size: 14px;
+    }
+
+    .guided-tour-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .guided-tour-dismiss {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .guided-tour-tooltip {
+        max-width: calc(100vw - 24px);
+        left: 12px !important;
+    }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+    .guided-tour-tooltip,
+    .guided-tour-highlight {
+        display: none !important;
+        animation: none !important;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .guided-tour-tooltip {
+        border: 2px solid #000;
+    }
+
+    .guided-tour-icon {
+        border: 2px solid #fff;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .guided-tour-tooltip,
+    .guided-tour-dismiss,
+    .guided-tour-close,
+    .guided-tour-highlight {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* Focus Styles */
+.guided-tour-dismiss:focus-visible,
+.guided-tour-close:focus-visible {
+    outline: 3px solid #3B82F6;
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Dark Mode Support (Optional)
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+    .guided-tour-tooltip {
+        background: #1F2937;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+                    0 2px 8px rgba(0, 0, 0, 0.3),
+                    0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .guided-tour-text {
+        color: #E5E7EB;
+    }
+
+    .guided-tour-close {
+        color: #9CA3AF;
+    }
+
+    .guided-tour-close:hover {
+        background: #374151;
+        color: #F3F4F6;
+    }
+
+    .guided-tour-arrow {
+        background: #1F2937;
+    }
+}
+
+/* ========================================
+   Loading State (Optional)
+   ======================================== */
+
+.guided-tour-tooltip.loading {
+    pointer-events: none;
+}
+
+.guided-tour-tooltip.loading .guided-tour-content {
+    opacity: 0.5;
+}
+
+/* ========================================
+   Multiple Tooltips Spacing
+   ======================================== */
+
+.guided-tour-tooltip:nth-child(n+2) {
+    z-index: 10001;
+}
+
+.guided-tour-tooltip:nth-child(n+3) {
+    z-index: 10002;
+}

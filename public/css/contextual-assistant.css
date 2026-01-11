@@ -1,0 +1,255 @@
+/* ====================================
+   Contextual Page Assistant Styles
+   Lightweight, Subtle, Non-intrusive
+   ==================================== */
+
+.contextual-assistant {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; /* Allow clicking through except on interactive elements */
+}
+
+.contextual-assistant * {
+    pointer-events: auto; /* Re-enable pointer events for child elements */
+}
+
+/* ===== Assistant Character ===== */
+.assistant-character {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.assistant-avatar {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 4px 12px rgba(102, 126, 234, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    /* Subtle bounce animation on load */
+    animation: gentleBounce 0.6s ease-out;
+}
+
+@keyframes gentleBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.assistant-face {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Eyes */
+.assistant-eyes {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.eye {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.pupil {
+    width: 6px;
+    height: 6px;
+    background: #1a202c;
+    border-radius: 50%;
+    transition: transform 0.1s ease-out;
+    /* Subtle eye movement - not jerky */
+}
+
+/* Mouth (subtle smile) */
+.assistant-mouth {
+    width: 20px;
+    height: 10px;
+    border: 2px solid white;
+    border-top: none;
+    border-radius: 0 0 20px 20px;
+}
+
+/* ===== Guidance Bubble ===== */
+.assistant-bubble {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    max-width: 320px;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+    position: relative;
+    /* Subtle slide-in animation */
+    animation: slideInRight 0.4s ease-out 0.2s both;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Speech bubble triangle (pointing to assistant) */
+.assistant-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    right: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 12px 8px 0;
+    border-color: transparent white transparent transparent;
+    filter: drop-shadow(-2px 0 2px rgba(0, 0, 0, 0.03));
+}
+
+.bubble-content {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.bubble-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    line-height: 1.4;
+}
+
+.bubble-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2d3748;
+    font-weight: 400;
+}
+
+/* Dismiss Button */
+.assistant-dismiss {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+    color: #4a5568;
+    border-radius: 4px;
+}
+
+.assistant-dismiss:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.assistant-dismiss:focus {
+    outline: none;
+    opacity: 1;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+    .contextual-assistant {
+        bottom: 16px;
+        right: 16px;
+        max-width: calc(100vw - 32px);
+    }
+
+    .assistant-bubble {
+        max-width: 260px;
+        padding: 12px 16px;
+    }
+
+    .assistant-avatar {
+        width: 52px;
+        height: 52px;
+    }
+
+    .bubble-text {
+        font-size: 13px;
+    }
+}
+
+/* ===== Accessibility ===== */
+@media (prefers-reduced-motion: reduce) {
+    .contextual-assistant,
+    .assistant-avatar,
+    .assistant-bubble,
+    .pupil {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ===== Dark Mode Support (Optional) ===== */
+@media (prefers-color-scheme: dark) {
+    .assistant-bubble {
+        background: #2d3748;
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow:
+            0 10px 40px rgba(0, 0, 0, 0.3),
+            0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .assistant-bubble::before {
+        border-color: transparent #2d3748 transparent transparent;
+    }
+
+    .bubble-text {
+        color: #e2e8f0;
+    }
+
+    .assistant-dismiss {
+        color: #cbd5e0;
+    }
+
+    .assistant-dismiss:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    .contextual-assistant {
+        display: none !important;
+    }
+}

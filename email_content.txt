@@ -1,0 +1,200 @@
+        <div class="meta-info">
+            <strong>Additional Information:</strong><br>
+            <small>
+                <strong>Report ID:</strong> #2<br>
+                <strong>Submitted:</strong> Dec 21, 2025 16:02:19 (8 seconds ago)<br>
+                <strong>Browser:</strong> Mozilla/5.0 (Test Browser)<br>
+                <strong>Status:</strong> New
+            </small>
+        </div>
+
+        
+                <div style="background: #fee2e2; border: 2px solid #dc2626; padding: 16px; border-radius: 6px; margin-top: 20px;">
+            <strong style="color: #dc2626;">⚠️ HIGH PRIORITY</strong><br>
+            <small style="color: #7f1d1d;">
+                The user indicated this issue <strong>blocked them from continuing their task</strong>.
+                This should be reviewed and prioritized for immediate resolution.
+            </small>
+        </div>
+            </div>
+
+    <div class="footer">
+        <p>
+            This is an automated notification from the Mindova bug reporting system.<br>
+            Bug reports are collected and reviewed in batches for pattern analysis.
+        </p>
+        <p style="margin-top: 12px; color: #9ca3af;">
+            <strong>Mindova Platform</strong> - MVP Bug Tracking<br>
+            <em>Strictly for friction capture - Not a support system</em>
+        </p>
+    </div>
+</body>
+</html>
+  
+[2025-12-21 16:03:34] local.DEBUG: From: Mindova <hello@example.com>
+To: naeem.altamimi92@gmail.com
+Subject: [CRITICAL] Bug Report: Bug
+MIME-Version: 1.0
+Date: Sun, 21 Dec 2025 16:03:34 +0000
+Message-ID: <be2ea2bc1ebf6b4d94b2c1ab29710ea1@example.com>
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .critical-badge {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+        .content {
+            background: #f9fafb;
+            padding: 24px;
+            border-radius: 0 0 8px 8px;
+        }
+        .field {
+            margin-bottom: 20px;
+            background: white;
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        .field-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .field-value {
+            font-size: 15px;
+            color: #111827;
+        }
+        .description {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 8px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .meta-info {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🐞 New Bug Report</h1>
+                    <span class="critical-badge">⚠️ CRITICAL - BLOCKED USER</span>
+            </div>
+
+    <div class="content">
+        
+        <div class="field">
+            <div class="field-label">Issue Type</div>
+            <div class="field-value">Bug</div>
+        </div>
+
+        
+        <div class="field">
+            <div class="field-label">Description</div>
+            <div class="description">Test bug report: The upload button is not working properly when I try to upload my CV.</div>
+        </div>
+
+        
+        <div class="field">
+            <div class="field-label">Page Where Issue Occurred</div>
+            <div class="field-value">/dashboard/profile</div>
+        </div>
+
+        
+        <div class="field">
+            <div class="field-label">Reported By</div>
+            <div class="field-value">
+                                    TechCorp Solutions (tech@company.com)
+                    <br>
+                    <small style="color: #6b7280;">
+                        User Type: Company
+                    </small>
+                            </div>
+        </div>
+
+        
+        
+        
+        <div class="meta-info">
+            <strong>Additional Information:</strong><br>
+            <small>
+                <strong>Report ID:</strong> #2<br>
+                <strong>Submitted:</strong> Dec 21, 2025 16:02:19 (1 minute ago)<br>
+                <strong>Browser:</strong> Mozilla/5.0 (Test Browser)<br>
+                <strong>Status:</strong> New
+            </small>
+        </div>
+
+        
+                <div style="background: #fee2e2; border: 2px solid #dc2626; padding: 16px; border-radius: 6px; margin-top: 20px;">
+            <strong style="color: #dc2626;">⚠️ HIGH PRIORITY</strong><br>
+            <small style="color: #7f1d1d;">
+                The user indicated this issue <strong>blocked them from continuing their task</strong>.
+                This should be reviewed and prioritized for immediate resolution.
+            </small>
+        </div>
+            </div>
+
+    <div class="footer">
+        <p>
+            This is an automated notification from the Mindova bug reporting system.<br>
+            Bug reports are collected and reviewed in batches for pattern analysis.
+        </p>
+        <p style="margin-top: 12px; color: #9ca3af;">
+            <strong>Mindova Platform</strong> - MVP Bug Tracking<br>
+            <em>Strictly for friction capture - Not a support system</em>
+        </p>
+    </div>
+</body>
+</html>
+  

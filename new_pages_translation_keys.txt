@@ -1,0 +1,333 @@
+1. Acceptance of Terms
+10 min read
+10+ Downloads
+12 min read
+12 weeks
+127+ Challenges Completed
+14 weeks
+2. Description of Service
+24/7 Support Available
+3. User Accounts
+3.1 Account Security
+3.1 Account Types
+3.2 Account Security
+3.3 Account Termination
+4 volunteers
+4. User Conduct
+5 min read
+5. Volunteer Responsibilities
+5K Active Users
+6 min read
+6 weeks
+6. Company Responsibilities
+7 min read
+7 volunteers
+7.1 Platform Content
+7.2 User Content
+7.3 Work Product
+8 min read
+8 weeks
+8. AI Technology
+9. Limitation of Liability
+10 weeks
+10. Dispute Resolution
+11. Changes to Terms
+12. Contact Information
+A diverse team of 5 specialists developed a platform with Ethereum smart contracts for transparent lending, a mobile-friendly interface for borrowers, and comprehensive admin tools. The platform has facilitated over $2M in microloans.
+A healthcare startup needed a lightweight, offline-capable patient management system for rural clinics with limited internet connectivity. Our AI matched 6 volunteers with expertise in offline-first architecture, healthcare compliance, and mobile development.
+A micro company of 4 developers created a mobile app to help individuals track and reduce their carbon footprint with AI-powered recommendations.
+A social enterprise wanted to create a transparent microfinance platform using blockchain technology to serve underbanked communities. The challenge required expertise in blockchain, smart contracts, and financial systems.
+A team of 5 volunteers built a complete e-commerce solution including product catalog, cart, checkout, and payment integration in just 8 weeks.
+A team of 7 volunteers developed a comprehensive LMS with video streaming, assessments, progress tracking, and analytics for a remote learning platform.
+AI & Technology
+AI Analysis
+AI creates balanced teams with complementary skills, optimal size (3-7 members), and clear leadership.
+AI creates optimal "micro companies" with volunteers matched to specific roles and tasks.
+AI matches you to tasks that align with your skills and interests. Receive team invitations for challenges.
+AI Technology
+AI-Powered Team Formation
+AI-powered skill matching
+AI-powered task decomposition
+Accept Challenge
+Accept Team Invitation
+Accept invitations to join micro companies. Collaborate with other talented volunteers on meaningful work.
+Access to diverse talent
+Accurately represent their skills and experience
+Accept only tasks they can reasonably complete
+Communicate availability and capacity honestly
+Deliver work that meets agreed-upon standards
+Respect confidentiality of challenge information
+Advanced algorithms match volunteer skills, experience, and availability to task requirements with 80%+ accuracy.
+Advanced AI
+Aisha Patel
+All API requests must include an authentication token in the Authorization header.
+All Platform content, including but not limited to text, graphics, logos, and software, is the property of Mindova and protected by intellectual property laws.
+All Posts
+An inside look at how we extract and categorize skills from resumes using natural language processing and machine learning.
+Any disputes arising from these Terms shall be resolved through binding arbitration in accordance with applicable laws. Users agree to resolve disputes individually and waive the right to participate in class actions.
+API Documentation
+API requests are rate-limited to ensure fair usage and system stability.
+As a designer, I loved being matched with projects that valued good UX. Working in micro companies taught me how to collaborate with developers effectively and see my designs come to life in real products.
+Authenticated requests:
+Authentication
+Available tasks will appear in your dashboard once AI analysis matches you with suitable challenges based on your uploaded CV.
+Bad Request - Invalid parameters
+Base URL
+Best Practices
+Best Practices for Remote Collaboration
+Blockchain-Based Microfinance Platform
+Blog
+(Blockchain Architect)
+Build your portfolio while contributing to meaningful projects
+Building Your Developer Portfolio
+By accessing and using Mindova ("the Platform"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these Terms of Service, please do not use the Platform.
+By using Mindova, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+Can I leave a team?
+Can I see who's on my teams?
+Can't find what you're looking for? Our support team is here to help!
+Carbon Footprint Tracker
+CEO, TechStartup Inc.
+Challenge Analysis
+Challenge posting and management tools for companies
+Challenges
+Challenges Completed
+Click "Get Started" and choose either Volunteer or Company account. Fill in your details or sign up with LinkedIn for faster registration. You'll need to provide basic information and upload your CV if you're registering as a volunteer.
+Code
+Coming Soon
+Community
+Community Says
+Companies
+Companies agree to:
+Company Accounts
+Company Accounts:
+Complete analysis takes 15-20 minutes total: brief analysis (3 min), complexity evaluation (3 min), task decomposition (5 min), and team formation (10 min). You'll receive notifications at each stage and can monitor progress in your dashboard.
+Complete Guide to Mindova
+COMPLETED
+Contact Developer Support
+Contact Support
+Cost-effective solutions
+Create a new challenge. Requires company account.
+Create Challenge
+Create your profile and upload your CV. Our AI analyzes your skills, experience, and expertise.
+Created - Resource created successfully
+David K.
+Decline Team Invitation
+Decline an invitation to join a team.
+Deep dive into projects that made a real-world impact
+default
+Director, GreenFuture NGO
+Discover how our advanced AI algorithms create optimal teams by analyzing skills, experience, and collaboration patterns.
+Disputes between users
+Dr. James Wilson
+Duration:
+E-commerce Platform
+EduTech Solutions
+Engineering
+Error Codes
+Error Response Format
+Explore the latest features we've added to enhance your experience, including improved matching algorithms and team analytics.
+Featured
+Filter by status
+FinTech
+For additional support with the API, please contact our developer support team.
+For Companies
+For Volunteers
+For questions about these Terms of Service, please contact us at:
+Forbidden - Insufficient permissions
+From challenge submission to solution delivery
+Full-Stack Developer
+Get Available Tasks
+Get Current Volunteer Profile
+Get Matched
+Get My Task Assignments
+Get Results
+Get Results
+Get Single Challenge
+Get Started
+Get Team Details
+GPT-4o analyzes your challenge, extracts objectives, identifies constraints, and creates a structured brief.
+GreenFuture NGO
+Healthcare Technology
+Hear from volunteers and companies who've experienced success on Mindova
+Help Center
+Help You
+Help?
+Hours Contributed
+How
+How a diverse team of volunteers helped a startup build their MVP in just 6 weeks using Mindova's collaboration tools.
+How Can We
+How do I create an account?
+How do I find tasks?
+How do I post a challenge?
+How does the AI matching work?
+How is my reputation score calculated?
+How It Works
+How long does AI analysis take?
+How volunteers are using Mindova to gain real-world experience and showcase their skills to potential employers.
+Impact
+Innovative solutions built by micro companies formed through AI-powered matching
+Insights & Updates
+Insights, updates, and stories from the Mindova community
+Integrate Mindova into your applications with our RESTful API
+Invalid or missing token
+Jessica Rodriguez
+Join as Volunteer
+Join our community and start transforming challenges into innovation
+Join our community of talented volunteers and innovative companies solving real-world challenges together.
+Join Teams
+Join thousands of volunteers and companies transforming challenges into innovation
+Last updated:
+Learning Management System
+List All Challenges
+Live in Production
+Loans Facilitated
+Loss of data or content
+Make an Impact with
+Make Impact
+Make real-world impact
+Meaning
+Michael Chen
+Mindova gave me the opportunity to work on real-world projects and build my portfolio while making a positive impact. The AI matching connected me with teams where I could contribute meaningfully and learn from experienced developers.
+Mindova is an AI-powered collaboration platform that connects volunteers with companies to solve real-world challenges. The Platform provides:
+Mindova is provided "as is" without warranties of any kind. We are not liable for:
+Monitor Progress
+Navigate to "Challenges" → "Create Challenge" from your dashboard. Provide a detailed description (minimum 100 characters) of your problem, expected outcomes, and optional deadlines. Our AI will then analyze and decompose it into manageable tasks.
+Need Help?
+Network with professionals
+No spam. Unsubscribe anytime.
+Not engage in spam, harassment, or malicious activities
+Not Found - Resource does not exist
+Not misuse or attempt to manipulate the AI matching system
+Not request illegal or unethical work
+OK - Request successful
+Once you complete your profile and upload your CV, our AI automatically matches you to suitable tasks. You'll receive notifications when invited to teams or assigned tasks. Check your dashboard regularly for new opportunities that match your skills.
+Optimal team formation
+Our AI analyzes your CV using GPT-4o to extract skills, experience levels, and expertise areas. It then matches you to tasks based on skill alignment, experience requirements, and availability. Match scores of 60% or higher are recommended for optimal collaboration.
+Our AI-powered platform connects talented volunteers with meaningful challenges, creating optimal teams to solve real-world problems.
+Our cutting-edge technology ensures optimal matching and team performance
+Obtaining a Token
+Ownership of work product created through the Platform should be agreed upon between companies and volunteers. We recommend establishing clear IP agreements before commencing work.
+Page number for pagination
+Patient Management System for Rural Clinics
+Patients Served
+Portfolio-building projects
+Post a Challenge
+Post Challenge
+Powered by
+Product Update: New Features in 2025
+Product Updates
+Progress tracking & analytics
+Provide accurate and truthful information
+Provide clear and accurate challenge descriptions
+Provide timely feedback and communication
+Quality of work delivered through the Platform
+Query Parameters
+Quick Links
+Rate limit information is included in response headers:
+Rate Limits
+Read more
+Ready to Create Your Success Story?
+Ready to Get Started?
+Ready to Join Our Community?
+Real challenges solved by talented volunteers through Mindova's AI-powered platform
+Receive completed work, review deliverables, and solve your challenge.
+Recent
+Recent Success Stories
+Reputation and portfolio building for volunteers
+Reputation system
+Request Body
+requests per minute
+Respect intellectual property rights
+Response
+Respect volunteer contributions and efforts
+Results per page
+Retrieves the authenticated volunteer's profile information including skills and statistics.
+Returns a paginated list of all challenges.
+Returns all task assignments for the authenticated volunteer.
+Returns detailed information about a specific challenge including workstreams, tasks, and teams.
+Returns detailed information about a team including all members and their roles.
+Returns tasks matched to the authenticated volunteer based on their skills.
+Review the team details, your assigned role, and responsibilities in your notifications. You can accept to join or decline if it's not a good fit. There are no penalties for declining invitations - we want you to work on projects that excite you!
+Sarah M.
+Server Error - Something went wrong
+Service interruptions or technical issues
+Set realistic expectations and deadlines
+Sign Up
+Skill-matched volunteers
+Smart Matching
+Solve Complex Challenges with
+Solve real challenges, build your reputation, and create portfolio-worthy projects.
+Start collaborating on real-world projects and build your portfolio with Mindova.
+Status:
+Stay
+Still Have Questions?
+Stories
+Submit your challenge with detailed description of the problem you want to solve.
+Subscribe
+Subscribe to our newsletter to receive the latest blog posts, platform updates, and community highlights directly in your inbox.
+Success Rate
+Success Stories
+Success Story: Building an E-commerce Platform
+Supporting 800+ Borrowers
+Tasks
+Team collaboration experience
+Team Formation
+Team Leader
+Team Size:
+Teams
+Teams & Collaboration
+Technical Deep Dive: CV Analysis
+TechStartup Inc.
+Terms of Service
+The API uses standard HTTP status codes:
+The healthcare team delivered a Progressive Web App with offline sync, appointment scheduling, medical records management, and prescription tracking. The solution is now deployed in 15 clinics serving over 50,000 patients.
+The Mindova API allows developers to programmatically interact with challenges, volunteers, tasks, and teams. All API endpoints require authentication using Laravel Sanctum tokens.
+The Platform offers two types of accounts:
+The team delivered a Progressive Web App with offline sync, appointment scheduling, medical records management, and prescription tracking. The solution is now deployed in 15 clinics serving over 50,000 patients.
+The volunteers who worked on our carbon tracking app were passionate, skilled, and committed. Mindova's platform made it easy to manage the project and communicate with the team. The app is now helping thousands reduce their environmental impact.
+Tips and strategies for effective teamwork in distributed micro companies, based on data from hundreds of successful projects.
+Too Many Requests - Rate limit exceeded
+Track team progress, view analytics, and communicate with contributors.
+Unauthenticated requests:
+Unauthorized - Invalid or missing token
+Unprocessable Entity - Validation failed
+Update Task Assignment
+Update Volunteer Profile
+Updated
+UX Designer
+Users agree to:
+Users retain ownership of content they create. By posting challenges or submitting work, you grant Mindova a license to display and distribute this content through the Platform.
+View Success Stories
+Volunteer Accounts
+Volunteer Accounts:
+Volunteers
+Volunteers agree to:
+Volunteers Participated
+We are not liable for:
+We reserve the right to modify these Terms at any time. Users will be notified of significant changes, and continued use of the Platform constitutes acceptance of modified Terms.
+We reserve the right to suspend or terminate accounts that violate these Terms of Service or engage in fraudulent, abusive, or illegal activities.
+We were amazed by the quality of talent Mindova connected us with. The AI-formed team had exactly the skills we needed, and they delivered a production-ready platform that exceeded our expectations. This changed our business trajectory.
+What Our
+What happens after I'm invited to a team?
+What is a "micro company"?
+What You Get
+What's the difference between Volunteer and Company accounts?
+Who becomes the team leader?
+Works
+Yes! View your challenge page to see all formed teams, team members, their skills, roles, and real-time progress. You can access detailed analytics, communication history, and performance metrics for each team and member.
+You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.
+You can decline invitations before accepting them. After accepting, please communicate with your team leader if you need to leave, as it may affect the project timeline. We encourage open communication to minimize disruption to the team.
+Your Skills
+Your reputation increases based on completed tasks, quality of work submissions, team contributions, and peer reviews. It starts at 50 and can grow through consistent positive engagement. Higher reputation scores lead to better task matches and leadership opportunities.
+Accuracy of AI-generated matches and recommendations
+AI Analysis
+AI-Assembled Teams
+AI-formed team of 3-7 volunteers with complementary skills, created specifically to solve a challenge. Each member has a defined role and responsibilities, working together like a small startup focused on one project.
+AI selects leaders based on experience level, reputation score, skill breadth, and leadership history. Leaders coordinate team efforts, facilitate communication, and have visibility into the full challenge scope and strategic context.
+Complete accepted tasks and commitments in good faith
+Find answers to common questions and learn how to get the most out of Mindova
+For individuals contributing skills and time to challenges
+For organizations posting challenges and seeking solutions
+Getting Started
+Maintain professional and respectful communication
+Our Platform uses AI technology to analyze challenges, match volunteers, and form teams. While we strive for accuracy, AI-generated recommendations are not guaranteed to be perfect. Users should exercise their own judgment when accepting matches and assignments.

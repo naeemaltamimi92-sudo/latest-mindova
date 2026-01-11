@@ -1,0 +1,317 @@
+/* In-App Guide Styles */
+
+.in-app-guide-container {
+    position: relative;
+    z-index: 1000;
+}
+
+/* Help Button */
+.in-app-guide-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.in-app-guide-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.in-app-guide-button:active {
+    transform: scale(0.95);
+}
+
+.in-app-guide-button .guide-icon {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+/* Guide Panel */
+.in-app-guide-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 380px;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 100px);
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Guide Header */
+.guide-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.guide-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.guide-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 12px;
+}
+
+.guide-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.guide-close svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+/* Guide Content */
+.guide-content {
+    padding: 20px;
+    max-height: calc(100vh - 260px);
+    overflow-y: auto;
+}
+
+.guide-section {
+    margin-bottom: 20px;
+}
+
+.guide-section:last-child {
+    margin-bottom: 0;
+}
+
+.guide-section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #667eea;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.guide-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4a5568;
+    margin: 0;
+}
+
+.guide-list {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.guide-list li {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4a5568;
+    margin-bottom: 8px;
+}
+
+.guide-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Video Tutorial */
+.guide-video {
+    margin-top: 8px;
+}
+
+.guide-video-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.guide-video-link:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.guide-video-link svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Guide Footer */
+.guide-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.guide-dismiss-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.guide-dismiss-btn:hover {
+    background: #edf2f7;
+    border-color: #cbd5e0;
+}
+
+/* UI Highlighting */
+.guide-highlighted {
+    position: relative;
+    z-index: 999;
+}
+
+.guide-highlighted::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    animation: pulse 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.02);
+    }
+}
+
+/* Scrollbar Styling */
+.guide-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.guide-content::-webkit-scrollbar-track {
+    background: #f7fafc;
+}
+
+.guide-content::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 3px;
+}
+
+.guide-content::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .in-app-guide-button {
+        width: 44px;
+        height: 44px;
+        top: 16px;
+        right: 16px;
+    }
+
+    .in-app-guide-button .guide-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .in-app-guide-panel {
+        top: 72px;
+        right: 16px;
+        width: calc(100vw - 32px);
+    }
+
+    .guide-header {
+        padding: 16px;
+    }
+
+    .guide-title {
+        font-size: 16px;
+    }
+
+    .guide-content {
+        padding: 16px;
+    }
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] .in-app-guide-button {
+    right: auto;
+    left: 20px;
+}
+
+[dir="rtl"] .in-app-guide-panel {
+    right: auto;
+    left: 20px;
+}
+
+[dir="rtl"] .guide-list {
+    padding-left: 0;
+    padding-right: 20px;
+}
+
+@media (max-width: 640px) {
+    [dir="rtl"] .in-app-guide-button {
+        right: auto;
+        left: 16px;
+    }
+
+    [dir="rtl"] .in-app-guide-panel {
+        right: auto;
+        left: 16px;
+    }
+}

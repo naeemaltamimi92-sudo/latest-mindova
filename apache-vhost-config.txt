@@ -1,0 +1,25 @@
+# Apache Virtual Host Configuration for Mindova Laravel App
+# Add this to: C:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+<VirtualHost *:80>
+    ServerName localhost
+    DocumentRoot "C:/xampp/htdocs/mindova/public"
+
+    <Directory "C:/xampp/htdocs/mindova/public">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog "C:/xampp/htdocs/mindova/storage/logs/apache-error.log"
+    CustomLog "C:/xampp/htdocs/mindova/storage/logs/apache-access.log" common
+</VirtualHost>
+
+# IMPORTANT STEPS AFTER ADDING THIS:
+# 1. Open XAMPP Control Panel
+# 2. Stop Apache (if running)
+# 3. Click "Config" button next to Apache → "Apache (httpd-vhosts.conf)"
+# 4. Paste the above configuration at the end of the file
+# 5. Save and close
+# 6. Start Apache
+# 7. Test by visiting: http://localhost

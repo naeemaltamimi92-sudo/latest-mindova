@@ -1,0 +1,240 @@
+/* Language Switcher Styles */
+
+.language-switcher {
+    position: relative;
+    display: inline-block;
+}
+
+/* Language Switcher Button */
+.language-switcher-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 140px;
+}
+
+.language-switcher-button:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+}
+
+.language-switcher-button:active {
+    background: #edf2f7;
+}
+
+.language-switcher-button.loading {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.language-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.current-language {
+    flex: 1;
+    text-align: left;
+}
+
+.chevron-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.language-switcher-button:hover .chevron-icon {
+    transform: translateY(2px);
+}
+
+/* Language Dropdown */
+.language-switcher-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-out;
+    z-index: 1000;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Language Options */
+.language-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: white;
+    border: none;
+    border-bottom: 1px solid #f7fafc;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.language-option:last-child {
+    border-bottom: none;
+}
+
+.language-option:not(.active):hover {
+    background: #f7fafc;
+}
+
+.language-option.active {
+    background: #edf2f7;
+    color: #667eea;
+    cursor: default;
+}
+
+.language-option:disabled {
+    cursor: default;
+}
+
+.language-name {
+    flex: 1;
+}
+
+.check-icon {
+    width: 18px;
+    height: 18px;
+    color: #667eea;
+    flex-shrink: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .language-switcher-button {
+        padding: 6px 12px;
+        font-size: 13px;
+        min-width: 120px;
+    }
+
+    .language-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .chevron-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .language-option {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+
+/* Dark Mode Support (optional) */
+@media (prefers-color-scheme: dark) {
+    .language-switcher-button {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+
+    .language-switcher-button:hover {
+        background: #374151;
+        border-color: #6b7280;
+    }
+
+    .language-switcher-dropdown {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+
+    .language-option {
+        background: #2d3748;
+        border-color: #374151;
+        color: #e2e8f0;
+    }
+
+    .language-option:not(.active):hover {
+        background: #374151;
+    }
+
+    .language-option.active {
+        background: #1f2937;
+        color: #818cf8;
+    }
+
+    .check-icon {
+        color: #818cf8;
+    }
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] .current-language {
+    text-align: right;
+}
+
+[dir="rtl"] .language-switcher-dropdown {
+    left: auto;
+    right: 0;
+}
+
+[dir="rtl"] .language-option {
+    text-align: right;
+}
+
+/* Accessibility */
+.language-switcher-button:focus,
+.language-option:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Loading Spinner (optional enhancement) */
+.language-switcher-button.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #e2e8f0;
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+[dir="rtl"] .language-switcher-button.loading::after {
+    right: auto;
+    left: 16px;
+}
