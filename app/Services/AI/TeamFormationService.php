@@ -8,17 +8,14 @@ use App\Models\TeamMember;
 use App\Models\Volunteer;
 use Illuminate\Support\Collection;
 
-class TeamFormationService extends OpenAIService
+class TeamFormationService extends AnthropicService
 {
-    protected string $model = 'gpt-4o';
-    protected float $temperature = 0.3;
-
     /**
      * Get the AI model to use.
      */
     protected function getModel(): string
     {
-        return $this->model;
+        return config('ai.models.team_formation', 'claude-sonnet-4-20250514');
     }
 
     /**
@@ -27,6 +24,26 @@ class TeamFormationService extends OpenAIService
     protected function getRequestType(): string
     {
         return 'volunteer_matching';
+    }
+
+    /**
+     * Get the system prompt for team formation.
+     */
+    protected function getSystemPrompt(): string
+    {
+        return <<<SYSTEM
+You are an expert team formation specialist and organizational psychologist. Your role is to create optimal "micro companies" (teams) for solving complex challenges.
+
+You must:
+1. Provide responses in valid JSON format without markdown code blocks
+2. Form balanced teams with complementary skills
+3. Ensure skill coverage for all required tasks
+4. Select appropriate leaders based on experience and reputation
+5. Consider availability and workload capacity
+6. Provide clear reasoning for team compositions
+
+Your team formations will be used to organize real volunteer work.
+SYSTEM;
     }
 
     /**
@@ -39,12 +56,24 @@ class TeamFormationService extends OpenAIService
 
         $prompt = $this->buildPrompt($challengeData, $volunteersData);
 
-        $response = $this->makeRequest($prompt, [
-            'challenge_id' => $challenge->id,
-            'operation' => 'team_formation',
-        ]);
+        $response = $this->makeRequest(
+            prompt: $prompt,
+            options: [
+                'system_prompt' => $this->getSystemPrompt(),
+            ],
+            relatedType: Challenge::class,
+            relatedId: $challenge->id
+        );
 
-        return $this->parseTeamFormationResponse($response);
+        if (!isset($response['teams']) || !is_array($response['teams'])) {
+            throw new \Exception('Invalid team formation response from AI');
+        }
+
+        return [
+            'teams' => $response['teams'],
+            'formation_strategy' => $response['formation_strategy'] ?? '',
+            'confidence_score' => $response['confidence_score'] ?? 0,
+        ];
     }
 
     /**
@@ -187,33 +216,6 @@ Return a JSON object with this structure:
 
 Now form the optimal team(s) for this challenge:
 PROMPT;
-    }
-
-    /**
-     * Parse AI response into structured team formation data.
-     */
-    protected function parseTeamFormationResponse(array $response): array
-    {
-        $content = $response['choices'][0]['message']['content'] ?? '';
-
-        // Extract JSON from markdown code blocks if present
-        if (preg_match('/```json\s*(.*?)\s*```/s', $content, $matches)) {
-            $content = $matches[1];
-        } elseif (preg_match('/```\s*(.*?)\s*```/s', $content, $matches)) {
-            $content = $matches[1];
-        }
-
-        $data = json_decode($content, true);
-
-        if (!$data || !isset($data['teams'])) {
-            throw new \Exception('Invalid team formation response from AI');
-        }
-
-        return [
-            'teams' => $data['teams'],
-            'formation_strategy' => $data['formation_strategy'] ?? '',
-            'confidence_score' => $data['confidence_score'] ?? 0,
-        ];
     }
 
     /**

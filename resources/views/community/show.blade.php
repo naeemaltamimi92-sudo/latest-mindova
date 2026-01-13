@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    $canSeeSpam = $canSeeSpam ?? (auth()->check() && (auth()->user()->isAdmin() || (auth()->user()->isCompany() && auth()->user()->company?->id === $challenge->company_id)));
+@endphp
+
 @section('title', $challenge->title . ' - ' . __('Community Discussion'))
 
 @push('styles')
@@ -359,12 +363,21 @@
                         @if($challenge->ideas->count() > 0)
                             <div class="space-y-6">
                                 @foreach($challenge->ideas->sortByDesc('ai_quality_score') as $index => $idea)
-                                <div class="idea-card relative {{ $idea->ai_quality_score >= 7 ? 'ring-2 ring-emerald-300' : '' }} bg-gradient-to-br {{ $idea->ai_quality_score >= 7 ? 'from-emerald-50 to-teal-50' : 'from-slate-50 to-white' }} rounded-2xl p-6 border {{ $idea->ai_quality_score >= 7 ? 'border-emerald-200' : 'border-slate-200' }}" style="animation-delay: {{ 0.1 * $index }}s;">
+                                <div class="idea-card relative {{ $canSeeSpam && $idea->is_spam ? 'ring-2 ring-red-300 bg-gradient-to-br from-red-50 to-rose-50 border-red-200' : ($idea->ai_quality_score >= 7 ? 'ring-2 ring-emerald-300 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200' : 'bg-gradient-to-br from-slate-50 to-white border-slate-200') }} rounded-2xl p-6 border" style="animation-delay: {{ 0.1 * $index }}s;">
                                     <!-- High Quality Ribbon -->
                                     @if($idea->ai_quality_score >= 7)
                                     <div class="absolute -top-3 -right-3">
                                         <div class="quality-badge w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
                                             <span class="text-white text-lg">⭐</span>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    <!-- Spam Badge (Admin Only) -->
+                                    @if($canSeeSpam && $idea->is_spam)
+                                    <div class="absolute -top-3 -left-3">
+                                        <div class="px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-lg">
+                                            <span class="text-white text-xs font-bold">{{ __('Spam') }}</span>
                                         </div>
                                     </div>
                                     @endif
@@ -410,6 +423,23 @@
                                         {!! nl2br(e($idea->content)) !!}
                                     </div>
 
+                                    <!-- Spam Reason (Admin Only) -->
+                                    @if($canSeeSpam && $idea->is_spam && $idea->spam_reason)
+                                    <div class="bg-gradient-to-r from-red-100 to-rose-100 border border-red-200 rounded-xl p-4 mb-5">
+                                        <div class="flex items-start gap-3">
+                                            <div class="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <h5 class="text-xs font-bold text-red-900 mb-1">{{ __('Spam Detected') }}</h5>
+                                                <p class="text-xs text-red-800 leading-relaxed">{{ $idea->spam_reason }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+
                                     <!-- AI Feedback for High-Quality Ideas -->
                                     @if($idea->ai_quality_score >= 7 && $idea->ai_feedback)
                                     <div class="bg-gradient-to-r from-emerald-100 to-teal-100 border border-emerald-200 rounded-xl p-4 mb-5">
@@ -422,7 +452,7 @@
                                             </div>
                                             <div>
                                                 <h5 class="text-xs font-bold text-emerald-900 mb-1">{{ __('AI Assessment') }}</h5>
-                                                <p class="text-xs text-emerald-800 leading-relaxed">{{ $idea->ai_feedback }}</p>
+                                                <p class="text-xs text-emerald-800 leading-relaxed">{{ $idea->ai_feedback['feedback'] ?? '' }}</p>
                                             </div>
                                         </div>
                                     </div>

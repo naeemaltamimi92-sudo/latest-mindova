@@ -144,7 +144,7 @@
                                 </svg>
                                 {{ __('AI Assessment') }}
                             </h5>
-                            <p class="text-sm text-emerald-800">{{ $idea->ai_feedback }}</p>
+                            <p class="text-sm text-emerald-800">{{ $idea->ai_feedback['feedback'] ?? '' }}</p>
                         </div>
                         @endif
                     </div>

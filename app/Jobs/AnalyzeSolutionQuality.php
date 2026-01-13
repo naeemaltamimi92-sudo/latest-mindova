@@ -6,8 +6,8 @@ use App\Jobs\Concerns\RobustJob;
 use App\Models\ReputationHistory;
 use App\Models\TaskAssignment;
 use App\Models\WorkSubmission;
-use App\Notifications\SolutionRevisionRequiredNotification;
 use App\Services\AI\SolutionScoringService;
+use App\Services\NotificationService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -142,8 +142,14 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
 
             // Notify volunteer about revision requirement
             try {
-                $this->submission->volunteer->user->notify(
-                    new SolutionRevisionRequiredNotification($this->submission, $analysis)
+                $task = $this->submission->task;
+                $notificationService = app(NotificationService::class);
+                $notificationService->send(
+                    user: $this->submission->volunteer->user,
+                    type: 'solution_revision_required',
+                    title: 'Solution Revision Required',
+                    message: "Your solution for \"{$task->title}\" needs revision. AI score: {$analysis['quality_score']}/100. Please review the feedback and resubmit.",
+                    actionUrl: route('tasks.show', $task->id)
                 );
 
                 Log::info('Revision notification sent to volunteer', [

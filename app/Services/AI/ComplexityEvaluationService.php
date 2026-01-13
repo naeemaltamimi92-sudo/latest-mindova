@@ -5,11 +5,11 @@ namespace App\Services\AI;
 use App\Models\Challenge;
 use App\Models\ChallengeAnalysis;
 
-class ComplexityEvaluationService extends OpenAIService
+class ComplexityEvaluationService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.challenge_analysis', 'gpt-4o');
+        return config('ai.models.challenge_analysis', 'claude-sonnet-4-20250514');
     }
 
     protected function getRequestType(): string

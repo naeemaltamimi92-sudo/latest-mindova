@@ -9,6 +9,7 @@ use App\Models\CommentVote;
 use App\Models\Idea;
 use App\Models\IdeaVote;
 use App\Jobs\AnalyzeCommentQuality;
+use App\Jobs\ScoreIdea;
 use Illuminate\Http\Request;
 
 class CommunityController extends Controller
@@ -19,8 +20,7 @@ class CommunityController extends Controller
     public function index(Request $request)
     {
         $query = Challenge::where('challenge_type', 'community_discussion')
-            ->where('score', '>=', 1)
-            ->where('score', '<=', 2)
+            ->where('status', 'active')
             ->with(['company', 'volunteer.user', 'comments'])
             ->withCount('comments');
 
@@ -91,6 +91,11 @@ class CommunityController extends Controller
                 ->with('error', 'Please sign in to view community challenges.');
         }
 
+        // Determine if current user can see spam (admins or challenge owner)
+        $isAdmin = auth()->check() && auth()->user()->isAdmin();
+        $isOwner = auth()->check() && auth()->user()->isCompany() && auth()->user()->company?->id === $challenge->company_id;
+        $canSeeSpam = $isAdmin || $isOwner;
+
         $challenge->load([
             'company',
             'comments.user',
@@ -98,9 +103,13 @@ class CommunityController extends Controller
             'comments' => function ($query) {
                 $query->orderBy('ai_score', 'desc')->orderBy('created_at', 'desc');
             },
-            'ideas.volunteer.user',
-            'ideas' => function ($query) {
+            'ideas' => function ($query) use ($canSeeSpam) {
+                // Filter out spam ideas unless user is admin or challenge owner
+                if (!$canSeeSpam) {
+                    $query->where('is_spam', false);
+                }
                 $query->orderBy('ai_quality_score', 'desc')->orderBy('created_at', 'desc');
+                $query->with('volunteer.user');
             }
         ]);
 
@@ -121,53 +130,50 @@ class CommunityController extends Controller
                 ->keyBy('idea_id');
         }
 
-        return view('community.show', compact('challenge', 'highQualityIdeas', 'totalIdeas', 'userVotes'));
+        return view('community.show', compact('challenge', 'highQualityIdeas', 'totalIdeas', 'userVotes', 'canSeeSpam'));
     }
 
     /**
-     * Store a new comment on a community challenge.
+     * Store a new idea on a community challenge.
      */
     public function storeComment(Request $request, Challenge $challenge)
     {
         // Ensure this is a community discussion challenge
         if ($challenge->challenge_type !== 'community_discussion') {
-            return redirect()->back()->with('error', 'Comments are not allowed on this challenge.');
+            return redirect()->back()->with('error', 'Ideas are not allowed on this challenge.');
         }
 
-        // Check access permissions for commenting
-        if (auth()->user()->isVolunteer()) {
-            $volunteerField = auth()->user()->volunteer->field ?? null;
+        // Only volunteers can submit ideas
+        if (!auth()->user()->isVolunteer()) {
+            return redirect()->back()->with('error', 'Only volunteers can submit ideas.');
+        }
 
-            if ($volunteerField && $challenge->field && $volunteerField !== $challenge->field) {
-                return redirect()->back()
-                    ->with('error', 'You can only comment on challenges in your field: ' . $volunteerField);
-            }
-        } elseif (auth()->user()->isCompany()) {
-            // Companies can only comment on their own challenges
-            $company = auth()->user()->company;
-            if (!$company || $challenge->company_id !== $company->id) {
-                return redirect()->back()
-                    ->with('error', 'You can only comment on your own challenges.');
-            }
+        $volunteer = auth()->user()->volunteer;
+
+        // Check field access permissions
+        $volunteerField = $volunteer->field ?? null;
+        if ($volunteerField && $challenge->field && $volunteerField !== $challenge->field) {
+            return redirect()->back()
+                ->with('error', 'You can only submit ideas on challenges in your field: ' . $volunteerField);
         }
 
         $validated = $request->validate([
             'content' => 'required|string|min:10|max:2000',
         ]);
 
-        // Create comment
-        $comment = ChallengeComment::create([
+        // Create idea
+        $idea = Idea::create([
             'challenge_id' => $challenge->id,
-            'user_id' => auth()->id(),
+            'volunteer_id' => $volunteer->id,
             'content' => $validated['content'],
-            'ai_score_status' => 'pending',
+            'status' => 'pending_review',
         ]);
 
         // Dispatch AI scoring job
-        AnalyzeCommentQuality::dispatch($comment);
+        ScoreIdea::dispatch($idea);
 
         return redirect()->route('community.challenge', $challenge)
-            ->with('success', 'Comment posted successfully! AI is analyzing its quality...');
+            ->with('success', 'Idea submitted successfully! AI is analyzing its quality...');
     }
 
     /**

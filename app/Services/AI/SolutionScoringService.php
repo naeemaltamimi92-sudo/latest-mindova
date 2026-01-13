@@ -4,11 +4,11 @@ namespace App\Services\AI;
 
 use App\Models\WorkSubmission;
 
-class SolutionScoringService extends OpenAIService
+class SolutionScoringService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.solution_analysis', 'gpt-4o');
+        return config('ai.models.solution_analysis', 'claude-sonnet-4-20250514');
     }
 
     protected function getRequestType(): string
@@ -47,6 +47,8 @@ class SolutionScoringService extends OpenAIService
             'completeness',
             'correctness',
             'code_quality',
+            'is_spam',
+            'relevance_score',
         ];
 
         if (!$this->validateResponse($response, $requiredFields)) {
@@ -95,11 +97,14 @@ Volunteer: {$volunteer->user->name}
 Hours Worked: {$submission->hours_worked}
 Description: {$submission->description}{$deliverableInfo}{$attachmentsInfo}
 
-Your task is to evaluate this solution's quality and determine if it adequately solves the task. Return your analysis in JSON format:
+Your task is to evaluate this solution's quality, detect spam/irrelevant content, and determine if it adequately solves the task. Return your analysis in JSON format:
 
 {
   "quality_score": <integer 0-100>,
   "solves_task": <boolean true/false>,
+  "is_spam": <boolean true/false>,
+  "relevance_score": <integer 0-100>,
+  "spam_reason": "<reason if is_spam is true, otherwise null>",
   "feedback": "<detailed feedback on the solution>",
   "completeness": <float 0-100 indicating how complete the solution is>,
   "correctness": <float 0-100 indicating technical correctness>,
@@ -152,6 +157,22 @@ SOLVES_TASK CRITERIA:
   * Does not address the task requirements
   * Quality score is below 70
 
+SPAM DETECTION CRITERIA:
+Set is_spam to TRUE if ANY of these apply:
+- Gibberish, random text, or meaningless content
+- Copy-pasted unrelated content (e.g., lorem ipsum, random articles)
+- Promotional or advertising content
+- Extremely low effort (single word, repeated characters, placeholder text)
+- Completely off-topic from the task requirements
+- Automated/bot-generated nonsense
+
+RELEVANCE SCORE CRITERIA (0-100):
+- 0-20: Completely unrelated to task (likely spam)
+- 21-40: Marginally related, mostly off-topic
+- 41-60: Somewhat related but misses key requirements
+- 61-80: Related and addresses most requirements
+- 81-100: Highly relevant, directly addresses all task requirements
+
 EVALUATION GUIDELINES:
 - Consider the complexity of the task when evaluating
 - Assess whether the solution achieves the task's objectives
@@ -159,6 +180,8 @@ EVALUATION GUIDELINES:
 - Consider the deliverable URL and attachments if provided
 - Provide constructive feedback for improvement
 - Be fair but thorough in your assessment
+- Flag spam immediately - do not provide detailed feedback for spam
+- If is_spam is true, set quality_score to 0 and solves_task to false
 PROMPT;
     }
 
@@ -168,19 +191,21 @@ PROMPT;
     protected function getSystemPrompt(): string
     {
         return <<<SYSTEM
-You are an expert software architect and code reviewer. Your role is to analyze task solution submissions and assess their quality, completeness, and correctness.
+You are an expert software architect and code reviewer. Your role is to analyze task solution submissions, detect spam/irrelevant content, and assess quality, completeness, and correctness.
 
 You must:
 1. Provide responses in valid JSON format
-2. Evaluate solutions objectively based on requirements
-3. Consider both functionality and code quality
-4. Provide constructive, actionable feedback
-5. Be fair but maintain high standards
-6. Identify both strengths and areas for improvement
-7. Consider the complexity level of the task
-8. Assess whether the solution truly solves the problem
+2. FIRST check if the submission is spam or irrelevant - flag immediately if so
+3. Evaluate solutions objectively based on requirements
+4. Consider both functionality and code quality
+5. Provide constructive, actionable feedback
+6. Be fair but maintain high standards
+7. Identify both strengths and areas for improvement
+8. Consider the complexity level of the task
+9. Assess whether the solution truly solves the problem
+10. Assign relevance_score based on how well the submission addresses the task
 
-Your analysis helps ensure quality work and provides valuable feedback to volunteers.
+Your analysis helps ensure quality work, filter out spam, and provides valuable feedback to volunteers.
 SYSTEM;
     }
 
@@ -192,10 +217,12 @@ SYSTEM;
         $submission->update([
             'ai_quality_score' => $analysis['quality_score'],
             'solves_task' => $analysis['solves_task'],
+            'is_spam' => $analysis['is_spam'],
+            'relevance_score' => $analysis['relevance_score'],
             'ai_feedback' => $analysis['feedback'],
             'ai_analysis_status' => 'completed',
             'ai_analyzed_at' => now(),
-            'status' => $analysis['solves_task'] ? 'approved' : 'revision_requested',
+            'status' => $analysis['is_spam'] ? 'rejected' : ($analysis['solves_task'] ? 'approved' : 'revision_requested'),
         ]);
     }
 }

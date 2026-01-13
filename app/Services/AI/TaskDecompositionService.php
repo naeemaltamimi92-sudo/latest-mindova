@@ -8,11 +8,11 @@ use App\Models\Workstream;
 use App\Models\Task;
 use App\Jobs\MatchVolunteersToTasks;
 
-class TaskDecompositionService extends OpenAIService
+class TaskDecompositionService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.task_generation', 'gpt-4o');
+        return config('ai.models.task_generation', 'claude-sonnet-4-20250514');
     }
 
     protected function getRequestType(): string
@@ -61,7 +61,74 @@ class TaskDecompositionService extends OpenAIService
             throw new \Exception('Workstreams array is empty or invalid');
         }
 
+        // Comprehensive schema validation
+        $this->validateDecompositionSchema($response);
+
         return $response;
+    }
+
+    /**
+     * Validate the decomposition schema comprehensively.
+     */
+    protected function validateDecompositionSchema(array $decomposition): void
+    {
+        $workstreamCount = count($decomposition['workstreams']);
+
+        // Validate workstream count (2-5)
+        if ($workstreamCount < 2 || $workstreamCount > 5) {
+            throw new \Exception("Invalid workstream count: {$workstreamCount}. Expected 2-5 workstreams.");
+        }
+
+        $validExperienceLevels = ['Junior', 'Mid', 'Expert', 'Manager'];
+
+        foreach ($decomposition['workstreams'] as $wsIndex => $workstream) {
+            // Validate workstream required fields
+            if (empty($workstream['title']) || empty($workstream['description'])) {
+                throw new \Exception("Workstream {$wsIndex} is missing required fields (title, description)");
+            }
+
+            if (!isset($workstream['tasks']) || !is_array($workstream['tasks'])) {
+                throw new \Exception("Workstream '{$workstream['title']}' has no tasks array");
+            }
+
+            $taskCount = count($workstream['tasks']);
+
+            // Validate task count per workstream (2-8)
+            if ($taskCount < 2 || $taskCount > 8) {
+                throw new \Exception("Workstream '{$workstream['title']}' has {$taskCount} tasks. Expected 2-8 tasks.");
+            }
+
+            foreach ($workstream['tasks'] as $taskIndex => $task) {
+                // Validate required task fields
+                $requiredTaskFields = ['title', 'description', 'required_skills', 'estimated_hours'];
+                foreach ($requiredTaskFields as $field) {
+                    if (!isset($task[$field])) {
+                        throw new \Exception("Task {$taskIndex} in '{$workstream['title']}' is missing required field: {$field}");
+                    }
+                }
+
+                // Validate estimated_hours range (4-40)
+                $hours = $task['estimated_hours'];
+                if (!is_numeric($hours) || $hours < 4 || $hours > 40) {
+                    throw new \Exception("Task '{$task['title']}' has invalid estimated_hours: {$hours}. Expected 4-40.");
+                }
+
+                // Validate complexity_score range (1-10) if provided
+                if (isset($task['complexity_score'])) {
+                    $complexity = $task['complexity_score'];
+                    if (!is_numeric($complexity) || $complexity < 1 || $complexity > 10) {
+                        throw new \Exception("Task '{$task['title']}' has invalid complexity_score: {$complexity}. Expected 1-10.");
+                    }
+                }
+
+                // Validate experience level if provided
+                if (isset($task['required_experience_level'])) {
+                    if (!in_array($task['required_experience_level'], $validExperienceLevels)) {
+                        throw new \Exception("Task '{$task['title']}' has invalid experience level: {$task['required_experience_level']}. Expected: " . implode(', ', $validExperienceLevels));
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -195,17 +262,25 @@ SYSTEM;
 
             // Create tasks for this workstream
             foreach ($workstreamData['tasks'] as $taskData) {
+                // Require all critical fields - no dangerous defaults
+                if (!isset($taskData['required_experience_level'])) {
+                    throw new \Exception("Task '{$taskData['title']}' is missing required_experience_level");
+                }
+                if (!isset($taskData['complexity_score'])) {
+                    throw new \Exception("Task '{$taskData['title']}' is missing complexity_score");
+                }
+
                 $taskAttributes = [
                     'challenge_id' => $challenge->id,
                     'workstream_id' => $workstream->id,
                     'title' => $taskData['title'],
                     'description' => $taskData['description'],
                     'required_skills' => $taskData['required_skills'],
-                    'required_experience_level' => $taskData['required_experience_level'] ?? 'Mid',
+                    'required_experience_level' => $taskData['required_experience_level'],
                     'expected_output' => $taskData['expected_output'] ?? 'Completed task deliverable',
                     'acceptance_criteria' => $taskData['acceptance_criteria'] ?? [],
                     'estimated_hours' => $taskData['estimated_hours'],
-                    'complexity_score' => $taskData['complexity_score'] ?? 5,
+                    'complexity_score' => $taskData['complexity_score'],
                     'status' => 'pending',
                 ];
 

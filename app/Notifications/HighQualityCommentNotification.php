@@ -49,6 +49,20 @@ class HighQualityCommentNotification extends Notification implements ShouldQueue
     }
 
     /**
+     * Get the database representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
+    public function toDatabase(object $notifiable): array
+    {
+        return [
+            'title' => 'High-Quality Comment Received',
+            'message' => "Received a high-quality comment (score {$this->comment->ai_score}/10) on your challenge: {$this->comment->challenge->title}",
+            'action_url' => route('community.challenge', $this->comment->challenge_id),
+        ];
+    }
+
+    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>

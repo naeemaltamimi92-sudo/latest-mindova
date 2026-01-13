@@ -46,12 +46,13 @@ return [
 
     'models' => [
         'cv_analysis' => env('AI_MODEL_CV_ANALYSIS', 'claude-sonnet-4-20250514'),
-        'challenge_analysis' => env('AI_MODEL_CHALLENGE_ANALYSIS', 'gpt-4o'),
-        'task_generation' => env('AI_MODEL_TASK_GENERATION', 'gpt-4o'),
-        'volunteer_matching' => env('AI_MODEL_VOLUNTEER_MATCHING', 'gpt-4o-mini'),
-        'idea_scoring' => env('AI_MODEL_IDEA_SCORING', 'gpt-4o-mini'),
-        'comment_analysis' => env('AI_MODEL_COMMENT_ANALYSIS', 'gpt-4o'),
-        'solution_analysis' => env('AI_MODEL_SOLUTION_ANALYSIS', 'gpt-4o'),
+        'challenge_analysis' => env('AI_MODEL_CHALLENGE_ANALYSIS', 'claude-sonnet-4-20250514'),
+        'task_generation' => env('AI_MODEL_TASK_GENERATION', 'claude-sonnet-4-20250514'),
+        'volunteer_matching' => env('AI_MODEL_VOLUNTEER_MATCHING', 'claude-sonnet-4-20250514'),
+        'idea_scoring' => env('AI_MODEL_IDEA_SCORING', 'claude-sonnet-4-20250514'),
+        'team_formation' => env('AI_MODEL_TEAM_FORMATION', 'claude-sonnet-4-20250514'),
+        'comment_analysis' => env('AI_MODEL_COMMENT_ANALYSIS', 'claude-sonnet-4-20250514'),
+        'solution_analysis' => env('AI_MODEL_SOLUTION_ANALYSIS', 'claude-sonnet-4-20250514'),
     ],
 
     /*

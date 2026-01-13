@@ -178,10 +178,21 @@ class ChallengeWebController extends Controller
 
     public function show(Challenge $challenge)
     {
+        // Determine if current user can see spam (admins or challenge owner)
+        $isAdmin = auth()->check() && auth()->user()->isAdmin();
+        $isOwner = auth()->check() && auth()->user()->isCompany() && auth()->user()->company?->id === $challenge->company_id;
+        $canSeeSpam = $isAdmin || $isOwner;
+
         $challenge->load([
             'company',
             'workstreams.tasks.assignments.volunteer.user',
-            'ideas.volunteer.user',
+            'ideas' => function ($query) use ($canSeeSpam) {
+                // Filter out spam ideas unless user is admin or challenge owner
+                if (!$canSeeSpam) {
+                    $query->where('is_spam', false);
+                }
+                $query->with('volunteer.user');
+            },
             'teams.leader.user',
             'teams.members.volunteer.user',
             'challengeAnalyses',
@@ -238,7 +249,7 @@ class ChallengeWebController extends Controller
         }
         $requiredSkills = $requiredSkills->unique()->values();
 
-        return view('challenges.show', compact('challenge', 'stats', 'latestAnalysis', 'requiredSkills'));
+        return view('challenges.show', compact('challenge', 'stats', 'latestAnalysis', 'requiredSkills', 'canSeeSpam'));
     }
 
     public function analytics(Challenge $challenge)

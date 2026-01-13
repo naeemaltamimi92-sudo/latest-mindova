@@ -39,6 +39,7 @@ class ChallengeAnalysis extends Model
             'constraints' => 'array',
             'assumptions' => 'array',
             'stakeholders' => 'array',
+            'risk_assessment' => 'array',
             'missing_information' => 'array',
             'success_criteria' => 'array',
             'validation_errors' => 'array',

@@ -5,11 +5,11 @@ namespace App\Services\AI;
 use App\Models\Idea;
 use App\Models\Challenge;
 
-class IdeaScoringService extends OpenAIService
+class IdeaScoringService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.idea_scoring', 'gpt-4o-mini');
+        return config('ai.models.idea_scoring', 'claude-sonnet-4-20250514');
     }
 
     protected function getRequestType(): string
@@ -41,6 +41,7 @@ class IdeaScoringService extends OpenAIService
 
         // Validate response structure
         $requiredFields = [
+            'is_spam',
             'confidence_score',
             'ai_score',
             'feasibility_score',
@@ -96,14 +97,24 @@ Success Criteria:
 {$successCriteria}
 
 Submitted Idea:
-Title: {$idea->title}
+{$idea->content}
 
-Description:
-{$idea->description}
+First, determine if this submission is SPAM. Mark as spam if ANY of these are true:
+- Gibberish, random characters, or meaningless text (e.g., "te349i234werw", "asdfgh", "xxxxx")
+- Copy-pasted unrelated content (lorem ipsum, random articles, promotional content)
+- Extremely low effort (single word, repeated characters, placeholder text)
+- Completely off-topic or unrelated to the challenge
+- Automated/bot-generated nonsense
 
-Score this idea across multiple dimensions and provide constructive feedback. Return your evaluation in JSON format:
+If the submission is spam, set is_spam to true and provide a brief spam_reason. For spam, all scores should be 0.
+
+For legitimate ideas, score across multiple dimensions and provide constructive feedback.
+
+Return your evaluation in JSON format:
 
 {
+  "is_spam": <boolean, true if this is spam/gibberish/irrelevant>,
+  "spam_reason": "<string explaining why marked as spam, or null if not spam>",
   "confidence_score": <float 0-100 indicating confidence in this evaluation>,
   "ai_score": <float 0-100 overall score>,
   "feasibility_score": <float 0-100 how practical/implementable>,
@@ -171,26 +182,32 @@ SYSTEM;
      */
     public function storeResults(Idea $idea, array $scoring): void
     {
+        $isSpam = $scoring['is_spam'] ?? false;
+
         $idea->update([
             'ai_score' => $scoring['ai_score'],
-            'ai_feedback' => json_encode([
+            'ai_feedback' => [
                 'feedback' => $scoring['feedback'],
-                'strengths' => $scoring['strengths'],
-                'weaknesses' => $scoring['weaknesses'],
-                'suggestions' => $scoring['suggestions'],
+                'strengths' => $scoring['strengths'] ?? [],
+                'weaknesses' => $scoring['weaknesses'] ?? [],
+                'suggestions' => $scoring['suggestions'] ?? [],
                 'feasibility_score' => $scoring['feasibility_score'],
                 'innovation_score' => $scoring['innovation_score'],
                 'impact_score' => $scoring['impact_score'],
-                'alignment_score' => $scoring['alignment_score'],
-                'addresses_objectives' => $scoring['addresses_objectives'],
-                'respects_constraints' => $scoring['respects_constraints'],
-                'meets_success_criteria' => $scoring['meets_success_criteria'],
-            ]),
-            'status' => 'scored',
+                'alignment_score' => $scoring['alignment_score'] ?? 0,
+                'addresses_objectives' => $scoring['addresses_objectives'] ?? false,
+                'respects_constraints' => $scoring['respects_constraints'] ?? false,
+                'meets_success_criteria' => $scoring['meets_success_criteria'] ?? false,
+            ],
+            'is_spam' => $isSpam,
+            'spam_reason' => $isSpam ? ($scoring['spam_reason'] ?? null) : null,
+            'status' => $isSpam ? 'rejected' : 'scored',
         ]);
 
-        // Update final score (AI score + community votes)
-        $this->updateFinalScore($idea);
+        // Only update final score for non-spam ideas
+        if (!$isSpam) {
+            $this->updateFinalScore($idea);
+        }
     }
 
     /**

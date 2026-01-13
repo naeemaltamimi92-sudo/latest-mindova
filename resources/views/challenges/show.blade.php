@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    $canSeeSpam = $canSeeSpam ?? (auth()->check() && (auth()->user()->isAdmin() || (auth()->user()->isCompany() && auth()->user()->company?->id === $challenge->company_id)));
+@endphp
+
 @section('title', $challenge->title)
 
 @push('styles')
@@ -602,10 +606,16 @@
 
                     <div class="space-y-4">
                         @forelse($challenge->ideas->sortByDesc('final_score') as $idea)
-                        <div class="idea-card bg-white rounded-2xl border border-slate-200 p-6 hover:border-indigo-200">
+                        <div class="idea-card relative {{ $canSeeSpam && $idea->is_spam ? 'bg-red-50 border-red-200' : 'bg-white border-slate-200 hover:border-indigo-200' }} rounded-2xl border p-6">
+                            {{-- Spam Badge for Admins --}}
+                            @if($canSeeSpam && $idea->is_spam)
+                            <div class="absolute -top-2 -left-2">
+                                <span class="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full">{{ __('Spam') }}</span>
+                            </div>
+                            @endif
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-gradient-to-br from-indigo-100 to-violet-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-12 h-12 bg-gradient-to-br {{ $canSeeSpam && $idea->is_spam ? 'from-red-100 to-rose-100' : 'from-indigo-100 to-violet-100' }} rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 {{ $canSeeSpam && $idea->is_spam ? 'text-red-600' : 'text-indigo-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                     </svg>
                                 </div>
@@ -818,7 +828,15 @@
                                     </div>
                                     <h4 class="font-bold text-slate-900">{{ __('Risk Assessment') }}</h4>
                                 </div>
-                                <p class="text-sm text-slate-600">{{ $latestAnalysis->risk_assessment }}</p>
+                                @if(is_array($latestAnalysis->risk_assessment))
+                                    <ul class="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                                        @foreach($latestAnalysis->risk_assessment as $risk)
+                                            <li>{{ $risk }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-sm text-slate-600">{{ $latestAnalysis->risk_assessment }}</p>
+                                @endif
                             </div>
                             @endif
                         </div>

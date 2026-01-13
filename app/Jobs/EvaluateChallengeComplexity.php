@@ -121,12 +121,13 @@ class EvaluateChallengeComplexity implements ShouldQueue, ShouldBeUnique
             // Refresh challenge to get the latest score
             $this->challenge->refresh();
 
-            // Decide next step based on score
-            if ($this->challenge->score >= 3) {
-                // Score 3-10: Proceed with task decomposition
+            // Decide next step based on complexity level (1-4 scale from ComplexityEvaluationService)
+            // Complexity 1-2: Community discussion, Complexity 3-4: Team execution
+            if ($this->challenge->complexity_level >= 3) {
+                // Complexity 3-4: Proceed with task decomposition
                 Log::info('Challenge proceeding to task decomposition', [
                     'challenge_id' => $this->challenge->id,
-                    'score' => $this->challenge->score,
+                    'complexity_level' => $this->challenge->complexity_level,
                 ]);
 
                 $this->challenge->update(['challenge_type' => 'team_execution']);
@@ -143,10 +144,10 @@ class EvaluateChallengeComplexity implements ShouldQueue, ShouldBeUnique
                     ]);
                 }
             } else {
-                // Score 1-2: Move to community discussion
+                // Complexity 1-2: Move to community discussion
                 Log::info('Challenge set for community discussion', [
                     'challenge_id' => $this->challenge->id,
-                    'score' => $this->challenge->score,
+                    'complexity_level' => $this->challenge->complexity_level,
                 ]);
 
                 $this->challenge->update([

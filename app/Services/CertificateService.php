@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\TaskAssignment;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Http;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class CertificateService
@@ -288,20 +288,33 @@ class CertificateService
                 return $assignment->task ? $assignment->task->title . ': ' . $assignment->task->description : '';
             })->filter()->join("\n");
 
-            // Generate summary using OpenAI
+            // Generate summary using Anthropic Claude
             $prompt = "Generate a professional, concise (1-2 sentences) contribution summary for a certificate. The volunteer worked on: {$role}.\n\nChallenge: {$challenge->title}\nDomain: {$challenge->domain}\n\nTasks completed:\n{$taskDescriptions}\n\nWrite a professional summary that highlights the value added and impact. Start with 'Contributed to' or similar. Keep it professional and suitable for a formal certificate.";
 
-            $response = OpenAI::chat()->create([
-                'model' => 'gpt-3.5-turbo',
+            $response = Http::withHeaders([
+                'x-api-key' => config('ai.anthropic.api_key'),
+                'anthropic-version' => '2023-06-01',
+                'content-type' => 'application/json',
+            ])
+            ->timeout(config('ai.anthropic.timeout', 60))
+            ->post(config('ai.anthropic.base_url', 'https://api.anthropic.com') . '/v1/messages', [
+                'model' => 'claude-sonnet-4-20250514',
+                'max_tokens' => 150,
+                'system' => 'You are a professional certificate writer. Create concise, formal contribution summaries for professional certificates. Return only the summary text, no JSON or formatting.',
                 'messages' => [
-                    ['role' => 'system', 'content' => 'You are a professional certificate writer. Create concise, formal contribution summaries for professional certificates.'],
-                    ['role' => 'user', 'content' => $prompt],
+                    [
+                        'role' => 'user',
+                        'content' => $prompt,
+                    ],
                 ],
-                'max_tokens' => 100,
-                'temperature' => 0.7,
             ]);
 
-            $summary = trim($response->choices[0]->message->content);
+            if (!$response->successful()) {
+                throw new \Exception('Anthropic API error: ' . $response->body());
+            }
+
+            $responseData = $response->json();
+            $summary = trim($responseData['content'][0]['text'] ?? '');
 
             return $summary;
 

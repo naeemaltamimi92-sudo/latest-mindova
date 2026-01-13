@@ -77,7 +77,7 @@ class NotificationService
         $volunteer = $idea->volunteer;
         $challenge = $idea->challenge;
 
-        $feedback = json_decode($idea->ai_feedback, true);
+        $feedback = $idea->ai_feedback;
         $feedbackText = $feedback['feedback'] ?? 'Your idea has been evaluated.';
 
         $this->send(

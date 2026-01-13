@@ -5,11 +5,11 @@ namespace App\Services\AI;
 use App\Models\Challenge;
 use App\Models\ChallengeAnalysis;
 
-class ChallengeBriefService extends OpenAIService
+class ChallengeBriefService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.challenge_analysis', 'gpt-4o');
+        return config('ai.models.challenge_analysis', 'claude-sonnet-4-20250514');
     }
 
     protected function getRequestType(): string
@@ -235,6 +235,9 @@ SYSTEM;
             'objectives' => $analysis['objectives'],
             'constraints' => $analysis['constraints'],
             'success_criteria' => $analysis['success_criteria'],
+            'stakeholders' => $analysis['key_stakeholders'] ?? [],
+            'risk_assessment' => $analysis['potential_risks'] ?? [],
+            'recommended_approach' => $analysis['recommended_approach'] ?? null,
             'confidence_score' => $analysis['confidence_score'],
             'validation_status' => $this->meetsConfidenceThreshold($analysis['confidence_score'])
                 ? 'passed'

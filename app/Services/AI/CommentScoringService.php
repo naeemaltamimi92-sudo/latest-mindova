@@ -5,11 +5,11 @@ namespace App\Services\AI;
 use App\Models\ChallengeComment;
 use App\Models\Challenge;
 
-class CommentScoringService extends OpenAIService
+class CommentScoringService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.comment_analysis', 'gpt-4o');
+        return config('ai.models.comment_analysis', 'claude-sonnet-4-20250514');
     }
 
     protected function getRequestType(): string

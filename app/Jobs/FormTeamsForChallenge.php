@@ -7,7 +7,7 @@ use App\Models\Challenge;
 use App\Models\Volunteer;
 use App\Models\TaskAssignment;
 use App\Services\AI\TeamFormationService;
-use App\Notifications\TeamInvitationNotification;
+use App\Services\NotificationService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -104,14 +104,22 @@ class FormTeamsForChallenge implements ShouldQueue, ShouldBeUnique
             Log::info("Created {$teams->count()} team(s) for challenge: {$this->challenge->id}");
 
             // Send notifications to all team members
+            $notificationService = app(NotificationService::class);
             foreach ($teams as $team) {
                 $team->load('members.volunteer.user');
 
                 foreach ($team->members as $member) {
                     if ($member->volunteer && $member->volunteer->user) {
                         try {
-                            $member->volunteer->user->notify(
-                                new TeamInvitationNotification($team, $member)
+                            $isLeader = $member->role === 'leader';
+                            $notificationService->send(
+                                user: $member->volunteer->user,
+                                type: 'team_invitation',
+                                title: $isLeader ? 'Team Leadership Assigned' : 'Team Invitation',
+                                message: $isLeader
+                                    ? "You've been selected as the leader of {$team->name}!"
+                                    : "You've been invited to join {$team->name} as a {$member->role}.",
+                                actionUrl: route('challenges.show', $this->challenge->id)
                             );
                         } catch (\Exception $e) {
                             Log::error('Failed to send team invitation notification', [

@@ -5,8 +5,8 @@ namespace App\Jobs;
 use App\Jobs\Concerns\RobustJob;
 use App\Models\ChallengeComment;
 use App\Models\ReputationHistory;
-use App\Notifications\HighQualityCommentNotification;
 use App\Services\AI\CommentScoringService;
+use App\Services\NotificationService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -117,7 +117,15 @@ class AnalyzeCommentQuality implements ShouldQueue, ShouldBeUnique
             }
 
             if ($ownerUser) {
-                $ownerUser->notify(new HighQualityCommentNotification($this->comment));
+                // Use NotificationService for database notification
+                $notificationService = app(NotificationService::class);
+                $notificationService->send(
+                    user: $ownerUser,
+                    type: 'high_quality_comment',
+                    title: 'High-Quality Comment Received',
+                    message: "Received a high-quality comment (score {$score}/10) on your challenge: {$challenge->title}",
+                    actionUrl: route('community.challenge', $challenge->id)
+                );
             }
 
             // Award reputation points to the commenter

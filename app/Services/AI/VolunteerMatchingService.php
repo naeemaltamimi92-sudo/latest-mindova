@@ -7,11 +7,11 @@ use App\Models\Volunteer;
 use App\Models\TaskAssignment;
 use Illuminate\Support\Collection;
 
-class VolunteerMatchingService extends OpenAIService
+class VolunteerMatchingService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.volunteer_matching', 'gpt-4o-mini');
+        return config('ai.models.volunteer_matching', 'claude-sonnet-4-20250514');
     }
 
     protected function getRequestType(): string

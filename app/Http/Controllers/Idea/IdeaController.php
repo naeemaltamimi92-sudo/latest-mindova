@@ -71,14 +71,12 @@ class IdeaController extends Controller
             'description' => 'required|string|min:100|max:2000',
         ]);
 
-        // Create idea
+        // Create idea (combine title and description into content field)
         $idea = Idea::create([
             'challenge_id' => $challenge->id,
             'volunteer_id' => $user->volunteer->id,
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'status' => 'submitted',
-            'community_votes' => 0,
+            'content' => "Title: {$validated['title']}\n\nDescription:\n{$validated['description']}",
+            'status' => 'pending_review',
         ]);
 
         // Dispatch AI scoring job
