@@ -25,6 +25,8 @@ class Idea extends Model
         'status',
         'is_spam',
         'spam_reason',
+        'is_correct_answer',
+        'marked_correct_at',
     ];
 
     protected function casts(): array
@@ -40,6 +42,8 @@ class Idea extends Model
             'total_score' => 'decimal:2',
             'ai_feedback' => 'array',
             'is_spam' => 'boolean',
+            'is_correct_answer' => 'boolean',
+            'marked_correct_at' => 'datetime',
         ];
     }
 
@@ -73,5 +77,13 @@ class Idea extends Model
     public function scopeNotSpam($query)
     {
         return $query->where('is_spam', false);
+    }
+
+    /**
+     * Check if this idea is the correct answer.
+     */
+    public function isCorrectAnswer(): bool
+    {
+        return $this->is_correct_answer === true;
     }
 }

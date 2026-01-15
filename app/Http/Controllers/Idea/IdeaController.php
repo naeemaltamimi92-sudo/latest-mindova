@@ -52,6 +52,12 @@ class IdeaController extends Controller
             ], 422);
         }
 
+        if ($challenge->status === 'closed') {
+            return response()->json([
+                'message' => 'This challenge is closed and no longer accepting ideas',
+            ], 422);
+        }
+
         if ($challenge->status !== 'active') {
             return response()->json([
                 'message' => 'Challenge is not active for idea submission',

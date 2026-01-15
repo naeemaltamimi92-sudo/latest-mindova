@@ -45,6 +45,9 @@ class Challenge extends Model
         'tags',
         'external_reference',
         'internal_notes',
+        // Correct answer fields
+        'correct_idea_id',
+        'closed_at',
     ];
 
     protected function casts(): array
@@ -67,6 +70,8 @@ class Challenge extends Model
             'estimated_budget' => 'decimal:2',
             'actual_budget' => 'decimal:2',
             'tags' => 'array',
+            // Correct answer casts
+            'closed_at' => 'datetime',
         ];
     }
 
@@ -149,6 +154,60 @@ class Challenge extends Model
     public function ideas()
     {
         return $this->hasMany(Idea::class);
+    }
+
+    /**
+     * Get the correct idea for this challenge.
+     */
+    public function correctIdea()
+    {
+        return $this->belongsTo(Idea::class, 'correct_idea_id');
+    }
+
+    /**
+     * Check if this challenge is closed.
+     */
+    public function isClosed(): bool
+    {
+        return $this->status === 'closed';
+    }
+
+    /**
+     * Check if this challenge can accept new ideas.
+     */
+    public function canAcceptIdeas(): bool
+    {
+        return $this->status === 'active' &&
+               $this->challenge_type === 'community_discussion' &&
+               !$this->isClosed();
+    }
+
+    /**
+     * Check if this challenge has a correct answer.
+     */
+    public function hasCorrectAnswer(): bool
+    {
+        return $this->correct_idea_id !== null;
+    }
+
+    /**
+     * Check if the given user is the owner of this challenge.
+     */
+    public function isOwnedBy($user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+
+        if ($this->isCompanySubmitted()) {
+            return $user->isCompany() && $user->company?->id === $this->company_id;
+        }
+
+        if ($this->isVolunteerSubmitted()) {
+            return $user->isVolunteer() && $user->volunteer?->id === $this->volunteer_id;
+        }
+
+        return false;
     }
 
     /**

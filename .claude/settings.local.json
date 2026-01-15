@@ -46,7 +46,8 @@
       "Bash(del \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\replace_volunteer.php\")",
       "Bash(del \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\replace_ar.php\")",
       "Bash(del C:xampphtdocsmindovatest_user_methods.php)",
-      "Bash(if not exist \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\resources\\\\views\\\\emails\" mkdir \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\resources\\\\views\\\\emails\")"
+      "Bash(if not exist \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\resources\\\\views\\\\emails\" mkdir \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\resources\\\\views\\\\emails\")",
+      "Bash(powershell -Command \"Get-Content ''C:\\\\xampp\\\\htdocs\\\\abc\\\\mindova\\\\storage\\\\logs\\\\laravel.log'' -Tail 5\")"
     ]
   }
 }

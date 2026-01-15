@@ -539,11 +539,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let hasReadAll = false;
 
+    // Update submit button state
+    function updateSubmitButton() {
+        const isValid = hasReadAll && agreeCheckbox.checked && fullNameInput.value.trim().length > 0;
+        submitBtn.disabled = !isValid;
+
+        if (isValid) {
+            submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        } else {
+            submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        }
+    }
+
+    // Check if content requires scrolling
+    function checkScrollRequired() {
+        const scrollableHeight = ndaContent.scrollHeight - ndaContent.clientHeight;
+
+        // If content fits in container (no scroll needed), mark as read
+        if (scrollableHeight <= 0) {
+            hasReadAll = true;
+            readProgress.style.width = '100%';
+            readPercentage.textContent = '100%';
+            scrollStatus.textContent = '{{ __("You have read the complete agreement") }}';
+            scrollStatus.classList.add('text-emerald-600', 'font-semibold');
+            scrollStatus.classList.remove('text-gray-500');
+            updateSubmitButton();
+        }
+    }
+
+    // Run check after content loads
+    checkScrollRequired();
+
     // Track scroll progress
     ndaContent.addEventListener('scroll', function() {
         const scrollTop = this.scrollTop;
-        const scrollHeight = this.scrollHeight - this.clientHeight;
-        const progress = Math.min((scrollTop / scrollHeight) * 100, 100);
+        const scrollableHeight = this.scrollHeight - this.clientHeight;
+
+        // Prevent division by zero
+        if (scrollableHeight <= 0) {
+            return;
+        }
+
+        const progress = Math.min((scrollTop / scrollableHeight) * 100, 100);
 
         readProgress.style.width = progress + '%';
         readPercentage.textContent = Math.round(progress) + '%';
@@ -556,18 +593,6 @@ document.addEventListener('DOMContentLoaded', function() {
             updateSubmitButton();
         }
     });
-
-    // Update submit button state
-    function updateSubmitButton() {
-        const isValid = hasReadAll && agreeCheckbox.checked && fullNameInput.value.trim().length > 0;
-        submitBtn.disabled = !isValid;
-
-        if (isValid) {
-            submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
-        } else {
-            submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
-        }
-    }
 
     agreeCheckbox.addEventListener('change', updateSubmitButton);
     fullNameInput.addEventListener('input', updateSubmitButton);

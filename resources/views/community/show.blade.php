@@ -214,6 +214,30 @@
         </div>
     </div>
 
+    {{-- Closed Challenge Banner --}}
+    @if($challenge->isClosed())
+    <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="font-bold">{{ __('Challenge Closed') }}</p>
+                    <p class="text-sm text-white/80">{{ __('A correct answer has been selected.') }}</p>
+                </div>
+            </div>
+            @if($challenge->closed_at)
+            <span class="text-sm text-white/80">
+                {{ __('Closed') }} {{ $challenge->closed_at->diffForHumans() }}
+            </span>
+            @endif
+        </div>
+    </div>
+    @endif
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Stats Cards - Floating Above -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 -mt-16 mb-10 relative z-10">
@@ -362,13 +386,25 @@
                     <div class="p-6 lg:p-8">
                         @if($challenge->ideas->count() > 0)
                             <div class="space-y-6">
-                                @foreach($challenge->ideas->sortByDesc('ai_quality_score') as $index => $idea)
+                                @foreach($challenge->ideas as $index => $idea)
                                 <div class="idea-card relative {{ $canSeeSpam && $idea->is_spam ? 'ring-2 ring-red-300 bg-gradient-to-br from-red-50 to-rose-50 border-red-200' : ($idea->ai_quality_score >= 7 ? 'ring-2 ring-emerald-300 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200' : 'bg-gradient-to-br from-slate-50 to-white border-slate-200') }} rounded-2xl p-6 border" style="animation-delay: {{ 0.1 * $index }}s;">
                                     <!-- High Quality Ribbon -->
                                     @if($idea->ai_quality_score >= 7)
                                     <div class="absolute -top-3 -right-3">
                                         <div class="quality-badge w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
                                             <span class="text-white text-lg">⭐</span>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    <!-- Correct Answer Badge -->
+                                    @if($idea->is_correct_answer)
+                                    <div class="absolute -top-3 -left-3 z-20">
+                                        <div class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full shadow-lg flex items-center gap-2">
+                                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span class="text-white text-sm font-bold">{{ __('Correct Answer') }}</span>
                                         </div>
                                     </div>
                                     @endif
@@ -551,6 +587,30 @@
                                             {{ __('Net votes') }}: {{ ($idea->community_votes_up ?? 0) - ($idea->community_votes_down ?? 0) }}
                                         </span>
                                     </div>
+
+                                    {{-- Mark as Correct Button (Owner Only) --}}
+                                    @auth
+                                        @if($challenge->isOwnedBy(auth()->user()) &&
+                                            !$challenge->isClosed() &&
+                                            $challenge->status === 'active' &&
+                                            !$idea->is_correct_answer &&
+                                            !($challenge->isVolunteerSubmitted() && $idea->volunteer_id === $challenge->volunteer_id))
+                                        <div class="mt-4 pt-4 border-t border-slate-200">
+                                            <form action="{{ route('community.idea.mark-correct', [$challenge, $idea]) }}"
+                                                  method="POST"
+                                                  onsubmit="return confirm('{{ __('Are you sure you want to mark this as the correct answer? This will close the challenge and no new ideas can be submitted.') }}');">
+                                                @csrf
+                                                <button type="submit"
+                                                        class="w-full px-4 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                    {{ __('Mark as Correct Answer') }}
+                                                </button>
+                                            </form>
+                                        </div>
+                                        @endif
+                                    @endauth
                                 </div>
                                 @endforeach
                             </div>
@@ -576,6 +636,18 @@
                     <!-- Submit Idea Form -->
                     @auth
                         @if(auth()->user()->isVolunteer())
+                            @if($challenge->isClosed())
+                            {{-- Closed Challenge Message --}}
+                            <div class="bg-slate-50 rounded-3xl border border-slate-200 p-6 text-center animate-slide-in-up" style="animation-delay: 0.7s;">
+                                <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <h4 class="font-bold text-slate-900 mb-2">{{ __('Challenge Closed') }}</h4>
+                                <p class="text-sm text-slate-500">{{ __('This challenge has been closed and is no longer accepting new ideas.') }}</p>
+                            </div>
+                            @else
                         <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden animate-slide-in-up" style="animation-delay: 0.7s;">
                             <div class="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 px-6 py-5">
                                 <h3 class="text-lg font-bold text-white flex items-center gap-3">
@@ -628,6 +700,7 @@
                                 </form>
                             </div>
                         </div>
+                            @endif
                         @else
                         <!-- Company View -->
                         <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-6 animate-slide-in-up" style="animation-delay: 0.7s;">
@@ -704,7 +777,7 @@
                             {{ __('Top Contributors') }}
                         </h4>
                         <div class="space-y-4">
-                            @foreach($challenge->ideas->sortByDesc('ai_quality_score')->take(5) as $rank => $topIdea)
+                            @foreach($challenge->ideas->sortByDesc(function($idea) { return ($idea->community_votes_up ?? 0) - ($idea->community_votes_down ?? 0); })->take(5) as $rank => $topIdea)
                             <div class="flex items-center gap-3 p-3 rounded-xl {{ $rank === 0 ? 'bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200' : 'bg-slate-50 border border-slate-100' }} transition-all hover:shadow-sm">
                                 <!-- Rank Badge -->
                                 <div class="w-8 h-8 {{ $rank === 0 ? 'bg-gradient-to-br from-amber-400 to-yellow-500' : ($rank === 1 ? 'bg-gradient-to-br from-slate-300 to-slate-400' : ($rank === 2 ? 'bg-gradient-to-br from-amber-600 to-orange-700' : 'bg-slate-200')) }} rounded-full flex items-center justify-center text-{{ $rank < 3 ? 'white' : 'slate-600' }} text-xs font-bold shadow-sm">
@@ -719,13 +792,19 @@
                                 <!-- Info -->
                                 <div class="flex-1 min-w-0">
                                     <p class="text-sm font-semibold text-slate-900 truncate">{{ $topIdea->volunteer->user->name ?? __('Anonymous') }}</p>
-                                    <p class="text-xs text-slate-500">{{ __('Score') }}: {{ number_format($topIdea->ai_quality_score, 1) }}</p>
+                                    <p class="text-xs text-slate-500">{{ __('Votes') }}: {{ ($topIdea->community_votes_up ?? 0) - ($topIdea->community_votes_down ?? 0) }}</p>
                                 </div>
 
-                                <!-- Star for top quality -->
-                                @if($topIdea->ai_quality_score >= 7)
+                                <!-- Star for correct answer or high votes -->
+                                @if($topIdea->is_correct_answer)
                                 <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
-                                    <span class="text-emerald-500 text-xs">⭐</span>
+                                    <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                @elseif(($topIdea->community_votes_up ?? 0) - ($topIdea->community_votes_down ?? 0) >= 5)
+                                <div class="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center">
+                                    <span class="text-amber-500 text-xs">⭐</span>
                                 </div>
                                 @endif
                             </div>

@@ -101,6 +101,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/community/{challenge}/comment', [App\Http\Controllers\Web\CommunityController::class, 'storeComment'])->name('community.comment');
     Route::post('/community/comment/{comment}/vote', [App\Http\Controllers\Web\CommunityController::class, 'voteComment'])->name('community.comment.vote');
     Route::post('/community/idea/{idea}/vote', [App\Http\Controllers\Web\CommunityController::class, 'voteIdea'])->name('community.idea.vote');
+    Route::post('/community/{challenge}/ideas/{idea}/mark-correct', [App\Http\Controllers\Web\CommunityController::class, 'markCorrectAnswer'])->name('community.idea.mark-correct');
 
     // Volunteer Community Challenges (submit challenges to community)
     Route::post('/community/challenges', [App\Http\Controllers\Web\VolunteerChallengeController::class, 'store'])->name('volunteer.challenges.store');
