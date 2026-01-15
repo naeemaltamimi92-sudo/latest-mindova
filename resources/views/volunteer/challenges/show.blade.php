@@ -816,6 +816,48 @@ document.addEventListener('DOMContentLoaded', function() {
         openEditModal();
         window.history.replaceState({}, document.title, window.location.pathname);
     }
+
+    // Status polling for challenges in processing state
+    const currentStatus = '{{ $challenge->status }}';
+    const currentAiStatus = '{{ $challenge->ai_analysis_status }}';
+
+    if (currentStatus === 'analyzing' || currentAiStatus === 'pending' || currentAiStatus === 'processing') {
+        let pollCount = 0;
+        const maxPolls = 60; // Stop after 5 minutes (60 * 5 seconds)
+
+        const pollStatus = async () => {
+            pollCount++;
+            if (pollCount > maxPolls) {
+                console.log('Status polling stopped after max attempts');
+                return;
+            }
+
+            try {
+                const response = await fetch('{{ route("volunteer.challenges.status", $challenge) }}', {
+                    headers: { 'Accept': 'application/json' }
+                });
+                const data = await response.json();
+
+                // Check if status has changed
+                if (data.status !== currentStatus || data.ai_analysis_status !== currentAiStatus) {
+                    console.log('Status changed:', data);
+                    showToast('{{ __("Challenge status updated! Refreshing...") }}', 'success');
+                    setTimeout(() => window.location.reload(), 1500);
+                    return;
+                }
+
+                // Continue polling every 5 seconds
+                setTimeout(pollStatus, 5000);
+            } catch (error) {
+                console.error('Status poll error:', error);
+                // Retry after 10 seconds on error
+                setTimeout(pollStatus, 10000);
+            }
+        };
+
+        // Start polling after 3 seconds
+        setTimeout(pollStatus, 3000);
+    }
 });
 </script>
 @endpush

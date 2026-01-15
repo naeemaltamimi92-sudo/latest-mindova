@@ -471,11 +471,11 @@
                     <div class="text-sm text-white/80 font-medium">{{ __('Challenges') }}</div>
                 </div>
                 <div class="bg-white/15 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/20 text-center">
-                    <div class="text-3xl font-black text-yellow-300">{{ $challenges->sum('comments_count') }}</div>
-                    <div class="text-sm text-white/80 font-medium">{{ __('Comments') }}</div>
+                    <div class="text-3xl font-black text-yellow-300">{{ $challenges->sum('ideas_count') }}</div>
+                    <div class="text-sm text-white/80 font-medium">{{ __('Ideas') }}</div>
                 </div>
                 <div class="bg-white/15 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/20 text-center">
-                    <div class="text-3xl font-black text-emerald-300">{{ $challenges->sum(function($c) { return $c->comments()->where('ai_score', '>=', 7)->count(); }) }}</div>
+                    <div class="text-3xl font-black text-emerald-300">{{ $challenges->sum(function($c) { return $c->ideas()->where('ai_quality_score', '>=', 70)->count(); }) }}</div>
                     <div class="text-sm text-white/80 font-medium">{{ __('Quality Insights') }}</div>
                 </div>
             </div>
@@ -583,10 +583,10 @@
                                 <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
                                 </svg>
-                                <span>{{ $challenge->comments_count ?? 0 }} {{ trans_choice('{1} comment|[2,*] comments', $challenge->comments_count ?? 0) }}</span>
+                                <span>{{ $challenge->ideas_count ?? 0 }} {{ trans_choice('{0} ideas|{1} idea|[2,*] ideas', $challenge->ideas_count ?? 0) }}</span>
                             </span>
 
-                            @php $qualityCount = $challenge->comments()->where('ai_score', '>=', 7)->count(); @endphp
+                            @php $qualityCount = $challenge->ideas()->where('ai_quality_score', '>=', 70)->count(); @endphp
                             @if($qualityCount > 0)
                             <span class="comment-stat quality">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -612,7 +612,7 @@
                             <p class="text-xs text-gray-500 font-medium mb-2">{{ __('Engagement Level') }}</p>
                             <div class="flex justify-center gap-1">
                                 @for($i = 0; $i < 5; $i++)
-                                <div class="w-2 h-8 rounded-full {{ ($challenge->comments_count ?? 0) > ($i * 2) ? 'bg-gradient-to-t from-violet-500 to-pink-500' : 'bg-gray-200' }}"></div>
+                                <div class="w-2 h-8 rounded-full {{ ($challenge->ideas_count ?? 0) > ($i * 2) ? 'bg-gradient-to-t from-violet-500 to-pink-500' : 'bg-gray-200' }}"></div>
                                 @endfor
                             </div>
                         </div>

@@ -21,8 +21,8 @@ class CommunityController extends Controller
     {
         $query = Challenge::where('challenge_type', 'community_discussion')
             ->where('status', 'active')
-            ->with(['company', 'volunteer.user', 'comments'])
-            ->withCount('comments');
+            ->with(['company', 'volunteer.user', 'ideas'])
+            ->withCount('ideas');
 
         // Get user's field if they're a volunteer
         $userField = null;
@@ -30,9 +30,9 @@ class CommunityController extends Controller
             if (auth()->user()->isVolunteer()) {
                 $userField = auth()->user()->volunteer->field ?? null;
 
-                // STRICT: Volunteers can ONLY see challenges in their field
+                // STRICT: Volunteers can ONLY see challenges in their field (case-insensitive)
                 if ($userField) {
-                    $query->where('field', $userField);
+                    $query->whereRaw('LOWER(field) = ?', [strtolower($userField)]);
                 } else {
                     // If volunteer has no field set, show nothing
                     $query->whereRaw('1 = 0'); // Returns empty result
@@ -74,7 +74,7 @@ class CommunityController extends Controller
                 // Volunteers can only see challenges in their field
                 $volunteerField = auth()->user()->volunteer->field ?? null;
 
-                if ($volunteerField && $challenge->field && $volunteerField !== $challenge->field) {
+                if ($volunteerField && $challenge->field && strtolower($volunteerField) !== strtolower($challenge->field)) {
                     return redirect()->route('community.index')
                         ->with('error', 'This challenge is not in your field of expertise. You can only view and comment on challenges in your field: ' . $volunteerField);
                 }
@@ -152,7 +152,7 @@ class CommunityController extends Controller
 
         // Check field access permissions
         $volunteerField = $volunteer->field ?? null;
-        if ($volunteerField && $challenge->field && $volunteerField !== $challenge->field) {
+        if ($volunteerField && $challenge->field && strtolower($volunteerField) !== strtolower($challenge->field)) {
             return redirect()->back()
                 ->with('error', 'You can only submit ideas on challenges in your field: ' . $volunteerField);
         }

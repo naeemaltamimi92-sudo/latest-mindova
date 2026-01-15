@@ -671,17 +671,24 @@
                         </h4>
                         <div class="flex items-center gap-4">
                             <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                                {{ strtoupper(substr($challenge->company->company_name ?? 'C', 0, 1)) }}
+                                {{ strtoupper(substr($challenge->company?->company_name ?? ($challenge->volunteer?->user?->name ?? 'C'), 0, 1)) }}
                             </div>
                             <div>
-                                <p class="font-bold text-slate-900">{{ $challenge->company->company_name }}</p>
-                                @if($challenge->company->industry)
-                                <p class="text-sm text-slate-500 flex items-center gap-1">
-                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
-                                    </svg>
-                                    {{ $challenge->company->industry }}
-                                </p>
+                                @if($challenge->company)
+                                    <p class="font-bold text-slate-900">{{ $challenge->company->company_name }}</p>
+                                    @if($challenge->company->industry)
+                                    <p class="text-sm text-slate-500 flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+                                        </svg>
+                                        {{ $challenge->company->industry }}
+                                    </p>
+                                    @endif
+                                @elseif($challenge->volunteer)
+                                    <p class="font-bold text-slate-900">{{ $challenge->volunteer->user->name ?? 'Volunteer' }}</p>
+                                    <p class="text-sm text-slate-500">{{ __('Community Volunteer') }}</p>
+                                @else
+                                    <p class="font-bold text-slate-900">{{ __('Anonymous') }}</p>
                                 @endif
                             </div>
                         </div>

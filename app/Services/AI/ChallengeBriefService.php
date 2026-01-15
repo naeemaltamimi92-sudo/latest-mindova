@@ -4,6 +4,7 @@ namespace App\Services\AI;
 
 use App\Models\Challenge;
 use App\Models\ChallengeAnalysis;
+use App\Models\Volunteer;
 
 class ChallengeBriefService extends AnthropicService
 {
@@ -15,6 +16,29 @@ class ChallengeBriefService extends AnthropicService
     protected function getRequestType(): string
     {
         return 'challenge_brief';
+    }
+
+    /**
+     * Get existing volunteer fields from database for field matching.
+     */
+    protected function getExistingVolunteerFields(): array
+    {
+        $fields = Volunteer::select('field')
+            ->whereNotNull('field')
+            ->where('field', '!=', '')
+            ->distinct()
+            ->pluck('field')
+            ->toArray();
+
+        // Fallback to generic fields if no volunteers exist yet
+        if (empty($fields)) {
+            return [
+                'Healthcare', 'Technology', 'Finance', 'Education',
+                'Engineering', 'Manufacturing', 'Marketing', 'Environment'
+            ];
+        }
+
+        return $fields;
     }
 
     /**
@@ -73,6 +97,10 @@ class ChallengeBriefService extends AnthropicService
      */
     protected function buildPrompt(Challenge $challenge): string
     {
+        // Get existing volunteer fields for matching
+        $existingFields = $this->getExistingVolunteerFields();
+        $fieldsListForPrompt = implode(', ', $existingFields);
+
         // Get attachment content if available
         $attachmentContent = $this->getAttachmentContent($challenge);
 
@@ -119,7 +147,7 @@ If VALID, provide your full analysis in JSON format:
   "is_valid": true,
   "confidence_score": <float 0-100 indicating clarity and feasibility>,
   "score": <integer 1-10 based on feasibility, impact and clarity>,
-  "field": "<primary domain/field: e.g., Healthcare, Technology, Finance, Education, etc.>",
+  "field": "<MUST be one of the existing volunteer fields listed in FIELD IDENTIFICATION section>",
   "refined_brief": "<clear, well-structured description of the challenge>",
   "objectives": [
     "<objective 1>",
@@ -174,10 +202,11 @@ SCORING SYSTEM (score 1-10):
   * High confidence in deliverability
 
 FIELD IDENTIFICATION:
-- Identify the primary domain/industry of the challenge
-- Common fields: Healthcare, Technology, Finance, Education, E-commerce, Manufacturing, Marketing, Environment, Social Impact, etc.
-- Use the most specific applicable field
-- This will be used to match challenges with volunteers who have relevant education/expertise
+- You MUST choose from these existing volunteer fields: {$fieldsListForPrompt}
+- Choose the field that best matches the challenge domain
+- If no field matches exactly, choose the closest/most relevant one from the list
+- Do NOT invent new field names - only use fields from the list above
+- This ensures challenges can be matched with volunteers who have the relevant expertise
 PROMPT;
     }
 
