@@ -509,6 +509,49 @@
     </div>
     @endif
 
+    {{-- Status Filter Tabs --}}
+    <div class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-2">
+            <div class="flex flex-wrap gap-2">
+                {{-- Active Tab --}}
+                <a href="{{ route('community.index', ['filter' => 'active']) }}"
+                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300
+                          {{ ($filter ?? 'active') === 'active'
+                              ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/30'
+                              : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <span>{{ __('Active') }}</span>
+                </a>
+
+                {{-- Completed Tab --}}
+                <a href="{{ route('community.index', ['filter' => 'completed']) }}"
+                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300
+                          {{ ($filter ?? 'active') === 'completed'
+                              ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30'
+                              : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>{{ __('Completed') }}</span>
+                </a>
+
+                {{-- All Tab --}}
+                <a href="{{ route('community.index', ['filter' => 'all']) }}"
+                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300
+                          {{ ($filter ?? 'active') === 'all'
+                              ? 'bg-gradient-to-r from-violet-500 to-violet-600 text-white shadow-lg shadow-violet-500/30'
+                              : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                    </svg>
+                    <span>{{ __('All') }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     @if($challenges->count() > 0)
     <!-- Challenges Grid -->
     <div class="space-y-8">
@@ -533,6 +576,14 @@
                                 @if($challenge->field)
                                 <span class="field-badge">
                                     {{ $challenge->field }}
+                                </span>
+                                @endif
+                                @if($challenge->status === 'completed' || $challenge->status === 'closed')
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full text-xs font-bold shadow-sm">
+                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    {{ $challenge->hasCorrectAnswer() ? __('Solved') : __('Completed') }}
                                 </span>
                                 @endif
                             </div>
@@ -637,12 +688,22 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
                 </svg>
             </div>
-            <h2 class="text-3xl font-black text-gray-900 mb-4">{{ __('No Community Challenges Yet') }}</h2>
-            <p class="text-gray-600 text-lg mb-8 max-w-lg mx-auto">
-                @if(isset($userField) && $userField)
-                {{ __('No challenges found in your field (:field). Check back later or submit your own!', ['field' => $userField]) }}
+            <h2 class="text-3xl font-black text-gray-900 mb-4">
+                @if(($filter ?? 'active') === 'completed')
+                    {{ __('No Completed Challenges Yet') }}
+                @elseif(($filter ?? 'active') === 'all')
+                    {{ __('No Challenges Found') }}
                 @else
-                {{ __('Check back later for challenges that need community input and discussion.') }}
+                    {{ __('No Active Challenges Yet') }}
+                @endif
+            </h2>
+            <p class="text-gray-600 text-lg mb-8 max-w-lg mx-auto">
+                @if(($filter ?? 'active') === 'completed')
+                    {{ __('Challenges that have been resolved will appear here.') }}
+                @elseif(isset($userField) && $userField)
+                    {{ __('No challenges found in your field (:field). Check back later or submit your own!', ['field' => $userField]) }}
+                @else
+                    {{ __('Check back later for challenges that need community input and discussion.') }}
                 @endif
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">

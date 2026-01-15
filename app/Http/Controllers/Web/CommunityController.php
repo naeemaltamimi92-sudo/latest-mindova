@@ -10,7 +10,11 @@ use App\Models\Idea;
 use App\Models\IdeaVote;
 use App\Jobs\AnalyzeCommentQuality;
 use App\Jobs\ScoreIdea;
+use App\Models\ReputationHistory;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CommunityController extends Controller
 {
@@ -19,10 +23,33 @@ class CommunityController extends Controller
      */
     public function index(Request $request)
     {
+        // Get filter parameter, default to 'active'
+        $filter = $request->get('filter', 'active');
+
+        // Validate filter value
+        $validFilters = ['active', 'completed', 'all'];
+        if (!in_array($filter, $validFilters)) {
+            $filter = 'active';
+        }
+
         $query = Challenge::where('challenge_type', 'community_discussion')
-            ->where('status', 'active')
             ->with(['company', 'volunteer.user', 'ideas'])
             ->withCount('ideas');
+
+        // Apply status filter based on selection
+        switch ($filter) {
+            case 'active':
+                $query->where('status', 'active');
+                break;
+            case 'completed':
+                // Completed includes both 'completed' and 'closed' statuses
+                $query->whereIn('status', ['completed', 'closed']);
+                break;
+            case 'all':
+                // Show active, completed, and closed (but not archived/rejected)
+                $query->whereIn('status', ['active', 'completed', 'closed']);
+                break;
+        }
 
         // Get user's field if they're a volunteer
         $userField = null;
@@ -54,7 +81,10 @@ class CommunityController extends Controller
 
         $challenges = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return view('community.index', compact('challenges', 'userField'));
+        // Preserve filter in pagination links
+        $challenges->appends(['filter' => $filter]);
+
+        return view('community.index', compact('challenges', 'userField', 'filter'));
     }
 
     /**
@@ -108,7 +138,9 @@ class CommunityController extends Controller
                 if (!$canSeeSpam) {
                     $query->where('is_spam', false);
                 }
-                $query->orderBy('ai_quality_score', 'desc')->orderBy('created_at', 'desc');
+                // Sort by net votes (upvotes - downvotes), then by created_at
+                $query->orderByRaw('(COALESCE(community_votes_up, 0) - COALESCE(community_votes_down, 0)) DESC')
+                      ->orderBy('created_at', 'desc');
                 $query->with('volunteer.user');
             }
         ]);
@@ -138,6 +170,11 @@ class CommunityController extends Controller
      */
     public function storeComment(Request $request, Challenge $challenge)
     {
+        // Check if challenge is closed
+        if ($challenge->isClosed()) {
+            return redirect()->back()->with('error', __('This challenge is closed and no longer accepting ideas.'));
+        }
+
         // Ensure this is a community discussion challenge
         if ($challenge->challenge_type !== 'community_discussion') {
             return redirect()->back()->with('error', 'Ideas are not allowed on this challenge.');
@@ -283,5 +320,124 @@ class CommunityController extends Controller
         }
 
         return redirect()->back()->with('success', $message);
+    }
+
+    /**
+     * Mark an idea as the correct answer for a challenge.
+     */
+    public function markCorrectAnswer(Request $request, Challenge $challenge, Idea $idea)
+    {
+        // Ensure this is a community discussion challenge
+        if ($challenge->challenge_type !== 'community_discussion') {
+            return redirect()->back()
+                ->with('error', __('Only community discussion challenges can have correct answers.'));
+        }
+
+        // Verify the idea belongs to this challenge
+        if ($idea->challenge_id !== $challenge->id) {
+            return redirect()->back()
+                ->with('error', __('This idea does not belong to this challenge.'));
+        }
+
+        // Check authorization - only owner can mark correct answer
+        if (!$challenge->isOwnedBy(auth()->user())) {
+            return redirect()->back()
+                ->with('error', __('Only the challenge owner can mark the correct answer.'));
+        }
+
+        // Check if challenge is still active
+        if ($challenge->status !== 'active') {
+            return redirect()->back()
+                ->with('error', __('This challenge is no longer active.'));
+        }
+
+        // Check if already has a correct answer
+        if ($challenge->hasCorrectAnswer()) {
+            return redirect()->back()
+                ->with('error', __('This challenge already has a correct answer marked.'));
+        }
+
+        // Cannot mark own idea as correct (for volunteer-submitted challenges)
+        if ($challenge->isVolunteerSubmitted() &&
+            $idea->volunteer_id === $challenge->volunteer_id) {
+            return redirect()->back()
+                ->with('error', __('You cannot mark your own idea as the correct answer.'));
+        }
+
+        // Perform the marking operation
+        DB::transaction(function () use ($challenge, $idea) {
+            // Update the idea
+            $idea->update([
+                'is_correct_answer' => true,
+                'marked_correct_at' => now(),
+            ]);
+
+            // Update the challenge
+            $challenge->update([
+                'correct_idea_id' => $idea->id,
+                'status' => 'completed',
+                'closed_at' => now(),
+            ]);
+
+            // Award reputation points to the idea owner
+            $this->awardCorrectAnswerPoints($idea);
+        });
+
+        return redirect()->route('community.challenge', $challenge)
+            ->with('success', __('Correct answer marked successfully! The challenge is now completed.'));
+    }
+
+    /**
+     * Award reputation points for having an idea marked as correct.
+     */
+    protected function awardCorrectAnswerPoints(Idea $idea): void
+    {
+        $volunteer = $idea->volunteer;
+
+        if (!$volunteer) {
+            return;
+        }
+
+        // Get points from config (default 50)
+        $points = config('gamification.correct_answer_points', 50);
+
+        // Update volunteer's reputation score
+        $oldScore = $volunteer->reputation_score ?? 50;
+        $newScore = $oldScore + $points;
+
+        $volunteer->update(['reputation_score' => $newScore]);
+
+        // Record in reputation history
+        ReputationHistory::create([
+            'volunteer_id' => $volunteer->id,
+            'change_amount' => $points,
+            'new_total' => $newScore,
+            'reason' => __('Idea marked as correct answer'),
+            'related_type' => Idea::class,
+            'related_id' => $idea->id,
+            'created_at' => now(),
+        ]);
+
+        Log::info('Awarded correct answer points', [
+            'volunteer_id' => $volunteer->id,
+            'idea_id' => $idea->id,
+            'points' => $points,
+            'new_total' => $newScore,
+        ]);
+
+        // Send notification to the contributor
+        if ($volunteer->user) {
+            $notificationService = app(NotificationService::class);
+            $notificationService->send(
+                user: $volunteer->user,
+                type: 'idea_marked_correct',
+                title: __('Your Idea Was Marked as Correct!'),
+                message: __('Congratulations! Your idea for ":challenge" was marked as the correct answer. You earned :points reputation points!', [
+                    'challenge' => $idea->challenge->title,
+                    'points' => $points,
+                ]),
+                actionUrl: route('community.challenge', $idea->challenge_id)
+            );
+        }
     }
 }
