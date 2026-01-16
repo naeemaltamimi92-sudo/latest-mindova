@@ -59,11 +59,11 @@
 
     .step-circle.active {
         transform: scale(1.1);
-        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        box-shadow: 0 0 0 4px var(--shadow-color-success-light, rgba(16, 185, 129, 0.2));
     }
 
     .step-circle.completed {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        background: linear-gradient(135deg, var(--color-success, #10b981) 0%, var(--color-success-dark, #059669) 100%);
     }
 
     /* Form Field Enhancements */
@@ -81,7 +81,7 @@
     }
 
     .form-field-premium:focus-within label {
-        color: #10b981;
+        color: var(--color-success, #10b981);
     }
 
     .input-premium {
@@ -94,8 +94,8 @@
     }
 
     .input-premium:focus {
-        border-color: #10b981;
-        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        border-color: var(--color-success, #10b981);
+        box-shadow: 0 0 0 4px var(--shadow-color-success-light, rgba(16, 185, 129, 0.1));
         outline: none;
     }
 
@@ -108,15 +108,15 @@
 
     .cv-upload-zone:hover,
     .cv-upload-zone.dragover {
-        border-color: #10b981;
-        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        border-color: var(--color-success, #10b981);
+        background: linear-gradient(135deg, var(--color-success-50, #ecfdf5) 0%, var(--color-success-100, #d1fae5) 100%);
         transform: scale(1.02);
     }
 
     .cv-upload-zone.has-file {
-        border-color: #10b981;
+        border-color: var(--color-success, #10b981);
         border-style: solid;
-        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        background: linear-gradient(135deg, var(--color-success-50, #ecfdf5) 0%, var(--color-success-100, #d1fae5) 100%);
     }
 
     /* Premium Button */
@@ -143,7 +143,7 @@
 
     .btn-premium:hover {
         transform: translateY(-3px);
-        box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.4);
+        box-shadow: 0 20px 40px -10px var(--shadow-color-success, rgba(16, 185, 129, 0.4));
     }
 
     /* Avatar Preview */
@@ -157,7 +157,7 @@
         position: absolute;
         inset: -4px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6);
+        background: linear-gradient(135deg, var(--color-success, #10b981), var(--color-cyan, #06b6d4), var(--color-secondary, #8b5cf6));
         animation: spin 3s linear infinite;
     }
 
@@ -179,13 +179,13 @@
     }
 
     .field-card.selected {
-        border-color: #10b981;
-        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        border-color: var(--color-success, #10b981);
+        background: linear-gradient(135deg, var(--color-success-50, #ecfdf5) 0%, var(--color-success-100, #d1fae5) 100%);
         transform: scale(1.02);
     }
 
     .field-card.selected .field-icon {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        background: linear-gradient(135deg, var(--color-success, #10b981) 0%, var(--color-success-dark, #059669) 100%);
         color: white;
     }
 </style>

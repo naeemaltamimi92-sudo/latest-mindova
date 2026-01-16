@@ -55,7 +55,7 @@
 
     /* Hero Section */
     .community-hero {
-        background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 25%, #6366f1 50%, #3b82f6 75%, #06b6d4 100%);
+        background: var(--gradient-rainbow);
         background-size: 400% 400%;
         animation: gradient-shift 15s ease infinite;
         position: relative;
@@ -155,7 +155,7 @@
         left: 0;
         right: 0;
         height: 6px;
-        background: linear-gradient(90deg, #ec4899, #8b5cf6, #6366f1);
+        background: var(--gradient-hero);
         transform: scaleX(0);
         transform-origin: left;
         transition: transform 0.4s ease;
@@ -181,15 +181,15 @@
     }
 
     .score-badge.low {
-        background: linear-gradient(135deg, #fef3c7, #fde68a);
-        color: #92400e;
-        border: 2px solid #fbbf24;
+        background: var(--gradient-gold);
+        color: var(--color-warning-darker);
+        border: 2px solid var(--color-warning-light);
     }
 
     .score-badge.medium {
-        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-        color: #065f46;
-        border: 2px solid #10b981;
+        background: linear-gradient(135deg, var(--color-success-50), var(--color-success-200));
+        color: var(--color-success-800);
+        border: 2px solid var(--color-success);
     }
 
     /* Field Badge */
@@ -198,9 +198,9 @@
         align-items: center;
         gap: 0.375rem;
         padding: 0.5rem 1rem;
-        background: linear-gradient(135deg, #ede9fe, #ddd6fe);
-        color: #5b21b6;
-        border: 2px solid #a78bfa;
+        background: linear-gradient(135deg, var(--color-secondary-100), var(--color-secondary-200));
+        color: var(--color-secondary-800);
+        border: 2px solid var(--color-secondary-400);
         border-radius: 12px;
         font-weight: 700;
         font-size: 0.875rem;
@@ -225,13 +225,13 @@
     }
 
     .comment-stat.quality {
-        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-        color: #065f46;
+        background: linear-gradient(135deg, var(--color-success-50), var(--color-success-200));
+        color: var(--color-success-800);
     }
 
     /* Action Button */
     .btn-join {
-        background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+        background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-pink) 100%);
         color: white;
         font-weight: 700;
         padding: 1rem 2rem;
@@ -255,7 +255,7 @@
 
     .btn-join:hover {
         transform: translateY(-3px);
-        box-shadow: 0 15px 35px -5px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 15px 35px -5px var(--shadow-color-secondary);
     }
 
     .btn-join:hover::before {
@@ -263,7 +263,7 @@
     }
 
     .btn-submit {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%);
         color: white;
         font-weight: 700;
         padding: 1rem 2rem;
@@ -276,13 +276,13 @@
 
     .btn-submit:hover {
         transform: translateY(-3px);
-        box-shadow: 0 15px 35px -5px rgba(16, 185, 129, 0.4);
+        box-shadow: 0 15px 35px -5px var(--shadow-color-success);
     }
 
     /* Info Card */
     .info-card {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        border: 2px solid #e2e8f0;
+        background: linear-gradient(135deg, var(--color-slate-50) 0%, var(--color-slate-100) 100%);
+        border: 2px solid var(--color-border);
         border-radius: 24px;
         padding: 2rem;
         position: relative;
@@ -296,7 +296,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #8b5cf6, #ec4899);
+        background: var(--gradient-in-progress);
     }
 
     /* How It Works */
@@ -312,7 +312,7 @@
         top: 0;
         width: 48px;
         height: 48px;
-        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        background: linear-gradient(135deg, var(--color-secondary), var(--color-pink));
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -320,12 +320,12 @@
         font-weight: 900;
         font-size: 1.25rem;
         color: white;
-        box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 10px 25px -5px var(--shadow-color-secondary);
     }
 
     /* Empty State */
     .empty-state {
-        background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 50%, #f5d0fe 100%);
+        background: linear-gradient(135deg, var(--color-secondary-50) 0%, var(--color-secondary-100) 50%, var(--color-secondary-200) 100%);
         border-radius: 32px;
         padding: 5rem 2rem;
         text-align: center;
@@ -344,19 +344,19 @@
         width: 120px;
         height: 120px;
         margin: 0 auto 2rem;
-        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        background: linear-gradient(135deg, var(--color-secondary), var(--color-pink));
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         animation: float 4s ease-in-out infinite;
-        box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 25px 50px -12px var(--shadow-color-secondary);
     }
 
     /* Filter Card */
     .filter-card {
-        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-        border: 2px solid #93c5fd;
+        background: linear-gradient(135deg, var(--color-info-50) 0%, var(--color-info-100) 100%);
+        border: 2px solid var(--color-info-300);
         border-radius: 20px;
         padding: 1.5rem;
     }
@@ -377,9 +377,9 @@
         align-items: center;
         gap: 0.25rem;
         padding: 0.25rem 0.75rem;
-        background: linear-gradient(135deg, #fae8ff, #f5d0fe);
-        color: #86198f;
-        border: 1px solid #e879f9;
+        background: linear-gradient(135deg, var(--color-secondary-100), var(--color-secondary-200));
+        color: var(--color-secondary-900);
+        border: 1px solid var(--color-pink-light);
         border-radius: 9999px;
         font-size: 0.75rem;
         font-weight: 700;

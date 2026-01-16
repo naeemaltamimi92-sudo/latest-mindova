@@ -389,7 +389,7 @@
                     <div>
                         <button type="submit"
                                 class="btn-glow-reg-2027 group w-full text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all transform hover:scale-[1.02] shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 animate-gradient-flow-2027"
-                                style="background: linear-gradient(135deg, #0ea5e9, #3b82f6, #6366f1, #0ea5e9); background-size: 200% 200%;">
+                                style="background: linear-gradient(135deg, var(--color-info, #0ea5e9), var(--color-blue, #3b82f6), var(--color-primary, #6366f1), var(--color-info, #0ea5e9)); background-size: 200% 200%;">
                             <span class="relative z-10">{{ __('Create Account') }}</span>
                             <svg class="relative z-10 w-4 h-4 sm:w-5 sm:h-5 {{ $isRTL ? 'rotate-180' : '' }} group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -411,7 +411,7 @@
                     <div>
                         <a href="{{ route('auth.linkedin.redirect') }}"
                            class="w-full flex justify-center items-center px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-200 rounded-xl shadow-md text-xs sm:text-sm font-bold text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 hover:shadow-lg transition-all">
-                            <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3" viewBox="0 0 24 24" fill="#0077B5">
+                            <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3" viewBox="0 0 24 24" style="fill: var(--color-linkedin, #0077B5);">
                                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                             </svg>
                             {{ __('Continue with LinkedIn') }}

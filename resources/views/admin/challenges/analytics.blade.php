@@ -10,8 +10,8 @@
         50% { transform: translateY(-20px) rotate(5deg); }
     }
     @keyframes pulse-glow {
-        0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
-        50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.8); }
+        0%, 100% { box-shadow: 0 0 20px var(--shadow-color-primary); }
+        50% { box-shadow: 0 0 40px var(--shadow-color-primary-strong); }
     }
     @keyframes shimmer {
         0% { background-position: -200% 0; }
@@ -73,7 +73,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+        background: var(--gradient-vibrant);
     }
 
     /* Metric Card Hover */
@@ -507,11 +507,25 @@ document.addEventListener('DOMContentLoaded', function() {
     Chart.defaults.font.family = "'Inter', sans-serif";
     Chart.defaults.color = '#64748b';
 
+    // Get CSS custom property values for charts
+    const rootStyles = getComputedStyle(document.documentElement);
+    const chartPrimary = rootStyles.getPropertyValue('--chart-primary').trim() || 'rgb(99, 102, 241)';
+    const chartSecondary = rootStyles.getPropertyValue('--chart-secondary').trim() || 'rgb(139, 92, 246)';
+    const chartSuccess = rootStyles.getPropertyValue('--chart-success').trim() || 'rgb(16, 185, 129)';
+    const chartWarning = rootStyles.getPropertyValue('--chart-warning').trim() || 'rgb(245, 158, 11)';
+    const chartDanger = rootStyles.getPropertyValue('--chart-danger').trim() || 'rgb(239, 68, 68)';
+    const chartInfo = rootStyles.getPropertyValue('--chart-info').trim() || 'rgb(14, 165, 233)';
+    const chartTeal = rootStyles.getPropertyValue('--chart-teal').trim() || 'rgb(20, 184, 166)';
+    const chartGray = rootStyles.getPropertyValue('--chart-gray').trim() || 'rgb(107, 114, 128)';
+    const chartBlue = rootStyles.getPropertyValue('--chart-blue').trim() || 'rgb(59, 130, 246)';
+    const chartAmber = rootStyles.getPropertyValue('--chart-amber').trim() || 'rgb(234, 179, 8)';
+    const chartGreen = rootStyles.getPropertyValue('--chart-green').trim() || 'rgb(34, 197, 94)';
+
     // Challenges Over Time - Area Chart
     const ctx1 = document.getElementById('challengesOverTimeChart').getContext('2d');
     const gradient1 = ctx1.createLinearGradient(0, 0, 0, 300);
-    gradient1.addColorStop(0, 'rgba(99, 102, 241, 0.3)');
-    gradient1.addColorStop(1, 'rgba(99, 102, 241, 0.01)');
+    gradient1.addColorStop(0, chartPrimary.replace('rgb', 'rgba').replace(')', ', 0.3)'));
+    gradient1.addColorStop(1, chartPrimary.replace('rgb', 'rgba').replace(')', ', 0.01)'));
 
     new Chart(ctx1, {
         type: 'line',
@@ -520,12 +534,12 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: '{{ __("Challenges") }}',
                 data: {!! json_encode($challengesOverTime->pluck('count')) !!},
-                borderColor: 'rgb(99, 102, 241)',
+                borderColor: chartPrimary,
                 backgroundColor: gradient1,
                 borderWidth: 3,
                 fill: true,
                 tension: 0.4,
-                pointBackgroundColor: 'rgb(99, 102, 241)',
+                pointBackgroundColor: chartPrimary,
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 pointRadius: 4,
@@ -568,14 +582,14 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 data: {!! json_encode($statusDistribution->pluck('count')) !!},
                 backgroundColor: [
-                    'rgb(234, 179, 8)',
-                    'rgb(59, 130, 246)',
-                    'rgb(34, 197, 94)',
-                    'rgb(99, 102, 241)',
-                    'rgb(16, 185, 129)',
-                    'rgb(20, 184, 166)',
-                    'rgb(107, 114, 128)',
-                    'rgb(239, 68, 68)'
+                    chartAmber,
+                    chartBlue,
+                    chartGreen,
+                    chartPrimary,
+                    chartSuccess,
+                    chartTeal,
+                    chartGray,
+                    chartDanger
                 ],
                 borderWidth: 0,
                 hoverOffset: 10
@@ -613,16 +627,16 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: '{{ __("Total") }}',
                 data: {!! json_encode($completionStats->pluck('total')) !!},
-                backgroundColor: 'rgba(99, 102, 241, 0.8)',
-                borderColor: 'rgb(99, 102, 241)',
+                backgroundColor: chartPrimary.replace('rgb', 'rgba').replace(')', ', 0.8)'),
+                borderColor: chartPrimary,
                 borderWidth: 0,
                 borderRadius: 8,
                 barThickness: 20
             }, {
                 label: '{{ __("Completed") }}',
                 data: {!! json_encode($completionStats->pluck('completed')) !!},
-                backgroundColor: 'rgba(16, 185, 129, 0.8)',
-                borderColor: 'rgb(16, 185, 129)',
+                backgroundColor: chartSuccess.replace('rgb', 'rgba').replace(')', ', 0.8)'),
+                borderColor: chartSuccess,
                 borderWidth: 0,
                 borderRadius: 8,
                 barThickness: 20

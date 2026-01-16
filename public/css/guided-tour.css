@@ -50,14 +50,14 @@
 .guided-tour-icon {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    background: linear-gradient(135deg, var(--color-primary, #3E3B92) 0%, var(--color-secondary, #00D2FF) 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px var(--shadow-color-primary, rgba(62, 59, 146, 0.3));
 }
 
 /* Close Button */
@@ -66,7 +66,7 @@
     height: 28px;
     background: transparent;
     border: none;
-    color: #9CA3AF;
+    color: var(--color-gray-400, #9CA3AF);
     border-radius: 6px;
     cursor: pointer;
     display: flex;
@@ -78,8 +78,8 @@
 }
 
 .guided-tour-close:hover {
-    background: #F3F4F6;
-    color: #374151;
+    background: var(--color-gray-100, #F3F4F6);
+    color: var(--color-gray-700, #374151);
 }
 
 .guided-tour-close:active {
@@ -90,7 +90,7 @@
 .guided-tour-text {
     font-size: 15px;
     line-height: 1.6;
-    color: #374151;
+    color: var(--color-gray-700, #374151);
     margin-bottom: 16px;
 }
 
@@ -104,7 +104,7 @@
 /* Dismiss Button */
 .guided-tour-dismiss {
     padding: 10px 20px;
-    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    background: linear-gradient(135deg, var(--color-primary, #3E3B92) 0%, var(--color-secondary, #00D2FF) 100%);
     color: white;
     border: none;
     border-radius: 8px;
@@ -112,12 +112,12 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 2px 8px var(--shadow-color-primary, rgba(62, 59, 146, 0.3));
 }
 
 .guided-tour-dismiss:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 4px 14px var(--shadow-color-primary, rgba(62, 59, 146, 0.4));
 }
 
 .guided-tour-dismiss:active {
@@ -176,12 +176,12 @@
 /* Pulse Animation */
 @keyframes guided-tour-pulse {
     0%, 100% {
-        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5),
-                    0 0 0 0 rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 0 0 var(--shadow-color-secondary, rgba(0, 210, 255, 0.5)),
+                    0 0 0 0 var(--shadow-color-secondary, rgba(0, 210, 255, 0.3));
     }
     50% {
-        box-shadow: 0 0 0 6px rgba(59, 130, 246, 0),
-                    0 0 0 12px rgba(59, 130, 246, 0);
+        box-shadow: 0 0 0 6px transparent,
+                    0 0 0 12px transparent;
     }
 }
 
@@ -268,7 +268,7 @@
 /* Focus Styles */
 .guided-tour-dismiss:focus-visible,
 .guided-tour-close:focus-visible {
-    outline: 3px solid #3B82F6;
+    outline: 3px solid var(--color-secondary, #00D2FF);
     outline-offset: 2px;
 }
 
@@ -278,27 +278,27 @@
 
 @media (prefers-color-scheme: dark) {
     .guided-tour-tooltip {
-        background: #1F2937;
+        background: var(--color-gray-800, #1F2937);
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
                     0 2px 8px rgba(0, 0, 0, 0.3),
-                    0 0 0 1px rgba(255, 255, 255, 0.1);
+                    0 0 0 1px var(--glass-border-light, rgba(255, 255, 255, 0.1));
     }
 
     .guided-tour-text {
-        color: #E5E7EB;
+        color: var(--color-gray-200, #E5E7EB);
     }
 
     .guided-tour-close {
-        color: #9CA3AF;
+        color: var(--color-gray-400, #9CA3AF);
     }
 
     .guided-tour-close:hover {
-        background: #374151;
-        color: #F3F4F6;
+        background: var(--color-gray-700, #374151);
+        color: var(--color-gray-100, #F3F4F6);
     }
 
     .guided-tour-arrow {
-        background: #1F2937;
+        background: var(--color-gray-800, #1F2937);
     }
 }
 

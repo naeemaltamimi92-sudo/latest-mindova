@@ -250,9 +250,9 @@
                         <svg class="w-full h-full" viewBox="0 0 200 200">
                             <defs>
                                 <linearGradient id="avatarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#10b981"/>
-                                    <stop offset="50%" style="stop-color:#06b6d4"/>
-                                    <stop offset="100%" style="stop-color:#8b5cf6"/>
+                                    <stop offset="0%" style="stop-color:var(--color-success)"/>
+                                    <stop offset="50%" style="stop-color:var(--color-cyan)"/>
+                                    <stop offset="100%" style="stop-color:var(--color-secondary)"/>
                                 </linearGradient>
                             </defs>
                             <circle cx="100" cy="100" r="95" fill="none" stroke="url(#avatarGradient)" stroke-width="2" stroke-dasharray="10 5" opacity="0.5"/>
@@ -389,8 +389,8 @@
                                             stroke-dashoffset="{{ 251.2 - (251.2 * $completionPercentage / 100) }}"/>
                                     <defs>
                                         <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" style="stop-color:#10b981"/>
-                                            <stop offset="100%" style="stop-color:#06b6d4"/>
+                                            <stop offset="0%" style="stop-color:var(--color-success)"/>
+                                            <stop offset="100%" style="stop-color:var(--color-cyan)"/>
                                         </linearGradient>
                                     </defs>
                                 </svg>

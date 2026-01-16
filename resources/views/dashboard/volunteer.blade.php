@@ -68,7 +68,7 @@
 
     /* Hero Section */
     .dashboard-hero {
-        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 30%, #a855f7 60%, #ec4899 100%);
+        background: var(--gradient-hero, linear-gradient(135deg, #4f46e5 0%, #7c3aed 30%, #a855f7 60%, #ec4899 100%));
         background-size: 400% 400%;
         animation: gradient-shift 12s ease infinite;
         position: relative;
@@ -195,8 +195,8 @@
 
     /* Invitation Cards */
     .invitation-card {
-        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fcd34d 100%);
-        border: 2px solid #fbbf24;
+        background: var(--gradient-gold, linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fcd34d 100%));
+        border: 2px solid var(--gradient-gold-border, #fbbf24);
         border-radius: 20px;
         padding: 1.5rem;
         position: relative;
@@ -223,22 +223,22 @@
     /* Task Cards */
     .task-card {
         background: white;
-        border: 2px solid #e2e8f0;
+        border: 2px solid var(--color-border, #e2e8f0);
         border-radius: 20px;
         padding: 1.5rem;
         transition: all 0.3s ease;
     }
 
     .task-card:hover {
-        border-color: #6366f1;
-        box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.2);
+        border-color: var(--color-primary, #6366f1);
+        box-shadow: 0 15px 30px -10px var(--shadow-color-primary-light, rgba(99, 102, 241, 0.2));
         transform: translateY(-4px);
     }
 
     /* Team Cards */
     .team-card {
-        background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
-        border: 2px solid #a78bfa;
+        background: linear-gradient(135deg, var(--color-secondary-100, #ede9fe) 0%, var(--color-secondary-200, #ddd6fe) 100%);
+        border: 2px solid var(--color-secondary-400, #a78bfa);
         border-radius: 20px;
         padding: 1.5rem;
         transition: all 0.3s ease;
@@ -246,7 +246,7 @@
 
     .team-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 20px 40px -12px rgba(139, 92, 246, 0.3);
+        box-shadow: 0 20px 40px -12px var(--shadow-color-secondary-light, rgba(139, 92, 246, 0.3));
     }
 
     /* Skill Badges */
@@ -266,32 +266,32 @@
     }
 
     .skill-badge.expert {
-        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        background: var(--gradient-card-purple, linear-gradient(135deg, #4f46e5, #7c3aed));
         color: white;
-        box-shadow: 0 4px 15px -3px rgba(79, 70, 229, 0.4);
+        box-shadow: 0 4px 15px -3px var(--shadow-color-primary, rgba(79, 70, 229, 0.4));
     }
 
     .skill-badge.advanced {
-        background: linear-gradient(135deg, #7c3aed, #a855f7);
+        background: var(--gradient-card-violet, linear-gradient(135deg, #7c3aed, #a855f7));
         color: white;
-        box-shadow: 0 4px 15px -3px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 4px 15px -3px var(--shadow-color-secondary, rgba(139, 92, 246, 0.4));
     }
 
     .skill-badge.intermediate {
-        background: linear-gradient(135deg, #10b981, #14b8a6);
+        background: var(--gradient-card-green, linear-gradient(135deg, #10b981, #14b8a6));
         color: white;
-        box-shadow: 0 4px 15px -3px rgba(16, 185, 129, 0.4);
+        box-shadow: 0 4px 15px -3px var(--shadow-color-success, rgba(16, 185, 129, 0.4));
     }
 
     .skill-badge.beginner {
-        background: #f1f5f9;
-        color: #475569;
-        border: 1px solid #e2e8f0;
+        background: var(--color-slate-100, #f1f5f9);
+        color: var(--color-slate-600, #475569);
+        border: 1px solid var(--color-border, #e2e8f0);
     }
 
     /* Action Buttons */
     .btn-primary {
-        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        background: var(--gradient-card-purple, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%));
         color: white;
         font-weight: 700;
         padding: 0.875rem 1.75rem;
@@ -312,7 +312,7 @@
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.4);
+        box-shadow: 0 15px 30px -5px var(--shadow-color-primary, rgba(79, 70, 229, 0.4));
     }
 
     .btn-primary:hover::before {
@@ -320,7 +320,7 @@
     }
 
     .btn-accept {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        background: linear-gradient(135deg, var(--color-success, #10b981) 0%, var(--color-success-dark, #059669) 100%);
         color: white;
         font-weight: 700;
         padding: 0.75rem 1.5rem;
@@ -330,7 +330,7 @@
 
     .btn-accept:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+        box-shadow: 0 10px 25px -5px var(--shadow-color-success, rgba(16, 185, 129, 0.4));
     }
 
     .btn-decline {
@@ -412,19 +412,19 @@
         width: 100px;
         height: 100px;
         margin: 0 auto 1.5rem;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        background: var(--gradient-primary, linear-gradient(135deg, #6366f1, #8b5cf6));
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         animation: float 4s ease-in-out infinite;
-        box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.3);
+        box-shadow: 0 20px 40px -10px var(--shadow-color-primary-light, rgba(99, 102, 241, 0.3));
     }
 
     /* Quick Actions Grid */
     .quick-action {
         background: white;
-        border: 2px solid #e2e8f0;
+        border: 2px solid var(--color-border, #e2e8f0);
         border-radius: 16px;
         padding: 1.25rem;
         text-align: center;
@@ -433,9 +433,9 @@
     }
 
     .quick-action:hover {
-        border-color: #6366f1;
+        border-color: var(--color-primary, #6366f1);
         transform: translateY(-4px);
-        box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2);
+        box-shadow: 0 10px 25px -5px var(--shadow-color-primary-light, rgba(99, 102, 241, 0.2));
     }
 
     .quick-action-icon {

@@ -1,4 +1,4 @@
-@props(['percentage' => 0, 'size' => 120, 'label' => '', 'color' => '#0284c7', 'showPercentage' => true])
+@props(['percentage' => 0, 'size' => 120, 'label' => '', 'color' => 'var(--progress-default)', 'showPercentage' => true])
 
 <div class="progress-circle-container" style="width: {{ $size }}px; height: {{ $size }}px;">
     <div x-data="progressChart({{ $percentage }}, '{{ $label }}', '{{ $color }}')" class="relative">

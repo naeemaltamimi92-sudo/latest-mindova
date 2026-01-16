@@ -29,8 +29,8 @@
 
     .pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
     @keyframes pulseGlow {
-        0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
-        50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6), 0 0 60px rgba(139, 92, 246, 0.3); }
+        0%, 100% { box-shadow: 0 0 20px var(--shadow-color-primary-light); }
+        50% { box-shadow: 0 0 40px var(--shadow-color-primary), 0 0 60px var(--shadow-color-secondary-light); }
     }
 
     .shine-effect {
@@ -75,7 +75,7 @@
         content: '';
         position: absolute;
         inset: -2px;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7, #6366f1);
+        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-secondary-400), var(--color-primary));
         border-radius: calc(1.5rem + 2px);
         z-index: -1;
         background-size: 200% 200%;
@@ -90,8 +90,8 @@
         animation: badgeGlow 2s ease-in-out infinite alternate;
     }
     @keyframes badgeGlow {
-        from { filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5)); }
-        to { filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.8)); }
+        from { filter: drop-shadow(0 0 8px var(--shadow-color-warning-light)); }
+        to { filter: drop-shadow(0 0 16px var(--shadow-color-warning)); }
     }
 
     .ripple-effect {
@@ -126,7 +126,7 @@
     .skill-bar {
         height: 8px;
         border-radius: 4px;
-        background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+        background: var(--gradient-vibrant);
         position: relative;
         overflow: hidden;
     }
@@ -146,11 +146,11 @@
     }
 
     .timeline-connector {
-        background: linear-gradient(180deg, #6366f1, #8b5cf6);
+        background: var(--gradient-primary-vertical);
     }
 
     .certificate-card {
-        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+        background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-warning) 50%, var(--color-warning-dark) 100%);
         position: relative;
         overflow: hidden;
     }
@@ -179,8 +179,8 @@
         animation: avatarPulse 3s ease-in-out infinite;
     }
     @keyframes avatarPulse {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4), 0 0 0 0 rgba(139, 92, 246, 0.2); }
-        50% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0), 0 0 0 30px rgba(139, 92, 246, 0); }
+        0%, 100% { box-shadow: 0 0 0 0 var(--shadow-color-primary), 0 0 0 0 var(--shadow-color-secondary-light); }
+        50% { box-shadow: 0 0 0 15px transparent, 0 0 0 30px transparent; }
     }
 
     .hover-lift {
@@ -192,7 +192,7 @@
     }
 
     .text-gradient {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+        background: var(--gradient-vibrant);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;

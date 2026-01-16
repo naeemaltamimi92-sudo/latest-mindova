@@ -22,9 +22,9 @@
     .char-counter {
         transition: all 0.3s ease;
     }
-    .char-counter.warning { color: #f59e0b; }
-    .char-counter.valid { color: #10b981; }
-    .char-counter.error { color: #ef4444; }
+    .char-counter.warning { color: var(--color-warning); }
+    .char-counter.valid { color: var(--color-success); }
+    .char-counter.error { color: var(--color-danger); }
     .textarea-glow:focus {
         box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
     }

@@ -14,8 +14,8 @@
         50% { transform: translateY(-20px) rotate(5deg); }
     }
     @keyframes pulse-glow {
-        0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
-        50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); }
+        0%, 100% { box-shadow: 0 0 20px var(--shadow-color-secondary-light); }
+        50% { box-shadow: 0 0 40px var(--shadow-color-secondary); }
     }
     @keyframes shimmer {
         0% { background-position: -200% 0; }
@@ -55,7 +55,7 @@
 
     /* Gradient Text */
     .gradient-text {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+        background: var(--gradient-vibrant);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -69,12 +69,12 @@
         transform: scale(1.1);
     }
     .vote-btn.active-up {
-        background: linear-gradient(135deg, #10b981, #059669);
+        background: linear-gradient(135deg, var(--color-success), var(--color-success-dark));
         color: white;
         border-color: transparent;
     }
     .vote-btn.active-down {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
+        background: linear-gradient(135deg, var(--color-danger), var(--color-danger-dark));
         color: white;
         border-color: transparent;
     }
@@ -94,9 +94,9 @@
         transition: all 0.3s ease;
     }
     .tab-btn.active {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        background: var(--gradient-primary);
         color: white;
-        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        box-shadow: 0 4px 15px var(--shadow-color-primary);
     }
 
     /* Sticky Sidebar */

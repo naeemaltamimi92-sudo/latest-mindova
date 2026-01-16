@@ -173,7 +173,7 @@
         border-radius: 50%;
         border: 3px solid white;
         margin-left: -12px;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        background: var(--gradient-primary);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -195,12 +195,12 @@
     }
 
     .member-avatar.leader {
-        background: linear-gradient(135deg, #f59e0b, #ef4444);
-        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+        background: var(--gradient-warning);
+        box-shadow: 0 0 0 3px var(--shadow-color-warning-light);
     }
 
     .member-avatar.pending {
-        background: linear-gradient(135deg, #9ca3af, #6b7280);
+        background: var(--gradient-slate);
         opacity: 0.7;
     }
 
@@ -244,14 +244,14 @@
     .skills-coverage-fill {
         height: 100%;
         border-radius: 4px;
-        background: linear-gradient(90deg, #10b981, #34d399);
+        background: var(--gradient-success-horizontal);
         transition: width 1s ease;
     }
 
     /* Invitation Card */
     .invitation-card {
-        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-        border: 2px solid #fbbf24;
+        background: var(--gradient-gold);
+        border: 2px solid var(--gradient-gold-border);
         border-radius: 24px;
         overflow: hidden;
         position: relative;
@@ -295,7 +295,7 @@
 
     /* Action Buttons */
     .btn-accept {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        background: var(--gradient-success);
         color: white;
         font-weight: 700;
         padding: 0.75rem 1.5rem;
@@ -340,7 +340,7 @@
     }
 
     .btn-view {
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        background: var(--gradient-primary);
         color: white;
         font-weight: 700;
         padding: 0.75rem 1.5rem;
@@ -365,21 +365,21 @@
     }
 
     .role-badge.leader {
-        background: linear-gradient(135deg, #fef3c7, #fde68a);
-        color: #92400e;
-        border: 1px solid #fbbf24;
+        background: var(--gradient-gold);
+        color: var(--color-warning-800);
+        border: 1px solid var(--color-warning-400);
     }
 
     .role-badge.specialist {
-        background: linear-gradient(135deg, #ede9fe, #ddd6fe);
-        color: #5b21b6;
-        border: 1px solid #a78bfa;
+        background: linear-gradient(135deg, var(--color-secondary-100), var(--color-secondary-200));
+        color: var(--color-secondary-800);
+        border: 1px solid var(--color-secondary-400);
     }
 
     .role-badge.member {
-        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-        color: #1e40af;
-        border: 1px solid #60a5fa;
+        background: linear-gradient(135deg, var(--color-info-100), var(--color-info-200));
+        color: var(--color-blue-dark);
+        border: 1px solid var(--color-info-400);
     }
 
     /* Status Badge */
@@ -394,18 +394,18 @@
     }
 
     .status-badge.forming {
-        background: linear-gradient(135deg, #fef3c7, #fde68a);
-        color: #92400e;
+        background: var(--gradient-gold);
+        color: var(--color-warning-800);
     }
 
     .status-badge.active {
-        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-        color: #065f46;
+        background: linear-gradient(135deg, var(--color-success-100), var(--color-success-200));
+        color: var(--color-success-800);
     }
 
     .status-badge.completed {
-        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-        color: #1e40af;
+        background: linear-gradient(135deg, var(--color-info-100), var(--color-info-200));
+        color: var(--color-blue-dark);
     }
 
     /* Empty State */
@@ -429,13 +429,13 @@
         width: 120px;
         height: 120px;
         margin: 0 auto 2rem;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        background: var(--gradient-primary);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         animation: float 4s ease-in-out infinite;
-        box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.3);
+        box-shadow: 0 20px 40px -10px var(--shadow-color-primary);
     }
 
     /* Declined Section */
@@ -479,9 +479,9 @@
     }
 
     .tab-btn.active {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        background: var(--gradient-primary);
         color: white;
-        box-shadow: 0 4px 15px -3px rgba(99, 102, 241, 0.4);
+        box-shadow: 0 4px 15px -3px var(--shadow-color-primary);
     }
 
     .tab-count {

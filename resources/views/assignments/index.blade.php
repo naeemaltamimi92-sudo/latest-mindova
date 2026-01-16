@@ -93,11 +93,11 @@
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     }
 
-    .task-card-premium.invited { --card-gradient: linear-gradient(90deg, #f59e0b, #f97316); }
-    .task-card-premium.accepted { --card-gradient: linear-gradient(90deg, #3b82f6, #6366f1); }
-    .task-card-premium.in_progress { --card-gradient: linear-gradient(90deg, #8b5cf6, #ec4899); }
-    .task-card-premium.completed { --card-gradient: linear-gradient(90deg, #10b981, #14b8a6); }
-    .task-card-premium.declined { --card-gradient: linear-gradient(90deg, #ef4444, #f43f5e); }
+    .task-card-premium.invited { --card-gradient: var(--gradient-invited); }
+    .task-card-premium.accepted { --card-gradient: var(--gradient-accepted); }
+    .task-card-premium.in_progress { --card-gradient: var(--gradient-in-progress); }
+    .task-card-premium.completed { --card-gradient: var(--gradient-completed); }
+    .task-card-premium.declined { --card-gradient: var(--gradient-declined); }
 
     /* Stats Card Hover */
     .stat-card {
@@ -471,7 +471,7 @@
             <!-- INVITED TAB -->
             <div x-show="activeTab === 'invited'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
                 @forelse($assignments->get('invited', collect()) as $index => $assignment)
-                <div class="task-card-premium invited bg-white rounded-[1.5rem] shadow-xl border-2 border-amber-100 animate-slide-up" style="animation-delay: {{ 0.1 * $index }}s; --card-gradient: linear-gradient(90deg, #f59e0b, #f97316);">
+                <div class="task-card-premium invited bg-white rounded-[1.5rem] shadow-xl border-2 border-amber-100 animate-slide-up" style="animation-delay: {{ 0.1 * $index }}s; --card-gradient: var(--gradient-invited);">
                     <!-- Top Accent Bar -->
                     <div class="h-1.5 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400"></div>
 
@@ -681,7 +681,7 @@
             <!-- ACCEPTED TAB -->
             <div x-show="activeTab === 'accepted'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
                 @forelse($assignments->get('accepted', collect()) as $assignment)
-                <div class="task-card-premium accepted bg-white rounded-[1.5rem] shadow-xl border-2 border-blue-100" style="--card-gradient: linear-gradient(90deg, #3b82f6, #6366f1);">
+                <div class="task-card-premium accepted bg-white rounded-[1.5rem] shadow-xl border-2 border-blue-100" style="--card-gradient: var(--gradient-accepted);">
                     <div class="h-1.5 bg-gradient-to-r from-blue-400 via-indigo-500 to-blue-400"></div>
                     <div class="p-8">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -730,7 +730,7 @@
             <!-- IN PROGRESS TAB -->
             <div x-show="activeTab === 'in_progress'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
                 @forelse($assignments->get('in_progress', collect()) as $assignment)
-                <div class="task-card-premium in_progress bg-white rounded-[1.5rem] shadow-xl border-2 border-purple-100" style="--card-gradient: linear-gradient(90deg, #8b5cf6, #ec4899);">
+                <div class="task-card-premium in_progress bg-white rounded-[1.5rem] shadow-xl border-2 border-purple-100" style="--card-gradient: var(--gradient-in-progress);">
                     <div class="h-1.5 bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400"></div>
                     <div class="p-8">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -797,7 +797,7 @@
             <!-- COMPLETED TAB -->
             <div x-show="activeTab === 'completed'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
                 @forelse($assignments->get('completed', collect()) as $assignment)
-                <div class="task-card-premium completed bg-white rounded-[1.5rem] shadow-xl border-2 border-emerald-100" style="--card-gradient: linear-gradient(90deg, #10b981, #14b8a6);">
+                <div class="task-card-premium completed bg-white rounded-[1.5rem] shadow-xl border-2 border-emerald-100" style="--card-gradient: var(--gradient-completed);">
                     <div class="h-1.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-400"></div>
                     <div class="p-8">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -848,7 +848,7 @@
             <!-- DECLINED TAB -->
             <div x-show="activeTab === 'declined'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
                 @forelse($assignments->get('declined', collect()) as $assignment)
-                <div class="task-card-premium declined bg-white rounded-[1.5rem] shadow-sm border border-red-100 opacity-75" style="--card-gradient: linear-gradient(90deg, #ef4444, #f43f5e);">
+                <div class="task-card-premium declined bg-white rounded-[1.5rem] shadow-sm border border-red-100 opacity-75" style="--card-gradient: var(--gradient-declined);">
                     <div class="h-1 bg-gradient-to-r from-red-300 via-rose-400 to-red-300"></div>
                     <div class="p-6">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">

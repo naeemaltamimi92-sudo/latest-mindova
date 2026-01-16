@@ -17,7 +17,7 @@
     .notification-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .notification-card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1); }
     .toggle-switch { transition: all 0.3s ease; }
-    .toggle-switch:checked { background-color: #4f46e5; }
+    .toggle-switch:checked { background-color: var(--color-primary-600); }
 </style>
 @endpush
 

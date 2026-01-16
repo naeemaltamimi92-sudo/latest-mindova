@@ -79,7 +79,7 @@
         outline: none;
         border-color: transparent;
         background: linear-gradient(white, white) padding-box,
-                    linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7) border-box;
+                    var(--gradient-vibrant, linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)) border-box;
     }
 
     /* Button Shimmer Effect */
@@ -128,7 +128,7 @@
 
     .social-btn-2027:hover {
         background: linear-gradient(white, white) padding-box,
-                    linear-gradient(135deg, #0077B5, #00a0dc) border-box;
+                    var(--gradient-linkedin, linear-gradient(135deg, #0077B5, #00a0dc)) border-box;
     }
 
     /* Language-aware Stagger Delays */
@@ -144,7 +144,7 @@
 @section('content')
 <div class="min-h-[calc(100vh-5rem)] flex" data-auth-page="true" style="flex-direction: row !important;">
     <!-- Left Side - Premium Visual Section (Hidden on mobile) -->
-    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-indigo-500 via-violet-500 to-purple-500">
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden" style="background: var(--gradient-vibrant, linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7));">
         <!-- Advanced Mesh Gradient Background - 2027 Enhanced -->
         <div class="absolute inset-0 opacity-25">
             <div class="floating-element absolute top-10 {{ $isRTL ? '-right-20' : '-left-20' }} w-96 h-96 bg-gradient-to-br from-sky-300 to-blue-400 rounded-full blur-3xl animate-float-2027"></div>
@@ -313,7 +313,7 @@
                         <div>
                             <button type="submit"
                                     class="btn-shimmer-2027 group relative w-full overflow-hidden text-white font-bold text-lg px-8 py-4 rounded-2xl transition-all transform hover:scale-[1.02] shadow-lg hover:shadow-xl flex items-center justify-center gap-3 animate-glow-pulse-2027"
-                                    style="background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);">
+                                    style="background: var(--gradient-vibrant, linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7));">
                                 <span class="relative z-10">{{ __('Sign In') }}</span>
                                 <svg class="relative z-10 w-5 h-5 {{ $isRTL ? 'rotate-180' : '' }} group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -335,8 +335,8 @@
                         <div>
                             <a href="{{ route('auth.linkedin.redirect') }}"
                                class="social-btn-2027 group relative w-full flex justify-center items-center gap-3 px-6 py-4 rounded-2xl shadow-md text-base font-bold text-gray-700 hover:shadow-lg transition-all hover:scale-[1.02]">
-                                <div class="absolute inset-0 bg-gradient-to-r from-[#0077B5]/5 to-[#0077B5]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                <svg class="relative h-5 w-5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="#0077B5">
+                                <div class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(to right, rgba(0, 119, 181, 0.05), rgba(0, 119, 181, 0.1)); background: linear-gradient(to right, color-mix(in srgb, var(--color-linkedin, #0077B5) 5%, transparent), color-mix(in srgb, var(--color-linkedin, #0077B5) 10%, transparent));"></div>
+                                <svg class="relative h-5 w-5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" style="fill: var(--color-linkedin, #0077B5);">
                                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                                 </svg>
                                 <span class="relative">{{ __('Continue with LinkedIn') }}</span>
