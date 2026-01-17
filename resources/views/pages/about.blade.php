@@ -4,15 +4,15 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 pt-32 pb-24">
+<div class="relative overflow-hidden bg-gray-50 pt-32 pb-24">
     <!-- Floating Background Elements -->
-    <div class="floating-element absolute top-20 -left-32 w-96 h-96 bg-gradient-purple opacity-20 rounded-full blur-3xl animate-float"></div>
-    <div class="floating-element absolute -bottom-20 right-0 w-[32rem] h-[32rem] bg-gradient-blue opacity-20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+    <div class="floating-element absolute top-20 -left-32 w-96 h-96 bg-primary-400 opacity-20 rounded-full blur-3xl"></div>
+    <div class="floating-element absolute -bottom-20 right-0 w-[32rem] h-[32rem] bg-primary-500 opacity-20 rounded-full blur-3xl"></div>
 
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center animate-slide-in-up">
+        <div class="text-center">
             <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-white/40 rounded-full px-6 py-2 mb-8 shadow-lg">
-                <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse-glow"></div>
+                <div class="w-2 h-2 bg-blue-500 rounded-full-glow"></div>
                 <span class="text-sm font-semibold text-gray-700">{{ __('About Mindova') }}</span>
             </div>
 
@@ -29,8 +29,8 @@
 <!-- Mission Section -->
 <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="card-premium text-center animate-slide-in-up">
-            <div class="icon-badge bg-gradient-blue mx-auto mb-6">
+        <div class="card-premium text-center">
+            <div class="icon-badge bg-primary-500 mx-auto mb-6">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
@@ -44,9 +44,9 @@
 </section>
 
 <!-- What We Do Section -->
-<section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+<section class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 animate-slide-in-up">
+        <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 {{ __('What') }} <span class="text-gradient">{{ __('We Do') }}</span>
             </h2>
@@ -56,8 +56,8 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div class="card-premium animate-slide-in-up" style="animation-delay: 0.1s;">
-                <div class="icon-badge bg-gradient-blue mb-4">
+            <div class="card-premium">
+                <div class="icon-badge bg-primary-500 mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                     </svg>
@@ -66,8 +66,8 @@
                 <p class="text-gray-600">{{ __('Break down complex problems into manageable tasks using advanced AI analysis and strategic planning.') }}</p>
             </div>
 
-            <div class="card-premium animate-slide-in-up" style="animation-delay: 0.2s;">
-                <div class="icon-badge bg-gradient-green mb-4">
+            <div class="card-premium">
+                <div class="icon-badge bg-secondary-500 mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -76,8 +76,8 @@
                 <p class="text-gray-600">{{ __('Connect skilled volunteers with projects that align perfectly with their expertise and career goals.') }}</p>
             </div>
 
-            <div class="card-premium animate-slide-in-up" style="animation-delay: 0.3s;">
-                <div class="icon-badge bg-gradient-purple mb-4">
+            <div class="card-premium">
+                <div class="icon-badge bg-primary-400 mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
@@ -86,8 +86,8 @@
                 <p class="text-gray-600">{{ __('Create balanced "micro companies" with complementary skills for collaborative problem-solving.') }}</p>
             </div>
 
-            <div class="card-premium animate-slide-in-up" style="animation-delay: 0.4s;">
-                <div class="icon-badge bg-gradient-orange mb-4">
+            <div class="card-premium">
+                <div class="icon-badge bg-secondary-300 mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
@@ -100,9 +100,9 @@
 </section>
 
 <!-- Technology Section -->
-<section class="py-20 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+<section class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 animate-slide-in-up">
+        <div class="text-center mb-16">
             <div class="inline-block px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold mb-4">
                 {{ __('Our Technology') }}
             </div>
@@ -115,9 +115,9 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="card-premium bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 animate-slide-in-up" style="animation-delay: 0.1s;">
+            <div class="card-premium bg-gray-50 border-2 border-blue-200">
                 <div class="flex items-center mb-4">
-                    <div class="icon-badge bg-gradient-blue mr-4">
+                    <div class="icon-badge bg-primary-500 mr-4">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                         </svg>
@@ -127,9 +127,9 @@
                 <p class="text-gray-600">{{ __('AI-powered challenge analysis and task decomposition using natural language processing') }}</p>
             </div>
 
-            <div class="card-premium bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 animate-slide-in-up" style="animation-delay: 0.2s;">
+            <div class="card-premium bg-gray-50 border-2 border-green-200">
                 <div class="flex items-center mb-4">
-                    <div class="icon-badge bg-gradient-green mr-4">
+                    <div class="icon-badge bg-secondary-500 mr-4">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
@@ -139,9 +139,9 @@
                 <p class="text-gray-600">{{ __('Advanced algorithms for optimal volunteer-task pairing with 80%+ accuracy') }}</p>
             </div>
 
-            <div class="card-premium bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 animate-slide-in-up" style="animation-delay: 0.3s;">
+            <div class="card-premium bg-gray-50 border-2 border-purple-200">
                 <div class="flex items-center mb-4">
-                    <div class="icon-badge bg-gradient-purple mr-4">
+                    <div class="icon-badge bg-primary-400 mr-4">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
@@ -151,9 +151,9 @@
                 <p class="text-gray-600">{{ __('Automated creation of balanced, high-performing teams with complementary skills') }}</p>
             </div>
 
-            <div class="card-premium bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200 animate-slide-in-up" style="animation-delay: 0.4s;">
+            <div class="card-premium bg-gray-50 border-2 border-orange-200">
                 <div class="flex items-center mb-4">
-                    <div class="icon-badge bg-gradient-orange mr-4">
+                    <div class="icon-badge bg-secondary-300 mr-4">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
@@ -169,14 +169,14 @@
 <!-- Why Mindova Section -->
 <section class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 animate-slide-in-up">
+        <div class="text-center mb-16">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ __('Why') }} <span class="text-gradient">{{ __('Mindova') }}</span>?</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="card-premium bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 animate-slide-in-up">
+            <div class="card-premium bg-gray-50 border-2 border-blue-200">
                 <div class="flex items-start mb-4">
-                    <div class="icon-badge bg-gradient-blue mr-4 flex-shrink-0">
+                    <div class="icon-badge bg-primary-500 mr-4 flex-shrink-0">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
@@ -188,9 +188,9 @@
                 </div>
             </div>
 
-            <div class="card-premium bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 animate-slide-in-up" style="animation-delay: 0.1s;">
+            <div class="card-premium bg-gray-50 border-2 border-green-200">
                 <div class="flex items-start mb-4">
-                    <div class="icon-badge bg-gradient-green mr-4 flex-shrink-0">
+                    <div class="icon-badge bg-secondary-500 mr-4 flex-shrink-0">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>
@@ -206,17 +206,17 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-24 bg-gradient-animated text-white relative overflow-hidden">
+<section class="py-24 bg-primary-500 text-white relative overflow-hidden">
     <div class="absolute inset-0 bg-black/10"></div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h3 class="text-4xl md:text-5xl font-bold mb-6">{{ __('Ready to Make a Difference?') }}</h3>
         <p class="text-xl text-white/90 mb-10">{{ __('Join our community and start transforming challenges into innovation') }}</p>
-        <a href="{{ route('contact') }}" class="group inline-flex items-center bg-white text-blue-600 hover:text-blue-700 font-semibold text-lg px-10 py-4 rounded-xl transition-all transform hover:scale-105 shadow-2xl">
+        <x-ui.button as="a" href="{{ route('contact') }}" variant="secondary" size="lg">
             {{ __('Get in Touch') }}
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
-        </a>
+        </x-ui.button>
     </div>
 </section>
 @endsection

@@ -4,17 +4,17 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 pt-32 pb-24">
+<div class="relative overflow-hidden bg-gray-50 pt-32 pb-24">
     <!-- Floating Background Elements -->
-    <div class="floating-element absolute top-20 -left-32 w-96 h-96 bg-gradient-blue opacity-20 rounded-full blur-3xl animate-float"></div>
-    <div class="floating-element absolute top-40 right-0 w-[32rem] h-[32rem] bg-gradient-purple opacity-20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-    <div class="floating-element absolute -bottom-20 left-1/3 w-80 h-80 bg-gradient-green opacity-20 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
+    <div class="floating-element absolute top-20 -left-32 w-96 h-96 bg-primary-500 opacity-20 rounded-full blur-3xl"></div>
+    <div class="floating-element absolute top-40 right-0 w-[32rem] h-[32rem] bg-primary-400 opacity-20 rounded-full blur-3xl"></div>
+    <div class="floating-element absolute -bottom-20 left-1/3 w-80 h-80 bg-secondary-500 opacity-20 rounded-full blur-3xl"></div>
 
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center animate-slide-in-up">
+        <div class="text-center">
             <!-- Status Badge -->
             <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-white/40 rounded-full px-6 py-2 mb-8 shadow-lg">
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse-glow"></div>
+                <div class="w-2 h-2 bg-green-500 rounded-full-glow"></div>
                 <span class="text-sm font-semibold text-gray-700">{{ __('127+ Challenges Completed') }}</span>
             </div>
 
@@ -33,8 +33,8 @@
 <section class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="card-premium text-center animate-slide-in-up" style="animation-delay: 0.1s;">
-                <div class="icon-badge bg-gradient-blue mx-auto mb-4">
+            <div class="card-premium text-center">
+                <div class="icon-badge bg-primary-500 mx-auto mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -43,8 +43,8 @@
                 <div class="text-sm text-gray-600 font-medium">{{ __('Challenges Completed') }}</div>
             </div>
 
-            <div class="card-premium text-center animate-slide-in-up" style="animation-delay: 0.2s;">
-                <div class="icon-badge bg-gradient-green mx-auto mb-4">
+            <div class="card-premium text-center">
+                <div class="icon-badge bg-secondary-500 mx-auto mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
@@ -53,8 +53,8 @@
                 <div class="text-sm text-gray-600 font-medium">{{ __('Volunteers Participated') }}</div>
             </div>
 
-            <div class="card-premium text-center animate-slide-in-up" style="animation-delay: 0.3s;">
-                <div class="icon-badge bg-gradient-purple mx-auto mb-4">
+            <div class="card-premium text-center">
+                <div class="icon-badge bg-primary-400 mx-auto mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
@@ -63,8 +63,8 @@
                 <div class="text-sm text-gray-600 font-medium">{{ __('Success Rate') }}</div>
             </div>
 
-            <div class="card-premium text-center animate-slide-in-up" style="animation-delay: 0.4s;">
-                <div class="icon-badge bg-gradient-orange mx-auto mb-4">
+            <div class="card-premium text-center">
+                <div class="icon-badge bg-secondary-300 mx-auto mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -77,18 +77,18 @@
 </section>
 
 <!-- Recent Success Stories Grid -->
-<section class="py-20 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+<section class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 animate-slide-in-up">
+        <div class="text-center mb-12">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ __('Recent') }} <span class="text-gradient">{{ __('Success Stories') }}</span></h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ __('Innovative solutions built by micro companies formed through AI-powered matching') }}</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Story Card 1 -->
-            <div class="card-premium animate-slide-in-up" style="animation-delay: 0.1s;">
+            <div class="card-premium">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-gradient-blue rounded-full flex items-center justify-center text-2xl shadow-lg">🚀</div>
+                    <div class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center text-2xl shadow-lg">🚀</div>
                     <div>
                         <h3 class="font-bold text-gray-900">{{ __('TechStartup Inc.') }}</h3>
                         <p class="text-xs text-gray-500">{{ __('E-commerce Platform') }}</p>
@@ -119,9 +119,9 @@
             </div>
 
             <!-- Story Card 2 -->
-            <div class="card-premium animate-slide-in-up" style="animation-delay: 0.2s;">
+            <div class="card-premium">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-gradient-green rounded-full flex items-center justify-center text-2xl shadow-lg">🌱</div>
+                    <div class="w-12 h-12 bg-secondary-500 rounded-full flex items-center justify-center text-2xl shadow-lg">🌱</div>
                     <div>
                         <h3 class="font-bold text-gray-900">{{ __('GreenFuture NGO') }}</h3>
                         <p class="text-xs text-gray-500">{{ __('Carbon Footprint Tracker') }}</p>
@@ -152,9 +152,9 @@
             </div>
 
             <!-- Story Card 3 -->
-            <div class="card-premium animate-slide-in-up" style="animation-delay: 0.3s;">
+            <div class="card-premium">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-gradient-orange rounded-full flex items-center justify-center text-2xl shadow-lg">🎓</div>
+                    <div class="w-12 h-12 bg-secondary-300 rounded-full flex items-center justify-center text-2xl shadow-lg">🎓</div>
                     <div>
                         <h3 class="font-bold text-gray-900">{{ __('EduTech Solutions') }}</h3>
                         <p class="text-xs text-gray-500">{{ __('Learning Management System') }}</p>
@@ -190,13 +190,13 @@
 <!-- Featured Success Stories (Detailed) -->
 <section class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 animate-slide-in-up">
+        <div class="text-center mb-12">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ __('Featured') }} <span class="text-gradient">{{ __('Success Stories') }}</span></h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ __('Deep dive into projects that made a real-world impact') }}</p>
         </div>
 
         <!-- Featured Story 1 -->
-        <div class="card-premium mb-8 animate-slide-in-up bg-gradient-to-br from-blue-50/50 to-purple-50/50 border-2 border-blue-200" style="animation-delay: 0.1s;">
+        <div class="card-premium mb-8 bg-gray-50 border-2 border-blue-200">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
@@ -237,7 +237,7 @@
                             <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">Node.js</span>
                         </div>
                     </div>
-                    <div class="bg-gradient-blue rounded-2xl p-6 text-white shadow-xl">
+                    <div class="bg-primary-500 rounded-2xl p-6 text-white shadow-xl">
                         <div class="text-sm font-semibold mb-2 opacity-90">{{ __('Impact') }}</div>
                         <div class="text-4xl font-black mb-1">50K+</div>
                         <div class="text-xs opacity-90">{{ __('Patients Served') }}</div>
@@ -247,7 +247,7 @@
         </div>
 
         <!-- Featured Story 2 -->
-        <div class="card-premium animate-slide-in-up bg-gradient-to-br from-green-50/50 to-emerald-50/50 border-2 border-green-200" style="animation-delay: 0.2s;">
+        <div class="card-premium bg-gray-50 border-2 border-green-200">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
@@ -288,7 +288,7 @@
                             <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">React</span>
                         </div>
                     </div>
-                    <div class="bg-gradient-green rounded-2xl p-6 text-white shadow-xl">
+                    <div class="bg-secondary-500 rounded-2xl p-6 text-white shadow-xl">
                         <div class="text-sm font-semibold mb-2 opacity-90">{{ __('Loans Facilitated') }}</div>
                         <div class="text-4xl font-black mb-1">$2M+</div>
                         <div class="text-xs opacity-90">{{ __('Supporting 800+ Borrowers') }}</div>
@@ -300,18 +300,18 @@
 </section>
 
 <!-- Testimonials Section -->
-<section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+<section class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 animate-slide-in-up">
+        <div class="text-center mb-12">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ __('What Our') }} <span class="text-gradient">{{ __('Community Says') }}</span></h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ __('Hear from volunteers and companies who\'ve experienced success on Mindova') }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Testimonial 1 -->
-            <div class="card-premium bg-white/80 backdrop-blur-sm border-2 border-blue-200 animate-slide-in-up" style="animation-delay: 0.1s;">
+            <div class="card-premium bg-white/80 backdrop-blur-sm border-2 border-blue-200">
                 <div class="flex items-start gap-4 mb-4">
-                    <div class="icon-badge bg-gradient-blue">
+                    <div class="icon-badge bg-primary-500">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
@@ -327,9 +327,9 @@
             </div>
 
             <!-- Testimonial 2 -->
-            <div class="card-premium bg-white/80 backdrop-blur-sm border-2 border-green-200 animate-slide-in-up" style="animation-delay: 0.2s;">
+            <div class="card-premium bg-white/80 backdrop-blur-sm border-2 border-green-200">
                 <div class="flex items-start gap-4 mb-4">
-                    <div class="icon-badge bg-gradient-green">
+                    <div class="icon-badge bg-secondary-500">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>
@@ -345,9 +345,9 @@
             </div>
 
             <!-- Testimonial 3 -->
-            <div class="card-premium bg-white/80 backdrop-blur-sm border-2 border-purple-200 animate-slide-in-up" style="animation-delay: 0.3s;">
+            <div class="card-premium bg-white/80 backdrop-blur-sm border-2 border-purple-200">
                 <div class="flex items-start gap-4 mb-4">
-                    <div class="icon-badge bg-gradient-purple">
+                    <div class="icon-badge bg-primary-400">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
                         </svg>
@@ -363,9 +363,9 @@
             </div>
 
             <!-- Testimonial 4 -->
-            <div class="card-premium bg-white/80 backdrop-blur-sm border-2 border-orange-200 animate-slide-in-up" style="animation-delay: 0.4s;">
+            <div class="card-premium bg-white/80 backdrop-blur-sm border-2 border-orange-200">
                 <div class="flex items-start gap-4 mb-4">
-                    <div class="icon-badge bg-gradient-orange">
+                    <div class="icon-badge bg-secondary-300">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
@@ -384,24 +384,24 @@
 </section>
 
 <!-- Animated CTA Section -->
-<section class="py-24 bg-gradient-animated text-white relative overflow-hidden">
+<section class="py-24 bg-primary-500 text-white relative overflow-hidden">
     <div class="absolute inset-0 bg-black/10"></div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h3 class="text-4xl md:text-5xl font-bold mb-6">{{ __('Ready to Create Your Success Story?') }}</h3>
         <p class="text-xl text-white/90 mb-10 leading-relaxed">{{ __('Join our community of talented contributors and innovative companies solving real-world challenges together.') }}</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="{{ route('register') }}" class="inline-flex items-center justify-center bg-white text-blue-600 hover:text-blue-700 font-semibold text-lg px-10 py-4 rounded-xl transition-all transform hover:scale-105 shadow-2xl">
+            <x-ui.button as="a" href="{{ route('register') }}" variant="secondary" size="lg">
                 {{ __('Join as Contributor') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
-            </a>
-            <a href="{{ route('register') }}" class="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white/20 font-semibold text-lg px-10 py-4 rounded-xl transition-all transform hover:scale-105">
+            </x-ui.button>
+            <x-ui.button as="a" href="{{ route('register') }}" variant="outline" size="lg">
                 {{ __('Post a Challenge') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
-            </a>
+            </x-ui.button>
         </div>
     </div>
 </section>

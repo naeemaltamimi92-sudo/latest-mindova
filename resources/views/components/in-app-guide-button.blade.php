@@ -2,8 +2,7 @@
 <!-- In-App Guide Help Button -->
 <div class="in-app-guide-container">
     <!-- Help Button -->
-    <button
-        type="button"
+    <x-ui.button
         class="in-app-guide-button"
         id="guideButton"
         aria-label="{{ __('Help & Guide') }}"
@@ -12,17 +11,17 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="guide-icon">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
         </svg>
-    </button>
+    </x-ui.button>
 
     <!-- Guide Panel -->
     <div class="in-app-guide-panel" id="guidePanel" style="display: none;">
         <div class="guide-header">
             <h3 class="guide-title">{{ $guide['page_title'] }}</h3>
-            <button type="button" class="guide-close" id="guideClose" aria-label="{{ __('Close') }}">
+            <x-ui.button variant="ghost" size="sm" class="guide-close" id="guideClose" aria-label="{{ __('Close') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-            </button>
+            </x-ui.button>
         </div>
 
         <div class="guide-content">
@@ -68,9 +67,9 @@
         </div>
 
         <div class="guide-footer">
-            <button type="button" class="guide-dismiss-btn" id="guideDismiss">
+            <x-ui.button variant="secondary" class="guide-dismiss-btn" id="guideDismiss">
                 {{ __('Got it, don\'t show again') }}
-            </button>
+            </x-ui.button>
         </div>
     </div>
 </div>

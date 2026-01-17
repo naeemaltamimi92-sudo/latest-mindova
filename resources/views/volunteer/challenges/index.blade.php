@@ -18,14 +18,14 @@
         50% { opacity: .5; }
     }
     .slide-up {
-        animation: slideUp 0.5s ease-out forwards;
+        animation: slideUp 0.5s forwards;
     }
     @keyframes slideUp {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
     .toast {
-        animation: toastIn 0.3s ease-out forwards;
+        animation: toastIn 0.3s forwards;
     }
     @keyframes toastIn {
         from { opacity: 0; transform: translateX(100%); }
@@ -50,7 +50,7 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30">
+<div class="min-h-screen bg-gray-50">
     <!-- Toast Container -->
     <div id="toastContainer" class="fixed top-4 right-4 z-[100] space-y-2"></div>
 
@@ -58,7 +58,7 @@
         <!-- Premium Header with Stats -->
         <div class="mb-8 slide-up">
             <div class="bg-white rounded-3xl shadow-xl shadow-purple-500/5 border border-slate-200/60 overflow-hidden">
-                <div class="bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 px-8 py-6">
+                <div class="bg-secondary-500 px-8 py-6">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div class="flex items-center gap-4">
                             <div class="h-16 w-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
@@ -71,12 +71,12 @@
                                 <p class="text-purple-100 mt-1">{{ __('Track and manage challenges you\'ve submitted') }}</p>
                             </div>
                         </div>
-                        <button type="button" id="openChallengeModalBtn" class="inline-flex items-center gap-2 bg-white text-purple-600 font-bold px-6 py-3 rounded-xl hover:bg-purple-50 transition-all shadow-lg hover:shadow-xl group">
-                            <svg class="h-5 w-5 transition-transform group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <x-ui.button type="button" id="openChallengeModalBtn" variant="outline" class="bg-white text-purple-600 hover:bg-purple-50">
+                            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                             </svg>
                             {{ __('Submit New Challenge') }}
-                        </button>
+                        </x-ui.button>
                     </div>
                 </div>
 
@@ -89,23 +89,23 @@
                     $highQualitySolutions = $challenges->sum(fn($c) => $c->comments->where('ai_score', '>=', 7)->count());
                 @endphp
                 <div class="grid grid-cols-2 md:grid-cols-5 divide-x divide-slate-100">
-                    <div class="px-6 py-4 text-center hover:bg-purple-50/50 transition-colors cursor-pointer" onclick="filterByStatus('all')">
+                    <div class="px-6 py-4 text-center hover:bg-purple-50/50 cursor-pointer" onclick="filterByStatus('all')">
                         <div class="text-2xl font-black text-slate-900">{{ $totalChallenges }}</div>
                         <div class="text-sm text-slate-500 font-medium">{{ __('Total') }}</div>
                     </div>
-                    <div class="px-6 py-4 text-center hover:bg-emerald-50/50 transition-colors cursor-pointer" onclick="filterByStatus('active')">
+                    <div class="px-6 py-4 text-center hover:bg-emerald-50/50 cursor-pointer" onclick="filterByStatus('active')">
                         <div class="text-2xl font-black text-emerald-600">{{ $activeChallenges }}</div>
                         <div class="text-sm text-slate-500 font-medium">{{ __('Active') }}</div>
                     </div>
-                    <div class="px-6 py-4 text-center hover:bg-purple-50/50 transition-colors cursor-pointer" onclick="filterByStatus('analyzing')">
+                    <div class="px-6 py-4 text-center hover:bg-purple-50/50 cursor-pointer" onclick="filterByStatus('analyzing')">
                         <div class="text-2xl font-black text-purple-600">{{ $analyzingChallenges }}</div>
                         <div class="text-sm text-slate-500 font-medium">{{ __('Analyzing') }}</div>
                     </div>
-                    <div class="px-6 py-4 text-center hover:bg-blue-50/50 transition-colors cursor-pointer" onclick="filterByStatus('completed')">
+                    <div class="px-6 py-4 text-center hover:bg-blue-50/50 cursor-pointer" onclick="filterByStatus('completed')">
                         <div class="text-2xl font-black text-blue-600">{{ $completedChallenges }}</div>
                         <div class="text-sm text-slate-500 font-medium">{{ __('Completed') }}</div>
                     </div>
-                    <div class="px-6 py-4 text-center bg-gradient-to-r from-amber-50 to-orange-50">
+                    <div class="px-6 py-4 text-center bg-gray-50">
                         <div class="text-2xl font-black text-amber-600">{{ $highQualitySolutions }}</div>
                         <div class="text-sm text-slate-500 font-medium">{{ __('Quality Solutions') }}</div>
                     </div>
@@ -157,12 +157,12 @@
 
                 <!-- Status Indicator Bar -->
                 <div class="h-1.5
-                    @if($challenge->status === 'active') bg-gradient-to-r from-emerald-400 to-emerald-500
-                    @elseif($challenge->status === 'completed') bg-gradient-to-r from-blue-400 to-blue-500
-                    @elseif($challenge->status === 'analyzing' || in_array($challenge->ai_analysis_status, ['pending', 'processing'])) bg-gradient-to-r from-purple-400 to-purple-500 status-pulse
-                    @elseif($challenge->status === 'submitted') bg-gradient-to-r from-amber-400 to-amber-500
-                    @elseif($challenge->status === 'rejected') bg-gradient-to-r from-red-400 to-red-500
-                    @else bg-gradient-to-r from-slate-300 to-slate-400
+                    @if($challenge->status === 'active') bg-secondary-500
+                    @elseif($challenge->status === 'completed') bg-primary-500
+                    @elseif($challenge->status === 'analyzing' || in_array($challenge->ai_analysis_status, ['pending', 'processing'])) bg-secondary-500 status-pulse
+                    @elseif($challenge->status === 'submitted') bg-secondary-300
+                    @elseif($challenge->status === 'rejected') bg-secondary-700
+                    @else bg-gray-400
                     @endif">
                 </div>
 
@@ -172,7 +172,7 @@
                             <!-- Title & Badges Row -->
                             <div class="flex flex-wrap items-center gap-2 mb-3">
                                 <a href="{{ route('volunteer.challenges.show', $challenge) }}"
-                                   class="text-xl font-bold text-slate-900 hover:text-purple-600 transition-colors truncate">
+                                   class="text-xl font-bold text-slate-900 hover:text-purple-600 truncate">
                                     {{ $challenge->title }}
                                 </a>
 
@@ -256,7 +256,7 @@
                             <!-- Meta Info -->
                             <div class="flex flex-wrap items-center gap-4">
                                 @if($challenge->score)
-                                <div class="flex items-center gap-2 bg-gradient-to-r from-amber-50 to-orange-50 px-3 py-1.5 rounded-lg">
+                                <div class="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg">
                                     <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                     </svg>
@@ -294,34 +294,30 @@
                         <!-- Actions - Fixed clickable buttons -->
                         <div class="flex-shrink-0 flex items-center gap-2 relative z-10">
                             <!-- View Button - Always visible -->
-                            <a href="{{ url('/my-challenges/' . $challenge->id) }}"
-                               class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <x-ui.button as="a" href="{{ url('/my-challenges/' . $challenge->id) }}" variant="secondary">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                 </svg>
                                 {{ __('View') }}
-                            </a>
+                            </x-ui.button>
 
                             @if(!in_array($challenge->status, ['completed', 'delivered']))
                             <!-- Edit Button -->
-                            <a href="{{ url('/my-challenges/' . $challenge->id) }}?action=edit"
-                               class="inline-flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-indigo-100 hover:text-indigo-700 font-semibold px-4 py-2.5 rounded-xl transition-all cursor-pointer">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <x-ui.button as="a" href="{{ url('/my-challenges/' . $challenge->id) }}?action=edit" variant="ghost">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                 </svg>
                                 {{ __('Edit') }}
-                            </a>
+                            </x-ui.button>
 
                             <!-- Delete Button -->
-                            <button type="button"
-                                    onclick="confirmDelete({{ $challenge->id }}, '{{ addslashes($challenge->title) }}')"
-                                    class="inline-flex items-center gap-2 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 font-semibold px-4 py-2.5 rounded-xl transition-all cursor-pointer">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <x-ui.button type="button" onclick="confirmDelete({{ $challenge->id }}, '{{ addslashes($challenge->title) }}')" variant="destructive">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                 </svg>
                                 {{ __('Delete') }}
-                            </button>
+                            </x-ui.button>
                             @endif
                         </div>
                     </div>
@@ -335,7 +331,7 @@
                         <span class="font-bold text-purple-600">{{ $challenge->progress_percentage ?? 0 }}%</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full transition-all duration-500"
+                        <div class="bg-secondary-500 h-full rounded-full"
                              style="width: {{ $challenge->progress_percentage ?? 0 }}%"></div>
                     </div>
                 </div>
@@ -346,7 +342,7 @@
                     $highScoreComments = $challenge->comments->where('ai_score', '>=', 7)->count();
                 @endphp
                 @if($highScoreComments > 0)
-                <div class="px-6 py-3 bg-gradient-to-r from-emerald-50 to-teal-50 border-t border-emerald-100 flex items-center justify-between">
+                <div class="px-6 py-3 bg-gray-50 border-t border-emerald-100 flex items-center justify-between">
                     <div class="flex items-center gap-2 text-emerald-700">
                         <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
                             <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
@@ -375,12 +371,12 @@
         <!-- Empty State -->
         <div class="bg-white rounded-3xl shadow-sm border border-slate-200/60 p-12 text-center slide-up">
             <div class="relative">
-                <div class="h-24 w-24 rounded-3xl bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center mx-auto mb-6">
+                <div class="h-24 w-24 rounded-3xl bg-secondary-100 flex items-center justify-center mx-auto mb-6">
                     <svg class="h-12 w-12 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                     </svg>
                 </div>
-                <div class="absolute -top-2 -right-2 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center animate-bounce" style="left: calc(50% + 30px);">
+                <div class="absolute -top-2 -right-2 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center" style="left: calc(50% + 30px);">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -388,12 +384,12 @@
             </div>
             <h3 class="text-2xl font-black text-slate-900 mb-2">{{ __('No Challenges Yet') }}</h3>
             <p class="text-slate-500 mb-8 max-w-md mx-auto">{{ __('You haven\'t submitted any challenges to the community yet. Start by sharing a problem you\'d like solved!') }}</p>
-            <button type="button" onclick="openChallengeModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold px-8 py-4 rounded-xl hover:from-purple-600 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl">
-                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <x-ui.button type="button" onclick="openChallengeModal()" variant="secondary" size="lg">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
                 {{ __('Submit Your First Challenge') }}
-            </button>
+            </x-ui.button>
         </div>
         @endif
     </div>
@@ -401,19 +397,19 @@
 
 <!-- Submit Challenge Modal -->
 <div id="challengeModal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 transition-opacity" onclick="closeChallengeModal()"></div>
+    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40" onclick="closeChallengeModal()"></div>
     <div class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
         <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden" onclick="event.stopPropagation()">
             <form id="challengeForm" enctype="multipart/form-data">
                 @csrf
                 <!-- Modal Header -->
-                <div class="bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 px-6 py-5">
+                <div class="bg-secondary-500 px-6 py-5">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-bold text-white" id="modal-title">{{ __('Submit a Community Challenge') }}</h3>
                             <p class="text-purple-100 text-sm mt-1">{{ __('Your challenge will be analyzed and scored by AI') }}</p>
                         </div>
-                        <button type="button" onclick="closeChallengeModal()" class="text-white/80 hover:text-white p-2 hover:bg-white/10 rounded-lg transition-colors">
+                        <button type="button" onclick="closeChallengeModal()" class="text-white/80 hover:text-white p-2 hover:bg-white/10 rounded-lg">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
@@ -429,7 +425,7 @@
                             {{ __('Challenge Title') }} <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="title" id="challenge_title" required
-                            class="w-full px-4 py-3 rounded-xl border-slate-200 focus:border-purple-500 focus:ring-purple-500 transition-colors"
+                            class="w-full px-4 py-3 rounded-xl border-slate-200 focus:border-purple-500 focus:ring-purple-500"
                             placeholder="{{ __('Enter a clear, descriptive title...') }}">
                     </div>
 
@@ -439,7 +435,7 @@
                             {{ __('Challenge Description') }} <span class="text-red-500">*</span>
                         </label>
                         <textarea name="description" id="challenge_description" rows="5" required minlength="50"
-                            class="w-full px-4 py-3 rounded-xl border-slate-200 focus:border-purple-500 focus:ring-purple-500 transition-colors resize-none"
+                            class="w-full px-4 py-3 rounded-xl border-slate-200 focus:border-purple-500 focus:ring-purple-500 resize-none"
                             placeholder="{{ __('Describe your challenge in detail. Include the problem you want to solve, any constraints, and desired outcomes...') }}"></textarea>
                         <div class="flex justify-between mt-2">
                             <p class="text-xs text-slate-500">{{ __('Minimum 50 characters') }}</p>
@@ -452,7 +448,7 @@
                         <label class="block text-sm font-semibold text-slate-700 mb-2">
                             {{ __('Attachments') }} <span class="text-slate-400 font-normal">({{ __('optional') }})</span>
                         </label>
-                        <div id="dropZone" class="border-2 border-dashed border-slate-200 rounded-xl p-6 text-center hover:border-purple-400 hover:bg-purple-50/30 transition-all cursor-pointer">
+                        <div id="dropZone" class="border-2 border-dashed border-slate-200 rounded-xl p-6 text-center hover:border-purple-400 hover:bg-purple-50/30 cursor-pointer">
                             <input type="file" name="attachments[]" id="challenge_attachments" multiple class="hidden" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif">
                             <label for="challenge_attachments" class="cursor-pointer">
                                 <div class="w-12 h-12 mx-auto mb-3 bg-purple-100 rounded-xl flex items-center justify-center">
@@ -468,7 +464,7 @@
                     </div>
 
                     <!-- Info Card -->
-                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-4">
+                    <div class="bg-secondary-50 border border-purple-100 rounded-xl p-4">
                         <div class="flex items-start gap-3">
                             <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                                 <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -494,10 +490,10 @@
 
                 <!-- Modal Footer -->
                 <div class="bg-slate-50 px-6 py-4 flex items-center justify-end gap-3 border-t border-slate-100">
-                    <button type="button" onclick="closeChallengeModal()" class="px-6 py-3 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 transition-colors">
+                    <x-ui.button type="button" onclick="closeChallengeModal()" variant="outline">
                         {{ __('Cancel') }}
-                    </button>
-                    <button type="submit" id="submitBtn" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
+                    </x-ui.button>
+                    <x-ui.button as="submit" id="submitBtn" variant="secondary">
                         <span id="submitText" class="flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -511,7 +507,7 @@
                             </svg>
                             {{ __('Submitting...') }}
                         </span>
-                    </button>
+                    </x-ui.button>
                 </div>
             </form>
         </div>
@@ -533,15 +529,15 @@
             <p class="text-slate-900 font-semibold mb-4 text-lg" id="deleteTitle"></p>
             <p class="text-sm text-slate-400 mb-8">{{ __('This action cannot be undone. All comments and data will be permanently removed.') }}</p>
             <div class="flex justify-center gap-3">
-                <button type="button" onclick="closeDeleteModal()" class="px-6 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
+                <x-ui.button type="button" onclick="closeDeleteModal()" variant="ghost">
                     {{ __('Cancel') }}
-                </button>
-                <button type="button" id="deleteConfirmBtn" onclick="executeDelete()" class="px-6 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition-colors flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                </x-ui.button>
+                <x-ui.button type="button" id="deleteConfirmBtn" onclick="executeDelete()" variant="destructive">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                     </svg>
                     {{ __('Delete') }}
-                </button>
+                </x-ui.button>
             </div>
         </div>
     </div>
@@ -716,7 +712,7 @@ async function executeDelete() {
             // Animate and remove the card
             const card = document.querySelector(`[data-challenge-id="${deleteTargetId}"]`);
             if (card) {
-                card.style.transition = 'all 0.3s ease-out';
+                card.style.transition = 'all 0.3s';
                 card.style.opacity = '0';
                 card.style.transform = 'translateX(-20px)';
                 setTimeout(() => {

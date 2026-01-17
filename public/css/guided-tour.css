@@ -1,6 +1,7 @@
 /**
  * Guided Tour System - Professional Styling
  * Contextual tooltips for new user onboarding
+ * (Animations removed)
  */
 
 /* ========================================
@@ -19,9 +20,6 @@
     opacity: 0;
     visibility: hidden;
     transform: scale(0.95) translateY(-10px);
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .guided-tour-tooltip.show {
@@ -73,17 +71,7 @@
     align-items: center;
     justify-content: center;
     padding: 0;
-    transition: all 0.2s;
     flex-shrink: 0;
-}
-
-.guided-tour-close:hover {
-    background: var(--color-gray-100, #F3F4F6);
-    color: var(--color-gray-700, #374151);
-}
-
-.guided-tour-close:active {
-    transform: scale(0.9);
 }
 
 /* Text */
@@ -111,17 +99,11 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
     box-shadow: 0 2px 8px var(--shadow-color-primary, rgba(62, 59, 146, 0.3));
 }
 
 .guided-tour-dismiss:hover {
-    transform: translateY(-1px);
     box-shadow: 0 4px 14px var(--shadow-color-primary, rgba(62, 59, 146, 0.4));
-}
-
-.guided-tour-dismiss:active {
-    transform: translateY(0);
 }
 
 /* ========================================
@@ -165,28 +147,13 @@
 }
 
 /* ========================================
-   Element Highlighting
+   Element Highlighting (animation removed)
    ======================================== */
 
 .guided-tour-highlight {
     position: relative;
     z-index: 9999;
-}
-
-/* Pulse Animation */
-@keyframes guided-tour-pulse {
-    0%, 100% {
-        box-shadow: 0 0 0 0 var(--shadow-color-secondary, rgba(0, 210, 255, 0.5)),
-                    0 0 0 0 var(--shadow-color-secondary, rgba(0, 210, 255, 0.3));
-    }
-    50% {
-        box-shadow: 0 0 0 6px transparent,
-                    0 0 0 12px transparent;
-    }
-}
-
-.guided-tour-highlight {
-    animation: guided-tour-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    box-shadow: 0 0 0 4px var(--shadow-color-secondary, rgba(0, 210, 255, 0.5));
 }
 
 /* ========================================
@@ -235,7 +202,6 @@
     .guided-tour-tooltip,
     .guided-tour-highlight {
         display: none !important;
-        animation: none !important;
     }
 }
 
@@ -251,17 +217,6 @@
 
     .guided-tour-icon {
         border: 2px solid #fff;
-    }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    .guided-tour-tooltip,
-    .guided-tour-dismiss,
-    .guided-tour-close,
-    .guided-tour-highlight {
-        transition: none;
-        animation: none;
     }
 }
 
@@ -290,11 +245,6 @@
 
     .guided-tour-close {
         color: var(--color-gray-400, #9CA3AF);
-    }
-
-    .guided-tour-close:hover {
-        background: var(--color-gray-700, #374151);
-        color: var(--color-gray-100, #F3F4F6);
     }
 
     .guided-tour-arrow {

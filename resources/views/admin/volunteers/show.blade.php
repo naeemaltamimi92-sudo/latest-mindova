@@ -17,9 +17,9 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    .float-anim { animation: floatAnim 8s ease-in-out infinite; }
-    .float-anim-delayed { animation: floatAnim 8s ease-in-out infinite; animation-delay: 3s; }
-    .float-anim-slow { animation: floatAnim 12s ease-in-out infinite; animation-delay: 1.5s; }
+    .float-anim { animation: floatAnim 8s-out infinite; }
+    .float-anim-delayed { animation: floatAnim 8s-out infinite; animation-delay: 3s; }
+    .float-anim-slow { animation: floatAnim 12s-out infinite; animation-delay: 1.5s; }
 
     @keyframes floatAnim {
         0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
@@ -27,7 +27,7 @@
         66% { transform: translateY(-8px) rotate(-1deg) scale(0.98); }
     }
 
-    .pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+    .pulse-glow { animation: pulseGlow 3s-out infinite; }
     @keyframes pulseGlow {
         0%, 100% { box-shadow: 0 0 20px var(--shadow-color-primary-light); }
         50% { box-shadow: 0 0 40px var(--shadow-color-primary), 0 0 60px var(--shadow-color-secondary-light); }
@@ -45,7 +45,7 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        animation: shine 3s ease-in-out infinite;
+        animation: shine 3s-out infinite;
     }
     @keyframes shine {
         0%, 100% { left: -100%; }
@@ -87,7 +87,7 @@
     }
 
     .badge-glow {
-        animation: badgeGlow 2s ease-in-out infinite alternate;
+        animation: badgeGlow 2s-out infinite alternate;
     }
     @keyframes badgeGlow {
         from { filter: drop-shadow(0 0 8px var(--shadow-color-warning-light)); }
@@ -119,7 +119,7 @@
         transform: rotate(-90deg);
     }
     .progress-ring__circle {
-        transition: stroke-dashoffset 1s ease-in-out;
+        transition: stroke-dashoffset 1s-out;
         transform-origin: center;
     }
 
@@ -138,7 +138,7 @@
         right: 0;
         bottom: 0;
         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        animation: skillShine 2s ease-in-out infinite;
+        animation: skillShine 2s-out infinite;
     }
     @keyframes skillShine {
         0% { transform: translateX(-100%); }
@@ -176,7 +176,7 @@
     }
 
     .avatar-ring {
-        animation: avatarPulse 3s ease-in-out infinite;
+        animation: avatarPulse 3s-out infinite;
     }
     @keyframes avatarPulse {
         0%, 100% { box-shadow: 0 0 0 0 var(--shadow-color-primary), 0 0 0 0 var(--shadow-color-secondary-light); }
@@ -208,9 +208,9 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+<div class="min-h-screen bg-gray-50">
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-violet-950 slide-up">
+    <div class="relative overflow-hidden bg-primary-500 slide-up">
         <!-- Animated Background Elements -->
         <div class="absolute inset-0">
             <!-- Gradient Orbs -->
@@ -232,14 +232,14 @@
             </div>
 
             <!-- Radial Gradients -->
-            <div class="absolute top-0 left-1/4 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500/10 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-1/4 w-full h-full bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-violet-500/10 via-transparent to-transparent"></div>
+            <div class="absolute top-0 left-1/4 w-full h-full "></div>
+            <div class="absolute bottom-0 right-1/4 w-full h-full "></div>
         </div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <!-- Back Navigation -->
-            <a href="{{ route('admin.volunteers.index') }}" class="inline-flex items-center gap-2 text-white/60 hover:text-white font-medium mb-8 transition-all group">
-                <div class="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/20 transition-all">
+            <a href="{{ route('admin.volunteers.index') }}" class="inline-flex items-center gap-2 text-white/60 hover:text-white font-medium mb-8 group">
+                <div class="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/20">
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
@@ -250,13 +250,13 @@
             <div class="flex flex-col lg:flex-row items-start lg:items-center gap-8">
                 <!-- Profile Avatar with Animation -->
                 <div class="relative group">
-                    <div class="absolute -inset-1.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 rounded-3xl blur opacity-50 group-hover:opacity-75 transition-opacity duration-500 animate-pulse"></div>
+                    <div class="absolute -inset-1.5 bg-secondary-500 rounded-3xl blur opacity-50 group-hover:opacity-75"></div>
                     @if($volunteer->profile_picture)
                     <img src="{{ asset('storage/' . $volunteer->profile_picture) }}"
                          alt="{{ $volunteer->user->name }}"
                          class="relative h-32 w-32 lg:h-40 lg:w-40 rounded-2xl object-cover ring-4 ring-white/20 avatar-ring">
                     @else
-                    <div class="relative h-32 w-32 lg:h-40 lg:w-40 rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-purple-600 flex items-center justify-center ring-4 ring-white/20 avatar-ring shine-effect">
+                    <div class="relative h-32 w-32 lg:h-40 lg:w-40 rounded-2xl bg-secondary-500 flex items-center justify-center ring-4 ring-white/20 avatar-ring shine-effect">
                         <span class="text-white font-black text-5xl lg:text-6xl">{{ substr($volunteer->user->name, 0, 1) }}</span>
                     </div>
                     @endif
@@ -275,23 +275,18 @@
                         <!-- Reputation Level Badge -->
                         @php
                             $level = 'Newcomer';
-                            $levelColor = 'from-slate-400 to-slate-500';
                             $levelBg = 'bg-slate-500/20 border-slate-400/30';
                             if($stats['reputation_score'] >= 1000) {
                                 $level = 'Legend';
-                                $levelColor = 'from-amber-400 to-yellow-500';
                                 $levelBg = 'bg-amber-500/20 border-amber-400/30';
                             } elseif($stats['reputation_score'] >= 500) {
                                 $level = 'Expert';
-                                $levelColor = 'from-violet-400 to-purple-500';
                                 $levelBg = 'bg-violet-500/20 border-violet-400/30';
                             } elseif($stats['reputation_score'] >= 200) {
                                 $level = 'Advanced';
-                                $levelColor = 'from-blue-400 to-cyan-500';
                                 $levelBg = 'bg-blue-500/20 border-blue-400/30';
                             } elseif($stats['reputation_score'] >= 50) {
                                 $level = 'Intermediate';
-                                $levelColor = 'from-emerald-400 to-teal-500';
                                 $levelBg = 'bg-emerald-500/20 border-emerald-400/30';
                             }
                         @endphp
@@ -358,12 +353,12 @@
 
                 <!-- Quick Actions -->
                 <div class="flex flex-col gap-3">
-                    <button onclick="openEmailModal()" class="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 font-bold px-6 py-3 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl ripple-effect">
+                    <x-ui.button onclick="openEmailModal()" variant="primary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
                         {{ __('Send Email') }}
-                    </button>
+                    </x-ui.button>
                 </div>
             </div>
         </div>
@@ -374,10 +369,10 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 slide-up slide-up-delay-1">
             <!-- Reputation Score -->
             <div class="group bg-white rounded-2xl shadow-xl border border-slate-100 p-6 hover-lift overflow-hidden relative">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-300/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
                 <div class="relative">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform shine-effect">
+                        <div class="w-14 h-14 rounded-2xl bg-secondary-300 flex items-center justify-center shadow-lg shadow-amber-500/30 shine-effect">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                             </svg>
@@ -389,17 +384,17 @@
                     <p class="text-4xl font-black text-slate-900 mb-1">{{ number_format($stats['reputation_score']) }}</p>
                     <p class="text-sm font-medium text-slate-500">{{ __('Reputation Score') }}</p>
                     <div class="mt-3 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full skill-bar" style="width: {{ min(($stats['reputation_score'] / 1000) * 100, 100) }}%"></div>
+                        <div class="h-full bg-secondary-300 rounded-full skill-bar" style="width: {{ min(($stats['reputation_score'] / 1000) * 100, 100) }}%"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Total Assignments -->
             <div class="group bg-white rounded-2xl shadow-xl border border-slate-100 p-6 hover-lift overflow-hidden relative">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-primary-400/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
                 <div class="relative">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform shine-effect">
+                        <div class="w-14 h-14 rounded-2xl bg-primary-400 flex items-center justify-center shadow-lg shadow-blue-500/30 shine-effect">
                             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                             </svg>
@@ -420,10 +415,10 @@
 
             <!-- Completed Tasks -->
             <div class="group bg-white rounded-2xl shadow-xl border border-slate-100 p-6 hover-lift overflow-hidden relative">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-500/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
                 <div class="relative">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform shine-effect">
+                        <div class="w-14 h-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg shadow-emerald-500/30 shine-effect">
                             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -437,17 +432,17 @@
                     <p class="text-4xl font-black text-slate-900 mb-1">{{ $stats['completed_tasks'] }}</p>
                     <p class="text-sm font-medium text-slate-500">{{ __('Completed Tasks') }}</p>
                     <div class="mt-3 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full skill-bar" style="width: {{ ($stats['total_assignments'] > 0) ? round(($stats['completed_tasks'] / $stats['total_assignments']) * 100) : 0 }}%"></div>
+                        <div class="h-full bg-secondary-500 rounded-full skill-bar" style="width: {{ ($stats['total_assignments'] > 0) ? round(($stats['completed_tasks'] / $stats['total_assignments']) * 100) : 0 }}%"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Certificates -->
             <div class="group bg-white rounded-2xl shadow-xl border border-slate-100 p-6 hover-lift overflow-hidden relative">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-500/10 to-amber-500/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-200/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
                 <div class="relative">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center shadow-lg shadow-yellow-500/30 group-hover:scale-110 transition-transform shine-effect">
+                        <div class="w-14 h-14 rounded-2xl bg-secondary-200 flex items-center justify-center shadow-lg shadow-yellow-500/30 shine-effect">
                             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                             </svg>
@@ -479,7 +474,7 @@
             <div class="lg:col-span-1 space-y-6">
                 <!-- Profile Information Card -->
                 <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden hover-lift slide-up slide-up-delay-2">
-                    <div class="relative bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 px-6 py-5">
+                    <div class="relative bg-primary-500 px-6 py-5">
                         <div class="absolute inset-0 bg-black/10"></div>
                         <div class="relative flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
@@ -493,11 +488,11 @@
                     <div class="p-6 space-y-5">
                         <div class="group">
                             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{{ __('Full Name') }}</p>
-                            <p class="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{{ $volunteer->user->name }}</p>
+                            <p class="text-base font-bold text-slate-900 group-hover:text-indigo-600">{{ $volunteer->user->name }}</p>
                         </div>
                         <div class="group">
                             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{{ __('Email Address') }}</p>
-                            <a href="mailto:{{ $volunteer->user->email }}" class="text-base font-bold text-indigo-600 hover:text-indigo-800 transition-colors flex items-center gap-2">
+                            <a href="mailto:{{ $volunteer->user->email }}" class="text-base font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-2">
                                 {{ $volunteer->user->email }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
@@ -536,7 +531,7 @@
 
                 <!-- NDA Status Card -->
                 <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden hover-lift slide-up slide-up-delay-3">
-                    <div class="relative bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 px-6 py-5">
+                    <div class="relative bg-secondary-500 px-6 py-5">
                         <div class="absolute inset-0 bg-black/10"></div>
                         <div class="relative flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
@@ -549,8 +544,8 @@
                     </div>
                     <div class="p-6">
                         @if($volunteer->general_nda_signed)
-                        <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-emerald-200">
+                            <div class="w-14 h-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg">
                                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -561,8 +556,8 @@
                             </div>
                         </div>
                         @else
-                        <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-red-50 to-rose-50 rounded-2xl border border-red-200">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center shadow-lg">
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-red-200">
+                            <div class="w-14 h-14 rounded-2xl bg-secondary-700 flex items-center justify-center shadow-lg">
                                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -577,7 +572,7 @@
                 </div>
 
                 <!-- Activity Summary -->
-                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl shadow-xl p-6 text-white hover-lift slide-up slide-up-delay-4">
+                <div class="bg-primary-500 rounded-3xl shadow-xl p-6 text-white hover-lift slide-up slide-up-delay-4">
                     <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
                         <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -605,7 +600,7 @@
             <div class="lg:col-span-2 space-y-8">
                 <!-- Task Assignments -->
                 <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden slide-up slide-up-delay-2">
-                    <div class="relative bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 px-8 py-6">
+                    <div class="relative bg-primary-500 px-8 py-6">
                         <div class="absolute inset-0 bg-black/10"></div>
                         <div class="relative flex items-center justify-between">
                             <div class="flex items-center gap-4">
@@ -629,15 +624,15 @@
 
                     <div class="divide-y divide-slate-100">
                         @forelse($volunteer->taskAssignments as $index => $assignment)
-                        <div class="p-6 hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50/30 transition-all group">
+                        <div class="p-6 hover:bg-gray-50 group">
                             <div class="flex items-start gap-4">
                                 <!-- Timeline Indicator -->
                                 <div class="flex flex-col items-center">
                                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg
-                                        @if($assignment->completed_at) bg-gradient-to-br from-emerald-500 to-teal-600
-                                        @elseif($assignment->invitation_status === 'accepted') bg-gradient-to-br from-blue-500 to-cyan-600
-                                        @elseif($assignment->invitation_status === 'pending') bg-gradient-to-br from-amber-500 to-orange-600
-                                        @else bg-gradient-to-br from-slate-400 to-slate-500
+                                        @if($assignment->completed_at) bg-secondary-500
+                                        @elseif($assignment->invitation_status === 'accepted') bg-primary-400
+                                        @elseif($assignment->invitation_status === 'pending') bg-secondary-300
+                                        @else bg-gray-400
                                         @endif">
                                         @if($assignment->completed_at)
                                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -653,7 +648,7 @@
                                 <div class="flex-1 min-w-0">
                                     <div class="flex flex-wrap items-start justify-between gap-4">
                                         <div class="flex-1">
-                                            <a href="{{ route('admin.challenges.show', $assignment->task->challenge) }}" class="text-lg font-bold text-slate-900 hover:text-blue-600 transition-colors line-clamp-1 group-hover:text-blue-600">
+                                            <a href="{{ route('admin.challenges.show', $assignment->task->challenge) }}" class="text-lg font-bold text-slate-900 hover:text-blue-600 line-clamp-1 group-hover:text-blue-600">
                                                 {{ $assignment->task->title }}
                                             </a>
                                             <p class="text-sm text-slate-500 mt-1 flex items-center gap-2">
@@ -705,7 +700,7 @@
                         </div>
                         @empty
                         <div class="p-16 text-center">
-                            <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center mx-auto mb-6">
+                            <div class="w-20 h-20 rounded-3xl bg-gray-100 flex items-center justify-center mx-auto mb-6">
                                 <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                 </svg>
@@ -719,7 +714,7 @@
 
                 <!-- Certificates Section -->
                 <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden slide-up slide-up-delay-3">
-                    <div class="relative bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 px-8 py-6">
+                    <div class="relative bg-secondary-300 px-8 py-6">
                         <div class="absolute inset-0 bg-black/10"></div>
                         <div class="relative flex items-center justify-between">
                             <div class="flex items-center gap-4">
@@ -766,7 +761,7 @@
                                             <p class="text-xs text-white/60 uppercase tracking-wider">{{ __('Issued') }}</p>
                                             <p class="text-sm font-bold">{{ $certificate->issued_at ? $certificate->issued_at->format('M d, Y') : $certificate->created_at->format('M d, Y') }}</p>
                                         </div>
-                                        <button class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors">
+                                        <button class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                                             </svg>
@@ -778,7 +773,7 @@
                         </div>
                         @else
                         <div class="p-12 text-center">
-                            <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-amber-100 to-yellow-100 flex items-center justify-center mx-auto mb-6">
+                            <div class="w-20 h-20 rounded-3xl bg-gray-100 flex items-center justify-center mx-auto mb-6">
                                 <svg class="w-10 h-10 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                                 </svg>
@@ -797,13 +792,13 @@
 <!-- Email Modal -->
 <div id="emailModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
     <!-- Backdrop -->
-    <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm transition-opacity" onclick="closeEmailModal()"></div>
+    <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm" onclick="closeEmailModal()"></div>
 
     <!-- Modal Content -->
     <div class="relative min-h-screen flex items-center justify-center p-4">
-        <div class="relative bg-white rounded-3xl shadow-2xl max-w-xl w-full mx-auto overflow-hidden transform transition-all">
+        <div class="relative bg-white rounded-3xl shadow-2xl max-w-xl w-full mx-auto overflow-hidden transform">
             <!-- Modal Header -->
-            <div class="relative bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 px-8 py-6">
+            <div class="relative bg-primary-500 px-8 py-6">
                 <div class="absolute inset-0 bg-black/10"></div>
                 <div class="relative flex items-center justify-between">
                     <div class="flex items-center gap-4">
@@ -817,7 +812,7 @@
                             <p class="text-white/70 text-sm">{{ __('To:') }} {{ $volunteer->user->name }}</p>
                         </div>
                     </div>
-                    <button onclick="closeEmailModal()" class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors">
+                    <button onclick="closeEmailModal()" class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -864,7 +859,7 @@
                         @if($volunteer->profile_picture)
                         <img src="{{ asset('storage/' . $volunteer->profile_picture) }}" alt="{{ $volunteer->user->name }}" class="w-12 h-12 rounded-xl object-cover">
                         @else
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
+                        <div class="w-12 h-12 rounded-xl bg-primary-500 flex items-center justify-center">
                             <span class="text-white font-bold text-lg">{{ substr($volunteer->user->name, 0, 1) }}</span>
                         </div>
                         @endif
@@ -882,7 +877,7 @@
                            name="subject"
                            id="email_subject"
                            required
-                           class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all text-slate-900 font-medium"
+                           class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 font-medium"
                            placeholder="{{ __('Enter email subject...') }}">
                 </div>
 
@@ -893,21 +888,21 @@
                               id="email_message"
                               rows="6"
                               required
-                              class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all text-slate-900 resize-none"
+                              class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 text-slate-900 resize-none"
                               placeholder="{{ __('Write your message here...') }}"></textarea>
                 </div>
 
                 <!-- Actions -->
                 <div class="flex items-center justify-end gap-4">
-                    <button type="button" onclick="closeEmailModal()" class="px-6 py-3 rounded-xl font-bold text-slate-600 hover:bg-slate-100 transition-colors">
+                    <x-ui.button onclick="closeEmailModal()" variant="secondary">
                         {{ __('Cancel') }}
-                    </button>
-                    <button type="submit" id="sendEmailBtn" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold px-8 py-3 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    </x-ui.button>
+                    <x-ui.button as="submit" id="sendEmailBtn" variant="primary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                         </svg>
                         <span id="sendEmailBtnText">{{ __('Send Email') }}</span>
-                    </button>
+                    </x-ui.button>
                 </div>
             </form>
         </div>

@@ -27,15 +27,14 @@
 <div class="contextual-guide-assistant" data-page-id="{{ $pageIdentifier }}">
 
     <!-- Help Icon Button (Always Visible) -->
-    <button
-        type="button"
+    <x-ui.button
         class="guide-help-icon"
         id="guideHelpIcon"
-        aria-label="Page help"
-        title="Click for page guidance"
+        aria-label="Support"
+        title="Support"
     >
-        {{ $settings['icon'] ?? '❓' }}
-    </button>
+        {{ __('Support') }}
+    </x-ui.button>
 
     <!-- Small Tooltip/Drawer (Hidden by default) -->
     <div
@@ -47,25 +46,25 @@
             <p class="guide-text">{{ $guideConfig['text'] }}</p>
 
             @if($settings['dismissible'])
-            <button
-                type="button"
+            <x-ui.button
+                variant="link"
                 class="guide-dismiss-link"
                 id="guideDismiss"
             >
                 Don't show again
-            </button>
+            </x-ui.button>
             @endif
         </div>
 
         <!-- Small close icon -->
-        <button
-            type="button"
+        <x-ui.button
+            variant="ghost"
             class="guide-close-icon"
             id="guideClose"
             aria-label="Close"
         >
             ×
-        </button>
+        </x-ui.button>
     </div>
 </div>
 

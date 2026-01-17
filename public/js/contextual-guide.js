@@ -114,7 +114,6 @@
         checkInitialVisibility() {
             if (this.panel && !this.panel.classList.contains('hidden')) {
                 this.isOpen = true;
-                this.addPulseEffect();
             }
         }
 
@@ -124,20 +123,13 @@
         open() {
             if (this.isOpen) return;
 
-            // Show panel and overlay
+            // Show panel and overlay immediately
             this.panel.classList.remove('hidden');
             this.overlay.classList.remove('hidden');
-
-            // Add animation class
-            setTimeout(() => {
-                this.panel.classList.add('contextual-guide-show');
-                this.overlay.classList.add('contextual-guide-overlay-show');
-            }, 10);
+            this.panel.classList.add('contextual-guide-show');
+            this.overlay.classList.add('contextual-guide-overlay-show');
 
             this.isOpen = true;
-
-            // Add pulse effect to trigger
-            this.addPulseEffect();
 
             // Focus on panel for accessibility
             this.panel.focus();
@@ -149,20 +141,13 @@
         close() {
             if (!this.isOpen) return;
 
-            // Remove animation classes
+            // Hide panel and overlay immediately
             this.panel.classList.remove('contextual-guide-show');
             this.overlay.classList.remove('contextual-guide-overlay-show');
-
-            // Hide after animation
-            setTimeout(() => {
-                this.panel.classList.add('hidden');
-                this.overlay.classList.add('hidden');
-            }, 300);
+            this.panel.classList.add('hidden');
+            this.overlay.classList.add('hidden');
 
             this.isOpen = false;
-
-            // Remove pulse effect
-            this.removePulseEffect();
         }
 
         /**
@@ -207,24 +192,6 @@
                 console.log('Guide dismissed successfully for page:', this.pageId);
             } catch (error) {
                 console.error('Error dismissing guide:', error);
-            }
-        }
-
-        /**
-         * Add pulse effect to trigger button
-         */
-        addPulseEffect() {
-            if (this.trigger) {
-                this.trigger.classList.add('contextual-guide-trigger-pulse');
-            }
-        }
-
-        /**
-         * Remove pulse effect from trigger button
-         */
-        removePulseEffect() {
-            if (this.trigger) {
-                this.trigger.classList.remove('contextual-guide-trigger-pulse');
             }
         }
 

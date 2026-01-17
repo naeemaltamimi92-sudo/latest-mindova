@@ -18,7 +18,7 @@
         from { opacity: 0; transform: translateX(30px); }
         to { opacity: 1; transform: translateX(0); }
     }
-    .fade-in { animation: fadeIn 0.8s ease-out forwards; }
+    .fade-in { animation: fadeIn 0.8s forwards; }
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -28,12 +28,12 @@
         from { opacity: 0; transform: scale(0.9); }
         to { opacity: 1; transform: scale(1); }
     }
-    .float { animation: float 3s ease-in-out infinite; }
+    .float { animation: float 3s-out infinite; }
     @keyframes float {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-10px); }
     }
-    .pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+    .pulse-glow { animation: pulseGlow 2s-out infinite; }
     @keyframes pulseGlow {
         0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
         50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); }
@@ -165,14 +165,14 @@
 @endpush
 
 @section('content')
-<div x-data="{ activeTab: 'overview', showAnalysis: false }" class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+<div x-data="{ activeTab: 'overview', showAnalysis: false }" class="min-h-screen bg-gray-50">
     <!-- Hero Section -->
     <div class="hero-gradient text-white">
         <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 relative z-10">
             <div class="slide-up" style="animation-delay: 0.1s">
                 <!-- Breadcrumb -->
                 <nav class="flex items-center gap-2 text-sm text-white/70 mb-6">
-                    <a href="{{ route('challenges.index') }}" class="hover:text-white transition-colors">{{ __('Challenges') }}</a>
+                    <a href="{{ route('challenges.index') }}" class="hover:text-white">{{ __('Challenges') }}</a>
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                     </svg>
@@ -219,7 +219,7 @@
                         </div>
                         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 leading-tight">{{ $challenge->title }}</h1>
                         <div class="flex items-center flex-wrap gap-4 text-white/80">
-                            <a href="#" class="flex items-center gap-2 hover:text-white transition-colors">
+                            <a href="#" class="flex items-center gap-2 hover:text-white">
                                 <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
@@ -281,7 +281,7 @@
             <!-- Progress -->
             <div class="stat-card glass-card rounded-2xl p-5 slide-up" style="animation-delay: 0.2s">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                         </svg>
@@ -307,7 +307,7 @@
             <!-- Tasks -->
             <div class="stat-card glass-card rounded-2xl p-5 slide-up" style="animation-delay: 0.3s">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                         </svg>
@@ -320,7 +320,7 @@
             <!-- Hours -->
             <div class="stat-card glass-card rounded-2xl p-5 slide-up" style="animation-delay: 0.4s">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-secondary-300 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -333,7 +333,7 @@
             <!-- Volunteers -->
             <div class="stat-card glass-card rounded-2xl p-5 slide-up" style="animation-delay: 0.5s">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-secondary-600 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                         </svg>
@@ -346,7 +346,7 @@
             <!-- Ideas Count -->
             <div class="stat-card glass-card rounded-2xl p-5 slide-up" style="animation-delay: 0.2s">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                         </svg>
@@ -359,7 +359,7 @@
             <!-- Top Score -->
             <div class="stat-card glass-card rounded-2xl p-5 slide-up" style="animation-delay: 0.3s">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
                         </svg>
@@ -373,7 +373,7 @@
             <!-- Total Votes -->
             <div class="stat-card glass-card rounded-2xl p-5 slide-up" style="animation-delay: 0.4s">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-secondary-300 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
                         </svg>
@@ -386,7 +386,7 @@
             <!-- Contributors -->
             <div class="stat-card glass-card rounded-2xl p-5 slide-up" style="animation-delay: 0.5s">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-secondary-600 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                         </svg>
@@ -406,36 +406,36 @@
             <div class="lg:col-span-2 space-y-8">
                 <!-- Tab Navigation -->
                 <div class="flex flex-wrap gap-2 p-1.5 bg-slate-100 rounded-2xl slide-up" style="animation-delay: 0.3s">
-                    <button @click="activeTab = 'overview'" :class="activeTab === 'overview' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700 transition-all">
+                    <x-ui.button @click="activeTab = 'overview'" :class="activeTab === 'overview' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700" variant="ghost">
                         {{ __('Overview') }}
-                    </button>
+                    </x-ui.button>
                     @if($challenge->challenge_type === 'team_execution')
-                    <button @click="activeTab = 'tasks'" :class="activeTab === 'tasks' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700 transition-all">
+                    <x-ui.button @click="activeTab = 'tasks'" :class="activeTab === 'tasks' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700" variant="ghost">
                         {{ __('Tasks') }}
-                    </button>
+                    </x-ui.button>
                     @else
-                    <button @click="activeTab = 'ideas'" :class="activeTab === 'ideas' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700 transition-all">
+                    <x-ui.button @click="activeTab = 'ideas'" :class="activeTab === 'ideas' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700" variant="ghost">
                         {{ __('Ideas') }}
-                    </button>
+                    </x-ui.button>
                     @endif
                     @if($challenge->teams->count() > 0)
-                    <button @click="activeTab = 'teams'" :class="activeTab === 'teams' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700 transition-all">
+                    <x-ui.button @click="activeTab = 'teams'" :class="activeTab === 'teams' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700" variant="ghost">
                         {{ __('Teams') }}
-                    </button>
+                    </x-ui.button>
                     @endif
                     @if($latestAnalysis)
-                    <button @click="activeTab = 'analysis'" :class="activeTab === 'analysis' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700 transition-all">
+                    <x-ui.button @click="activeTab = 'analysis'" :class="activeTab === 'analysis' ? 'active' : ''" class="tab-btn flex-1 py-3 px-4 rounded-xl font-semibold text-sm text-slate-700" variant="ghost">
                         {{ __('AI Analysis') }}
-                    </button>
+                    </x-ui.button>
                     @endif
                 </div>
 
                 <!-- Overview Tab -->
-                <div x-show="activeTab === 'overview'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                <div x-show="activeTab === 'overview'"   >
                     <!-- Challenge Description -->
                     <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm slide-up" style="animation-delay: 0.4s">
                         <div class="flex items-center gap-3 mb-6">
-                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center">
+                            <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
@@ -451,7 +451,7 @@
                     @if($requiredSkills->count() > 0)
                     <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm slide-up" style="animation-delay: 0.5s">
                         <div class="flex items-center gap-3 mb-6">
-                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center">
+                            <div class="w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                 </svg>
@@ -460,7 +460,7 @@
                         </div>
                         <div class="flex flex-wrap gap-2">
                             @foreach($requiredSkills as $skill)
-                            <span class="skill-tag px-4 py-2 bg-gradient-to-r from-indigo-50 to-violet-50 text-indigo-700 rounded-xl font-semibold text-sm border border-indigo-100 cursor-default">
+                            <span class="skill-tag px-4 py-2 bg-gray-50 text-indigo-700 rounded-xl font-semibold text-sm border border-indigo-100 cursor-default">
                                 {{ $skill }}
                             </span>
                             @endforeach
@@ -472,7 +472,7 @@
                     @if($challenge->attachments->count() > 0)
                     <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm slide-up" style="animation-delay: 0.6s">
                         <div class="flex items-center gap-3 mb-6">
-                            <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
+                            <div class="w-10 h-10 bg-secondary-300 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                                 </svg>
@@ -482,7 +482,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             @foreach($challenge->attachments as $attachment)
                             <a href="{{ route('challenges.attachments.download', [$challenge, $attachment]) }}" class="attachment-card flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-indigo-300">
-                                <div class="w-12 h-12 bg-gradient-to-br from-slate-200 to-slate-300 rounded-xl flex items-center justify-center">
+                                <div class="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center">
                                     @php
                                         $ext = pathinfo($attachment->filename, PATHINFO_EXTENSION);
                                         $iconColor = match($ext) {
@@ -513,13 +513,13 @@
 
                 <!-- Tasks Tab (Team Execution) -->
                 @if($challenge->challenge_type === 'team_execution')
-                <div x-show="activeTab === 'tasks'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                <div x-show="activeTab === 'tasks'"   >
                     @forelse($challenge->workstreams as $index => $workstream)
                     <div class="workstream-card bg-white rounded-3xl border border-slate-200 p-8 shadow-sm mb-6">
                         <div class="flex items-start justify-between mb-6">
                             <div>
                                 <div class="flex items-center gap-3 mb-2">
-                                    <span class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">{{ $index + 1 }}</span>
+                                    <span class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">{{ $index + 1 }}</span>
                                     <h3 class="text-xl font-black text-slate-900">{{ $workstream->title }}</h3>
                                 </div>
                                 <p class="text-slate-600 text-sm ml-11">{{ $workstream->description }}</p>
@@ -547,7 +547,7 @@
                                     </svg>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h4 class="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{{ $task->title }}</h4>
+                                    <h4 class="font-bold text-slate-900 group-hover:text-indigo-600">{{ $task->title }}</h4>
                                     <div class="flex items-center flex-wrap gap-3 mt-1 text-xs">
                                         <span class="flex items-center gap-1 text-slate-500">
                                             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
@@ -566,7 +566,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <a href="{{ route('tasks.show', $task) }}" class="flex-shrink-0 w-10 h-10 bg-indigo-100 hover:bg-indigo-600 text-indigo-600 hover:text-white rounded-xl flex items-center justify-center transition-all">
+                                <a href="{{ route('tasks.show', $task) }}" class="flex-shrink-0 w-10 h-10 bg-indigo-100 hover:bg-indigo-600 text-indigo-600 hover:text-white rounded-xl flex items-center justify-center">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                     </svg>
@@ -591,16 +591,16 @@
 
                 <!-- Ideas Tab (Community Discussion) -->
                 @if($challenge->challenge_type === 'community_discussion')
-                <div x-show="activeTab === 'ideas'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                <div x-show="activeTab === 'ideas'"   >
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-xl font-black text-slate-900">{{ __('Community Ideas') }}</h2>
                         @if(auth()->user() && auth()->user()->isVolunteer())
-                        <a href="{{ route('ideas.create', $challenge) }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-indigo-500/30 transition-all">
+                        <x-ui.button as="a" href="{{ route('ideas.create', $challenge) }}" variant="primary">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                             </svg>
                             {{ __('Submit Idea') }}
-                        </a>
+                        </x-ui.button>
                         @endif
                     </div>
 
@@ -614,7 +614,7 @@
                             </div>
                             @endif
                             <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 bg-gradient-to-br {{ $canSeeSpam && $idea->is_spam ? 'from-red-100 to-rose-100' : 'from-indigo-100 to-violet-100' }} rounded-xl flex items-center justify-center flex-shrink-0">
+                                <div class="w-12 h-12 {{ $canSeeSpam && $idea->is_spam ? 'bg-red-100' : 'bg-primary-100' }} rounded-xl flex items-center justify-center flex-shrink-0">
                                     <svg class="w-6 h-6 {{ $canSeeSpam && $idea->is_spam ? 'text-red-600' : 'text-indigo-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                     </svg>
@@ -651,14 +651,14 @@
                                         @endif
                                     </div>
                                 </div>
-                                <a href="{{ route('ideas.show', $idea) }}" class="flex-shrink-0 px-4 py-2 bg-indigo-100 hover:bg-indigo-600 text-indigo-600 hover:text-white rounded-xl font-semibold text-sm transition-all">
+                                <a href="{{ route('ideas.show', $idea) }}" class="flex-shrink-0 px-4 py-2 bg-indigo-100 hover:bg-indigo-600 text-indigo-600 hover:text-white rounded-xl font-semibold text-sm">
                                     {{ __('View') }}
                                 </a>
                             </div>
                         </div>
                         @empty
                         <div class="bg-white rounded-3xl border border-slate-200 p-12 text-center">
-                            <div class="w-16 h-16 bg-gradient-to-br from-indigo-100 to-violet-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                                 <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                 </svg>
@@ -673,12 +673,12 @@
 
                 <!-- Teams Tab -->
                 @if($challenge->teams->count() > 0)
-                <div x-show="activeTab === 'teams'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                <div x-show="activeTab === 'teams'"   >
                     <div class="grid grid-cols-1 gap-6">
                         @foreach($challenge->teams as $team)
-                        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-lg transition-shadow">
+                        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-lg">
                             <div class="flex items-start gap-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-2xl flex items-center justify-center text-white font-black text-xl">
+                                <div class="w-14 h-14 bg-primary-500 rounded-2xl flex items-center justify-center text-white font-black text-xl">
                                     {{ strtoupper(substr($team->name, 0, 2)) }}
                                 </div>
                                 <div class="flex-1">
@@ -701,13 +701,13 @@
                             <div class="mt-4 pt-4 border-t border-slate-100">
                                 <div class="flex items-center -space-x-3">
                                     @if($team->leader && $team->leader->user)
-                                    <div class="team-avatar relative w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-white shadow-md" title="{{ $team->leader->user->name }} ({{ __('Leader') }})">
+                                    <div class="team-avatar relative w-10 h-10 bg-secondary-300 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-white shadow-md" title="{{ $team->leader->user->name }} ({{ __('Leader') }})">
                                         {{ strtoupper(substr($team->leader->user->name, 0, 1)) }}
                                     </div>
                                     @endif
                                     @foreach($team->members->take(5) as $member)
                                     @if($member->volunteer && $member->volunteer->user)
-                                    <div class="team-avatar relative w-10 h-10 bg-gradient-to-br from-slate-400 to-slate-500 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-white shadow-md" title="{{ $member->volunteer->user->name }}">
+                                    <div class="team-avatar relative w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-white shadow-md" title="{{ $member->volunteer->user->name }}">
                                         {{ strtoupper(substr($member->volunteer->user->name, 0, 1)) }}
                                     </div>
                                     @endif
@@ -727,13 +727,13 @@
 
                 <!-- AI Analysis Tab -->
                 @if($latestAnalysis)
-                <div x-show="activeTab === 'analysis'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                <div x-show="activeTab === 'analysis'"   >
                     <div class="space-y-6">
                         <!-- Summary -->
                         @if($latestAnalysis->summary)
                         <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
                             <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center">
+                                <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                     </svg>
@@ -843,9 +843,9 @@
 
                         <!-- Recommended Approach -->
                         @if($latestAnalysis->recommended_approach)
-                        <div class="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-3xl border border-indigo-200 p-8">
+                        <div class="bg-gray-50 rounded-3xl border border-indigo-200 p-8">
                             <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center">
+                                <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                     </svg>
@@ -870,7 +870,7 @@
                         <!-- Complexity -->
                         @if($challenge->complexity_level)
                         <div class="flex items-start gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
                                 </svg>
@@ -883,11 +883,11 @@
                                         <span class="text-sm text-slate-500">/10</span>
                                     </div>
                                     <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-                                        <div class="h-full rounded-full transition-all duration-500
-                                            @if($challenge->complexity_level <= 3) bg-gradient-to-r from-emerald-400 to-emerald-500
-                                            @elseif($challenge->complexity_level <= 6) bg-gradient-to-r from-amber-400 to-amber-500
-                                            @elseif($challenge->complexity_level <= 8) bg-gradient-to-r from-orange-400 to-orange-500
-                                            @else bg-gradient-to-r from-red-500 to-red-600
+                                        <div class="h-full rounded-full
+                                            @if($challenge->complexity_level <= 3) bg-secondary-500
+                                            @elseif($challenge->complexity_level <= 6) bg-secondary-300
+                                            @elseif($challenge->complexity_level <= 8) bg-secondary-400
+                                            @else bg-secondary-700
                                             @endif"
                                             style="width: {{ ($challenge->complexity_level / 10) * 100 }}%">
                                         </div>
@@ -912,7 +912,7 @@
                         <!-- Estimated Hours -->
                         @if($latestAnalysis && $latestAnalysis->estimated_effort_hours)
                         <div class="flex items-start gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 bg-secondary-300 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -927,7 +927,7 @@
                         <!-- Confidence Score -->
                         @if($latestAnalysis && $latestAnalysis->confidence_score)
                         <div class="flex items-start gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                                 </svg>
@@ -942,7 +942,7 @@
                         <!-- Deadline -->
                         @if($challenge->deadline)
                         <div class="flex items-start gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 bg-secondary-600 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                                 </svg>
@@ -959,9 +959,9 @@
                 <!-- Company Actions: Issue Certificates -->
                 @auth
                     @if(auth()->user()->company && auth()->user()->company->id === $challenge->company_id && $challenge->canIssueCertificates())
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl border border-blue-200 p-6 shadow-sm slide-in-right" style="animation-delay: 0.5s">
+                    <div class="bg-gray-50 rounded-3xl border border-blue-200 p-6 shadow-sm slide-in-right" style="animation-delay: 0.5s">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center pulse-glow">
+                            <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center pulse-glow">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                                 </svg>
@@ -974,16 +974,16 @@
                         <p class="text-sm text-slate-700 mb-4 leading-relaxed">
                             {{ __('Confirm completion and generate professional certificates for all participating volunteers.') }}
                         </p>
-                        <a href="{{ route('challenges.confirm', $challenge) }}" class="block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all">
+                        <x-ui.button as="a" href="{{ route('challenges.confirm', $challenge) }}" variant="primary" fullWidth>
                             {{ __('Confirm & Issue Certificates') }}
-                        </a>
+                        </x-ui.button>
                     </div>
                     @endif
 
                     <!-- Analytics Link (Company Owner) -->
                     @if(auth()->user()->company && auth()->user()->company->id === $challenge->company_id)
-                    <a href="{{ route('challenges.analytics', $challenge) }}" class="flex items-center gap-4 p-5 bg-white rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-lg transition-all slide-in-right" style="animation-delay: 0.6s">
-                        <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl flex items-center justify-center">
+                    <a href="{{ route('challenges.analytics', $challenge) }}" class="flex items-center gap-4 p-5 bg-white rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-lg slide-in-right" style="animation-delay: 0.6s">
+                        <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                             </svg>
@@ -1003,7 +1003,7 @@
                 <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm slide-in-right" style="animation-delay: 0.7s">
                     <h3 class="text-lg font-black text-slate-900 mb-4">{{ __('Posted By') }}</h3>
                     <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-slate-700 to-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-xl">
+                        <div class="w-14 h-14 bg-primary-500 rounded-2xl flex items-center justify-center text-white font-black text-xl">
                             {{ strtoupper(substr($challenge->company->company_name, 0, 2)) }}
                         </div>
                         <div>

@@ -4,55 +4,6 @@
 
 @push('styles')
 <style>
-    /* Premium Animations */
-    .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
-    .slide-up-1 { animation-delay: 0.05s; }
-    .slide-up-2 { animation-delay: 0.1s; }
-    .slide-up-3 { animation-delay: 0.15s; }
-    .slide-up-4 { animation-delay: 0.2s; }
-    .slide-up-5 { animation-delay: 0.25s; }
-    .slide-up-6 { animation-delay: 0.3s; }
-
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .float-anim { animation: floatAnim 6s ease-in-out infinite; }
-    @keyframes floatAnim {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-10px) rotate(2deg); }
-    }
-
-    .pulse-ring { animation: pulseRing 2s ease-out infinite; }
-    @keyframes pulseRing {
-        0% { transform: scale(0.8); opacity: 1; }
-        100% { transform: scale(2); opacity: 0; }
-    }
-
-    .stat-card {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .stat-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
-    }
-
-    .action-card {
-        transition: all 0.25s ease;
-    }
-    .action-card:hover {
-        transform: translateX(8px);
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
-    }
-
-    .activity-item {
-        transition: all 0.2s ease;
-    }
-    .activity-item:hover {
-        transform: scale(1.01);
-    }
-
     .grid-pattern {
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
@@ -66,11 +17,11 @@
 @section('content')
 <div class="space-y-6">
     <!-- Premium Welcome Header -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-violet-700 rounded-3xl p-6 lg:p-8 slide-up slide-up-1">
+    <div class="relative overflow-hidden bg-primary-500 rounded-3xl p-6 lg:p-8">
         <!-- Animated Background -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl float-anim"></div>
-            <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-400/20 rounded-full blur-3xl float-anim" style="animation-delay: 2s;"></div>
+            <div class="absolute -top-10 -right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-400/20 rounded-full blur-3xl"></div>
         </div>
         <div class="absolute inset-0 grid-pattern"></div>
 
@@ -100,12 +51,12 @@
 
             <div class="flex items-center gap-3">
                 @if($teamMember->hasPermission('team.create'))
-                <a href="{{ route('mindova.team.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-700 font-semibold rounded-xl hover:bg-indigo-50 transition-all shadow-lg">
+                <x-ui.button as="a" href="{{ route('mindova.team.create') }}" variant="secondary">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                     </svg>
                     {{ __('Invite Member') }}
-                </a>
+                </x-ui.button>
                 @endif
             </div>
         </div>
@@ -135,18 +86,18 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         @php
             $statCards = [
-                ['key' => 'total_users', 'label' => 'Platform Users', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'gradient' => 'from-blue-500 to-cyan-500', 'bg' => 'bg-blue-50'],
-                ['key' => 'volunteers', 'label' => 'Volunteers', 'icon' => 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z', 'gradient' => 'from-emerald-500 to-teal-500', 'bg' => 'bg-emerald-50'],
-                ['key' => 'companies', 'label' => 'Companies', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', 'gradient' => 'from-violet-500 to-purple-500', 'bg' => 'bg-violet-50'],
-                ['key' => 'opportunities', 'label' => 'Opportunities', 'icon' => 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'gradient' => 'from-amber-500 to-orange-500', 'bg' => 'bg-amber-50'],
+                ['key' => 'total_users', 'label' => 'Platform Users', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'gradient' => 'bg-primary-500', 'bg' => 'bg-blue-50'],
+                ['key' => 'volunteers', 'label' => 'Volunteers', 'icon' => 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z', 'gradient' => 'bg-secondary-500', 'bg' => 'bg-emerald-50'],
+                ['key' => 'companies', 'label' => 'Companies', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', 'gradient' => 'bg-secondary-500', 'bg' => 'bg-violet-50'],
+                ['key' => 'opportunities', 'label' => 'Opportunities', 'icon' => 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'gradient' => 'bg-secondary-500', 'bg' => 'bg-amber-50'],
             ];
         @endphp
 
         @foreach($statCards as $index => $card)
             @if(isset($stats[$card['key']]))
-            <div class="stat-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm slide-up slide-up-{{ $index + 2 }}">
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
                 <div class="flex items-center justify-between">
-                    <div class="w-12 h-12 bg-gradient-to-br {{ $card['gradient'] }} rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 {{ $card['gradient'] }} rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $card['icon'] }}"></path>
                         </svg>
@@ -169,10 +120,10 @@
     <!-- Main Content Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Quick Actions -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden slide-up slide-up-4">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-5 border-b border-slate-100">
                 <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">
+                    <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
@@ -182,7 +133,7 @@
             </div>
             <div class="p-4 space-y-2">
                 @if($teamMember->hasPermission('team.create'))
-                <a href="{{ route('mindova.team.create') }}" class="action-card flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-indigo-100">
+                <a href="{{ route('mindova.team.create') }}" class="flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-indigo-100">
                     <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
@@ -199,7 +150,7 @@
                 @endif
 
                 @if($teamMember->hasPermission('team.view'))
-                <a href="{{ route('mindova.team.index') }}" class="action-card flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-indigo-100">
+                <a href="{{ route('mindova.team.index') }}" class="flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-indigo-100">
                     <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -216,7 +167,7 @@
                 @endif
 
                 @if($teamMember->hasPermission('audit.view'))
-                <a href="{{ route('mindova.audit.index') }}" class="action-card flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-indigo-100">
+                <a href="{{ route('mindova.audit.index') }}" class="flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-indigo-100">
                     <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
@@ -232,7 +183,7 @@
                 </a>
                 @endif
 
-                <a href="{{ route('mindova.password.change') }}" class="action-card flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-indigo-100">
+                <a href="{{ route('mindova.password.change') }}" class="flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-indigo-100">
                     <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
@@ -250,10 +201,10 @@
         </div>
 
         <!-- Recent Activity Timeline -->
-        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden slide-up slide-up-5">
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-5 border-b border-slate-100 flex items-center justify-between">
                 <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
+                    <div class="w-8 h-8 bg-secondary-500 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -274,11 +225,11 @@
                 @if(count($recentLogs) > 0)
                 <div class="relative">
                     <!-- Timeline Line -->
-                    <div class="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-200 via-purple-200 to-transparent"></div>
+                    <div class="absolute left-5 top-0 bottom-0 w-0.5 bg-primary-200"></div>
 
                     <div class="space-y-4">
                         @foreach($recentLogs as $log)
-                        <div class="activity-item relative flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50">
+                        <div class="relative flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50">
                             <!-- Timeline Dot -->
                             <div class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm
                                 @if($log->action_color === 'green') bg-emerald-100 text-emerald-600 ring-2 ring-emerald-50
@@ -347,7 +298,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Team Members Quick View -->
         @if($teamMember->hasPermission('team.view') && isset($teamMembers) && count($teamMembers) > 0)
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden slide-up slide-up-5">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-5 border-b border-slate-100 flex items-center justify-between">
                 <h2 class="text-lg font-bold text-slate-900">{{ __('Team Members') }}</h2>
                 <a href="{{ route('mindova.team.index') }}" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">{{ __('View All') }}</a>
@@ -357,7 +308,7 @@
                     @foreach($teamMembers->take(8) as $member)
                     <div class="flex items-center gap-2 px-3 py-2 bg-slate-50 rounded-xl">
                         <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold
-                            {{ $member->isOwner() ? 'bg-gradient-to-br from-amber-400 to-orange-500' : ($member->isAdmin() ? 'bg-gradient-to-br from-purple-500 to-indigo-500' : 'bg-gradient-to-br from-blue-500 to-cyan-500') }}">
+                            {{ $member->isOwner() ? 'bg-secondary-300' : ($member->isAdmin() ? 'bg-secondary-500' : 'bg-primary-400') }}">
                             {{ strtoupper(substr($member->name, 0, 1)) }}
                         </div>
                         <div>
@@ -380,7 +331,7 @@
         @endif
 
         <!-- Your Permissions -->
-        <div class="bg-gradient-to-br from-indigo-600 via-purple-600 to-violet-700 rounded-2xl p-6 text-white slide-up slide-up-6">
+        <div class="bg-primary-500 rounded-2xl p-6 text-white">
             <div class="flex items-start gap-4 mb-5">
                 <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

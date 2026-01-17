@@ -3,23 +3,23 @@
 @section('title', __('Challenges Management'))
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30" x-data="challengesManager()">
+<div class="min-h-screen bg-gray-50" x-data="challengesManager()">
     <!-- Premium Hero Header -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 py-10 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+    <div class="relative overflow-hidden bg-primary-500 py-10 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-500/20 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent"></div>
-            <div class="floating-element absolute top-10 -left-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl animate-float"></div>
-            <div class="floating-element absolute bottom-10 right-10 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute top-0 left-0 w-full h-full "></div>
+            <div class="absolute bottom-0 right-0 w-full h-full "></div>
+            <div class="floating-element absolute top-10 -left-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
+            <div class="floating-element absolute bottom-10 right-10 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
         </div>
 
         <div class="relative max-w-7xl mx-auto px-6 sm:px-8">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div class="flex items-center gap-5">
                     <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-2xl blur opacity-40 group-hover:opacity-60 transition duration-500"></div>
-                        <div class="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl">
+                        <div class="absolute -inset-1 bg-secondary-500 rounded-2xl blur opacity-40 group-hover:opacity-60duration-500"></div>
+                        <div class="relative h-16 w-16 rounded-2xl bg-primary-500 flex items-center justify-center shadow-2xl">
                             <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                             </svg>
@@ -38,24 +38,24 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('admin.challenges.analytics') }}" class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold px-5 py-3 rounded-xl hover:bg-white/20 transition-all">
+                    <x-ui.button as="a" href="{{ route('admin.challenges.analytics') }}" variant="secondary">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                         </svg>
                         {{ __('Analytics') }}
-                    </a>
-                    <a href="{{ route('admin.challenges.export', request()->query()) }}" class="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-400/30 text-white font-semibold px-5 py-3 rounded-xl hover:bg-emerald-500/30 transition-all">
+                    </x-ui.button>
+                    <x-ui.button as="a" href="{{ route('admin.challenges.export', request()->query()) }}" variant="success">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                         {{ __('Export') }}
-                    </a>
-                    <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 text-white/70 hover:text-white font-medium px-4 py-3 transition-all">
+                    </x-ui.button>
+                    <x-ui.button as="a" href="{{ route('admin.dashboard') }}" variant="ghost">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         {{ __('Dashboard') }}
-                    </a>
+                    </x-ui.button>
                 </div>
             </div>
 
@@ -121,9 +121,9 @@
         <!-- Additional Stats Cards -->
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
             <!-- Total -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
-                    <div class="h-11 w-11 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <div class="h-11 w-11 rounded-xl bg-primary-500 flex items-center justify-center">
                         <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                         </svg>
@@ -136,7 +136,7 @@
             </div>
 
             <!-- Pending Review -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-yellow-100 flex items-center justify-center">
                         <svg class="h-5 w-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,7 +151,7 @@
             </div>
 
             <!-- Active -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-green-100 flex items-center justify-center">
                         <svg class="h-5 w-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +166,7 @@
             </div>
 
             <!-- Completed -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-emerald-100 flex items-center justify-center">
                         <svg class="h-5 w-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,7 +181,7 @@
             </div>
 
             <!-- This Month -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-blue-100 flex items-center justify-center">
                         <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,7 +196,7 @@
             </div>
 
             <!-- Growth -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl {{ $stats['growth_rate'] >= 0 ? 'bg-teal-100' : 'bg-red-100' }} flex items-center justify-center">
                         <svg class="h-5 w-5 {{ $stats['growth_rate'] >= 0 ? 'text-teal-600' : 'text-red-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -263,7 +263,7 @@
                 <!-- Advanced Filters (Collapsible) -->
                 <div x-data="{ open: false }" class="mt-4">
                     <button type="button" @click="open = !open" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                        <svg class="h-4 w-4 transition-transform" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="h-4 w-4" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                         {{ __('Advanced Filters') }}
@@ -309,15 +309,15 @@
                         </select>
                     </div>
                     <div class="flex gap-2 ms-auto">
-                        <button type="submit" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold px-5 py-2.5 rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg shadow-indigo-500/30 text-sm">
+                        <x-ui.button as="submit" variant="primary" size="sm">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                             </svg>
                             {{ __('Filter') }}
-                        </button>
-                        <a href="{{ route('admin.challenges.index') }}" class="inline-flex items-center gap-2 bg-slate-100 text-slate-700 font-bold px-5 py-2.5 rounded-xl hover:bg-slate-200 transition-all text-sm">
+                        </x-ui.button>
+                        <x-ui.button as="a" href="{{ route('admin.challenges.index') }}" variant="secondary" size="sm">
                             {{ __('Clear') }}
-                        </a>
+                        </x-ui.button>
                     </div>
                 </div>
             </form>
@@ -328,13 +328,13 @@
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
                     <span class="text-red-700 font-semibold" x-text="selectedIds.length + ' {{ __('selected') }}'"></span>
-                    <button @click="selectedIds = []" class="text-sm text-red-600 hover:text-red-800 underline">{{ __('Clear selection') }}</button>
+                    <x-ui.button @click="selectedIds = []" variant="link" size="sm" class="text-red-600 hover:text-red-800">{{ __('Clear selection') }}</x-ui.button>
                 </div>
                 <div class="flex items-center gap-3">
                     <input type="text" x-model="bulkDeleteReason" placeholder="{{ __('Enter reason for deletion (required)...') }}" class="flex-1 md:w-96 px-4 py-2 rounded-lg border-red-200 focus:border-red-500 focus:ring-red-500 text-sm">
-                    <button @click="bulkDelete()" :disabled="!bulkDeleteReason || bulkDeleteReason.length < 10" class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-semibold hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <x-ui.button @click="bulkDelete()" x-bind:disabled="!bulkDeleteReason || bulkDeleteReason.length < 10" variant="destructive" size="sm">
                         {{ __('Delete Selected') }}
-                    </button>
+                    </x-ui.button>
                 </div>
             </div>
             <p class="text-xs text-red-600 mt-2">{{ __('The owners will be notified with the reason for deletion.') }}</p>
@@ -343,7 +343,7 @@
         <!-- Challenges List -->
         <div class="space-y-4">
             @forelse($challenges as $challenge)
-            <div class="group bg-white rounded-2xl shadow-sm border border-slate-200/60 hover:shadow-xl hover:border-indigo-200 transition-all duration-300 overflow-hidden">
+            <div class="group bg-white rounded-2xl shadow-sm border border-slate-200/60 hover:shadow-xl hover:border-indigo-200 overflow-hidden">
                 <div class="p-6">
                     <div class="flex items-start gap-4">
                         <!-- Checkbox -->
@@ -353,8 +353,8 @@
 
                         <!-- Challenge Icon -->
                         <div class="hidden sm:flex flex-shrink-0">
-                            <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 flex items-center justify-center group-hover:from-indigo-500 group-hover:to-purple-600 transition-all">
-                                <svg class="h-7 w-7 text-indigo-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="h-14 w-14 rounded-2xl bg-primary-100 flex items-center justify-center group-hover:bg-primary-500">
+                                <svg class="h-7 w-7 text-indigo-500 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                 </svg>
                             </div>
@@ -365,7 +365,7 @@
                             <div class="flex items-start justify-between gap-4">
                                 <div>
                                     <div class="flex items-center gap-2 flex-wrap">
-                                        <a href="{{ route('admin.challenges.show', $challenge) }}" class="text-lg font-bold text-slate-900 hover:text-indigo-600 transition-colors">
+                                        <a href="{{ route('admin.challenges.show', $challenge) }}" class="text-lg font-bold text-slate-900 hover:text-indigo-600">
                                             {{ $challenge->title }}
                                         </a>
                                     </div>
@@ -438,7 +438,7 @@
 
                         <!-- View Button Only -->
                         <div class="flex flex-col gap-2">
-                            <a href="{{ route('admin.challenges.show', $challenge) }}" class="inline-flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-indigo-500 text-slate-700 hover:text-white font-semibold px-4 py-2 rounded-lg transition-all text-sm">
+                            <a href="{{ route('admin.challenges.show', $challenge) }}" class="inline-flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-indigo-500 text-slate-700 hover:text-white font-semibold px-4 py-2 rounded-lg text-sm">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -457,7 +457,7 @@
                         <span class="font-bold">{{ $challenge->progress_percentage }}%</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-2">
-                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all" style="width: {{ $challenge->progress_percentage }}%"></div>
+                        <div class="bg-primary-500 h-2 rounded-full" style="width: {{ $challenge->progress_percentage }}%"></div>
                     </div>
                 </div>
                 @endif
@@ -485,12 +485,12 @@
 
     <!-- Toast Notification -->
     <div x-show="toast.show" x-cloak
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 translate-y-2"
-         x-transition:enter-end="opacity-100 translate-y-0"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="opacity-100 translate-y-0"
-         x-transition:leave-end="opacity-0 translate-y-2"
+         
+         
+         
+         
+         
+         
          class="fixed bottom-4 right-4 z-50">
         <div class="px-6 py-4 rounded-xl shadow-lg" :class="toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'">
             <p class="font-semibold" x-text="toast.message"></p>

@@ -45,7 +45,6 @@ class SiteSettingsServiceProvider extends ServiceProvider
                 $view->with('darkModeEnabled', $settings['feature_dark_mode'] ?? false);
                 $view->with('maintenanceModeEnabled', $settings['maintenance_mode'] ?? false);
                 $view->with('cookieConsentEnabled', $settings['cookie_consent_enabled'] ?? false);
-                $view->with('languageSwitcherEnabled', $settings['language_switcher_enabled'] ?? false);
                 $view->with('registrationEnabled', $settings['registration_enabled'] ?? true);
 
                 // Branding

@@ -5,10 +5,10 @@
 @section('content')
 <div class="min-h-screen flex" data-auth-page="true" style="flex-direction: row !important;">
     <!-- Left Side - Premium Visual Section (Hidden on mobile) -->
-    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-animated">
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-primary-500">
         <!-- Floating Background Elements -->
-        <div class="floating-element absolute top-20 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float"></div>
-        <div class="floating-element absolute bottom-20 right-0 w-[32rem] h-[32rem] bg-white/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+        <div class="floating-element absolute top-20 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="floating-element absolute bottom-20 right-0 w-[32rem] h-[32rem] bg-white/10 rounded-full blur-3xl"></div>
 
         <div class="relative z-10 flex flex-col justify-center px-8 lg:px-12 xl:px-16 2xl:px-20 text-white">
             <div class="animate-slide-in-up">
@@ -30,7 +30,7 @@
 
                 <!-- Features List -->
                 <div class="space-y-4 lg:space-y-6">
-                    <div class="flex items-start gap-3 lg:gap-4 animate-slide-in-up" style="animation-delay: 0.2s;">
+                    <div class="flex items-start gap-3 lg:gap-4">
                         <div class="flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-3 lg:gap-4 animate-slide-in-up" style="animation-delay: 0.3s;">
+                    <div class="flex items-start gap-3 lg:gap-4">
                         <div class="flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-3 lg:gap-4 animate-slide-in-up" style="animation-delay: 0.4s;">
+                    <div class="flex items-start gap-3 lg:gap-4">
                         <div class="flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -71,9 +71,9 @@
     </div>
 
     <!-- Right Side - Reset Form -->
-    <div class="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12 bg-gradient-to-br from-gray-50 to-blue-50/30">
+    <div class="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12 bg-gray-50">
         <div class="max-w-lg w-full">
-            <div class="card-premium bg-white animate-slide-in-up px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14 py-8 sm:py-10 md:py-12">
+            <div class="card-premium bg-white px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14 py-8 sm:py-10 md:py-12">
                 <!-- Header -->
                 <div class="text-center mb-8 sm:mb-10">
                     <!-- Mobile Logo -->
@@ -115,7 +115,7 @@
                                 </svg>
                             </div>
                             <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
-                                   class="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base text-gray-900 font-medium placeholder-gray-400 @error('email') border-red-500 @enderror"
+                                   class="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base text-gray-900 font-medium placeholder-gray-400 @error('email') border-red-500 @enderror"
                                    placeholder="{{ __('your.email@example.com') }}">
                         </div>
                         @error('email')
@@ -125,12 +125,12 @@
 
                     <!-- Submit Button -->
                     <div>
-                        <button type="submit" class="w-full inline-flex items-center justify-center bg-gradient-blue text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl">
+                        <x-ui.button as="submit" variant="primary" size="lg" fullWidth>
                             {{ __('Send Reset Link') }}
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
-                        </button>
+                        </x-ui.button>
                     </div>
 
                     <!-- Back to Login -->

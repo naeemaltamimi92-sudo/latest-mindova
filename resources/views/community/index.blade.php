@@ -48,56 +48,10 @@
         75% { transform: rotate(-15deg); }
     }
 
-    .animate-float { animation: float 6s ease-in-out infinite; }
+    .animate-float { animation: float 6s-out infinite; }
     .animate-slide-up { animation: slide-up 0.6s ease forwards; }
     .animate-bounce-in { animation: bounce-in 0.6s ease forwards; }
-    .animate-wave { animation: wave 2s ease-in-out infinite; }
-
-    /* Hero Section */
-    .community-hero {
-        background: var(--gradient-rainbow);
-        background-size: 400% 400%;
-        animation: gradient-shift 15s ease infinite;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .community-hero::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M30 30c0-5.523-4.477-10-10-10s-10 4.477-10 10 4.477 10 10 10 10-4.477 10-10zm0 0c0 5.523 4.477 10 10 10s10-4.477 10-10-4.477-10-10-10-10 4.477-10 10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-
-    .hero-orb {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(80px);
-        opacity: 0.5;
-    }
-
-    /* Chat Bubbles Animation */
-    .chat-bubble {
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.2);
-        border-radius: 20px;
-        padding: 12px 16px;
-        position: absolute;
-        animation: float 5s ease-in-out infinite;
-    }
-
-    .chat-bubble::after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: 20px;
-        width: 0;
-        height: 0;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 8px solid rgba(255,255,255,0.15);
-    }
+    .animate-wave { animation: wave 2s-out infinite; }
 
     /* Stat Cards */
     .stat-card {
@@ -349,7 +303,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        animation: float 4s ease-in-out infinite;
+        animation: float 4s-out infinite;
         box-shadow: 0 25px 50px -12px var(--shadow-color-secondary);
     }
 
@@ -368,7 +322,7 @@
     }
 
     .modal-content {
-        animation: slide-up 0.4s ease-out;
+        animation: slide-up 0.4s;
     }
 
     /* Contributor Badge */
@@ -403,92 +357,12 @@
 @endpush
 
 @section('content')
-<!-- Premium Hero Section -->
-<div class="community-hero py-16 mb-10 rounded-3xl shadow-2xl mx-4 lg:mx-8 relative">
-    <!-- Animated Orbs -->
-    <div class="hero-orb w-72 h-72 bg-pink-400 -top-20 -left-20 animate-float" style="animation-delay: 0s;"></div>
-    <div class="hero-orb w-96 h-96 bg-violet-400 -bottom-32 -right-32 animate-float" style="animation-delay: 2s;"></div>
-    <div class="hero-orb w-56 h-56 bg-cyan-400 top-1/2 left-1/4 animate-float" style="animation-delay: 4s;"></div>
-
-    <!-- Floating Chat Bubbles -->
-    <div class="chat-bubble hidden lg:block right-[10%] top-[20%]" style="animation-delay: 0.5s;">
-        <div class="flex items-center gap-2">
-            <div class="w-6 h-6 bg-gradient-to-br from-pink-400 to-violet-400 rounded-full"></div>
-            <span class="text-white text-sm font-medium">{{ __('Great idea!') }}</span>
-        </div>
-    </div>
-    <div class="chat-bubble hidden lg:block left-[8%] bottom-[25%]" style="animation-delay: 1.5s;">
-        <div class="flex items-center gap-2">
-            <div class="w-6 h-6 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-full"></div>
-            <span class="text-white text-sm font-medium">{{ __('Let\'s collaborate!') }}</span>
-        </div>
-    </div>
-
-    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="text-center">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-6 animate-bounce-in">
-                <div class="relative">
-                    <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></div>
-                    <div class="absolute inset-0 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping"></div>
-                </div>
-                <span class="text-sm font-bold text-white">{{ __('Community Discussion Hub') }}</span>
-            </div>
-
-            <!-- Title -->
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 animate-slide-up">
-                {{ __('Community') }}
-                <span class="bg-gradient-to-r from-yellow-200 via-pink-200 to-cyan-200 bg-clip-text text-transparent">{{ __('Challenges') }}</span>
-            </h1>
-
-            <!-- Subtitle -->
-            <p class="text-lg md:text-xl text-white/90 font-medium mb-8 max-w-3xl mx-auto animate-slide-up" style="animation-delay: 0.1s;">
-                {{ __('Collaborate with the community to refine and improve challenges through discussion, feedback, and innovative solutions') }}
-            </p>
-
-            <!-- Action Buttons -->
-            <div class="flex flex-wrap justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
-                @if(auth()->check() && auth()->user()->isVolunteer())
-                <button type="button" id="openChallengeModalBtn" class="btn-submit">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    {{ __('Submit a Challenge') }}
-                </button>
-                @endif
-                <a href="#challenges" class="bg-white/15 backdrop-blur-md border-2 border-white/30 text-white font-bold px-8 py-4 rounded-2xl hover:bg-white/25 transition-all inline-flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                    {{ __('Explore Challenges') }}
-                </a>
-            </div>
-
-            <!-- Quick Stats in Hero -->
-            <div class="flex flex-wrap justify-center gap-6 mt-10 animate-slide-up" style="animation-delay: 0.3s;">
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/20 text-center">
-                    <div class="text-3xl font-black text-white">{{ $challenges->total() }}</div>
-                    <div class="text-sm text-white/80 font-medium">{{ __('Challenges') }}</div>
-                </div>
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/20 text-center">
-                    <div class="text-3xl font-black text-yellow-300">{{ $challenges->sum('ideas_count') }}</div>
-                    <div class="text-sm text-white/80 font-medium">{{ __('Ideas') }}</div>
-                </div>
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/20 text-center">
-                    <div class="text-3xl font-black text-emerald-300">{{ $challenges->sum(function($c) { return $c->ideas()->where('ai_quality_score', '>=', 70)->count(); }) }}</div>
-                    <div class="text-sm text-white/80 font-medium">{{ __('Quality Insights') }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="max-w-7xl mx-auto px-4 lg:px-8 pb-12" id="challenges">
+<div class="max-w-7xl mx-auto px-4 lg:px-8 pb-12 pt-8" id="challenges">
     <!-- Field Filter Banner -->
     @if(isset($userField) && $userField)
-    <div class="filter-card mb-8 animate-slide-up">
+    <div class="filter-card mb-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+            <div class="w-14 h-14 bg-primary-400 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                 </svg>
@@ -510,14 +384,14 @@
     @endif
 
     {{-- Status Filter Tabs --}}
-    <div class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+    <div class="mb-8">
         <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-2">
             <div class="flex flex-wrap gap-2">
                 {{-- Active Tab --}}
                 <a href="{{ route('community.index', ['filter' => 'active']) }}"
-                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300
+                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm
                           {{ ($filter ?? 'active') === 'active'
-                              ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/30'
+                              ? 'bg-white text-primary-500 border border-primary-200 shadow-lg shadow-emerald-500/30'
                               : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
@@ -527,9 +401,9 @@
 
                 {{-- Completed Tab --}}
                 <a href="{{ route('community.index', ['filter' => 'completed']) }}"
-                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300
+                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm
                           {{ ($filter ?? 'active') === 'completed'
-                              ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30'
+                              ? 'bg-primary-500 text-white shadow-lg shadow-blue-500/30'
                               : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -539,9 +413,9 @@
 
                 {{-- All Tab --}}
                 <a href="{{ route('community.index', ['filter' => 'all']) }}"
-                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300
+                   class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm
                           {{ ($filter ?? 'active') === 'all'
-                              ? 'bg-gradient-to-r from-violet-500 to-violet-600 text-white shadow-lg shadow-violet-500/30'
+                              ? 'bg-white text-primary-500 border border-primary-200 shadow-lg shadow-violet-500/30'
                               : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
@@ -556,14 +430,14 @@
     <!-- Challenges Grid -->
     <div class="space-y-8">
         @foreach($challenges as $index => $challenge)
-        <div class="challenge-card animate-slide-up" style="animation-delay: {{ $index * 0.1 }}s;">
+        <div class="challenge-card" style="animation-delay: {{ $index * 0.1 }}s;">
             <div class="challenge-card-body">
                 <div class="flex flex-col xl:flex-row xl:items-start gap-6">
                     <!-- Main Content -->
                     <div class="flex-1">
                         <!-- Header -->
                         <div class="flex flex-wrap items-start gap-3 mb-4">
-                            <a href="{{ route('community.challenge', $challenge) }}" class="text-2xl md:text-3xl font-black text-gray-900 hover:text-violet-600 transition-colors leading-tight">
+                            <a href="{{ route('community.challenge', $challenge) }}" class="text-2xl md:text-3xl font-black text-gray-900 hover:text-violet-600 leading-tight">
                                 {{ $challenge->title }}
                             </a>
                             <div class="flex flex-wrap items-center gap-2">
@@ -579,7 +453,7 @@
                                 </span>
                                 @endif
                                 @if($challenge->status === 'completed' || $challenge->status === 'closed')
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full text-xs font-bold shadow-sm">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-primary-500 border border-primary-200 rounded-full text-xs font-bold shadow-sm">
                                     <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                     </svg>
@@ -593,7 +467,7 @@
                         <div class="flex flex-wrap items-center gap-4 mb-4">
                             <div class="flex items-center gap-3">
                                 @if($challenge->isVolunteerSubmitted())
-                                <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                <div class="w-10 h-10 bg-secondary-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                                     {{ strtoupper(substr($challenge->volunteer->user->name ?? 'V', 0, 1)) }}
                                 </div>
                                 <div>
@@ -606,7 +480,7 @@
                                     </span>
                                 </div>
                                 @else
-                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                                     {{ strtoupper(substr($challenge->company->company_name ?? 'C', 0, 1)) }}
                                 </div>
                                 <div>
@@ -659,11 +533,11 @@
                         </a>
 
                         <!-- Preview Stats -->
-                        <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 text-center">
+                        <div class="bg-gray-50 rounded-xl p-4 text-center">
                             <p class="text-xs text-gray-500 font-medium mb-2">{{ __('Engagement Level') }}</p>
                             <div class="flex justify-center gap-1">
                                 @for($i = 0; $i < 5; $i++)
-                                <div class="w-2 h-8 rounded-full {{ ($challenge->ideas_count ?? 0) > ($i * 2) ? 'bg-gradient-to-t from-violet-500 to-pink-500' : 'bg-gray-200' }}"></div>
+                                <div class="w-2 h-8 rounded-full {{ ($challenge->ideas_count ?? 0) > ($i * 2) ? 'bg-secondary-500' : 'bg-gray-200' }}"></div>
                                 @endfor
                             </div>
                         </div>
@@ -681,7 +555,7 @@
 
     @else
     <!-- Empty State -->
-    <div class="empty-state animate-slide-up">
+    <div class="empty-state">
         <div class="relative z-10">
             <div class="empty-icon">
                 <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -708,19 +582,19 @@
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 @if(auth()->check() && auth()->user()->isVolunteer())
-                <button type="button" id="openChallengeModalBtnEmpty" class="btn-submit">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <x-ui.button type="button" id="openChallengeModalBtnEmpty" variant="success">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     {{ __('Submit a Challenge') }}
-                </button>
+                </x-ui.button>
                 @endif
-                <a href="{{ route('dashboard') }}" class="bg-gray-200 text-gray-700 font-bold px-8 py-4 rounded-2xl hover:bg-gray-300 transition-all inline-flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <x-ui.button as="a" href="{{ route('dashboard') }}" variant="outline" size="lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                     </svg>
                     {{ __('Back to Dashboard') }}
-                </a>
+                </x-ui.button>
             </div>
         </div>
     </div>
@@ -728,9 +602,9 @@
 </div>
 
 <!-- How It Works Section -->
-<section class="py-20 bg-gradient-to-br from-violet-50 via-purple-50 to-pink-50">
+<section class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 lg:px-8">
-        <div class="text-center mb-12 animate-slide-up">
+        <div class="text-center mb-12">
             <span class="inline-flex items-center gap-2 bg-violet-100 text-violet-700 font-bold px-4 py-2 rounded-full text-sm mb-4">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
@@ -743,7 +617,7 @@
 
         <div class="grid md:grid-cols-3 gap-8">
             <!-- Step 1 -->
-            <div class="info-card animate-slide-up" style="animation-delay: 0.1s;">
+            <div class="info-card">
                 <div class="how-it-works-step" data-step="1">
                     <h3 class="text-xl font-bold text-gray-900 mb-3">{{ __('Educational Focus') }}</h3>
                     <p class="text-gray-600 leading-relaxed">
@@ -753,7 +627,7 @@
             </div>
 
             <!-- Step 2 -->
-            <div class="info-card animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="info-card">
                 <div class="how-it-works-step" data-step="2">
                     <h3 class="text-xl font-bold text-gray-900 mb-3">{{ __('High-Quality Comments') }}</h3>
                     <p class="text-gray-600 leading-relaxed">
@@ -763,7 +637,7 @@
             </div>
 
             <!-- Step 3 -->
-            <div class="info-card animate-slide-up" style="animation-delay: 0.3s;">
+            <div class="info-card">
                 <div class="how-it-works-step" data-step="3">
                     <h3 class="text-xl font-bold text-gray-900 mb-3">{{ __('Field Matching') }}</h3>
                     <p class="text-gray-600 leading-relaxed">
@@ -788,7 +662,7 @@
             <form id="challengeForm" enctype="multipart/form-data">
                 @csrf
                 <!-- Header -->
-                <div class="bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 px-8 py-6 rounded-t-[2rem]">
+                <div class="bg-secondary-500 px-8 py-6 rounded-t-[2rem]">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-2xl font-black text-white" id="modal-title">
@@ -796,7 +670,7 @@
                             </h3>
                             <p class="text-white/80 text-sm mt-1">{{ __('Share a problem for the community to solve together') }}</p>
                         </div>
-                        <button type="button" onclick="closeChallengeModal()" class="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-xl flex items-center justify-center transition-colors">
+                        <button type="button" onclick="closeChallengeModal()" class="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
@@ -811,7 +685,7 @@
                             {{ __('Challenge Title') }} <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="title" id="challenge_title" required
-                            class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-violet-500 focus:ring-0 transition-colors text-lg"
+                            class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-violet-500 focus:ring-0 text-lg"
                             placeholder="{{ __('Enter a clear, descriptive title...') }}">
                     </div>
 
@@ -821,7 +695,7 @@
                             {{ __('Challenge Description') }} <span class="text-red-500">*</span>
                         </label>
                         <textarea name="description" id="challenge_description" rows="6" required minlength="50"
-                            class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-violet-500 focus:ring-0 transition-colors"
+                            class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-violet-500 focus:ring-0"
                             placeholder="{{ __('Describe your challenge in detail. Include the problem you want to solve, any constraints, and desired outcomes... (minimum 50 characters)') }}"></textarea>
                         <p class="text-xs text-gray-500 mt-2">{{ __('Minimum 50 characters required') }}</p>
                     </div>
@@ -831,10 +705,10 @@
                         <label for="challenge_attachments" class="block text-sm font-bold text-gray-700 mb-2">
                             {{ __('Attachments') }} <span class="text-gray-400 font-normal">({{ __('optional') }})</span>
                         </label>
-                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-violet-400 transition-colors cursor-pointer" onclick="document.getElementById('challenge_attachments').click()">
+                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-violet-400 cursor-pointer" onclick="document.getElementById('challenge_attachments').click()">
                             <input type="file" name="attachments[]" id="challenge_attachments" multiple
                                 class="hidden" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif">
-                            <div class="w-16 h-16 bg-gradient-to-br from-violet-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                                 <svg class="w-8 h-8 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                                 </svg>
@@ -846,7 +720,7 @@
                     </div>
 
                     <!-- Info Box -->
-                    <div class="bg-gradient-to-br from-violet-50 to-purple-50 border-2 border-violet-200 rounded-xl p-5">
+                    <div class="bg-gray-50 border-2 border-violet-200 rounded-xl p-5">
                         <div class="flex items-start gap-4">
                             <div class="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -882,19 +756,19 @@
 
                 <!-- Footer -->
                 <div class="bg-gray-50 px-8 py-5 flex items-center justify-end gap-3 rounded-b-[2rem]">
-                    <button type="button" onclick="closeChallengeModal()" class="px-6 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-300 transition-colors">
+                    <x-ui.button type="button" onclick="closeChallengeModal()" variant="outline">
                         {{ __('Cancel') }}
-                    </button>
-                    <button type="submit" id="submitBtn" class="px-8 py-3 bg-gradient-to-r from-violet-600 to-pink-600 text-white font-bold rounded-xl hover:from-violet-700 hover:to-pink-700 transition-all shadow-lg inline-flex items-center gap-2">
+                    </x-ui.button>
+                    <x-ui.button as="submit" id="submitBtn" variant="secondary">
                         <span id="submitText">{{ __('Submit Challenge') }}</span>
                         <span id="submitLoading" class="hidden">
-                            <svg class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                            <svg class="animate-spin h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                             {{ __('Submitting...') }}
                         </span>
-                    </button>
+                    </x-ui.button>
                 </div>
             </form>
         </div>

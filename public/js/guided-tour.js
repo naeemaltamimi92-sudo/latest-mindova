@@ -12,8 +12,8 @@
             this.currentSteps = [];
             this.userId = null;
             this.settings = {
-                delay: 500,
-                animation: 'fade'
+                delay: 0,
+                animation: 'none'
             };
             this.init();
         }
@@ -53,10 +53,8 @@
         }
 
         showSteps() {
-            this.currentSteps.forEach((step, index) => {
-                setTimeout(() => {
-                    this.showTooltip(step);
-                }, index * 400); // Stagger tooltips by 400ms
+            this.currentSteps.forEach((step) => {
+                this.showTooltip(step);
             });
         }
 
@@ -73,23 +71,21 @@
             // Add to DOM
             document.body.appendChild(tooltip);
 
-            // Wait for DOM to render, then position tooltip
-            requestAnimationFrame(() => {
-                this.positionTooltip(tooltip, element, step.position);
+            // Position and show tooltip
+            this.positionTooltip(tooltip, element, step.position);
 
-                // Store reference
-                this.activeTooltips.push({
-                    tooltip,
-                    step,
-                    element
-                });
-
-                // Add highlight to target element
-                element.classList.add('guided-tour-highlight');
-
-                // Show with animation
-                setTimeout(() => tooltip.classList.add('show'), 10);
+            // Store reference
+            this.activeTooltips.push({
+                tooltip,
+                step,
+                element
             });
+
+            // Add highlight to target element
+            element.classList.add('guided-tour-highlight');
+
+            // Show tooltip immediately
+            tooltip.classList.add('show');
         }
 
         createTooltip(step) {
@@ -217,15 +213,11 @@
             // Remove highlight from element
             tooltipData.element.classList.remove('guided-tour-highlight');
 
-            // Hide tooltip with animation
+            // Hide and remove tooltip immediately
             tooltipData.tooltip.classList.remove('show');
-
-            // Remove from DOM after animation
-            setTimeout(() => {
-                if (tooltipData.tooltip.parentNode) {
-                    tooltipData.tooltip.remove();
-                }
-            }, 300);
+            if (tooltipData.tooltip.parentNode) {
+                tooltipData.tooltip.remove();
+            }
 
             // Remove from active list
             this.activeTooltips = this.activeTooltips.filter(t => t.step.step_id !== stepId);

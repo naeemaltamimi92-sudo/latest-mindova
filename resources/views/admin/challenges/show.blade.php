@@ -9,7 +9,7 @@
         transform: rotate(-90deg);
     }
     .progress-ring__circle {
-        transition: stroke-dashoffset 0.5s ease-in-out;
+        transition: stroke-dashoffset 0.5s-out;
         transform-origin: 50% 50%;
     }
 
@@ -67,7 +67,7 @@
         height: 100%;
         border-radius: 50%;
         background: currentColor;
-        animation: pulse-ring 1.5s ease-out infinite;
+        animation: pulse-ring 1.5s infinite;
         opacity: 0.3;
     }
 
@@ -102,7 +102,7 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30" x-data="challengeDetails()">
+<div class="min-h-screen bg-gray-50" x-data="challengeDetails()">
 
     <!-- Hero Header -->
     <div class="hero-gradient text-white">
@@ -150,18 +150,18 @@
 
                 <!-- Actions -->
                 <div class="flex items-center gap-3">
-                    <a href="{{ route('admin.challenges.index') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white rounded-xl transition font-medium">
+                    <x-ui.button as="a" href="{{ route('admin.challenges.index') }}" variant="secondary">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         {{ __('Back') }}
-                    </a>
-                    <button @click="showDeleteModal = true" class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition shadow-lg shadow-red-500/30">
+                    </x-ui.button>
+                    <x-ui.button @click="showDeleteModal = true" variant="destructive">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                         </svg>
                         {{ __('Delete') }}
-                    </button>
+                    </x-ui.button>
                 </div>
             </div>
         </div>
@@ -280,7 +280,7 @@
             $isOverdue = $daysLeft < 0;
             $isUrgent = $daysLeft >= 0 && $daysLeft <= 3;
         @endphp
-        <div class="mb-8 p-6 rounded-2xl {{ $isOverdue ? 'bg-red-50 border-2 border-red-200' : ($isUrgent ? 'bg-yellow-50 border-2 border-yellow-200' : 'bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100') }}">
+        <div class="mb-8 p-6 rounded-2xl {{ $isOverdue ? 'bg-red-50 border-2 border-red-200' : ($isUrgent ? 'bg-yellow-50 border-2 border-yellow-200' : 'bg-gray-50 border border-gray-100') }}">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div class="h-14 w-14 rounded-2xl {{ $isOverdue ? 'bg-red-100' : ($isUrgent ? 'bg-yellow-100' : 'bg-white') }} flex items-center justify-center shadow-sm">
@@ -327,7 +327,7 @@
 
                 <!-- Progress Visualization -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="p-6 bg-gradient-to-r from-indigo-500 to-purple-600">
+                    <div class="p-6 bg-primary-500">
                         <h2 class="text-lg font-bold text-white flex items-center gap-2">
                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -343,14 +343,14 @@
                                 <span class="text-lg font-black text-indigo-600">{{ $challenge->progress_percentage }}%</span>
                             </div>
                             <div class="relative w-full bg-slate-100 rounded-full h-5 overflow-hidden">
-                                <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-1000 ease-out" style="width: {{ max($challenge->progress_percentage, 2) }}%"></div>
-                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
+                                <div class="absolute inset-0 bg-primary-500 rounded-full0" style="width: {{ max($challenge->progress_percentage, 2) }}%"></div>
+                                <div class="absolute inset-0 bg-white/30"></div>
                             </div>
                         </div>
 
                         <!-- Progress Stats Grid -->
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                            <div class="text-center p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl">
+                            <div class="text-center p-4 bg-gray-50 rounded-xl">
                                 <div class="h-10 w-10 rounded-lg bg-indigo-500 text-white flex items-center justify-center mx-auto mb-2">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -359,7 +359,7 @@
                                 <p class="text-2xl font-black text-indigo-600">{{ $challenge->total_estimated_hours }}</p>
                                 <p class="text-xs text-slate-500 mt-1">{{ __('Total Hours') }}</p>
                             </div>
-                            <div class="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl">
+                            <div class="text-center p-4 bg-gray-50 rounded-xl">
                                 <div class="h-10 w-10 rounded-lg bg-orange-500 text-white flex items-center justify-center mx-auto mb-2">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -368,7 +368,7 @@
                                 <p class="text-2xl font-black text-orange-600">{{ $challenge->estimated_remaining_hours }}</p>
                                 <p class="text-xs text-slate-500 mt-1">{{ __('Remaining Hours') }}</p>
                             </div>
-                            <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
+                            <div class="text-center p-4 bg-gray-50 rounded-xl">
                                 <div class="h-10 w-10 rounded-lg bg-purple-500 text-white flex items-center justify-center mx-auto mb-2">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
@@ -377,7 +377,7 @@
                                 <p class="text-2xl font-black text-purple-600">{{ number_format($challenge->time_based_progress, 1) }}%</p>
                                 <p class="text-xs text-slate-500 mt-1">{{ __('Time Progress') }}</p>
                             </div>
-                            <div class="text-center p-4 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl">
+                            <div class="text-center p-4 bg-gray-50 rounded-xl">
                                 <div class="h-10 w-10 rounded-lg bg-emerald-500 text-white flex items-center justify-center mx-auto mb-2">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -416,7 +416,7 @@
                             <div class="flex h-4 rounded-full overflow-hidden bg-slate-100 shadow-inner">
                                 @foreach($taskStatuses as $status => $data)
                                     @if($data['count'] > 0)
-                                    <div class="{{ $data['color'] }} transition-all duration-500" style="width: {{ ($data['count'] / $totalTasks) * 100 }}%" title="{{ $data['label'] }}: {{ $data['count'] }}"></div>
+                                    <div class="{{ $data['color'] }}" style="width: {{ ($data['count'] / $totalTasks) * 100 }}%" title="{{ $data['label'] }}: {{ $data['count'] }}"></div>
                                     @endif
                                 @endforeach
                             </div>
@@ -436,10 +436,10 @@
                 <!-- AI Analysis Details with Tabs -->
                 @if($challenge->challengeAnalyses->count() > 0)
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift" x-data="{ activeTab: 'overview' }">
-                    <div class="p-6 border-b border-slate-100 bg-gradient-to-r from-indigo-50 to-purple-50">
+                    <div class="p-6 border-b border-slate-100 bg-gray-50">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <div class="flex items-center gap-3">
-                                <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                                <div class="h-12 w-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
                                     <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                     </svg>
@@ -458,7 +458,7 @@
                                 </span>
                                 @endif
                                 @if($analysis->requires_human_review)
-                                <span class="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-bold animate-pulse">
+                                <span class="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-bold">
                                     {{ __('Review Required') }}
                                 </span>
                                 @endif
@@ -489,9 +489,9 @@
                     @foreach($challenge->challengeAnalyses as $analysis)
                     <div class="p-6">
                         <!-- Overview Tab -->
-                        <div x-show="activeTab === 'overview'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0">
+                        <div x-show="activeTab === 'overview'"   >
                             @if($analysis->summary)
-                            <div class="p-5 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100 mb-6">
+                            <div class="p-5 bg-gray-50 rounded-xl border border-indigo-100 mb-6">
                                 <h3 class="text-sm font-bold text-indigo-700 mb-2 flex items-center gap-2">
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -530,7 +530,7 @@
                         </div>
 
                         <!-- Objectives Tab -->
-                        <div x-show="activeTab === 'objectives'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0">
+                        <div x-show="activeTab === 'objectives'"   >
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 @if($analysis->objectives && count($analysis->objectives) > 0)
                                 <div class="p-5 bg-green-50 rounded-xl border border-green-100">
@@ -600,7 +600,7 @@
                         </div>
 
                         <!-- Risks Tab -->
-                        <div x-show="activeTab === 'risks'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0">
+                        <div x-show="activeTab === 'risks'"   >
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 @if($analysis->constraints && count($analysis->constraints) > 0)
                                 <div class="p-5 bg-red-50 rounded-xl border border-red-100">
@@ -642,7 +642,7 @@
                             </div>
 
                             @if($analysis->risk_assessment)
-                            <div class="mt-6 p-5 bg-gradient-to-r from-red-50 to-orange-50 rounded-xl border border-red-100">
+                            <div class="mt-6 p-5 bg-gray-50 rounded-xl border border-red-100">
                                 <h3 class="text-sm font-bold text-red-700 mb-2 flex items-center gap-2">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
@@ -669,12 +669,12 @@
                         </div>
 
                         <!-- Stakeholders Tab -->
-                        <div x-show="activeTab === 'stakeholders'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0">
+                        <div x-show="activeTab === 'stakeholders'"   >
                             @if($analysis->stakeholders && count($analysis->stakeholders) > 0)
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 @foreach($analysis->stakeholders as $stakeholder)
                                 <div class="p-4 bg-purple-50 rounded-xl border border-purple-100 flex items-center gap-3">
-                                    <div class="h-10 w-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full bg-secondary-400 flex items-center justify-center flex-shrink-0">
                                         <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
@@ -691,9 +691,9 @@
                         </div>
 
                         <!-- Approach Tab -->
-                        <div x-show="activeTab === 'approach'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0">
+                        <div x-show="activeTab === 'approach'"   >
                             @if($analysis->recommended_approach)
-                            <div class="p-5 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100">
+                            <div class="p-5 bg-gray-50 rounded-xl border border-green-100">
                                 <h3 class="text-sm font-bold text-green-700 mb-3 flex items-center gap-2">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -742,7 +742,7 @@
                 @else
                 <!-- No Analysis Yet -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-8 text-center hover-lift">
-                    <div class="h-20 w-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center mx-auto mb-4">
+                    <div class="h-20 w-20 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
                         <svg class="h-10 w-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                         </svg>
@@ -750,7 +750,7 @@
                     <h3 class="text-xl font-bold text-slate-900 mb-2">{{ __('No AI Analysis Yet') }}</h3>
                     <p class="text-slate-500 mb-4">{{ __('AI analysis has not been performed on this challenge yet.') }}</p>
                     <span class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg text-sm font-medium">
-                        <svg class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
@@ -761,7 +761,7 @@
 
                 <!-- Challenge Description -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="p-6 bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                    <div class="p-6 bg-gray-50 border-b border-slate-200">
                         <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                             <svg class="h-5 w-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
@@ -775,7 +775,7 @@
                         </div>
 
                         @if($challenge->refined_brief)
-                        <div class="mt-6 p-5 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+                        <div class="mt-6 p-5 bg-gray-50 rounded-xl border border-indigo-100">
                             <h3 class="text-sm font-bold text-indigo-700 mb-3 flex items-center gap-2">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -791,7 +791,7 @@
                 <!-- Workstreams & Tasks -->
                 @if($challenge->workstreams->count() > 0)
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="p-6 bg-gradient-to-r from-purple-500 to-indigo-600">
+                    <div class="p-6 bg-secondary-500">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <h2 class="text-lg font-bold text-white flex items-center gap-2">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -816,7 +816,7 @@
                         <div class="p-6" x-data="{ open: true }">
                             <div class="flex items-center justify-between cursor-pointer group" @click="open = !open">
                                 <div class="flex items-center gap-4">
-                                    <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                                    <div class="h-12 w-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
                                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                                         </svg>
@@ -831,9 +831,9 @@
                                 </div>
                                 <div class="flex items-center gap-4">
                                     <div class="w-32 bg-slate-100 rounded-full h-2.5 hidden sm:block">
-                                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2.5 rounded-full transition-all duration-500" style="width: {{ $wsProgress }}%"></div>
+                                        <div class="bg-primary-500 h-2.5 rounded-full" style="width: {{ $wsProgress }}%"></div>
                                     </div>
-                                    <svg class="h-5 w-5 text-slate-400 transition-transform duration-300" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="h-5 w-5 text-slate-400" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </div>
@@ -843,7 +843,7 @@
                             @endif
                             <div x-show="open" x-collapse class="mt-4 space-y-3 ml-16">
                                 @foreach($workstream->tasks as $task)
-                                <div class="p-5 bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl border border-slate-200 hover:border-indigo-200 transition">
+                                <div class="p-5 bg-gray-50 rounded-xl border border-slate-200 hover:border-indigo-200 transition">
                                     <div class="flex items-start justify-between gap-4">
                                         <div class="flex-1">
                                             <div class="flex items-center gap-2 flex-wrap">
@@ -905,7 +905,7 @@
                                         <div class="flex flex-wrap gap-2 mt-2">
                                             @foreach($task->assignments as $assignment)
                                             <div class="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-slate-200 shadow-sm">
-                                                <div class="h-6 w-6 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+                                                <div class="h-6 w-6 rounded-full bg-secondary-400 flex items-center justify-center">
                                                     <span class="text-white text-xs font-bold">{{ substr($assignment->volunteer->user->name ?? 'V', 0, 1) }}</span>
                                                 </div>
                                                 <span class="text-xs font-medium text-slate-700">{{ $assignment->volunteer->user->name ?? 'Volunteer' }}</span>
@@ -929,7 +929,7 @@
                 <!-- Admin Activity Log -->
                 @if($adminLogs->count() > 0)
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="p-6 bg-gradient-to-r from-slate-100 to-slate-50 border-b border-slate-200">
+                    <div class="p-6 bg-gray-50 border-b border-slate-200">
                         <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                             <svg class="h-5 w-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -941,7 +941,7 @@
                         <div class="space-y-4">
                             @foreach($adminLogs as $log)
                             <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition">
-                                <div class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center flex-shrink-0">
+                                <div class="h-10 w-10 rounded-full bg-primary-400 flex items-center justify-center flex-shrink-0">
                                     <span class="text-white text-sm font-bold">{{ substr($log->admin_name, 0, 1) }}</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
@@ -966,7 +966,7 @@
             <div class="space-y-6">
                 <!-- Submitter Info -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="p-4 bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                    <div class="p-4 bg-gray-50 border-b border-slate-200">
                         <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide">{{ __('Submitter') }}</h3>
                     </div>
                     <div class="p-6">
@@ -975,7 +975,7 @@
                             @if($challenge->company->logo_path)
                             <img src="{{ asset('storage/' . $challenge->company->logo_path) }}" alt="{{ $challenge->company->company_name }}" class="h-14 w-14 rounded-xl object-cover shadow-lg">
                             @else
-                            <div class="h-14 w-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                            <div class="h-14 w-14 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg">
                                 <span class="text-white text-lg font-bold">{{ substr($challenge->company->company_name ?? 'CO', 0, 2) }}</span>
                             </div>
                             @endif
@@ -993,7 +993,7 @@
                         </div>
                         @elseif($challenge->volunteer)
                         <div class="flex items-center gap-4">
-                            <div class="h-14 w-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg">
+                            <div class="h-14 w-14 rounded-full bg-secondary-500 flex items-center justify-center shadow-lg">
                                 <span class="text-white text-lg font-bold">{{ substr($challenge->volunteer->user->name ?? 'V', 0, 1) }}</span>
                             </div>
                             <div>
@@ -1010,7 +1010,7 @@
                         </div>
                         @else
                         <div class="flex items-center gap-4">
-                            <div class="h-14 w-14 rounded-full bg-gradient-to-br from-slate-400 to-slate-500 flex items-center justify-center">
+                            <div class="h-14 w-14 rounded-full bg-gray-400 flex items-center justify-center">
                                 <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 </svg>
@@ -1026,7 +1026,7 @@
 
                 <!-- Challenge Details -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="p-4 bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                    <div class="p-4 bg-gray-50 border-b border-slate-200">
                         <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide">{{ __('Details') }}</h3>
                     </div>
                     <div class="p-6">
@@ -1068,7 +1068,7 @@
                 <!-- Teams -->
                 @if($challenge->teams && $challenge->teams->count() > 0)
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border-b border-purple-100">
+                    <div class="p-4 bg-gray-50 border-b border-purple-100">
                         <h3 class="text-sm font-bold text-purple-700 uppercase tracking-wide flex items-center gap-2">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -1078,14 +1078,14 @@
                     </div>
                     <div class="p-4 space-y-3">
                         @foreach($challenge->teams as $team)
-                        <div class="p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl">
+                        <div class="p-4 bg-gray-50 rounded-xl">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="font-bold text-slate-900">{{ $team->name }}</span>
                                 <span class="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full font-bold">{{ $team->members->count() }} {{ __('members') }}</span>
                             </div>
                             <div class="flex -space-x-2">
                                 @foreach($team->members->take(6) as $member)
-                                <div class="h-8 w-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center border-2 border-white shadow-sm" title="{{ $member->volunteer->user->name ?? 'Member' }}">
+                                <div class="h-8 w-8 rounded-full bg-secondary-400 flex items-center justify-center border-2 border-white shadow-sm" title="{{ $member->volunteer->user->name ?? 'Member' }}">
                                     <span class="text-white text-xs font-bold">{{ substr($member->volunteer->user->name ?? 'M', 0, 1) }}</span>
                                 </div>
                                 @endforeach
@@ -1104,7 +1104,7 @@
                 <!-- Attachments -->
                 @if($challenge->attachments && $challenge->attachments->count() > 0)
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="p-4 bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                    <div class="p-4 bg-gray-50 border-b border-slate-200">
                         <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide flex items-center gap-2">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
@@ -1114,7 +1114,7 @@
                     </div>
                     <div class="p-4 space-y-2">
                         @foreach($challenge->attachments as $attachment)
-                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition cursor-pointer">
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl hover:bg-slate-100cursor-pointer">
                             <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
                                 <svg class="h-5 w-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
@@ -1133,11 +1133,11 @@
     <!-- Delete Modal -->
     <div x-show="showDeleteModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div x-show="showDeleteModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" @click="showDeleteModal = false"></div>
+            <div x-show="showDeleteModal"       class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" @click="showDeleteModal = false"></div>
 
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-            <div x-show="showDeleteModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div x-show="showDeleteModal"       class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <form action="{{ route('admin.challenges.destroy', $challenge) }}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -1165,15 +1165,15 @@
                         </div>
                     </div>
                     <div class="bg-slate-50 px-6 py-4 flex flex-row-reverse gap-3">
-                        <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-500/30">
+                        <x-ui.button as="submit" variant="destructive">
                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                             </svg>
                             {{ __('Delete & Notify Owner') }}
-                        </button>
-                        <button type="button" @click="showDeleteModal = false" class="px-5 py-2.5 bg-white text-slate-700 font-semibold rounded-xl border border-slate-200 hover:bg-slate-50 transition">
+                        </x-ui.button>
+                        <x-ui.button @click="showDeleteModal = false" variant="secondary">
                             {{ __('Cancel') }}
-                        </button>
+                        </x-ui.button>
                     </div>
                 </form>
             </div>

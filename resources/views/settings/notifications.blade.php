@@ -9,7 +9,7 @@
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .float-anim { animation: floatAnim 6s ease-in-out infinite; }
+    .float-anim { animation: floatAnim 6s-out infinite; }
     @keyframes floatAnim {
         0%, 100% { transform: translateY(0) rotate(0); }
         50% { transform: translateY(-20px) rotate(5deg); }
@@ -22,17 +22,17 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 pb-12">
+<div class="min-h-screen bg-gray-50 pb-12">
     <!-- Premium Hero Header -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-violet-900 py-12 mb-8 mx-4 sm:mx-6 lg:mx-8 rounded-3xl shadow-2xl max-w-5xl lg:mx-auto slide-up">
+    <div class="relative overflow-hidden bg-primary-500 py-12 mb-8 mx-4 sm:mx-6 lg:mx-8 rounded-3xl shadow-2xl max-w-5xl lg:mx-auto slide-up">
         <!-- Animated Background Effects -->
         <div class="absolute inset-0 opacity-30">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-400/20 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-violet-400/20 via-transparent to-transparent"></div>
+            <div class="absolute top-0 left-0 w-full h-full "></div>
+            <div class="absolute bottom-0 right-0 w-full h-full "></div>
         </div>
         <div class="absolute inset-0 overflow-hidden">
             <div class="floating-element absolute top-10 -left-20 w-60 h-60 bg-indigo-500/20 rounded-full blur-3xl float-anim"></div>
-            <div class="floating-element absolute bottom-10 right-10 w-72 h-72 bg-violet-500/20 rounded-full blur-3xl float-anim" style="animation-delay: 2s;"></div>
+            <div class="floating-element absolute bottom-10 right-10 w-72 h-72 bg-violet-500/20 rounded-full blur-3xl float-anim"></div>
         </div>
 
         <!-- Grid Pattern Overlay -->
@@ -67,9 +67,9 @@
 
             <!-- Email Notifications -->
             <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden slide-up" style="animation-delay: 0.1s">
-                <div class="bg-gradient-to-r from-slate-50 to-indigo-50/30 px-8 py-6 border-b border-slate-200">
+                <div class="bg-gray-50 px-8 py-6 border-b border-slate-200">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
@@ -84,7 +84,7 @@
                 <div class="p-8 space-y-6">
                     @if(auth()->user()->isVolunteer())
                     <!-- Volunteer Notifications -->
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_task_assigned" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_task_updated" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -116,7 +116,7 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_idea_scored" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -132,7 +132,7 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_idea_voted" value="1"
                                    class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -148,7 +148,7 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_reputation_milestone" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -167,7 +167,7 @@
 
                     @if(auth()->user()->isCompany())
                     <!-- Company Notifications -->
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_challenge_analyzed" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -183,7 +183,7 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_task_completed" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -199,7 +199,7 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_new_idea" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -215,7 +215,7 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_challenge_progress" value="1"
                                    class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -236,7 +236,7 @@
                     <div class="border-t border-slate-200 pt-6 mt-6 space-y-4">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-4">{{ __('General Notifications') }}</p>
 
-                        <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                        <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                             <div class="flex items-center h-6 pt-0.5">
                                 <input type="checkbox" name="email_system_updates" value="1"
                                        checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -252,7 +252,7 @@
                             </div>
                         </div>
 
-                        <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-indigo-50/20 rounded-2xl border border-slate-200">
+                        <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
                             <div class="flex items-center h-6 pt-0.5">
                                 <input type="checkbox" name="email_marketing" value="1"
                                        class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
@@ -273,9 +273,9 @@
 
             <!-- In-App Notifications -->
             <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden slide-up" style="animation-delay: 0.2s">
-                <div class="bg-gradient-to-r from-violet-50 to-purple-50/30 px-8 py-6 border-b border-slate-200">
+                <div class="bg-gray-50/30 px-8 py-6 border-b border-slate-200">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                             </svg>
@@ -288,7 +288,7 @@
                 </div>
 
                 <div class="p-8 space-y-4">
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-violet-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="inapp_all" value="1"
                                    checked class="w-5 h-5 text-violet-600 border-slate-300 rounded focus:ring-violet-500 shadow-sm cursor-pointer">
@@ -304,7 +304,7 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gradient-to-r from-slate-50 to-violet-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="inapp_sound" value="1"
                                    class="w-5 h-5 text-violet-600 border-slate-300 rounded focus:ring-violet-500 shadow-sm cursor-pointer">
@@ -324,9 +324,9 @@
 
             <!-- Notification Frequency -->
             <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden slide-up" style="animation-delay: 0.3s">
-                <div class="bg-gradient-to-r from-emerald-50 to-teal-50/30 px-8 py-6 border-b border-slate-200">
+                <div class="bg-gray-50/30 px-8 py-6 border-b border-slate-200">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -339,7 +339,7 @@
                 </div>
 
                 <div class="p-8 space-y-4">
-                    <label class="notification-card flex items-center gap-4 p-5 bg-gradient-to-r from-slate-50 to-emerald-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300 transition-colors">
+                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300">
                         <input type="radio" name="email_frequency" value="realtime"
                                checked class="w-5 h-5 text-emerald-600 border-slate-300 focus:ring-emerald-500">
                         <div class="flex-1">
@@ -353,7 +353,7 @@
                         </div>
                     </label>
 
-                    <label class="notification-card flex items-center gap-4 p-5 bg-gradient-to-r from-slate-50 to-emerald-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300 transition-colors">
+                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300">
                         <input type="radio" name="email_frequency" value="daily"
                                class="w-5 h-5 text-emerald-600 border-slate-300 focus:ring-emerald-500">
                         <div class="flex-1">
@@ -367,7 +367,7 @@
                         </div>
                     </label>
 
-                    <label class="notification-card flex items-center gap-4 p-5 bg-gradient-to-r from-slate-50 to-emerald-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300 transition-colors">
+                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300">
                         <input type="radio" name="email_frequency" value="weekly"
                                class="w-5 h-5 text-emerald-600 border-slate-300 focus:ring-emerald-500">
                         <div class="flex-1">
@@ -385,13 +385,13 @@
 
             <!-- Save Button -->
             <div class="flex flex-col sm:flex-row justify-end gap-4 pt-6 slide-up" style="animation-delay: 0.4s">
-                <a href="{{ route('dashboard') }}" class="inline-flex items-center justify-center bg-white border-2 border-slate-300 text-slate-700 font-bold text-lg px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl hover:border-slate-400">
+                <x-ui.button as="a" href="{{ route('dashboard') }}" variant="outline" size="lg">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                     {{ __('Cancel') }}
-                </a>
-                <button type="submit" class="inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl" :disabled="saving" @click="saving = true">
+                </x-ui.button>
+                <x-ui.button as="submit" variant="primary" size="lg" ::disabled="saving" @click="saving = true">
                     <span x-show="!saving" class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -405,7 +405,7 @@
                         </svg>
                         {{ __('Saving...') }}
                     </span>
-                </button>
+                </x-ui.button>
             </div>
         </form>
     </div>

@@ -4,21 +4,21 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-violet-900 py-12 mb-12 rounded-3xl max-w-5xl mx-auto shadow-2xl">
+<div class="relative overflow-hidden bg-primary-500 py-12 mb-12 rounded-3xl max-w-5xl mx-auto shadow-2xl">
     <!-- Animated Background Effects -->
     <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-500/20 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-violet-500/20 via-transparent to-transparent"></div>
-        <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-float"></div>
-        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+        <div class="absolute top-0 left-0 w-full h-full "></div>
+        <div class="absolute bottom-0 right-0 w-full h-full "></div>
+        <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl"></div>
+        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
     </div>
 
     <div class="relative max-w-4xl mx-auto px-6 sm:px-8 text-center">
         <!-- Status Badge -->
         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-6 shadow-lg">
             <div class="relative">
-                <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></div>
-                <div class="absolute inset-0 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping"></div>
+                <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></div>
+                <div class="absolute inset-0 w-2.5 h-2.5 bg-emerald-400 rounded-full"></div>
             </div>
             <span class="text-sm font-semibold text-white/90">{{ __('New Challenge Submission') }}</span>
         </div>
@@ -26,7 +26,7 @@
         <!-- Main Heading -->
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight tracking-tight">
             {{ __('Submit a') }}
-            <span class="bg-gradient-to-r from-amber-300 via-yellow-200 to-orange-300 bg-clip-text text-transparent">{{ __('New Challenge') }}</span>
+            <span class="text-secondary-200">{{ __('New Challenge') }}</span>
         </h1>
         <p class="text-lg text-white/80 font-medium leading-relaxed max-w-2xl mx-auto">
             {{ __('Share your innovation challenge with our community of talented contributors') }}
@@ -38,14 +38,14 @@
     <!-- Main Form Card -->
     <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
         <!-- Progress Steps Header -->
-        <div class="bg-gradient-to-r from-slate-50 to-indigo-50/50 px-8 py-6 border-b border-slate-100">
+        <div class="bg-gray-50 px-8 py-6 border-b border-slate-100">
             <div class="flex items-center justify-between max-w-3xl mx-auto">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">1</div>
+                    <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">1</div>
                     <span class="text-sm font-semibold text-slate-700 hidden sm:block">{{ __('Details') }}</span>
                 </div>
                 <div class="flex-1 h-1 bg-slate-200 mx-4 rounded-full overflow-hidden">
-                    <div class="h-full w-1/4 bg-gradient-to-r from-indigo-500 to-violet-600 rounded-full"></div>
+                    <div class="h-full w-1/4 bg-primary-500 rounded-full"></div>
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-slate-200 rounded-xl flex items-center justify-center text-slate-500 font-bold">2</div>
@@ -65,14 +65,14 @@
             <!-- Step 1: Challenge Title -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">1</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">1</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Challenge Title') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Give your challenge a clear, descriptive name') }}</span>
                     </div>
                 </label>
                 <input type="text" name="title" required
-                       class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-lg text-slate-900 placeholder-slate-400 shadow-sm"
+                       class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-lg text-slate-900 placeholder-slate-400 shadow-sm"
                        value="{{ old('title') }}"
                        placeholder="{{ __('e.g., Reduce office energy consumption by 30%') }}">
                 @error('title')
@@ -95,7 +95,7 @@
             <!-- Step 2: Description -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">2</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">2</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Description') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Explain your challenge in detail - the more context, the better') }}</span>
@@ -103,7 +103,7 @@
                 </label>
                 <div class="relative">
                     <textarea name="description" rows="12" required
-                              class="w-full px-6 py-5 border-2 border-indigo-200 bg-gradient-to-br from-white to-indigo-50/30 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-900 placeholder-slate-400 resize-none shadow-sm leading-relaxed"
+                              class="w-full px-6 py-5 border-2 border-indigo-200 bg-white rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 placeholder-slate-400 resize-none shadow-sm leading-relaxed"
                               placeholder="{{ __('Describe your challenge in detail...\n\nInclude:\n- What problem are you trying to solve?\n- What are the current challenges?\n- What outcomes do you expect?\n- Any specific requirements or constraints?') }}">{{ old('description') }}</textarea>
                     <div class="absolute bottom-4 right-4 text-xs text-slate-400 font-medium bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-lg">
                         {{ __('Min 100 characters') }}
@@ -129,7 +129,7 @@
             <!-- Step 3: Deadlines -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">3</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">3</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Deadlines') }}</span>
                         <span class="inline-flex items-center gap-2 text-sm text-slate-500">
@@ -147,7 +147,7 @@
                             {{ __('Submission Deadline') }}
                         </label>
                         <input type="date" name="submission_deadline" lang="en"
-                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-900 shadow-sm group-hover:border-indigo-300"
+                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 shadow-sm group-hover:border-indigo-300"
                                value="{{ old('submission_deadline') }}"
                                style="color-scheme: light;">
                         <p class="text-xs text-slate-500 mt-2">{{ __('When should volunteers submit their work?') }}</p>
@@ -163,7 +163,7 @@
                             {{ __('Completion Deadline') }}
                         </label>
                         <input type="date" name="completion_deadline" lang="en"
-                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-900 shadow-sm group-hover:border-violet-300"
+                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 shadow-sm group-hover:border-violet-300"
                                value="{{ old('completion_deadline') }}"
                                style="color-scheme: light;">
                         <p class="text-xs text-slate-500 mt-2">{{ __('When should the challenge be fully completed?') }}</p>
@@ -184,7 +184,7 @@
             <!-- Step 4: PDF Upload -->
             <div class="space-y-4" id="challenge-form">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">4</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">4</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Challenge PDF Document') }}</span>
                         <span class="inline-flex items-center gap-2 text-sm text-slate-500">
@@ -195,23 +195,23 @@
                 </label>
 
                 <!-- Upload Zone -->
-                <div id="upload-zone" class="relative border-2 border-dashed border-indigo-300 rounded-2xl p-10 text-center bg-gradient-to-br from-indigo-50/50 to-violet-50/50 hover:border-indigo-400 hover:bg-indigo-50 transition-all cursor-pointer group">
+                <div id="upload-zone" class="relative border-2 border-dashed border-indigo-300 rounded-2xl p-10 text-center bg-gray-50 hover:border-indigo-400 hover:bg-indigo-50 cursor-pointer group">
                     <input type="file" id="attachment-upload" accept=".pdf" class="hidden">
 
                     <div class="space-y-4">
-                        <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition-transform">
+                        <div class="w-20 h-20 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto shadow-xl">
                             <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                             </svg>
                         </div>
 
                         <div>
-                            <button type="button" onclick="document.getElementById('attachment-upload').click()" class="inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            <x-ui.button type="button" onclick="document.getElementById('attachment-upload').click()" variant="primary">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                                 </svg>
                                 {{ __('Choose PDF File') }}
-                            </button>
+                            </x-ui.button>
                             <p class="text-sm text-slate-600 mt-3">{{ __('or drag and drop PDF here') }}</p>
                         </div>
 
@@ -234,7 +234,7 @@
                     <!-- Upload Progress -->
                     <div id="upload-progress" class="hidden mt-6">
                         <div class="w-full bg-slate-200 rounded-full h-2.5">
-                            <div id="upload-progress-bar" class="bg-gradient-to-r from-indigo-600 to-violet-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            <div id="upload-progress-bar" class="bg-primary-500 h-2.5 rounded-full" style="width: 0%"></div>
                         </div>
                         <p id="upload-status" class="text-sm text-slate-600 mt-2"></p>
                     </div>
@@ -244,10 +244,10 @@
                 <div id="attachments-list" class="space-y-3"></div>
 
                 <!-- PDF Benefits Card -->
-                <div class="bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-200 rounded-2xl p-6 mt-6">
+                <div class="bg-gray-50 border border-indigo-200 rounded-2xl p-6 mt-6">
                     <div class="flex gap-4">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                                 </svg>
@@ -283,11 +283,11 @@
             <!-- Info Cards Grid -->
             <div class="grid md:grid-cols-2 gap-6 pt-6">
                 <!-- NDA Protection Card -->
-                <div class="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-6">
+                <div class="relative overflow-hidden bg-gray-50 border border-emerald-200 rounded-2xl p-6">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-200 rounded-full blur-3xl opacity-30"></div>
                     <div class="relative flex gap-4">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                 </svg>
@@ -305,11 +305,11 @@
                 </div>
 
                 <!-- AI Analysis Card -->
-                <div class="relative overflow-hidden bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-200 rounded-2xl p-6">
+                <div class="relative overflow-hidden bg-gray-50 border border-violet-200 rounded-2xl p-6">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-violet-200 rounded-full blur-3xl opacity-30"></div>
                     <div class="relative flex gap-4">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                 </svg>
@@ -326,11 +326,11 @@
             </div>
 
             <!-- What Happens Next - Timeline -->
-            <div class="relative overflow-hidden bg-gradient-to-br from-slate-50 to-indigo-50/50 border border-slate-200 rounded-2xl p-8 mt-6">
+            <div class="relative overflow-hidden bg-gray-50 border border-slate-200 rounded-2xl p-8 mt-6">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-200 rounded-full blur-3xl opacity-20"></div>
                 <div class="relative">
                     <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                             </svg>
@@ -346,7 +346,7 @@
                             ['icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', 'title' => __('Volunteer Matching'), 'desc' => __('Qualified volunteers assigned')]
                         ] as $index => $step)
                         <div class="flex items-start gap-4 bg-white/80 rounded-xl p-4 border border-slate-100">
-                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-100 to-violet-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $step['icon'] }}"/>
                                 </svg>
@@ -363,18 +363,18 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row justify-end gap-4 pt-8 border-t border-slate-200">
-                <a href="{{ route('dashboard') }}" class="group inline-flex items-center justify-center bg-white border-2 border-slate-200 text-slate-700 font-bold px-8 py-4 rounded-xl transition-all hover:border-slate-300 hover:bg-slate-50 shadow-sm">
-                    <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <x-ui.button as="a" href="{{ route('dashboard') }}" variant="secondary">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                     {{ __('Cancel') }}
-                </a>
-                <button type="submit" class="group inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold px-12 py-4 rounded-xl transition-all transform hover:scale-105 hover:shadow-2xl shadow-xl">
-                    <svg class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                </x-ui.button>
+                <x-ui.button as="submit" variant="primary">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                     {{ __('Submit Challenge') }}
-                </button>
+                </x-ui.button>
             </div>
         </form>
     </div>
@@ -449,14 +449,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function addFileToList(file, status = 'pending', attachmentId = null) {
         const fileItem = document.createElement('div');
-        fileItem.className = 'flex items-center justify-between bg-white border-2 border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-all';
+        fileItem.className = 'flex items-center justify-between bg-white border-2 border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md';
         fileItem.dataset.fileName = file.name;
         if (attachmentId) fileItem.dataset.attachmentId = attachmentId;
 
         const fileSize = formatFileSize(file.size);
         fileItem.innerHTML = `
             <div class="flex items-center gap-4 flex-1">
-                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                     <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                     </svg>
@@ -469,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${getStatusBadge(status)}
                 </div>
                 ${status === 'pending' || status === 'uploaded' ? `
-                <button type="button" onclick="removeFile('${file.name}')" class="flex-shrink-0 text-red-600 hover:text-red-800 hover:bg-red-50 p-2.5 rounded-xl transition-all">
+                <button type="button" onclick="removeFile('${file.name}')" class="flex-shrink-0 text-red-600 hover:text-red-800 hover:bg-red-50 p-2.5 rounded-xl">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                     </svg>
@@ -610,6 +610,6 @@ document.addEventListener('DOMContentLoaded', function() {
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
-.animate-slide-in { animation: slide-in 0.3s ease-out; }
+.animate-slide-in { animation: slide-in 0.3s; }
 </style>
 @endsection

@@ -53,44 +53,6 @@
         100% { transform: scale(1) rotate(0deg); }
     }
 
-    /* Hero Section */
-    .teams-hero {
-        background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 25%, #8b5cf6 50%, #a855f7 75%, #ec4899 100%);
-        background-size: 400% 400%;
-        animation: gradient-shift 15s ease infinite;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .teams-hero::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20v40c11.046 0 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20V10c-11.046 0-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-
-    .floating-icon {
-        animation: float 6s ease-in-out infinite;
-    }
-
-    /* Team Network Animation */
-    .team-network {
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        right: 5%;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .network-node {
-        animation: pulse-ring 3s ease-in-out infinite;
-    }
-
-    .network-line {
-        animation: connect-pulse 2s ease-in-out infinite;
-    }
-
     /* Stat Cards */
     .stat-card {
         background: white;
@@ -434,7 +396,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        animation: float 4s ease-in-out infinite;
+        animation: float 4s-out infinite;
         box-shadow: 0 20px 40px -10px var(--shadow-color-primary);
     }
 
@@ -544,90 +506,7 @@
         ->first();
 @endphp
 
-<!-- Premium Hero Section -->
-<div class="teams-hero py-12 mb-8 rounded-3xl shadow-2xl mx-4 lg:mx-8 relative">
-    <!-- Animated Background Elements -->
-    <div class="absolute inset-0 overflow-hidden">
-        <div class="floating-icon absolute top-8 left-[10%] w-16 h-16 bg-white/10 rounded-2xl backdrop-blur-sm flex items-center justify-center" style="animation-delay: 0s;">
-            <svg class="w-8 h-8 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-        </div>
-        <div class="floating-icon absolute bottom-12 left-[20%] w-12 h-12 bg-white/10 rounded-xl backdrop-blur-sm flex items-center justify-center" style="animation-delay: 1s;">
-            <svg class="w-6 h-6 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-        </div>
-        <div class="floating-icon absolute top-16 left-[35%] w-10 h-10 bg-white/10 rounded-lg backdrop-blur-sm flex items-center justify-center" style="animation-delay: 2s;">
-            <svg class="w-5 h-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-            </svg>
-        </div>
-    </div>
-
-    <!-- Team Network Illustration -->
-    <div class="team-network hidden lg:block">
-        <svg viewBox="0 0 200 200" class="w-full h-full">
-            <!-- Connection Lines -->
-            <line x1="100" y1="50" x2="50" y2="100" class="network-line" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-            <line x1="100" y1="50" x2="150" y2="100" class="network-line" stroke="rgba(255,255,255,0.3)" stroke-width="2" style="animation-delay: 0.5s;"/>
-            <line x1="50" y1="100" x2="75" y2="160" class="network-line" stroke="rgba(255,255,255,0.3)" stroke-width="2" style="animation-delay: 1s;"/>
-            <line x1="150" y1="100" x2="125" y2="160" class="network-line" stroke="rgba(255,255,255,0.3)" stroke-width="2" style="animation-delay: 1.5s;"/>
-
-            <!-- Central Node (Leader) -->
-            <circle cx="100" cy="50" r="20" class="network-node" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
-            <text x="100" y="55" text-anchor="middle" fill="white" font-size="14" font-weight="bold">L</text>
-
-            <!-- Member Nodes -->
-            <circle cx="50" cy="100" r="16" class="network-node" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="2" style="animation-delay: 0.3s;"/>
-            <circle cx="150" cy="100" r="16" class="network-node" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="2" style="animation-delay: 0.6s;"/>
-            <circle cx="75" cy="160" r="14" class="network-node" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.4)" stroke-width="2" style="animation-delay: 0.9s;"/>
-            <circle cx="125" cy="160" r="14" class="network-node" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.4)" stroke-width="2" style="animation-delay: 1.2s;"/>
-        </svg>
-    </div>
-
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center lg:text-left lg:max-w-2xl">
-            <!-- Badge -->
-            <div class="inline-flex items-center space-x-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-4">
-                <div class="relative">
-                    <div class="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <div class="absolute inset-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
-                </div>
-                <span class="text-sm font-semibold text-white">{{ __('Team Collaboration Hub') }}</span>
-            </div>
-
-            <!-- Title -->
-            <h1 class="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
-                {{ __('My') }}
-                <span class="bg-gradient-to-r from-yellow-200 via-pink-200 to-yellow-200 bg-clip-text text-transparent">{{ __('Teams') }}</span>
-            </h1>
-
-            <!-- Subtitle -->
-            <p class="text-lg text-white/90 font-medium mb-6 max-w-xl">
-                {{ __('Collaborate, innovate, and achieve together. Manage your team invitations and track your collaborative journey.') }}
-            </p>
-
-            <!-- Quick Stats in Hero -->
-            <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-5 py-3 border border-white/20">
-                    <div class="text-2xl font-black text-white">{{ $teams->count() }}</div>
-                    <div class="text-xs text-white/80 font-medium">{{ __('Total Teams') }}</div>
-                </div>
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-5 py-3 border border-white/20">
-                    <div class="text-2xl font-black text-yellow-300">{{ $pendingTeams->count() }}</div>
-                    <div class="text-xs text-white/80 font-medium">{{ __('Pending') }}</div>
-                </div>
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-5 py-3 border border-white/20">
-                    <div class="text-2xl font-black text-green-300">{{ $activeTeams->count() }}</div>
-                    <div class="text-xs text-white/80 font-medium">{{ __('Active') }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-8">
     @if($teams->count() > 0)
 
     <!-- Tab Navigation -->
@@ -663,11 +542,11 @@
         </div>
 
         <!-- Pending Invitations Tab -->
-        <div x-show="activeTab === 'pending'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-1 transform translate-y-0">
+        <div x-show="activeTab === 'pending'"   >
             @if($pendingTeams->count() > 0)
                 <!-- Active Task Warning -->
                 @if($hasActiveTask)
-                <div class="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-300 rounded-2xl p-6 mb-6 animate-slide-up">
+                <div class="bg-secondary-100 border-2 border-orange-300 rounded-2xl p-6 mb-6">
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
                             <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -739,7 +618,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                         </svg>
                                         <span class="group-hover:underline">{{ $team->challenge->title }}</span>
-                                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-4 h-4 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                         </svg>
                                     </a>
@@ -804,41 +683,41 @@
                                     <!-- Action Buttons -->
                                     <div class="space-y-2">
                                         @if($hasActiveTask)
-                                        <button type="button" disabled class="w-full btn-decline opacity-50 cursor-not-allowed flex items-center justify-center gap-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <x-ui.button disabled variant="outline" fullWidth class="opacity-50 cursor-not-allowed">
+                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                                             </svg>
                                             {{ __('Blocked') }}
-                                        </button>
+                                        </x-ui.button>
                                         @else
                                         <form action="{{ route('teams.accept', $team) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="w-full btn-accept flex items-center justify-center gap-2">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <x-ui.button as="submit" variant="success" fullWidth>
+                                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                                 </svg>
                                                 {{ __('Accept Invitation') }}
-                                            </button>
+                                            </x-ui.button>
                                         </form>
                                         @endif
 
                                         <form action="{{ route('teams.decline', $team) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="w-full btn-decline flex items-center justify-center gap-2">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <x-ui.button as="submit" variant="outline" fullWidth>
+                                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                                 </svg>
                                                 {{ __('Decline') }}
-                                            </button>
+                                            </x-ui.button>
                                         </form>
 
-                                        <a href="{{ route('teams.show', $team) }}" class="w-full btn-view flex items-center justify-center gap-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <x-ui.button as="a" href="{{ route('teams.show', $team) }}" variant="primary" fullWidth>
+                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                             </svg>
                                             {{ __('View Details') }}
-                                        </a>
+                                        </x-ui.button>
                                     </div>
                                 </div>
                             </div>
@@ -865,7 +744,7 @@
         </div>
 
         <!-- Active Teams Tab -->
-        <div x-show="activeTab === 'active'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-1 transform translate-y-0">
+        <div x-show="activeTab === 'active'"   >
             @if($activeTeams->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     @foreach($activeTeams as $index => $team)
@@ -876,7 +755,7 @@
                         $totalCount = $team->members->count();
                         $acceptanceRate = $totalCount > 0 ? ($acceptedCount / $totalCount) * 100 : 0;
                     @endphp
-                    <div class="team-card animate-slide-up" style="animation-delay: {{ $index * 0.1 }}s; --header-from: {{ $team->status === 'active' ? '#10b981' : ($team->status === 'forming' ? '#f59e0b' : '#6366f1') }}; --header-to: {{ $team->status === 'active' ? '#059669' : ($team->status === 'forming' ? '#d97706' : '#4f46e5') }};">
+                    <div class="team-card" style="animation-delay: {{ $index * 0.1 }}s; --header-from: {{ $team->status === 'active' ? '#10b981' : ($team->status === 'forming' ? '#f59e0b' : '#6366f1') }}; --header-to: {{ $team->status === 'active' ? '#059669' : ($team->status === 'forming' ? '#d97706' : '#4f46e5') }};">
                         <!-- Card Header -->
                         <div class="team-card-header">
                             <div class="flex items-start justify-between mb-3">
@@ -888,7 +767,7 @@
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                         </svg>
                                         @elseif($team->status === 'forming')
-                                        <svg class="w-3 h-3 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                                         </svg>
                                         @else
@@ -983,12 +862,12 @@
                             @endif
 
                             <!-- View Team Button -->
-                            <a href="{{ route('teams.show', $team) }}" class="w-full btn-view flex items-center justify-center gap-2">
+                            <x-ui.button as="a" href="{{ route('teams.show', $team) }}" variant="primary" fullWidth>
                                 {{ __('View Team') }}
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
-                            </a>
+                            </x-ui.button>
                         </div>
                     </div>
                     @endforeach
@@ -1007,12 +886,12 @@
                             {{ __("You haven't joined any teams yet. Accept a pending invitation to start collaborating!") }}
                         </p>
                         @if($pendingTeams->count() > 0)
-                        <button @click="activeTab = 'pending'" class="btn-view inline-flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <x-ui.button @click="activeTab = 'pending'" variant="primary">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19"/>
                             </svg>
                             {{ __('View Invitations') }} ({{ $pendingTeams->count() }})
-                        </button>
+                        </x-ui.button>
                         @endif
                     </div>
                 </div>
@@ -1020,14 +899,14 @@
         </div>
 
         <!-- Declined Teams Tab -->
-        <div x-show="activeTab === 'declined'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-1 transform translate-y-0">
+        <div x-show="activeTab === 'declined'"   >
             @if($declinedTeams->count() > 0)
                 <div class="declined-section space-y-4">
                     @foreach($declinedTeams as $index => $team)
                     @php
                         $myMembership = $team->members->where('volunteer_id', auth()->user()->volunteer->id)->first();
                     @endphp
-                    <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-5 animate-slide-up" style="animation-delay: {{ $index * 0.1 }}s;">
+                    <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-5" style="animation-delay: {{ $index * 0.1 }}s;">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <div class="flex-1">
                                 <div class="flex items-center gap-3 mb-2">
@@ -1089,18 +968,18 @@
                 {{ __("You haven't been invited to any teams yet. Complete your profile and upload your CV to get matched with exciting team opportunities!") }}
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="{{ route('profile.edit') }}" class="btn-view inline-flex items-center justify-center gap-2 px-8 py-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <x-ui.button as="a" href="{{ route('profile.edit') }}" variant="primary" size="lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                     </svg>
                     {{ __('Update Profile') }}
-                </a>
-                <a href="{{ route('assignments.my') }}" class="btn-decline inline-flex items-center justify-center gap-2 px-8 py-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                </x-ui.button>
+                <x-ui.button as="a" href="{{ route('assignments.my') }}" variant="outline" size="lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                     </svg>
                     {{ __('View My Tasks') }}
-                </a>
+                </x-ui.button>
             </div>
         </div>
     </div>

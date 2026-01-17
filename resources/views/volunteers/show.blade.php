@@ -9,12 +9,12 @@
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .float-anim { animation: floatAnim 6s ease-in-out infinite; }
+    .float-anim { animation: floatAnim 6s-out infinite; }
     @keyframes floatAnim {
         0%, 100% { transform: translateY(0) rotate(0); }
         50% { transform: translateY(-20px) rotate(5deg); }
     }
-    .pulse-ring { animation: pulseRing 2s ease-in-out infinite; }
+    .pulse-ring { animation: pulseRing 2s-out infinite; }
     @keyframes pulseRing {
         0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
         50% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0); }
@@ -26,15 +26,15 @@
 
 @section('content')
 <!-- Premium Hero Header -->
-<div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-violet-900 py-16 mb-12 rounded-3xl shadow-2xl max-w-7xl mx-auto slide-up">
+<div class="relative overflow-hidden bg-primary-500 py-16 mb-12 rounded-3xl shadow-2xl max-w-7xl mx-auto slide-up">
     <!-- Animated Background Effects -->
     <div class="absolute inset-0 opacity-30">
-        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-400/20 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-violet-400/20 via-transparent to-transparent"></div>
+        <div class="absolute top-0 left-0 w-full h-full "></div>
+        <div class="absolute bottom-0 right-0 w-full h-full "></div>
     </div>
     <div class="absolute inset-0 overflow-hidden">
         <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl float-anim"></div>
-        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl float-anim" style="animation-delay: 2s;"></div>
+        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl float-anim"></div>
     </div>
 
     <!-- Grid Pattern Overlay -->
@@ -51,8 +51,8 @@
         <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8">
             <!-- Profile Avatar -->
             <div class="relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 rounded-3xl blur opacity-40 group-hover:opacity-60 transition duration-500"></div>
-                <div class="relative w-32 h-32 lg:w-40 lg:h-40 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center shadow-2xl ring-4 ring-white/20 pulse-ring">
+                <div class="absolute -inset-1 bg-primary-500 rounded-3xl blur opacity-40 group-hover:opacity-60duration-500"></div>
+                <div class="relative w-32 h-32 lg:w-40 lg:h-40 bg-primary-500 rounded-2xl flex items-center justify-center shadow-2xl ring-4 ring-white/20 pulse-ring">
                     <span class="text-4xl lg:text-5xl font-black text-white">{{ substr($volunteer->user->name, 0, 2) }}</span>
                 </div>
             </div>
@@ -62,8 +62,8 @@
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-4">
                     <span class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 rounded-full text-sm font-semibold text-emerald-300">
                         <div class="relative">
-                            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                            <div class="absolute inset-0 w-2 h-2 bg-emerald-400 rounded-full animate-ping"></div>
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                            <div class="absolute inset-0 w-2 h-2 bg-emerald-400 rounded-full"></div>
                         </div>
                         {{ __('Active Contributor') }}
                     </span>
@@ -90,13 +90,12 @@
                 <!-- Quick Actions -->
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                     @if($volunteer->user->linkedin_profile_url)
-                    <a href="{{ $volunteer->user->linkedin_profile_url }}" target="_blank" rel="noopener noreferrer"
-                       class="inline-flex items-center gap-2 bg-white text-indigo-600 font-bold px-6 py-3 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    <x-ui.button as="a" href="{{ $volunteer->user->linkedin_profile_url }}" target="_blank" rel="noopener noreferrer" variant="secondary" class="bg-white text-indigo-600 hover:bg-gray-50">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                         </svg>
                         {{ __('LinkedIn Profile') }}
-                    </a>
+                    </x-ui.button>
                     @endif
                     <div class="inline-flex items-center gap-2 text-white/70 text-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,7 +111,7 @@
                 <div class="text-4xl font-black text-white mb-1">{{ $volunteer->reputation_score }}</div>
                 <div class="text-sm text-white/70 font-medium">{{ __('Reputation') }}</div>
                 <div class="w-full bg-white/20 rounded-full h-2 mt-3">
-                    <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-2 rounded-full transition-all" style="width: {{ min(($volunteer->reputation_score / 1000) * 100, 100) }}%"></div>
+                    <div class="bg-secondary-500 h-2 rounded-full" style="width: {{ min(($volunteer->reputation_score / 1000) * 100, 100) }}%"></div>
                 </div>
             </div>
         </div>
@@ -122,9 +121,9 @@
 <div class="max-w-6xl mx-auto px-6 sm:px-8">
     <!-- Premium Stats Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 -mt-8 relative z-10 slide-up" style="animation-delay: 0.1s">
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1">
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
@@ -136,9 +135,9 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1">
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
@@ -150,9 +149,9 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1">
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
@@ -164,9 +163,9 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1">
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-secondary-300 rounded-xl flex items-center justify-center shadow-lg">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                     </svg>
@@ -185,9 +184,9 @@
             <!-- Skills & Expertise -->
             @if($volunteer->skills->count() > 0)
             <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden slide-up" style="animation-delay: 0.2s">
-                <div class="bg-gradient-to-r from-indigo-50 to-violet-50 px-8 py-6 border-b border-slate-100">
+                <div class="bg-gray-50 px-8 py-6 border-b border-slate-100">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
@@ -202,7 +201,7 @@
                 <div class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         @foreach($volunteer->skills as $skill)
-                        <div class="skill-card bg-gradient-to-br from-slate-50 to-indigo-50/30 rounded-xl p-5 border border-slate-200">
+                        <div class="skill-card bg-gray-50 rounded-xl p-5 border border-slate-200">
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="font-bold text-slate-900">{{ $skill->skill_name }}</h3>
                                 <span class="px-3 py-1 text-xs font-bold rounded-full
@@ -231,9 +230,9 @@
             <!-- Completed Tasks -->
             @if($completedAssignments->count() > 0)
             <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden slide-up" style="animation-delay: 0.3s">
-                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 px-8 py-6 border-b border-slate-100">
+                <div class="bg-gray-50 px-8 py-6 border-b border-slate-100">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -247,7 +246,7 @@
 
                 <div class="divide-y divide-slate-100">
                     @foreach($completedAssignments as $assignment)
-                    <div class="px-8 py-6 hover:bg-slate-50 transition-all">
+                    <div class="px-8 py-6 hover:bg-slate-50">
                         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                             <div class="flex-1">
                                 <div class="flex flex-wrap items-center gap-2 mb-2">
@@ -288,9 +287,9 @@
             <!-- Community Ideas -->
             @if($ideas->count() > 0)
             <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden slide-up" style="animation-delay: 0.4s">
-                <div class="bg-gradient-to-r from-amber-50 to-orange-50 px-8 py-6 border-b border-slate-100">
+                <div class="bg-gray-50 px-8 py-6 border-b border-slate-100">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-secondary-300 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                             </svg>
@@ -304,10 +303,10 @@
 
                 <div class="divide-y divide-slate-100">
                     @foreach($ideas as $idea)
-                    <a href="{{ route('ideas.show', $idea->id) }}" class="block px-8 py-6 hover:bg-slate-50 transition-all group">
+                    <a href="{{ route('ideas.show', $idea->id) }}" class="block px-8 py-6 hover:bg-slate-50 group">
                         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                             <div class="flex-1">
-                                <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-2">
+                                <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 mb-2">
                                     {{ $idea->title }}
                                 </h3>
                                 <p class="text-sm text-slate-600 mb-3">{{ $idea->challenge->title }}</p>
@@ -339,7 +338,7 @@
                             </div>
 
                             @if($idea->status === 'scored')
-                            <div class="bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl p-4 text-center min-w-[80px] shadow-lg">
+                            <div class="bg-primary-500 rounded-2xl p-4 text-center min-w-[80px] shadow-lg">
                                 <div class="text-2xl font-black text-white">{{ round($idea->final_score) }}</div>
                                 <div class="text-xs text-white/80">{{ __('Score') }}</div>
                             </div>
@@ -356,7 +355,7 @@
         <div class="space-y-6">
             <!-- Reputation Breakdown -->
             <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden slide-up" style="animation-delay: 0.3s">
-                <div class="bg-gradient-to-r from-violet-50 to-purple-50 px-6 py-4 border-b border-slate-100">
+                <div class="bg-gray-50 px-6 py-4 border-b border-slate-100">
                     <h3 class="font-bold text-slate-900 flex items-center gap-2">
                         <svg class="w-5 h-5 text-violet-600" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
@@ -371,7 +370,7 @@
                             <span class="text-sm font-bold text-indigo-600">{{ $volunteer->reputation_score }} / 1000</span>
                         </div>
                         <div class="h-3 bg-slate-200 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-indigo-500 to-violet-600 rounded-full transition-all duration-500" style="width: {{ min(($volunteer->reputation_score / 1000) * 100, 100) }}%"></div>
+                            <div class="h-full bg-primary-500 rounded-full" style="width: {{ min(($volunteer->reputation_score / 1000) * 100, 100) }}%"></div>
                         </div>
                     </div>
 
@@ -416,7 +415,7 @@
             </div>
 
             <!-- Member Info -->
-            <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white shadow-xl slide-up" style="animation-delay: 0.4s">
+            <div class="bg-primary-500 rounded-2xl p-6 text-white shadow-xl slide-up" style="animation-delay: 0.4s">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

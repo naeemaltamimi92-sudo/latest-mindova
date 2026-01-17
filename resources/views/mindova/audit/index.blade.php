@@ -12,16 +12,16 @@
         0%, 100% { opacity: 1; }
         50% { opacity: 0.5; }
     }
-    .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
-    .animate-slide-up-delay-1 { animation: slideUp 0.5s ease-out 0.1s forwards; opacity: 0; }
-    .animate-slide-up-delay-2 { animation: slideUp 0.5s ease-out 0.2s forwards; opacity: 0; }
+    .animate-slide-up { animation: slideUp 0.5s forwards; }
+    .animate-slide-up-delay-1 { animation: slideUp 0.5s 0.1s forwards; opacity: 0; }
+    .animate-slide-up-delay-2 { animation: slideUp 0.5s 0.2s forwards; opacity: 0; }
     .timeline-line { position: absolute; left: 27px; top: 60px; bottom: 0; width: 2px; background: linear-gradient(to bottom, #e2e8f0, #f1f5f9); }
 </style>
 
 <div class="space-y-6" x-data="auditLogs()">
     <!-- Premium Header -->
-    <div class="relative overflow-hidden bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 rounded-3xl p-8 animate-slide-up">
-        <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-purple-600/20"></div>
+    <div class="relative overflow-hidden bg-primary-500 rounded-3xl p-8">
+        <div class="absolute inset-0 bg-primary-100"></div>
         <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
         <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"></div>
 
@@ -59,34 +59,33 @@
             </div>
 
             @if($currentTeamMember->hasPermission('audit.export'))
-            <a href="{{ route('mindova.audit.export', request()->query()) }}"
-                class="inline-flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all border border-white/20">
+            <x-ui.button as="a" href="{{ route('mindova.audit.export', request()->query()) }}" variant="secondary">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                 </svg>
                 {{ __('Export CSV') }}
-            </a>
+            </x-ui.button>
             @endif
         </div>
     </div>
 
     <!-- Filters Card -->
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden animate-slide-up-delay-1">
-        <div class="px-6 py-5 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden-delay-1">
+        <div class="px-6 py-5 border-b border-slate-200 bg-white flex items-center justify-between">
             <h3 class="font-bold text-slate-800 flex items-center gap-2">
                 <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                 </svg>
                 {{ __('Filter Logs') }}
             </h3>
-            <button type="button" @click="showFilters = !showFilters" class="text-slate-500 hover:text-slate-700 transition-colors">
-                <svg class="w-5 h-5 transition-transform duration-200" :class="showFilters ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button type="button" @click="showFilters = !showFilters" class="text-slate-500 hover:text-slate-700">
+                <svg class="w-5 h-5" :class="showFilters ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
         </div>
 
-        <div x-show="showFilters" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+        <div x-show="showFilters"   >
             <form action="{{ route('mindova.audit.index') }}" method="GET" class="p-6">
                 <!-- Action Type Quick Filters -->
                 <div class="mb-6">
@@ -104,7 +103,7 @@
                         @endphp
                         @foreach($actionTypes as $action => $meta)
                         <button type="button" @click="toggleAction('{{ $action }}')"
-                            class="px-4 py-2 rounded-xl text-sm font-medium transition-all border-2"
+                            class="px-4 py-2 rounded-xl text-sm font-medium border-2"
                             :class="selectedAction === '{{ $action }}'
                                 ? 'bg-{{ $meta['color'] }}-100 border-{{ $meta['color'] }}-500 text-{{ $meta['color'] }}-700'
                                 : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'">
@@ -119,7 +118,7 @@
                         <label for="action" class="block text-sm font-medium text-slate-700 mb-2">{{ __('Action Keyword') }}</label>
                         <div class="relative">
                             <input type="text" id="action" name="action" :value="selectedAction || '{{ $filters['action'] ?? '' }}'"
-                                class="w-full px-4 py-3 pl-11 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                class="w-full px-4 py-3 pl-11 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="{{ __('Search actions...') }}">
                             <svg class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -129,7 +128,7 @@
                     <div>
                         <label for="team_member_id" class="block text-sm font-medium text-slate-700 mb-2">{{ __('Team Member') }}</label>
                         <select id="team_member_id" name="team_member_id"
-                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             <option value="">{{ __('All Members') }}</option>
                             @foreach($teamMembers ?? [] as $member)
                             <option value="{{ $member->id }}" {{ ($filters['team_member_id'] ?? '') == $member->id ? 'selected' : '' }}>
@@ -141,35 +140,35 @@
                     <div>
                         <label for="from_date" class="block text-sm font-medium text-slate-700 mb-2">{{ __('From Date') }}</label>
                         <input type="date" id="from_date" name="from_date" value="{{ $filters['from_date'] ?? '' }}"
-                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     </div>
                     <div>
                         <label for="to_date" class="block text-sm font-medium text-slate-700 mb-2">{{ __('To Date') }}</label>
                         <input type="date" id="to_date" name="to_date" value="{{ $filters['to_date'] ?? '' }}"
-                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     </div>
                 </div>
 
                 <div class="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
-                    <a href="{{ route('mindova.audit.index') }}" class="px-5 py-2.5 text-slate-600 font-medium rounded-xl hover:bg-slate-100 transition-colors">
+                    <x-ui.button as="a" href="{{ route('mindova.audit.index') }}" variant="ghost">
                         {{ __('Clear Filters') }}
-                    </a>
-                    <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2">
+                    </x-ui.button>
+                    <x-ui.button as="submit" variant="primary">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                         {{ __('Apply Filters') }}
-                    </button>
+                    </x-ui.button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- View Toggle -->
-    <div class="flex items-center justify-between animate-slide-up-delay-1">
+    <div class="flex items-center justify-between-delay-1">
         <div class="flex items-center gap-2 bg-white rounded-xl p-1 border border-slate-200">
             <button type="button" @click="viewMode = 'timeline'"
-                class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+                class="px-4 py-2 rounded-lg text-sm font-medium"
                 :class="viewMode === 'timeline' ? 'bg-blue-100 text-blue-700' : 'text-slate-600 hover:bg-slate-100'">
                 <svg class="w-4 h-4 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -177,7 +176,7 @@
                 {{ __('Timeline') }}
             </button>
             <button type="button" @click="viewMode = 'table'"
-                class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+                class="px-4 py-2 rounded-lg text-sm font-medium"
                 :class="viewMode === 'table' ? 'bg-blue-100 text-blue-700' : 'text-slate-600 hover:bg-slate-100'">
                 <svg class="w-4 h-4 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -215,7 +214,7 @@
             </div>
             @endif
 
-            <div class="relative px-6 py-4 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-b-0">
+            <div class="relative px-6 py-4 hover:bg-slate-50 border-b border-slate-100 last:border-b-0">
                 <div class="flex items-start gap-4">
                     <!-- Action Icon -->
                     <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center
@@ -273,7 +272,7 @@
 
                         @if($log->teamMember)
                         <div class="flex items-center gap-2 mb-2">
-                            <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                            <div class="w-6 h-6 bg-primary-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                 {{ strtoupper(substr($log->teamMember->name, 0, 1)) }}
                             </div>
                             <span class="font-semibold text-slate-800">{{ $log->teamMember->name }}</span>
@@ -337,7 +336,7 @@
                     </thead>
                     <tbody class="divide-y divide-slate-100">
                         @forelse($logs as $log)
-                        <tr class="hover:bg-slate-50 transition-colors">
+                        <tr class="hover:bg-slate-50">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-slate-900">{{ $log->created_at->format('M j, Y') }}</div>
                                 <div class="text-xs text-slate-500">{{ $log->created_at->format('g:i:s A') }}</div>
@@ -358,7 +357,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($log->teamMember)
                                 <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                    <div class="w-8 h-8 bg-primary-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                         {{ strtoupper(substr($log->teamMember->name, 0, 1)) }}
                                     </div>
                                     <div>

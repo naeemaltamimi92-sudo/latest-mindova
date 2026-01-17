@@ -4,12 +4,12 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 py-12 mb-10 rounded-3xl shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+<div class="relative overflow-hidden bg-primary-500 py-12 mb-10 rounded-3xl shadow-2xl mx-4 sm:mx-6 lg:mx-8">
     <!-- Animated Background Elements -->
     <div class="absolute inset-0 opacity-20">
-        <div class="absolute top-10 -left-20 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-300 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-300 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="absolute top-10 -left-20 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-300 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-300 rounded-full blur-3xl"></div>
     </div>
 
     <!-- Grid Pattern Overlay -->
@@ -20,7 +20,7 @@
             <div class="flex-1">
                 <!-- Breadcrumb -->
                 <div class="flex items-center gap-2 text-white/70 text-sm mb-4">
-                    <a href="{{ route('dashboard') }}" class="hover:text-white transition-colors">{{ __('Dashboard') }}</a>
+                    <a href="{{ route('dashboard') }}" class="hover:text-white">{{ __('Dashboard') }}</a>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
@@ -37,12 +37,12 @@
             </div>
 
             <!-- Create New Challenge CTA -->
-            <a href="{{ route('challenges.create') }}" class="group inline-flex items-center justify-center bg-white text-indigo-600 font-bold px-8 py-4 rounded-2xl transition-all transform hover:scale-105 hover:shadow-2xl shadow-xl">
-                <svg class="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <x-ui.button as="a" href="{{ route('challenges.create') }}" variant="secondary" class="bg-white text-indigo-600">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                 </svg>
                 {{ __('New Challenge') }}
-            </a>
+            </x-ui.button>
         </div>
     </div>
 </div>
@@ -52,10 +52,10 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
         <!-- Total Challenges -->
         <div class="relative group">
-            <div class="absolute inset-0 bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl"></div>
-            <div class="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-slate-100 hover:border-indigo-200 transition-all duration-500">
+            <div class="absolute inset-0 bg-primary-400 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl"></div>
+            <div class="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-slate-100 hover:border-indigo-200">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                         </svg>
@@ -68,10 +68,10 @@
 
         <!-- Active -->
         <div class="relative group">
-            <div class="absolute inset-0 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl"></div>
-            <div class="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-slate-100 hover:border-emerald-200 transition-all duration-500">
+            <div class="absolute inset-0 bg-secondary-400 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl"></div>
+            <div class="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-slate-100 hover:border-emerald-200">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
@@ -84,11 +84,11 @@
 
         <!-- Analyzing -->
         <div class="relative group">
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-400 to-amber-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl"></div>
-            <div class="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-slate-100 hover:border-amber-200 transition-all duration-500">
+            <div class="absolute inset-0 bg-secondary-300 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl"></div>
+            <div class="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-slate-100 hover:border-amber-200">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <svg class="w-6 h-6 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-secondary-300 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
@@ -101,10 +101,10 @@
 
         <!-- Completed -->
         <div class="relative group">
-            <div class="absolute inset-0 bg-gradient-to-br from-violet-400 to-violet-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl"></div>
-            <div class="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-slate-100 hover:border-violet-200 transition-all duration-500">
+            <div class="absolute inset-0 bg-secondary-400 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl"></div>
+            <div class="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-slate-100 hover:border-violet-200">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
@@ -129,14 +129,14 @@
                         </svg>
                         <input type="text" name="search" value="{{ request('search') }}"
                                placeholder="{{ __('Search challenges...') }}"
-                               class="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-0 transition-colors text-sm">
+                               class="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-0 text-sm">
                     </div>
                 </div>
 
                 <!-- Status Filter -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">{{ __('Status') }}</label>
-                    <select name="status" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-0 transition-colors text-sm bg-white">
+                    <select name="status" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-0 text-sm bg-white">
                         <option value="all">{{ __('All Status') }}</option>
                         <option value="submitted" {{ request('status') === 'submitted' ? 'selected' : '' }}>{{ __('Submitted') }}</option>
                         <option value="analyzing" {{ request('status') === 'analyzing' ? 'selected' : '' }}>{{ __('Analyzing') }}</option>
@@ -149,7 +149,7 @@
                 <!-- Type Filter -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">{{ __('Type') }}</label>
-                    <select name="type" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-0 transition-colors text-sm bg-white">
+                    <select name="type" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-0 text-sm bg-white">
                         <option value="all">{{ __('All Types') }}</option>
                         <option value="team_execution" {{ request('type') === 'team_execution' ? 'selected' : '' }}>{{ __('Team Execution') }}</option>
                         <option value="community_discussion" {{ request('type') === 'community_discussion' ? 'selected' : '' }}>{{ __('Community') }}</option>
@@ -159,7 +159,7 @@
                 <!-- Sort -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">{{ __('Sort By') }}</label>
-                    <select name="sort" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-0 transition-colors text-sm bg-white">
+                    <select name="sort" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-0 text-sm bg-white">
                         <option value="newest" {{ request('sort') === 'newest' ? 'selected' : '' }}>{{ __('Newest First') }}</option>
                         <option value="oldest" {{ request('sort') === 'oldest' ? 'selected' : '' }}>{{ __('Oldest First') }}</option>
                         <option value="title" {{ request('sort') === 'title' ? 'selected' : '' }}>{{ __('Title A-Z') }}</option>
@@ -170,15 +170,15 @@
 
             <!-- Filter Actions -->
             <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                <button type="submit" class="inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all">
+                <x-ui.button as="submit" variant="primary">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                     </svg>
                     {{ __('Apply Filters') }}
-                </button>
+                </x-ui.button>
 
                 @if(request()->hasAny(['search', 'status', 'type', 'sort']))
-                <a href="{{ route('challenges.index') }}" class="inline-flex items-center px-4 py-2.5 text-slate-600 hover:text-slate-900 font-medium transition-colors">
+                <a href="{{ route('challenges.index') }}" class="inline-flex items-center px-4 py-2.5 text-slate-600 hover:text-slate-900 font-medium">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
@@ -202,7 +202,7 @@
     @if($challenges->count() > 0)
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
         @foreach($challenges as $challenge)
-        <div class="group relative bg-white rounded-3xl shadow-sm hover:shadow-xl border border-slate-100 hover:border-indigo-200 transition-all duration-500 overflow-hidden" data-challenge-id="{{ $challenge->id }}">
+        <div class="group relative bg-white rounded-3xl shadow-sm hover:shadow-xl border border-slate-100 hover:border-indigo-200 overflow-hidden" data-challenge-id="{{ $challenge->id }}">
             <!-- Status Ribbon -->
             <div class="absolute top-4 right-4 z-10">
                 <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold shadow-sm
@@ -214,7 +214,7 @@
                     {{ $challenge->status === 'rejected' ? 'bg-red-100 text-red-700 border border-red-200' : '' }}
                     {{ $challenge->status === 'delivered' ? 'bg-purple-100 text-purple-700 border border-purple-200' : '' }}">
                     @if($challenge->status === 'analyzing' || $challenge->status === 'submitted')
-                        <svg class="w-3 h-3 mr-1.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <svg class="w-3 h-3 mr-1.5" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                         </svg>
@@ -227,7 +227,7 @@
             <div class="p-6">
                 <!-- Title & Type -->
                 <div class="mb-4 pr-24">
-                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-2 line-clamp-2">
+                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 mb-2 line-clamp-2">
                         {{ $challenge->title }}
                     </h3>
                     @if($challenge->challenge_type)
@@ -253,7 +253,7 @@
                         <span class="font-bold text-indigo-600">{{ $challenge->progress_percentage }}%</span>
                     </div>
                     <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-500"
+                        <div class="h-full rounded-full bg-primary-500"
                              style="width: {{ $challenge->progress_percentage }}%"></div>
                     </div>
                 </div>
@@ -317,43 +317,36 @@
                 <!-- Actions - Ensure buttons are clickable with proper z-index -->
                 <div class="relative z-20 flex items-center flex-wrap gap-2 pt-4 border-t border-slate-100">
                     <!-- View Button - Always visible -->
-                    <a href="{{ route('challenges.show', $challenge) }}"
-                       class="inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold rounded-xl hover:shadow-lg hover:opacity-90 transition-all text-sm cursor-pointer"
-                       style="pointer-events: auto;">
+                    <x-ui.button as="a" href="{{ route('challenges.show', $challenge) }}" variant="primary" size="sm">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                         </svg>
                         {{ __('View') }}
-                    </a>
+                    </x-ui.button>
 
                     <!-- Edit Button - Only if editable -->
                     @if(!in_array($challenge->status, ['completed', 'delivered']))
-                    <a href="{{ route('challenges.edit', $challenge) }}"
-                       class="inline-flex items-center px-4 py-2.5 bg-slate-100 text-slate-700 font-semibold rounded-xl hover:bg-slate-200 hover:shadow transition-all text-sm cursor-pointer"
-                       style="pointer-events: auto;">
+                    <x-ui.button as="a" href="{{ route('challenges.edit', $challenge) }}" variant="secondary" size="sm">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
                         {{ __('Edit') }}
-                    </a>
+                    </x-ui.button>
 
                     <!-- Delete Button -->
-                    <button type="button"
-                            onclick="confirmDelete({{ $challenge->id }}, '{{ addslashes($challenge->title) }}')"
-                            class="inline-flex items-center px-4 py-2.5 bg-red-50 text-red-600 font-semibold rounded-xl hover:bg-red-100 hover:shadow transition-all text-sm cursor-pointer"
-                            style="pointer-events: auto;">
+                    <x-ui.button type="button" onclick="confirmDelete({{ $challenge->id }}, '{{ addslashes($challenge->title) }}')" variant="destructive" size="sm">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                         </svg>
                         {{ __('Delete') }}
-                    </button>
+                    </x-ui.button>
                     @endif
 
                     <!-- Analytics Button - Only for active/in_progress -->
                     @if($challenge->status === 'active' || $challenge->status === 'in_progress')
                     <a href="{{ route('challenges.analytics', $challenge) }}"
-                       class="inline-flex items-center px-3 py-2.5 text-indigo-600 hover:text-indigo-700 font-medium text-sm transition-colors cursor-pointer"
+                       class="inline-flex items-center px-3 py-2.5 text-indigo-600 hover:text-indigo-700 font-medium text-sm cursor-pointer"
                        title="{{ __('Analytics') }}"
                        style="pointer-events: auto;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -374,7 +367,7 @@
 
     @else
     <!-- Empty State -->
-    <div class="relative bg-gradient-to-br from-slate-50 via-indigo-50 to-violet-50 rounded-3xl p-16 text-center shadow-sm border border-slate-200 overflow-hidden">
+    <div class="relative bg-gray-50 rounded-3xl p-16 text-center shadow-sm border border-slate-200 overflow-hidden">
         <!-- Decorative Background -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 left-10 w-64 h-64 bg-indigo-400 rounded-full blur-3xl"></div>
@@ -382,7 +375,7 @@
         </div>
 
         <div class="relative">
-            <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <div class="w-24 h-24 bg-primary-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                 <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                 </svg>
@@ -391,21 +384,21 @@
             @if(request()->hasAny(['search', 'status', 'type']))
                 <h3 class="text-2xl font-bold text-slate-900 mb-3">{{ __('No Challenges Found') }}</h3>
                 <p class="text-slate-600 mb-8 max-w-md mx-auto">{{ __('No challenges match your current filters. Try adjusting your search criteria.') }}</p>
-                <a href="{{ route('challenges.index') }}" class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl border border-indigo-200 hover:border-indigo-300 hover:shadow-lg transition-all">
+                <x-ui.button as="a" href="{{ route('challenges.index') }}" variant="outline">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                     {{ __('Clear Filters') }}
-                </a>
+                </x-ui.button>
             @else
                 <h3 class="text-2xl font-bold text-slate-900 mb-3">{{ __('No Challenges Yet') }}</h3>
                 <p class="text-slate-600 mb-8 max-w-md mx-auto">{{ __('Start your innovation journey by submitting your first challenge to the community.') }}</p>
-                <a href="{{ route('challenges.create') }}" class="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold rounded-2xl hover:shadow-xl transition-all">
-                    <svg class="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <x-ui.button as="a" href="{{ route('challenges.create') }}" variant="primary" size="lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                     </svg>
                     {{ __('Submit Your First Challenge') }}
-                </a>
+                </x-ui.button>
             @endif
         </div>
     </div>
@@ -416,13 +409,13 @@
 <div id="deleteModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <!-- Background overlay -->
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeDeleteModal()"></div>
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-75" aria-hidden="true" onclick="closeDeleteModal()"></div>
 
         <!-- Center modal -->
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
         <!-- Modal panel -->
-        <div class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div class="bg-white px-6 pt-6 pb-4">
                 <div class="sm:flex sm:items-start">
                     <div class="mx-auto flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-red-100 sm:mx-0 sm:h-12 sm:w-12">
@@ -447,24 +440,22 @@
                 </div>
             </div>
             <div class="bg-gray-50 px-6 py-4 sm:flex sm:flex-row-reverse gap-3">
-                <button type="button" id="confirmDeleteBtn" onclick="executeDelete()"
-                        class="w-full inline-flex justify-center items-center rounded-xl border border-transparent shadow-sm px-5 py-2.5 bg-red-600 text-base font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto transition-all">
+                <x-ui.button type="button" id="confirmDeleteBtn" onclick="executeDelete()" variant="destructive">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                     </svg>
                     {{ __('Delete Challenge') }}
-                </button>
-                <button type="button" onclick="closeDeleteModal()"
-                        class="mt-3 w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-5 py-2.5 bg-white text-base font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto transition-all">
+                </x-ui.button>
+                <x-ui.button type="button" onclick="closeDeleteModal()" variant="secondary">
                     {{ __('Cancel') }}
-                </button>
+                </x-ui.button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Toast Notification -->
-<div id="toast" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300 translate-y-full opacity-0">
+<div id="toast" class="fixed bottom-5 right-5 z-50 hidden transform translate-y-full opacity-0">
     <div class="bg-white rounded-xl shadow-2xl border border-slate-200 p-4 max-w-sm">
         <div class="flex items-center gap-3">
             <div id="toastIcon" class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"></div>
@@ -531,7 +522,7 @@
                 // Remove the challenge card from the DOM
                 const challengeCard = document.querySelector(`[data-challenge-id="${deleteTargetId}"]`);
                 if (challengeCard) {
-                    challengeCard.style.transition = 'all 0.3s ease-out';
+                    challengeCard.style.transition = 'all 0.3s';
                     challengeCard.style.opacity = '0';
                     challengeCard.style.transform = 'scale(0.95)';
                     setTimeout(() => {

@@ -11,10 +11,10 @@
         transform: translateY(-4px);
     }
     .progress-ring {
-        transition: stroke-dashoffset 0.5s ease-in-out;
+        transition: stroke-dashoffset 0.5s-out;
     }
     .timeline-item {
-        animation: slideInLeft 0.5s ease-out forwards;
+        animation: slideInLeft 0.5s forwards;
         opacity: 0;
     }
     @keyframes slideInLeft {
@@ -22,18 +22,18 @@
         to { opacity: 1; transform: translateX(0); }
     }
     .animate-count {
-        animation: countUp 1s ease-out forwards;
+        animation: countUp 1s forwards;
     }
 </style>
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+<div class="min-h-screen bg-gray-50">
     <!-- Premium Header -->
-    <div class="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 text-white">
+    <div class="bg-primary-500 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex items-center gap-3 mb-4">
-                <a href="{{ route('challenges.show', $challenge->id) }}" class="text-white/80 hover:text-white transition flex items-center gap-1">
+                <a href="{{ route('challenges.show', $challenge->id) }}" class="text-white/80 hover:text-whiteflex items-center gap-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
@@ -61,7 +61,7 @@
             <!-- Completion Rate -->
             <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center">
+                    <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
@@ -72,14 +72,14 @@
                     </div>
                 </div>
                 <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-1000" style="width: {{ $analytics['completion_rate'] }}%"></div>
+                    <div class="h-full bg-secondary-500 rounded-full0" style="width: {{ $analytics['completion_rate'] }}%"></div>
                 </div>
             </div>
 
             <!-- Active Contributors -->
             <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex items-center justify-center">
+                    <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                         </svg>
@@ -95,7 +95,7 @@
             <!-- Total Hours -->
             <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-violet-400 to-purple-500 rounded-xl flex items-center justify-center">
+                    <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                         </svg>
@@ -111,7 +111,7 @@
             <!-- Response Time -->
             <div class="stat-card bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center">
+                    <div class="w-12 h-12 bg-secondary-300 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
                         </svg>
@@ -128,7 +128,7 @@
         @if($challenge->challenge_type === 'team_execution')
         <!-- Task Progress Section -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
-            <div class="bg-gradient-to-r from-slate-800 to-slate-700 px-6 py-4">
+            <div class="bg-primary-500 px-6 py-4">
                 <h2 class="text-lg font-bold text-white flex items-center gap-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
@@ -142,7 +142,7 @@
                 <div class="mb-8 last:mb-0">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-primary-500"></div>
                             {{ $workstream->title }}
                         </h3>
                         <div class="flex items-center gap-3">
@@ -154,7 +154,7 @@
 
                     <div class="grid gap-3">
                         @foreach($workstream->tasks as $task)
-                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-indigo-200 hover:shadow-sm transition-all">
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-indigo-200 hover:shadow-sm">
                             <div class="flex-1">
                                 <div class="font-semibold text-slate-900">{{ $task->title }}</div>
                                 <div class="flex items-center gap-4 mt-1 text-sm text-slate-500">
@@ -192,7 +192,7 @@
                         @endphp
                         <div class="flex items-center gap-3">
                             <div class="flex-1 bg-slate-200 rounded-full h-3 overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-500" style="width: {{ $progress }}%"></div>
+                                <div class="h-full bg-secondary-500 rounded-full" style="width: {{ $progress }}%"></div>
                             </div>
                             <span class="text-sm font-bold text-slate-700 w-12 text-right">{{ $progress }}%</span>
                         </div>
@@ -219,7 +219,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <!-- Top Contributors -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-4">
+                <div class="bg-secondary-500 px-6 py-4">
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
@@ -232,7 +232,7 @@
                     <div class="flex items-center justify-between py-3 {{ !$loop->last ? 'border-b border-slate-100' : '' }}">
                         <div class="flex items-center gap-3">
                             <div class="relative">
-                                <div class="w-10 h-10 bg-gradient-to-br from-violet-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                                <div class="w-10 h-10 bg-secondary-500 rounded-full flex items-center justify-center text-white font-bold">
                                     {{ strtoupper(substr($contributor['name'], 0, 1)) }}
                                 </div>
                                 @if($index < 3)
@@ -268,7 +268,7 @@
 
             <!-- Task Status Distribution -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-4">
+                <div class="bg-primary-500 px-6 py-4">
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
@@ -282,12 +282,12 @@
                         @php
                             $percentage = $analytics['total_tasks'] > 0 ? round(($count / $analytics['total_tasks']) * 100) : 0;
                             $colors = [
-                                'completed' => 'from-emerald-400 to-teal-500',
-                                'in_progress' => 'from-amber-400 to-orange-500',
-                                'assigned' => 'from-blue-400 to-indigo-500',
-                                'open' => 'from-slate-300 to-slate-400',
+                                'completed' => 'bg-secondary-500',
+                                'in_progress' => 'bg-secondary-300',
+                                'assigned' => 'bg-primary-500',
+                                'open' => 'bg-gray-400',
                             ];
-                            $color = $colors[$status] ?? 'from-slate-300 to-slate-400';
+                            $color = $colors[$status] ?? 'bg-gray-400';
                         @endphp
                         <div>
                             <div class="flex justify-between items-center mb-2">
@@ -295,7 +295,7 @@
                                 <span class="text-sm font-bold text-slate-900">{{ $count }} ({{ $percentage }}%)</span>
                             </div>
                             <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
-                                <div class="h-full bg-gradient-to-r {{ $color }} rounded-full transition-all duration-500" style="width: {{ $percentage }}%"></div>
+                                <div class="h-full {{ $color }} rounded-full" style="width: {{ $percentage }}%"></div>
                             </div>
                         </div>
                         @endforeach
@@ -317,7 +317,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <!-- Top Ideas -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-4">
+                <div class="bg-secondary-500 px-6 py-4">
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"/>
@@ -327,7 +327,7 @@
                 </div>
                 <div class="p-6 space-y-4">
                     @forelse($analytics['top_ideas'] as $index => $idea)
-                    <a href="{{ route('ideas.show', $idea->id) }}" class="block p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all">
+                    <a href="{{ route('ideas.show', $idea->id) }}" class="block p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-emerald-300 hover:shadow-md">
                         <div class="flex items-start justify-between mb-2">
                             <div class="flex-1">
                                 <div class="flex items-center gap-2 mb-1">
@@ -373,7 +373,7 @@
 
             <!-- Idea Statistics -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-4">
+                <div class="bg-secondary-500 px-6 py-4">
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
@@ -400,7 +400,7 @@
                                 <span class="font-bold text-slate-900">{{ round($analytics['avg_ai_score'], 1) }}/10</span>
                             </div>
                             <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-indigo-400 to-violet-500 rounded-full" style="width: {{ $analytics['avg_ai_score'] * 10 }}%"></div>
+                                <div class="h-full bg-primary-400 rounded-full" style="width: {{ $analytics['avg_ai_score'] * 10 }}%"></div>
                             </div>
                         </div>
 
@@ -422,7 +422,7 @@
 
         <!-- Timeline Section -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-gradient-to-r from-slate-800 to-slate-700 px-6 py-4">
+            <div class="bg-primary-500 px-6 py-4">
                 <h2 class="text-lg font-bold text-white flex items-center gap-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
@@ -432,11 +432,11 @@
             </div>
             <div class="p-6">
                 <div class="relative">
-                    <div class="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 via-violet-500 to-purple-500"></div>
+                    <div class="absolute left-5 top-0 bottom-0 w-0.5 bg-primary-500"></div>
                     <div class="space-y-6">
                         @forelse($analytics['timeline'] as $index => $event)
                         <div class="timeline-item relative flex items-start pl-14" style="animation-delay: {{ $index * 0.1 }}s;">
-                            <div class="absolute left-0 w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-full flex items-center justify-center text-white shadow-lg">
+                            <div class="absolute left-0 w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white shadow-lg">
                                 @if($event['type'] === 'created')
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/>

@@ -22,12 +22,12 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+<div class="min-h-screen bg-gray-50">
     <!-- Hero Header -->
-    <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 text-white">
+    <div class="bg-primary-500 text-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex items-center gap-3 mb-4">
-                <a href="{{ route('community.index') }}" class="text-white/80 hover:text-white transition flex items-center gap-1">
+                <a href="{{ route('community.index') }}" class="text-white/80 hover:text-whiteflex items-center gap-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
@@ -62,7 +62,7 @@
 
                 <!-- Challenge Details Section -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-slate-800 to-slate-700 px-6 py-4">
+                    <div class="bg-primary-500 px-6 py-4">
                         <h2 class="text-lg font-bold text-white flex items-center gap-2">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
@@ -93,7 +93,7 @@
                         </div>
 
                         @if($idea->challenge->refined_brief)
-                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-xl p-5">
+                        <div class="bg-gray-50 border border-indigo-200 rounded-xl p-5">
                             <h4 class="text-sm font-bold text-indigo-900 mb-3 flex items-center gap-2">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 14a1 1 0 112 0 1 1 0 01-2 0zm1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"/>
@@ -108,8 +108,8 @@
 
                 <!-- Current Idea Highlight -->
                 <div class="bg-white rounded-2xl shadow-sm border-2 border-violet-300 overflow-hidden ring-2 ring-violet-100">
-                    <div class="bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-4">
-                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <div class="bg-white px-6 py-4 border-b border-primary-100">
+                        <h2 class="text-lg font-bold text-primary-500 flex items-center gap-2">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                             </svg>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="p-6">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                            <div class="w-10 h-10 bg-secondary-500 rounded-full flex items-center justify-center text-white font-bold">
                                 {{ strtoupper(substr($idea->volunteer->user->name ?? 'U', 0, 1)) }}
                             </div>
                             <div>
@@ -126,7 +126,7 @@
                                 <p class="text-xs text-slate-500">{{ $idea->volunteer->field ?? '' }} • {{ $idea->created_at->diffForHumans() }}</p>
                             </div>
                             @if($idea->ai_quality_score >= 7)
-                            <span class="quality-badge ml-auto px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-bold rounded-full">
+                            <span class="quality-badge ml-auto px-3 py-1.5 bg-white text-primary-500 border border-primary-200 text-xs font-bold rounded-full">
                                 {{ __('High Quality') }}
                             </span>
                             @endif
@@ -137,7 +137,7 @@
                         </div>
 
                         @if($idea->ai_feedback)
-                        <div class="mt-4 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl p-4">
+                        <div class="mt-4 bg-gray-50 border border-emerald-200 rounded-xl p-4">
                             <h5 class="text-sm font-bold text-emerald-900 mb-2 flex items-center gap-1">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
@@ -162,8 +162,8 @@
 
                 @if($otherIdeas->count() > 0)
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-4">
-                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <div class="bg-white px-6 py-4 border-b border-primary-100">
+                        <h2 class="text-lg font-bold text-primary-500 flex items-center gap-2">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"/>
                             </svg>
@@ -175,7 +175,7 @@
                         <div class="idea-card bg-slate-50 rounded-xl p-5 border border-slate-200">
                             <div class="flex items-start justify-between mb-3">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                    <div class="w-8 h-8 bg-secondary-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                         {{ strtoupper(substr($otherIdea->volunteer->user->name ?? 'U', 0, 1)) }}
                                     </div>
                                     <div>
@@ -212,7 +212,7 @@
 
                 @if($allIdeas->count() > 0)
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-slate-600 to-slate-700 px-6 py-4">
+                    <div class="bg-primary-500 px-6 py-4">
                         <h2 class="text-lg font-bold text-white flex items-center gap-2">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2z"/>
@@ -225,7 +225,7 @@
                         <div class="idea-card bg-slate-50 rounded-xl p-4 border border-slate-200">
                             <div class="flex items-start justify-between mb-2">
                                 <div class="flex items-center gap-2">
-                                    <div class="w-7 h-7 bg-gradient-to-br from-slate-400 to-slate-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                    <div class="w-7 h-7 bg-gray-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                         {{ strtoupper(substr($otherIdea->volunteer->user->name ?? 'U', 0, 1)) }}
                                     </div>
                                     <div>
@@ -250,13 +250,13 @@
             <div class="space-y-6">
                 <!-- Idea Score Card -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-4">
+                    <div class="bg-secondary-500 px-6 py-4">
                         <h3 class="text-lg font-bold text-white">{{ __('Idea Score') }}</h3>
                     </div>
                     <div class="p-6">
                         <div class="text-center mb-6">
                             <div class="inline-flex items-center justify-center w-24 h-24 rounded-full
-                                {{ $idea->ai_quality_score >= 7 ? 'bg-gradient-to-br from-emerald-400 to-teal-500' : ($idea->ai_quality_score >= 5 ? 'bg-gradient-to-br from-blue-400 to-indigo-500' : 'bg-gradient-to-br from-slate-400 to-slate-500') }} text-white">
+                                {{ $idea->ai_quality_score >= 7 ? 'bg-secondary-500' : ($idea->ai_quality_score >= 5 ? 'bg-primary-500' : 'bg-gray-500') }} text-white">
                                 <span class="text-3xl font-black">{{ number_format($idea->ai_quality_score ?? 0, 1) }}</span>
                             </div>
                             <p class="text-sm text-slate-500 mt-2">{{ __('AI Quality Score') }}</p>
@@ -312,7 +312,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
                     <h4 class="font-semibold text-slate-900 mb-4">{{ __('Challenge By') }}</h4>
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold">
+                        <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center text-white font-bold">
                             {{ strtoupper(substr($idea->challenge->company->company_name ?? 'C', 0, 1)) }}
                         </div>
                         <div>

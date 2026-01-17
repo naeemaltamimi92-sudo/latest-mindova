@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-8">
@@ -84,7 +84,7 @@
                                 <input type="radio" name="certificate_type" id="type_participation" value="participation" checked
                                     class="peer sr-only">
                                 <label for="type_participation"
-                                    class="flex flex-col p-6 bg-white border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 transition-all">
+                                    class="flex flex-col p-6 bg-white border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 peer-checked:border-blue-600 peer-checked:bg-blue-50">
                                     <span class="text-lg font-semibold text-gray-900 mb-2">{{ __('Participation') }}</span>
                                     <span class="text-sm text-gray-600">
                                         {{ __('Volunteers participated and contributed to the challenge') }}
@@ -95,7 +95,7 @@
                                 <input type="radio" name="certificate_type" id="type_completion" value="completion"
                                     class="peer sr-only">
                                 <label for="type_completion"
-                                    class="flex flex-col p-6 bg-white border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 transition-all">
+                                    class="flex flex-col p-6 bg-white border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 peer-checked:border-blue-600 peer-checked:bg-blue-50">
                                     <span class="text-lg font-semibold text-gray-900 mb-2">{{ __('Completion') }}</span>
                                     <span class="text-sm text-gray-600">
                                         {{ __('Challenge was fully completed and delivered successfully') }}
@@ -110,7 +110,7 @@
                         <label class="block text-sm font-semibold text-gray-900 mb-3">
                             {{ __('Company Logo') }} ({{ __('Optional') }})
                         </label>
-                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500">
                             <div class="space-y-1 text-center">
                                 <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                                     <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -134,14 +134,12 @@
 
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-between pt-6 border-t border-gray-200">
-                        <a href="{{ route('challenges.show', $challenge) }}"
-                            class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                        <x-ui.button as="a" href="{{ route('challenges.show', $challenge) }}" variant="outline">
                             {{ __('Cancel') }}
-                        </a>
-                        <button type="submit"
-                            class="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                        </x-ui.button>
+                        <x-ui.button as="submit" variant="primary">
                             {{ __('Generate Certificates for :count Volunteers', ['count' => $volunteers->count()]) }}
-                        </button>
+                        </x-ui.button>
                     </div>
                 </form>
             @endif

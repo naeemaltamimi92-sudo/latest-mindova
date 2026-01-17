@@ -9,7 +9,7 @@
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .float-anim { animation: floatAnim 3s ease-in-out infinite; }
+    .float-anim { animation: floatAnim 3s-out infinite; }
     @keyframes floatAnim {
         0%, 100% { transform: translateY(0) rotate(0deg); }
         50% { transform: translateY(-15px) rotate(3deg); }
@@ -26,13 +26,13 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-violet-900 py-12 mb-12 rounded-3xl max-w-7xl mx-auto shadow-2xl">
+<div class="relative overflow-hidden bg-primary-500 py-12 mb-12 rounded-3xl max-w-7xl mx-auto shadow-2xl">
     <!-- Animated Background Effects -->
     <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-500/20 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-violet-500/20 via-transparent to-transparent"></div>
+        <div class="absolute top-0 left-0 w-full h-full "></div>
+        <div class="absolute bottom-0 right-0 w-full h-full "></div>
         <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl float-anim"></div>
-        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl float-anim" style="animation-delay: 2s;"></div>
+        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl float-anim"></div>
     </div>
 
     <!-- Grid Pattern Overlay -->
@@ -54,11 +54,11 @@
                 <!-- Status Badge -->
                 <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-6 shadow-lg">
                     <div class="relative">
-                        <div class="w-2.5 h-2.5 rounded-full animate-pulse
+                        <div class="w-2.5 h-2.5 rounded-full
                             {{ $team->status === 'active' ? 'bg-emerald-400' : '' }}
                             {{ $team->status === 'forming' ? 'bg-amber-400' : '' }}
                             {{ $team->status === 'completed' ? 'bg-indigo-400' : '' }}"></div>
-                        <div class="absolute inset-0 w-2.5 h-2.5 rounded-full animate-ping
+                        <div class="absolute inset-0 w-2.5 h-2.5 rounded-full
                             {{ $team->status === 'active' ? 'bg-emerald-400' : '' }}
                             {{ $team->status === 'forming' ? 'bg-amber-400' : '' }}
                             {{ $team->status === 'completed' ? 'bg-indigo-400' : '' }}"></div>
@@ -77,7 +77,7 @@
                 <!-- Quick Stats -->
                 <div class="flex flex-wrap items-center gap-4">
                     <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center shadow-lg">
+                        <div class="w-10 h-10 bg-secondary-500 rounded-lg flex items-center justify-center shadow-lg">
                             <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                             </svg>
@@ -89,7 +89,7 @@
                     </div>
                     @if($team->team_match_score)
                     <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center shadow-lg">
+                        <div class="w-10 h-10 bg-secondary-300 rounded-lg flex items-center justify-center shadow-lg">
                             <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                             </svg>
@@ -107,7 +107,7 @@
             <div class="lg:w-80">
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-400 to-violet-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                             </svg>
@@ -118,12 +118,12 @@
                         </div>
                     </div>
                     <h3 class="text-lg font-bold text-white mb-4 line-clamp-2">{{ $team->challenge->title }}</h3>
-                    <a href="{{ route('challenges.show', $team->challenge) }}" class="inline-flex items-center justify-center w-full gap-2 bg-white/20 hover:bg-white/30 text-white font-bold px-5 py-3 rounded-xl transition-all">
+                    <x-ui.button as="a" href="{{ route('challenges.show', $team->challenge) }}" variant="ghost" fullWidth class="bg-white/20 hover:bg-white/30 text-white">
                         {{ __('View Challenge') }}
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
-                    </a>
+                    </x-ui.button>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
         <ul class="space-y-4">
             @foreach($team->objectives as $objective)
             <li class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-lg flex items-center justify-center mt-0.5">
+                <div class="flex-shrink-0 w-6 h-6 bg-primary-500 rounded-lg flex items-center justify-center mt-0.5">
                     <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                     </svg>
@@ -163,7 +163,7 @@
                 <span class="text-lg font-black text-indigo-600">{{ $team->skills_coverage['coverage_percentage'] ?? 0 }}%</span>
             </div>
             <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                <div class="bg-gradient-to-r from-indigo-600 to-violet-600 h-3 rounded-full transition-all duration-500" style="width: {{ $team->skills_coverage['coverage_percentage'] ?? 0 }}%"></div>
+                <div class="bg-primary-500 h-3 rounded-full" style="width: {{ $team->skills_coverage['coverage_percentage'] ?? 0 }}%"></div>
             </div>
         </div>
 
@@ -196,11 +196,11 @@
         <h2 class="text-2xl font-black text-slate-900 mb-6">{{ __('Team Members') }}</h2>
         <div class="space-y-5">
             @foreach($team->members as $member)
-            <div class="group bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-indigo-200 hover:shadow-md transition-all duration-300 {{ $member->status === 'invited' && $member->volunteer_id === auth()->user()->volunteer?->id ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-200' : '' }}">
+            <div class="group bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-indigo-200 hover:shadow-md {{ $member->status === 'invited' && $member->volunteer_id === auth()->user()->volunteer?->id ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-200' : '' }}">
                 <div class="flex items-start justify-between">
                     <div class="flex items-start gap-4 flex-1">
                         <!-- Avatar -->
-                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-black text-xl shadow-sm">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-primary-500 flex items-center justify-center text-white font-black text-xl shadow-sm">
                             {{ substr($member->volunteer->user->name, 0, 1) }}
                         </div>
 
@@ -291,7 +291,7 @@
                         @if($totalTasks > 0)
                         <div class="mt-6 pt-6 border-t border-slate-200">
                             <div class="flex items-center gap-2 mb-5">
-                                <div class="w-5 h-5 bg-gradient-to-br from-indigo-500 to-violet-500 rounded flex items-center justify-center">
+                                <div class="w-5 h-5 bg-primary-500 rounded flex items-center justify-center">
                                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
                                     </svg>
@@ -351,15 +351,15 @@
                     <div class="flex flex-col gap-2 ml-4">
                         <form action="{{ route('teams.accept', $team) }}" method="POST">
                             @csrf
-                            <button type="submit" class="w-full px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                            <x-ui.button as="submit" variant="secondary" fullWidth>
                                 {{ __('Accept Invitation') }}
-                            </button>
+                            </x-ui.button>
                         </form>
                         <form action="{{ route('teams.decline', $team) }}" method="POST">
                             @csrf
-                            <button type="submit" class="w-full px-5 py-2.5 bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200 hover:bg-slate-200 transition-all duration-300">
+                            <x-ui.button as="submit" variant="outline" fullWidth>
                                 {{ __('Decline') }}
-                            </button>
+                            </x-ui.button>
                         </form>
                     </div>
                     @endif
@@ -378,7 +378,7 @@
     @if($isAcceptedMember)
     <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100" x-data="teamChat({{ $team->id }})">
         <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-lg flex items-center justify-center shadow-sm">
+            <div class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center shadow-sm">
                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
                 </svg>
@@ -399,7 +399,7 @@
                             <span class="text-xs font-bold text-slate-700" x-text="message.user_name"></span>
                             <span class="text-xs text-slate-500" x-text="message.time_ago"></span>
                         </div>
-                        <div class="rounded-xl p-3.5 shadow-sm" :class="message.user_id === {{ auth()->id() }} ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white' : 'bg-white border border-slate-200 text-slate-900'">
+                        <div class="rounded-xl p-3.5 shadow-sm" :class="message.user_id === {{ auth()->id() }} ? 'bg-primary-500 text-white' : 'bg-white border border-slate-200 text-slate-900'">
                             <p class="text-sm whitespace-pre-wrap leading-relaxed" x-text="message.message"></p>
                         </div>
                     </div>
@@ -421,14 +421,14 @@
                 type="text"
                 x-model="newMessage"
                 placeholder="{{ __('Type your message...') }}"
-                class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 maxlength="2000"
                 required
             >
-            <button type="submit" class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold rounded-xl hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 transition-all duration-300" :disabled="sending || !newMessage.trim()">
+            <x-ui.button as="submit" variant="primary" ::disabled="sending || !newMessage.trim()">
                 <span x-show="!sending">{{ __('Send') }}</span>
                 <span x-show="sending">{{ __('Sending...') }}</span>
-            </button>
+            </x-ui.button>
         </form>
     </div>
     @endif

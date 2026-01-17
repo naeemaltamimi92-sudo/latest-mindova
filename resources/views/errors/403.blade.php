@@ -19,12 +19,12 @@
     </p>
 
     <div class="flex justify-center space-x-4">
-        <a href="{{ route('dashboard') }}" class="btn-primary">
+        <x-ui.button as="a" href="{{ route('dashboard') }}" variant="primary">
             {{ __('Go to Dashboard') }}
-        </a>
-        <a href="{{ url()->previous() }}" class="btn-secondary">
+        </x-ui.button>
+        <x-ui.button as="a" href="{{ url()->previous() }}" variant="secondary">
             {{ __('Go Back') }}
-        </a>
+        </x-ui.button>
     </div>
 
     <div class="mt-12 pt-8 border-t border-gray-200">

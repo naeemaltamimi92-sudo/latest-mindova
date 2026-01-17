@@ -2,16 +2,12 @@
 @auth
 <div x-data="bugReportModal()">
     {{-- Fixed Button (Bottom Right Corner) --}}
-    <button
+    <x-ui.button
         @click="open = true"
-        type="button"
-        class="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-3 rounded-lg shadow-lg transition-all hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
-        title="{{ __('Report an Issue') }}">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-        </svg>
-        <span class="text-sm font-semibold">{{ __('Report an Issue') }}</span>
-    </button>
+        class="fixed bottom-6 right-6 z-40"
+        title="{{ __('Support') }}">
+        <span class="text-sm font-semibold">{{ __('Support') }}</span>
+    </x-ui.button>
 
     {{-- Modal --}}
     <div x-show="open"
@@ -20,7 +16,7 @@
          class="fixed inset-0 z-50 overflow-y-auto"
          style="display: none;">
         {{-- Backdrop --}}
-        <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+        <div class="fixed inset-0 bg-black bg-opacity-50"></div>
 
         {{-- Modal Content --}}
         <div class="flex min-h-screen items-center justify-center p-4">
@@ -100,17 +96,20 @@
 
                     {{-- Actions --}}
                     <div class="flex gap-3">
-                        <button type="button"
+                        <x-ui.button
                                 @click="open = false"
-                                class="flex-1 px-4 py-2 border border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-colors">
+                                variant="outline"
+                                fullWidth>
                             {{ __('Cancel') }}
-                        </button>
-                        <button type="submit"
-                                :disabled="submitting"
-                                class="flex-1 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        </x-ui.button>
+                        <x-ui.button
+                                as="submit"
+                                x-bind:disabled="submitting"
+                                variant="primary"
+                                fullWidth>
                             <span x-show="!submitting">{{ __('Submit') }}</span>
                             <span x-show="submitting">{{ __('Sending...') }}</span>
-                        </button>
+                        </x-ui.button>
                     </div>
                 </form>
 

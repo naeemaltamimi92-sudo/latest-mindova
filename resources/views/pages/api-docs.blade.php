@@ -290,7 +290,7 @@ X-RateLimit-Reset: 1640995200</code></pre>
         <p class="text-gray-700 mb-4">
             {{ __('For additional support with the API, please contact our developer support team.') }}
         </p>
-        <a href="{{ route('contact') }}" class="btn-primary">{{ __('Contact Developer Support') }}</a>
+        <x-ui.button as="a" href="{{ route('contact') }}">{{ __('Contact Developer Support') }}</x-ui.button>
     </div>
 </div>
 @endsection

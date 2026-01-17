@@ -4,21 +4,21 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-violet-900 py-12 mb-12 rounded-3xl max-w-5xl mx-auto shadow-2xl">
+<div class="relative overflow-hidden bg-primary-500 py-12 mb-12 rounded-3xl max-w-5xl mx-auto shadow-2xl">
     <!-- Animated Background Effects -->
     <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-500/20 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-violet-500/20 via-transparent to-transparent"></div>
-        <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-float"></div>
-        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+        <div class="absolute top-0 left-0 w-full h-full "></div>
+        <div class="absolute bottom-0 right-0 w-full h-full "></div>
+        <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl"></div>
+        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
     </div>
 
     <div class="relative max-w-4xl mx-auto px-6 sm:px-8 text-center">
         <!-- Status Badge -->
         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-6 shadow-lg">
             <div class="relative">
-                <div class="w-2.5 h-2.5 bg-amber-400 rounded-full animate-pulse"></div>
-                <div class="absolute inset-0 w-2.5 h-2.5 bg-amber-400 rounded-full animate-ping"></div>
+                <div class="w-2.5 h-2.5 bg-amber-400 rounded-full"></div>
+                <div class="absolute inset-0 w-2.5 h-2.5 bg-amber-400 rounded-full"></div>
             </div>
             <span class="text-sm font-semibold text-white/90">{{ __('Editing Challenge') }}</span>
         </div>
@@ -26,7 +26,7 @@
         <!-- Main Heading -->
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight tracking-tight">
             {{ __('Edit') }}
-            <span class="bg-gradient-to-r from-amber-300 via-yellow-200 to-orange-300 bg-clip-text text-transparent">{{ __('Challenge') }}</span>
+            <span class="text-secondary-200">{{ __('Challenge') }}</span>
         </h1>
         <p class="text-lg text-white/80 font-medium leading-relaxed max-w-2xl mx-auto">
             {{ __('Update your challenge details. Changes will trigger a new AI analysis.') }}
@@ -61,14 +61,14 @@
             <!-- Step 1: Challenge Title -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">1</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">1</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Challenge Title') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Give your challenge a clear, descriptive name') }}</span>
                     </div>
                 </label>
                 <input type="text" name="title" required
-                       class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-lg text-slate-900 placeholder-slate-400 shadow-sm"
+                       class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-lg text-slate-900 placeholder-slate-400 shadow-sm"
                        value="{{ old('title', $challenge->title) }}"
                        placeholder="{{ __('e.g., Reduce office energy consumption by 30%') }}">
                 @error('title')
@@ -91,7 +91,7 @@
             <!-- Step 2: Description -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">2</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">2</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Description') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Explain your challenge in detail - the more context, the better') }}</span>
@@ -99,7 +99,7 @@
                 </label>
                 <div class="relative">
                     <textarea name="description" rows="12" required
-                              class="w-full px-6 py-5 border-2 border-indigo-200 bg-gradient-to-br from-white to-indigo-50/30 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-900 placeholder-slate-400 resize-none shadow-sm leading-relaxed"
+                              class="w-full px-6 py-5 border-2 border-indigo-200 bg-white rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 placeholder-slate-400 resize-none shadow-sm leading-relaxed"
                               placeholder="{{ __('Describe your challenge in detail...') }}">{{ old('description', $challenge->description ?? $challenge->original_description) }}</textarea>
                     <div class="absolute bottom-4 right-4 text-xs text-slate-400 font-medium bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-lg">
                         {{ __('Min 100 characters') }}
@@ -125,7 +125,7 @@
             <!-- Step 3: Deadlines -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">3</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">3</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Deadlines') }}</span>
                         <span class="inline-flex items-center gap-2 text-sm text-slate-500">
@@ -143,7 +143,7 @@
                             {{ __('Submission Deadline') }}
                         </label>
                         <input type="date" name="submission_deadline" lang="en"
-                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-900 shadow-sm group-hover:border-indigo-300"
+                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 shadow-sm group-hover:border-indigo-300"
                                value="{{ old('submission_deadline', $challenge->submission_deadline?->format('Y-m-d')) }}"
                                style="color-scheme: light;">
                         <p class="text-xs text-slate-500 mt-2">{{ __('When should volunteers submit their work?') }}</p>
@@ -159,7 +159,7 @@
                             {{ __('Completion Deadline') }}
                         </label>
                         <input type="date" name="completion_deadline" lang="en"
-                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-900 shadow-sm group-hover:border-violet-300"
+                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 shadow-sm group-hover:border-violet-300"
                                value="{{ old('completion_deadline', $challenge->completion_deadline?->format('Y-m-d')) }}"
                                style="color-scheme: light;">
                         <p class="text-xs text-slate-500 mt-2">{{ __('When should the challenge be fully completed?') }}</p>
@@ -181,7 +181,7 @@
             @if($challenge->attachments->count() > 0)
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">4</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">4</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Existing Attachments') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Current documents attached to this challenge') }}</span>
@@ -194,7 +194,7 @@
                     @foreach($challenge->attachments as $attachment)
                     <div class="flex items-center justify-between bg-white border-2 border-slate-200 rounded-xl p-5 shadow-sm" data-attachment-id="{{ $attachment->id }}">
                         <div class="flex items-center gap-4 flex-1">
-                            <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                                 </svg>
@@ -203,12 +203,12 @@
                                 <p class="text-base font-bold text-slate-900 truncate">{{ $attachment->file_name }}</p>
                                 <p class="text-sm text-slate-500">{{ number_format($attachment->file_size / 1024, 2) }} KB</p>
                             </div>
-                            <a href="{{ route('challenges.attachments.download', [$challenge, $attachment]) }}" class="flex-shrink-0 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-2.5 rounded-xl transition-all" title="{{ __('Download') }}">
+                            <a href="{{ route('challenges.attachments.download', [$challenge, $attachment]) }}" class="flex-shrink-0 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-2.5 rounded-xl" title="{{ __('Download') }}">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                                 </svg>
                             </a>
-                            <button type="button" onclick="removeExistingAttachment({{ $attachment->id }})" class="flex-shrink-0 text-red-600 hover:text-red-800 hover:bg-red-50 p-2.5 rounded-xl transition-all" title="{{ __('Remove') }}">
+                            <button type="button" onclick="removeExistingAttachment({{ $attachment->id }})" class="flex-shrink-0 text-red-600 hover:text-red-800 hover:bg-red-50 p-2.5 rounded-xl" title="{{ __('Remove') }}">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                 </svg>
@@ -230,7 +230,7 @@
             <!-- Step 5: Upload New Attachments -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">{{ $challenge->attachments->count() > 0 ? '5' : '4' }}</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">{{ $challenge->attachments->count() > 0 ? '5' : '4' }}</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Add New Documents') }}</span>
                         <span class="inline-flex items-center gap-2 text-sm text-slate-500">
@@ -241,23 +241,23 @@
                 </label>
 
                 <!-- Upload Zone -->
-                <div id="upload-zone" class="relative border-2 border-dashed border-indigo-300 rounded-2xl p-10 text-center bg-gradient-to-br from-indigo-50/50 to-violet-50/50 hover:border-indigo-400 hover:bg-indigo-50 transition-all cursor-pointer group">
+                <div id="upload-zone" class="relative border-2 border-dashed border-indigo-300 rounded-2xl p-10 text-center bg-gray-50 hover:border-indigo-400 hover:bg-indigo-50 cursor-pointer group">
                     <input type="file" id="attachment-upload" name="attachments[]" accept=".pdf" multiple class="hidden">
 
                     <div class="space-y-4">
-                        <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition-transform">
+                        <div class="w-20 h-20 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto shadow-xl">
                             <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                             </svg>
                         </div>
 
                         <div>
-                            <button type="button" onclick="document.getElementById('attachment-upload').click()" class="inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            <x-ui.button type="button" onclick="document.getElementById('attachment-upload').click()" variant="primary">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                                 </svg>
                                 {{ __('Choose PDF Files') }}
-                            </button>
+                            </x-ui.button>
                             <p class="text-sm text-slate-600 mt-3">{{ __('or drag and drop PDF here') }}</p>
                         </div>
 
@@ -284,18 +284,18 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row justify-end gap-4 pt-8 border-t border-slate-200">
-                <a href="{{ route('challenges.show', $challenge) }}" class="group inline-flex items-center justify-center bg-white border-2 border-slate-200 text-slate-700 font-bold px-8 py-4 rounded-xl transition-all hover:border-slate-300 hover:bg-slate-50 shadow-sm">
-                    <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <x-ui.button as="a" href="{{ route('challenges.show', $challenge) }}" variant="secondary">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                     {{ __('Cancel') }}
-                </a>
-                <button type="submit" id="submitBtn" class="group inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold px-12 py-4 rounded-xl transition-all transform hover:scale-105 hover:shadow-2xl shadow-xl">
-                    <svg class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                </x-ui.button>
+                <x-ui.button as="submit" id="submitBtn" variant="primary">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                     </svg>
                     {{ __('Save Changes') }}
-                </button>
+                </x-ui.button>
             </div>
         </form>
     </div>
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const fileSize = formatFileSize(file.size);
         fileItem.innerHTML = `
             <div class="flex items-center gap-4 flex-1">
-                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="flex-shrink-0 w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                     <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                     </svg>
@@ -377,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="text-sm text-slate-500">${fileSize}</p>
                 </div>
                 <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">New</span>
-                <button type="button" onclick="removeNewFile('${file.name}')" class="flex-shrink-0 text-red-600 hover:text-red-800 hover:bg-red-50 p-2.5 rounded-xl transition-all">
+                <button type="button" onclick="removeNewFile('${file.name}')" class="flex-shrink-0 text-red-600 hover:text-red-800 hover:bg-red-50 p-2.5 rounded-xl">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                     </svg>
@@ -474,6 +474,6 @@ document.addEventListener('DOMContentLoaded', function() {
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
-.animate-slide-in { animation: slide-in 0.3s ease-out; }
+.animate-slide-in { animation: slide-in 0.3s; }
 </style>
 @endsection

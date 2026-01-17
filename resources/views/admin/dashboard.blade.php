@@ -3,7 +3,7 @@
 @section('title', __('Admin Dashboard'))
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+<div class="min-h-screen bg-gray-50">
 
     <!-- Hero Header Section -->
     <div class="hero-gradient-primary text-white relative overflow-hidden">
@@ -22,19 +22,19 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap items-center gap-3">
-                    <a href="{{ route('admin.challenges.analytics') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-medium rounded-xl transition">
+                    <x-ui.button as="a" href="{{ route('admin.challenges.analytics') }}" variant="secondary">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                         </svg>
                         {{ __('Analytics') }}
-                    </a>
-                    <a href="{{ route('admin.settings.index') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 transition shadow-lg">
+                    </x-ui.button>
+                    <x-ui.button as="a" href="{{ route('admin.settings.index') }}" variant="primary">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                         {{ __('Settings') }}
-                    </a>
+                    </x-ui.button>
                 </div>
             </div>
         </div>
@@ -208,7 +208,7 @@
             </div>
             <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover-lift-sm">
                 <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center">
+                    <div class="h-10 w-10 rounded-xl bg-secondary-300 flex items-center justify-center">
                         <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                         </svg>
@@ -224,7 +224,7 @@
         <!-- Challenge Status Distribution -->
         @if(!empty($challengesByStatus))
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden mb-8 hover-lift">
-            <div class="p-6 border-b border-slate-100 bg-gradient-to-r from-indigo-50 to-purple-50">
+            <div class="p-6 border-b border-slate-100 bg-gray-50">
                 <div class="flex items-center justify-between">
                     <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                         <svg class="h-5 w-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,7 +250,7 @@
                         ];
                         $config = $statusConfig[$status] ?? ['bg' => 'bg-slate-50', 'border' => 'border-slate-200', 'text' => 'text-slate-700', 'icon' => 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'];
                     @endphp
-                    <div class="text-center p-4 rounded-xl {{ $config['bg'] }} border {{ $config['border'] }} hover-lift-sm transition-all">
+                    <div class="text-center p-4 rounded-xl {{ $config['bg'] }} border {{ $config['border'] }} hover-lift-sm">
                         <div class="h-10 w-10 rounded-lg {{ $config['bg'] }} flex items-center justify-center mx-auto mb-2">
                             <svg class="h-5 w-5 {{ $config['text'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $config['icon'] }}"/>
@@ -270,7 +270,7 @@
             <!-- Recent Challenges -->
             <div class="lg:col-span-2">
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-indigo-50 to-purple-50 flex items-center justify-between">
+                    <div class="px-6 py-5 border-b border-slate-100 bg-gray-50 flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div class="icon-container-sm icon-gradient-indigo">
                                 <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -279,19 +279,19 @@
                             </div>
                             <h2 class="text-lg font-bold text-slate-900">{{ __('Recent Challenges') }}</h2>
                         </div>
-                        <a href="{{ route('admin.challenges.index') }}" class="btn-gradient text-sm py-2 px-4">
+                        <x-ui.button as="a" href="{{ route('admin.challenges.index') }}" size="sm">
                             {{ __('View All') }}
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
-                        </a>
+                        </x-ui.button>
                     </div>
                     <div class="divide-y divide-slate-100">
                         @forelse($recentChallenges as $challenge)
-                        <a href="{{ route('admin.challenges.show', $challenge) }}" class="block px-6 py-4 hover:bg-gradient-to-r hover:from-slate-50 hover:to-transparent transition-colors group">
+                        <a href="{{ route('admin.challenges.show', $challenge) }}" class="block px-6 py-4 hover:bg-gray-50 group">
                             <div class="flex items-start justify-between">
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-bold text-slate-900 truncate group-hover:text-indigo-600 transition-colors">{{ $challenge->title }}</p>
+                                    <p class="font-bold text-slate-900 truncate group-hover:text-indigo-600">{{ $challenge->title }}</p>
                                     <div class="flex items-center gap-2 mt-1">
                                         <span class="text-sm text-slate-500">
                                             @if($challenge->company)
@@ -339,7 +339,7 @@
             <!-- Top Contributors -->
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                    <div class="px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-emerald-50 to-teal-50 flex items-center justify-between">
+                    <div class="px-6 py-5 border-b border-slate-100 bg-gray-50 flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div class="icon-container-sm icon-gradient-green">
                                 <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -351,22 +351,22 @@
                     </div>
                     <div class="divide-y divide-slate-100">
                         @forelse($topVolunteers as $index => $volunteer)
-                        <a href="{{ route('admin.volunteers.show', $volunteer) }}" class="flex items-center px-6 py-4 hover:bg-gradient-to-r hover:from-slate-50 hover:to-transparent transition-colors group">
+                        <a href="{{ route('admin.volunteers.show', $volunteer) }}" class="flex items-center px-6 py-4 hover:bg-gray-50 group">
                             <div class="flex-shrink-0 mr-4">
                                 <div class="relative">
                                     @if($volunteer->profile_picture)
                                     <img src="{{ asset('storage/' . $volunteer->profile_picture) }}" alt="{{ $volunteer->user->name }}" class="h-12 w-12 rounded-full object-cover ring-2 ring-white shadow-lg group-hover:ring-emerald-200 transition">
                                     @else
-                                    <div class="h-12 w-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center ring-2 ring-white shadow-lg group-hover:ring-emerald-200 transition">
+                                    <div class="h-12 w-12 rounded-full bg-secondary-500 flex items-center justify-center ring-2 ring-white shadow-lg group-hover:ring-emerald-200 transition">
                                         <span class="text-white font-bold">{{ substr($volunteer->user->name, 0, 1) }}</span>
                                     </div>
                                     @endif
                                     @if($index < 3)
                                     @php
                                         $badgeColors = [
-                                            0 => 'bg-gradient-to-br from-yellow-400 to-amber-500 text-white',
-                                            1 => 'bg-gradient-to-br from-slate-300 to-slate-400 text-slate-800',
-                                            2 => 'bg-gradient-to-br from-amber-600 to-orange-700 text-white',
+                                            0 => 'bg-secondary-300 text-slate-900',
+                                            1 => 'bg-gray-300 text-slate-800',
+                                            2 => 'bg-secondary-300 text-slate-900',
                                         ];
                                     @endphp
                                     <div class="absolute -top-1 -right-1 h-6 w-6 rounded-full flex items-center justify-center text-xs font-bold shadow-lg {{ $badgeColors[$index] }}">
@@ -407,7 +407,7 @@
         <!-- Active Companies Section -->
         <div class="mt-8">
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
-                <div class="px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-blue-50 to-cyan-50 flex items-center justify-between">
+                <div class="px-6 py-5 border-b border-slate-100 bg-gray-50 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="icon-container-sm icon-gradient-blue">
                             <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -427,17 +427,17 @@
                 <div class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         @forelse($activeCompanies as $company)
-                        <a href="{{ route('admin.companies.show', $company) }}" class="group block bg-gradient-to-br from-slate-50 to-slate-100/50 rounded-xl p-5 border border-slate-200/60 hover:border-blue-300 hover:shadow-lg transition-all hover-lift-sm">
+                        <a href="{{ route('admin.companies.show', $company) }}" class="group block bg-gray-50 rounded-xl p-5 border border-slate-200/60 hover:border-blue-300 hover:shadow-lg hover-lift-sm">
                             <div class="flex items-center gap-4">
                                 @if($company->logo_path)
                                 <img src="{{ asset('storage/' . $company->logo_path) }}" alt="{{ $company->company_name }}" class="h-12 w-12 rounded-xl object-cover shadow-lg ring-2 ring-white">
                                 @else
-                                <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg ring-2 ring-white">
+                                <div class="h-12 w-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg ring-2 ring-white">
                                     <span class="text-white font-bold text-lg">{{ substr($company->company_name ?? $company->user->name, 0, 2) }}</span>
                                 </div>
                                 @endif
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+                                    <p class="font-bold text-slate-900 group-hover:text-blue-600 truncate">
                                         {{ $company->company_name ?? $company->user->name }}
                                     </p>
                                     <p class="text-sm text-slate-500 truncate">{{ $company->industry ?? __('No industry') }}</p>

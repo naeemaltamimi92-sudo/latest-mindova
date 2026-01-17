@@ -23,10 +23,6 @@ Route::get('/maintenance', function () {
     return view('maintenance');
 })->name('maintenance')->withoutMiddleware([\App\Http\Middleware\CheckMaintenanceMode::class]);
 
-// Language Switcher Routes
-Route::post('/language/switch', [App\Http\Controllers\LanguageController::class, 'switch'])->name('language.switch');
-Route::get('/language/current', [App\Http\Controllers\LanguageController::class, 'current'])->name('language.current');
-
 // Static Pages
 Route::get('/how-it-works', function () { return view('pages.how-it-works'); })->name('how-it-works');
 Route::get('/success-stories', function () { return view('pages.success-stories'); })->name('success-stories');

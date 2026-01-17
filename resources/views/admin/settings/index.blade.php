@@ -19,13 +19,13 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    .float-anim { animation: floatAnim 6s ease-in-out infinite; }
+    .float-anim { animation: floatAnim 6s-out infinite; }
     @keyframes floatAnim {
         0%, 100% { transform: translateY(0) rotate(0deg); }
         50% { transform: translateY(-15px) rotate(3deg); }
     }
 
-    .pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+    .pulse-glow { animation: pulseGlow 3s-out infinite; }
     @keyframes pulseGlow {
         0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
         50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.5); }
@@ -74,7 +74,7 @@
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .animate-fade-in { animation: fade-in 0.3s ease-out; }
+    .animate-fade-in { animation: fade-in 0.3s; }
 
     /* Custom Scrollbar */
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
@@ -85,15 +85,15 @@
 @endpush
 
 @section('content')
-<div x-data="settingsPage()" class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50/30">
+<div x-data="settingsPage()" class="min-h-screen bg-gray-50">
 
     <!-- Premium Hero Header -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 py-8 lg:py-10 mb-8">
+    <div class="relative overflow-hidden bg-secondary-500 py-8 lg:py-10 mb-8">
         <!-- Animated Background Elements -->
         <div class="absolute inset-0 pointer-events-none">
             <div class="absolute top-10 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl float-anim"></div>
-            <div class="absolute bottom-0 right-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl float-anim" style="animation-delay: 2s;"></div>
-            <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl float-anim" style="animation-delay: 4s;"></div>
+            <div class="absolute bottom-0 right-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl float-anim"></div>
+            <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl float-anim"></div>
         </div>
 
         <!-- Grid Pattern Overlay -->
@@ -124,24 +124,24 @@
 
                 <!-- Quick Action Buttons -->
                 <div class="flex flex-wrap items-center gap-3 slide-up slide-up-1">
-                    <button @click="clearCache()" class="relative overflow-hidden inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white hover:bg-white/20 transition-all text-sm font-semibold shadow-lg shine-effect">
+                    <x-ui.button @click="clearCache()" variant="secondary" size="sm">
                         @include('admin.settings.partials.icon', ['icon' => 'refresh', 'class' => 'h-4 w-4'])
                         {{ __('Clear Cache') }}
-                    </button>
-                    <button @click="showImportModal = true" class="relative overflow-hidden inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white hover:bg-white/20 transition-all text-sm font-semibold shadow-lg shine-effect">
+                    </x-ui.button>
+                    <x-ui.button @click="showImportModal = true" variant="secondary" size="sm">
                         @include('admin.settings.partials.icon', ['icon' => 'upload', 'class' => 'h-4 w-4'])
                         {{ __('Import') }}
-                    </button>
-                    <a href="{{ route('admin.settings.export') }}" class="relative overflow-hidden inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white hover:bg-white/20 transition-all text-sm font-semibold shadow-lg shine-effect">
+                    </x-ui.button>
+                    <x-ui.button as="a" href="{{ route('admin.settings.export') }}" variant="secondary" size="sm">
                         @include('admin.settings.partials.icon', ['icon' => 'download', 'class' => 'h-4 w-4'])
                         {{ __('Export') }}
-                    </a>
-                    <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-violet-700 rounded-xl hover:bg-violet-50 transition-all text-sm font-bold shadow-lg">
+                    </x-ui.button>
+                    <x-ui.button as="a" href="{{ route('admin.dashboard') }}" variant="primary" size="sm">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         {{ __('Dashboard') }}
-                    </a>
+                    </x-ui.button>
                 </div>
             </div>
         </div>
@@ -152,7 +152,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-8">
             <div class="stat-card slide-up slide-up-1 bg-white rounded-2xl p-4 border border-slate-200/60 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-violet-200">
                 <div class="flex items-center gap-3 mb-2">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-500 to-slate-700 flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 rounded-xl bg-gray-600 flex items-center justify-center shadow-lg">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
                         </svg>
@@ -164,7 +164,7 @@
 
             <div class="stat-card slide-up slide-up-2 bg-white rounded-2xl p-4 border border-slate-200/60 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-violet-200">
                 <div class="flex items-center gap-3 mb-2">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 rounded-xl bg-secondary-500 flex items-center justify-center shadow-lg">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                         </svg>
@@ -176,7 +176,7 @@
 
             <div class="stat-card slide-up slide-up-3 bg-white rounded-2xl p-4 border border-slate-200/60 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-emerald-200">
                 <div class="flex items-center gap-3 mb-2">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 rounded-xl bg-secondary-500 flex items-center justify-center shadow-lg">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -188,7 +188,7 @@
 
             <div class="stat-card slide-up slide-up-4 bg-white rounded-2xl p-4 border border-slate-200/60 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-amber-200">
                 <div class="flex items-center gap-3 mb-2">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 rounded-xl bg-secondary-300 flex items-center justify-center shadow-lg">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
                         </svg>
@@ -200,7 +200,7 @@
 
             <div class="stat-card slide-up slide-up-5 bg-white rounded-2xl p-4 border border-slate-200/60 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-blue-200">
                 <div class="flex items-center gap-3 mb-2">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
                         </svg>
@@ -212,7 +212,7 @@
 
             <div class="stat-card slide-up slide-up-6 bg-white rounded-2xl p-4 border border-slate-200/60 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-indigo-200">
                 <div class="flex items-center gap-3 mb-2">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
                         </svg>
@@ -224,7 +224,7 @@
 
             <div class="stat-card slide-up slide-up-7 bg-white rounded-2xl p-4 border border-slate-200/60 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-pink-200">
                 <div class="flex items-center gap-3 mb-2">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 rounded-xl bg-secondary-400 flex items-center justify-center shadow-lg">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
@@ -237,8 +237,8 @@
 
         <!-- Success Message -->
         @if(session('success'))
-        <div class="mb-6 p-5 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl flex items-center gap-4 shadow-lg animate-fade-in">
-            <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+        <div class="mb-6 p-5 bg-gray-50 border border-emerald-200 rounded-2xl flex items-center gap-4 shadow-lg animate-fade-in">
+            <div class="h-12 w-12 rounded-xl bg-secondary-500 flex items-center justify-center flex-shrink-0 shadow-lg">
                 @include('admin.settings.partials.icon', ['icon' => 'check', 'class' => 'h-6 w-6 text-white'])
             </div>
             <div>
@@ -262,14 +262,14 @@
                                x-model="searchQuery"
                                @input.debounce.300ms="searchSettings()"
                                placeholder="{{ __('Search settings...') }}"
-                               class="w-full pl-12 pr-10 py-3.5 text-sm border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-violet-500/20 focus:border-violet-500 transition-all font-medium text-slate-900 placeholder-slate-400">
+                               class="w-full pl-12 pr-10 py-3.5 text-sm border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-violet-500/20 focus:border-violet-500 font-medium text-slate-900 placeholder-slate-400">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+                            <div class="w-6 h-6 rounded-lg bg-secondary-500 flex items-center justify-center">
                                 @include('admin.settings.partials.icon', ['icon' => 'search', 'class' => 'h-3.5 w-3.5 text-white'])
                             </div>
                         </div>
                         <div x-show="searchQuery" @click="searchQuery = ''; searchResults = []" class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer">
-                            <div class="w-6 h-6 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors">
+                            <div class="w-6 h-6 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center">
                                 @include('admin.settings.partials.icon', ['icon' => 'x', 'class' => 'h-3.5 w-3.5 text-slate-500'])
                             </div>
                         </div>
@@ -278,7 +278,7 @@
                     <!-- Search Results -->
                     <div x-show="searchResults.length > 0" x-cloak class="mt-4 space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
                         <template x-for="result in searchResults" :key="result.key">
-                            <div @click="goToSetting(result.group)" class="p-3 rounded-xl bg-gradient-to-r from-violet-50 to-purple-50 hover:from-violet-100 hover:to-purple-100 cursor-pointer transition-all border border-violet-100">
+                            <div @click="goToSetting(result.group)" class="p-3 rounded-xl bg-gray-50 hover:bg-primary-600 cursor-pointer border border-violet-100">
                                 <div class="text-sm font-bold text-slate-900" x-text="result.label"></div>
                                 <div class="text-xs text-violet-600 font-medium" x-text="result.group"></div>
                             </div>
@@ -287,7 +287,7 @@
                 </div>
 
                 <!-- Mindova Organization - Team Management -->
-                <div class="bg-gradient-to-br from-indigo-600 via-purple-600 to-violet-700 rounded-3xl shadow-xl shadow-purple-500/30 p-5 slide-up slide-up-1 relative overflow-hidden">
+                <div class="bg-primary-500 rounded-3xl shadow-xl shadow-purple-500/30 p-5 slide-up slide-up-1 relative overflow-hidden">
                     <!-- Background Pattern -->
                     <div class="absolute inset-0 opacity-10">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-1/2 translate-x-1/2"></div>
@@ -310,12 +310,12 @@
                         <p class="text-white/80 text-sm mb-4">{{ __('Manage internal team members, assign roles and permissions, and control platform access.') }}</p>
 
                         <div class="space-y-2">
-                            <a href="{{ route('mindova.team.index') }}" class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white text-purple-700 font-bold rounded-xl hover:bg-purple-50 transition-all shadow-lg hover:shadow-xl">
+                            <x-ui.button as="a" href="{{ route('mindova.team.index') }}" variant="primary" fullWidth>
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                                 </svg>
                                 {{ __('Manage Team') }}
-                            </a>
+                            </x-ui.button>
                             <div class="flex items-center justify-center gap-4 pt-2">
                                 <div class="flex items-center gap-1.5 text-white/70 text-xs">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -337,7 +337,7 @@
                 <!-- Quick Presets -->
                 <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/60 p-5 slide-up slide-up-2">
                     <h3 class="font-black text-slate-900 mb-4 flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg">
+                        <div class="w-8 h-8 rounded-xl bg-secondary-300 flex items-center justify-center shadow-lg">
                             @include('admin.settings.partials.icon', ['icon' => 'lightning-bolt', 'class' => 'h-4 w-4 text-white'])
                         </div>
                         {{ __('Quick Presets') }}
@@ -345,8 +345,8 @@
                     <div class="space-y-3">
                         @foreach($presets as $key => $preset)
                         <button @click="applyPreset('{{ $key }}')"
-                                class="w-full flex items-center gap-4 p-3.5 rounded-2xl bg-gradient-to-r hover:{{ $preset['color'] }} hover:text-white text-slate-700 hover:shadow-lg transition-all duration-300 group border border-slate-200 hover:border-transparent">
-                            <div class="h-10 w-10 rounded-xl bg-gradient-to-br {{ $preset['color'] }} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                class="w-full flex items-center gap-4 p-3.5 rounded-2xl hover:{{ $preset['color'] }} hover:text-white text-slate-700 hover:shadow-lg group border border-slate-200 hover:border-transparent">
+                            <div class="h-10 w-10 rounded-xl {{ $preset['color'] }} flex items-center justify-center shadow-lg">
                                 @include('admin.settings.partials.icon', ['icon' => $preset['icon'], 'class' => 'h-5 w-5 text-white'])
                             </div>
                             <div class="text-left flex-1">
@@ -360,9 +360,9 @@
 
                 <!-- Category Navigation -->
                 <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/60 overflow-hidden slide-up slide-up-2">
-                    <div class="p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-transparent">
+                    <div class="p-5 border-b border-slate-100 bg-gray-50">
                         <h3 class="font-black text-slate-900 flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg">
+                            <div class="w-8 h-8 rounded-xl bg-secondary-500 flex items-center justify-center shadow-lg">
                                 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
                                 </svg>
@@ -373,9 +373,9 @@
                     <nav class="p-3 max-h-[450px] overflow-y-auto custom-scrollbar">
                         @foreach($settingsByGroup as $groupKey => $group)
                         <button @click="activeTab = '{{ $groupKey }}'; scrollToTop()"
-                                :class="activeTab === '{{ $groupKey }}' ? 'bg-gradient-to-r {{ $group['config']['color'] }} text-white shadow-lg' : 'text-slate-600 hover:bg-slate-100'"
-                                class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left mb-2">
-                            <div :class="activeTab === '{{ $groupKey }}' ? 'bg-white/20' : 'bg-gradient-to-br {{ $group['config']['color'] }}'"
+                                :class="activeTab === '{{ $groupKey }}' ? '{{ $group['config']['color'] }} text-white shadow-lg' : 'text-slate-600 hover:bg-slate-100'"
+                                class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left mb-2">
+                            <div :class="activeTab === '{{ $groupKey }}' ? 'bg-white/20' : '{{ $group['config']['color'] }}'"
                                  class="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                                 @include('admin.settings.partials.icon', ['icon' => $group['config']['icon'], 'class' => 'h-5 w-5 text-white'])
                             </div>
@@ -398,10 +398,10 @@
                 <div x-show="activeTab === '{{ $groupKey }}'" x-cloak class="animate-fade-in">
                     <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/60 overflow-hidden">
                         <!-- Group Header -->
-                        <div class="px-8 py-6 border-b border-slate-100 bg-gradient-to-r {{ str_replace('from-', 'from-', $group['config']['color']) }}/10 to-transparent">
+                        <div class="px-8 py-6 border-b border-slate-100 bg-gray-50">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-5">
-                                    <div class="h-14 w-14 rounded-2xl bg-gradient-to-br {{ $group['config']['color'] }} flex items-center justify-center shadow-xl">
+                                    <div class="h-14 w-14 rounded-2xl {{ $group['config']['color'] }} flex items-center justify-center shadow-xl">
                                         @include('admin.settings.partials.icon', ['icon' => $group['config']['icon'], 'class' => 'h-7 w-7 text-white'])
                                     </div>
                                     <div>
@@ -418,7 +418,7 @@
                         <!-- Settings List -->
                         <div class="p-6 space-y-4">
                             @foreach($group['settings'] as $setting)
-                            <div class="setting-card group p-5 rounded-2xl bg-gradient-to-r from-slate-50/80 to-transparent hover:from-slate-100/80 border border-transparent hover:border-slate-200 hover:shadow-lg">
+                            <div class="setting-card group p-5 rounded-2xl bg-gray-50 hover:bg-gray-100 border border-transparent hover:border-slate-200 hover:shadow-lg">
                                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
                                     <div class="flex-1 min-w-0">
                                         <div class="flex items-center gap-3 mb-2">
@@ -460,11 +460,11 @@
     <!-- Import Modal -->
     <div x-show="showImportModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto" aria-modal="true">
         <div class="flex items-center justify-center min-h-screen px-4 py-8">
-            <div x-show="showImportModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" @click="showImportModal = false" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm"></div>
+            <div x-show="showImportModal"    @click="showImportModal = false" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm"></div>
 
-            <div x-show="showImportModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden">
+            <div x-show="showImportModal"    class="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden">
                 <!-- Modal Header -->
-                <div class="px-8 py-6 border-b border-slate-100 bg-gradient-to-r from-violet-500 to-purple-600">
+                <div class="px-8 py-6 border-b border-slate-100 bg-secondary-500">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center">
                             @include('admin.settings.partials.icon', ['icon' => 'upload', 'class' => 'h-6 w-6 text-white'])
@@ -478,13 +478,13 @@
 
                 <!-- Modal Body -->
                 <div class="p-8">
-                    <textarea x-model="importData" rows="12" class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-violet-500/20 focus:border-violet-500 font-mono text-sm transition-all resize-none" placeholder='{"settings": {...}}'></textarea>
+                    <textarea x-model="importData" rows="12" class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-violet-500/20 focus:border-violet-500 font-mono text-sm resize-none" placeholder='{"settings": {...}}'></textarea>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="px-8 py-5 border-t border-slate-100 bg-slate-50 flex justify-end gap-4">
-                    <button @click="showImportModal = false" class="px-6 py-3 text-slate-600 hover:bg-slate-200 rounded-xl transition font-bold">{{ __('Cancel') }}</button>
-                    <button @click="importSettings()" class="px-6 py-3 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-xl hover:from-violet-700 hover:to-purple-700 transition-all font-bold shadow-lg hover:shadow-xl">{{ __('Import') }}</button>
+                    <x-ui.button @click="showImportModal = false" variant="secondary">{{ __('Cancel') }}</x-ui.button>
+                    <x-ui.button @click="importSettings()" variant="primary">{{ __('Import') }}</x-ui.button>
                 </div>
             </div>
         </div>
@@ -596,10 +596,10 @@ function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
     const colors = {
-        success: 'from-emerald-500 to-teal-600',
-        error: 'from-red-500 to-rose-600',
-        info: 'from-slate-600 to-slate-700',
-        warning: 'from-amber-500 to-orange-600'
+        success: 'bg-secondary-500',
+        error: 'bg-secondary-700',
+        info: 'bg-gray-600',
+        warning: 'bg-secondary-300'
     };
     const icons = {
         success: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>',
@@ -607,7 +607,7 @@ function showToast(message, type = 'success') {
         info: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         warning: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>'
     };
-    toast.className = `bg-gradient-to-r ${colors[type] || colors.info} text-white px-6 py-4 rounded-2xl shadow-2xl transition-all duration-300 transform translate-x-full font-semibold text-sm flex items-center gap-3`;
+    toast.className = `${colors[type] || colors.info} text-white px-6 py-4 rounded-2xl shadow-2xl transform translate-x-full font-semibold text-sm flex items-center gap-3`;
     toast.innerHTML = `${icons[type] || icons.info}<span>${message}</span>`;
     container.appendChild(toast);
     setTimeout(() => { toast.classList.remove('translate-x-full'); toast.classList.add('translate-x-0'); }, 10);

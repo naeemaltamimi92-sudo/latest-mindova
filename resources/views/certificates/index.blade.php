@@ -46,15 +46,15 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/30">
+<div class="min-h-screen bg-gray-50">
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-amber-500 via-yellow-500 to-orange-500 py-12 mb-10 mx-4 sm:mx-6 lg:mx-8 rounded-3xl shadow-2xl">
+    <div class="relative overflow-hidden bg-secondary-300 py-12 mb-10 mx-4 sm:mx-6 lg:mx-8 rounded-3xl shadow-2xl">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-orange-400/30 via-transparent to-transparent"></div>
-            <div class="floating-element absolute top-10 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float"></div>
-            <div class="floating-element absolute bottom-10 right-10 w-80 h-80 bg-yellow-300/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute top-0 left-0 w-full h-full "></div>
+            <div class="absolute bottom-0 right-0 w-full h-full "></div>
+            <div class="floating-element absolute top-10 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="floating-element absolute bottom-10 right-10 w-80 h-80 bg-yellow-300/20 rounded-full blur-3xl"></div>
         </div>
 
         <div class="relative max-w-6xl mx-auto px-6 sm:px-8 text-center">
@@ -69,14 +69,14 @@
                 <!-- Status Badge -->
                 <div class="inline-flex items-center space-x-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-4">
                     <div class="relative">
-                        <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        <div class="w-2 h-2 bg-white rounded-full"></div>
                     </div>
                     <span class="text-xs font-semibold text-white/95 tracking-wide">{{ __('Professional Achievements') }}</span>
                 </div>
 
                 <!-- Main Heading -->
                 <h1 class="text-3xl md:text-4xl font-black text-white mb-3 leading-tight tracking-tight">
-                    {{ __('My') }} <span class="bg-gradient-to-r from-white to-amber-100 bg-clip-text text-transparent">{{ __('Certificates') }}</span>
+                    {{ __('My') }} <span class="text-white">{{ __('Certificates') }}</span>
                 </h1>
 
                 <p class="text-base text-white/90 font-medium max-w-2xl mx-auto">
@@ -89,9 +89,9 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <!-- Certificates Grid -->
         @forelse($certificates as $index => $certificate)
-        <div class="certificate-card bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden mb-6 animate-slide-in-up" style="animation-delay: {{ 0.1 + ($index * 0.1) }}s">
+        <div class="certificate-card bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden mb-6" style="animation-delay: {{ 0.1 + ($index * 0.1) }}s">
             <!-- Top Accent -->
-            <div class="h-1.5 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500"></div>
+            <div class="h-1.5 bg-secondary-400"></div>
 
             <div class="p-8">
                 <div class="flex flex-col lg:flex-row lg:items-start gap-6">
@@ -99,8 +99,8 @@
                         <!-- Certificate Header -->
                         <div class="flex items-start gap-5 mb-6">
                             <div class="relative group">
-                                <div class="absolute -inset-1 bg-gradient-to-r from-amber-400 to-orange-400 rounded-2xl blur opacity-40 group-hover:opacity-60 transition"></div>
-                                <div class="relative w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl">
+                                <div class="absolute -inset-1 bg-secondary-400 rounded-2xl blur opacity-40 group-hover:opacity-60 transition"></div>
+                                <div class="relative w-16 h-16 bg-secondary-300 rounded-2xl flex items-center justify-center shadow-xl">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                                     </svg>
@@ -119,22 +119,22 @@
 
                         <!-- Certificate Stats -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                            <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-4 border border-amber-100">
+                            <div class="bg-gray-50 rounded-2xl p-4 border border-amber-100">
                                 <p class="text-xs font-bold text-amber-600 uppercase tracking-wide mb-1">{{ __('Certificate Type') }}</p>
                                 <p class="text-lg font-bold text-slate-900">{{ ucfirst($certificate->certificate_type) }}</p>
                             </div>
-                            <div class="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl p-4 border border-indigo-100">
+                            <div class="bg-gray-50 rounded-2xl p-4 border border-indigo-100">
                                 <p class="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-1">{{ __('Role') }}</p>
                                 <p class="text-lg font-bold text-slate-900">{{ $certificate->role }}</p>
                             </div>
-                            <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-4 border border-emerald-100">
+                            <div class="bg-gray-50 rounded-2xl p-4 border border-emerald-100">
                                 <p class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-1">{{ __('Total Hours') }}</p>
                                 <p class="text-lg font-bold text-slate-900">{{ number_format($certificate->total_hours, 1) }} hrs</p>
                             </div>
                         </div>
 
                         <!-- Contribution Summary -->
-                        <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 rounded-r-xl p-5 mb-5">
+                        <div class="bg-gray-50 border-l-4 border-amber-500 rounded-r-xl p-5 mb-5">
                             <p class="text-slate-700 leading-relaxed">{{ $certificate->contribution_summary }}</p>
                         </div>
 
@@ -142,7 +142,7 @@
                         @if(!empty($certificate->contribution_types))
                         <div class="flex flex-wrap gap-2 mb-5">
                             @foreach($certificate->contribution_types as $type)
-                            <span class="px-4 py-2 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 text-sm font-semibold rounded-xl border border-amber-200">
+                            <span class="px-4 py-2 bg-secondary-100 text-amber-800 text-sm font-semibold rounded-xl border border-amber-200">
                                 {{ $type }}
                             </span>
                             @endforeach
@@ -178,20 +178,20 @@
 
                     <!-- Actions -->
                     <div class="flex lg:flex-col gap-3">
-                        <a href="{{ route('certificates.show', $certificate) }}" class="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold px-6 py-3 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                        <x-ui.button as="a" href="{{ route('certificates.show', $certificate) }}" variant="secondary">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                             </svg>
                             {{ __('View') }}
-                        </a>
+                        </x-ui.button>
                         @if(!$certificate->is_revoked)
-                        <a href="{{ route('certificates.download', $certificate) }}" class="group inline-flex items-center justify-center gap-2 bg-white border-2 border-amber-500 text-amber-600 font-bold px-6 py-3 rounded-xl hover:bg-amber-50 transition-all">
+                        <x-ui.button as="a" href="{{ route('certificates.download', $certificate) }}" variant="outline">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                             </svg>
                             {{ __('Download') }}
-                        </a>
+                        </x-ui.button>
                         @endif
                     </div>
                 </div>
@@ -199,11 +199,11 @@
         </div>
         @empty
         <!-- Premium Empty State -->
-        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-16 text-center animate-slide-in-up">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-16 text-center">
             <div class="max-w-md mx-auto">
                 <div class="relative group inline-block mb-8">
-                    <div class="absolute -inset-2 bg-gradient-to-r from-amber-400 to-orange-400 rounded-3xl blur opacity-30"></div>
-                    <div class="relative w-28 h-28 bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl flex items-center justify-center shadow-2xl">
+                    <div class="absolute -inset-2 bg-secondary-400 rounded-3xl blur opacity-30"></div>
+                    <div class="relative w-28 h-28 bg-secondary-300 rounded-3xl flex items-center justify-center shadow-2xl">
                         <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                         </svg>
@@ -211,12 +211,12 @@
                 </div>
                 <h3 class="text-3xl font-black text-slate-900 mb-3">{{ __('No Certificates Yet') }}</h3>
                 <p class="text-slate-500 text-lg mb-8">{{ __('Complete challenges to earn professional certificates that showcase your contributions.') }}</p>
-                <a href="{{ route('tasks.available') }}" class="group inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold px-8 py-4 rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                <x-ui.button as="a" href="{{ route('tasks.available') }}" variant="secondary" size="lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                     </svg>
                     {{ __('Browse Available Tasks') }}
-                </a>
+                </x-ui.button>
             </div>
         </div>
         @endforelse

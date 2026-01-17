@@ -19,12 +19,12 @@
     </p>
 
     <div class="flex justify-center space-x-4">
-        <button onclick="window.location.reload()" class="btn-primary">
+        <x-ui.button @click="window.location.reload()" variant="primary">
             {{ __('Try Again') }}
-        </button>
-        <a href="{{ route('dashboard') }}" class="btn-secondary">
+        </x-ui.button>
+        <x-ui.button as="a" href="{{ route('dashboard') }}" variant="secondary">
             {{ __('Go to Dashboard') }}
-        </a>
+        </x-ui.button>
     </div>
 
     <div class="mt-12 pt-8 border-t border-gray-200">

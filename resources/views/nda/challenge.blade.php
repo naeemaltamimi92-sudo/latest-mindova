@@ -152,15 +152,15 @@
 
             <!-- Action Buttons -->
             <div class="flex items-center justify-between pt-4 border-t">
-                <a href="{{ route('challenges.index') }}" class="text-gray-600 hover:text-gray-900 font-semibold">
+                <x-ui.button as="a" href="{{ route('challenges.index') }}" variant="ghost">
                     {{ __('Cancel') }}
-                </a>
-                <button type="submit" class="inline-flex items-center justify-center bg-gradient-blue text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl">
+                </x-ui.button>
+                <x-ui.button as="submit" variant="primary" size="lg">
                     <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     {{ __('Sign NDA & View Challenge') }}
-                </button>
+                </x-ui.button>
             </div>
         </form>
     </div>

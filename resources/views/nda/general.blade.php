@@ -36,10 +36,10 @@
         50% { background-position: 100% 50%; }
     }
 
-    .animate-float { animation: float 8s ease-in-out infinite; }
-    .animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
-    .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
-    .animate-check-bounce { animation: check-bounce 0.4s ease-out forwards; }
+    .animate-float { animation: float 8s-out infinite; }
+    .animate-slide-up { animation: slide-up 0.6s forwards; }
+    .animate-pulse-glow { animation: pulse-glow 2s-out infinite; }
+    .animate-check-bounce { animation: check-bounce 0.4s forwards; }
 
     .gradient-animate {
         background-size: 200% 200%;
@@ -139,7 +139,7 @@
         border: solid white;
         border-width: 0 2.5px 2.5px 0;
         transform: rotate(45deg);
-        animation: check-bounce 0.3s ease-out;
+        animation: check-bounce 0.3s;
     }
 
     /* Premium Button */
@@ -214,15 +214,15 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-violet-50/30 py-8">
+<div class="min-h-screen bg-gray-50 py-8">
 
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 py-12 mb-10 mx-4 sm:mx-8 lg:mx-auto lg:max-w-6xl rounded-[2.5rem] shadow-2xl gradient-animate">
+    <div class="relative overflow-hidden bg-primary-500 py-12 mb-10 mx-4 sm:mx-8 lg:mx-auto lg:max-w-6xl rounded-[2.5rem] shadow-2xl gradient-animate">
         <!-- Animated Background Elements -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-float"></div>
-            <div class="absolute top-10 right-10 w-96 h-96 bg-cyan-300/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-            <div class="absolute -bottom-32 left-1/2 w-72 h-72 bg-pink-300/10 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
+            <div class="absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute top-10 right-10 w-96 h-96 bg-cyan-300/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-32 left-1/2 w-72 h-72 bg-pink-300/10 rounded-full blur-3xl"></div>
 
             <!-- Security Pattern -->
             <div class="absolute inset-0 opacity-5">
@@ -238,7 +238,7 @@
         </div>
 
         <div class="relative max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div class="text-center animate-slide-up">
+            <div class="text-center">
                 <!-- Security Badge -->
                 <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-xl border border-white/30 rounded-full px-6 py-2.5 mb-6 shadow-xl">
                     <svg class="w-5 h-5 text-emerald-300" fill="currentColor" viewBox="0 0 20 20">
@@ -251,7 +251,7 @@
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight">
                     {{ __('Non-Disclosure') }}
                     <span class="relative inline-block">
-                        <span class="bg-gradient-to-r from-yellow-200 via-pink-200 to-yellow-200 bg-clip-text text-transparent">{{ __('Agreement') }}</span>
+                        <span class="text-secondary-200">{{ __('Agreement') }}</span>
                         <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                             <path d="M2 10C50 2 150 2 198 10" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
                         </svg>
@@ -274,7 +274,7 @@
                     </div>
                     <div class="w-12 h-0.5 bg-white/50 rounded-full"></div>
                     <div class="flex items-center gap-2">
-                        <div class="step-active w-10 h-10 rounded-full flex items-center justify-center text-white font-bold shadow-lg animate-pulse-glow">
+                        <div class="step-active w-10 h-10 rounded-full flex items-center justify-center text-white font-bold shadow-lg-glow">
                             2
                         </div>
                         <span class="text-white font-medium hidden sm:inline">{{ __('NDA') }}</span>
@@ -295,7 +295,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
 
         <!-- Trust Indicators -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div class="trust-badge bg-white rounded-2xl p-4 text-center shadow-sm border border-gray-100">
                 <div class="w-12 h-12 mx-auto bg-emerald-100 rounded-xl flex items-center justify-center mb-2">
                     <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -331,9 +331,9 @@
         </div>
 
         <!-- Info Alert -->
-        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-5 mb-8 animate-slide-up" style="animation-delay: 0.2s;">
+        <div class="bg-primary-50 border-2 border-blue-200 rounded-2xl p-5 mb-8">
             <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                     <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                     </svg>
@@ -348,13 +348,13 @@
         </div>
 
         <!-- NDA Document Card -->
-        <div class="nda-document bg-white rounded-[2rem] shadow-2xl overflow-hidden mb-8 animate-slide-up" style="animation-delay: 0.3s;">
+        <div class="nda-document bg-white rounded-[2rem] shadow-2xl overflow-hidden mb-8">
 
             <!-- Document Header -->
-            <div class="bg-gradient-to-r from-slate-50 via-indigo-50/50 to-violet-50/50 px-8 sm:px-12 py-6 border-b border-gray-100">
+            <div class="bg-gray-50 px-8 sm:px-12 py-6 border-b border-gray-100">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-14 h-14 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
@@ -380,7 +380,7 @@
                 </div>
 
                 <!-- NDA Text Content -->
-                <div class="nda-content border-2 border-gray-200 rounded-2xl p-8 bg-gradient-to-br from-white to-slate-50 max-h-[500px] overflow-y-auto" id="ndaContent">
+                <div class="nda-content border-2 border-gray-200 rounded-2xl p-8 bg-white max-h-[500px] overflow-y-auto" id="ndaContent">
                     <div class="prose prose-slate max-w-none whitespace-pre-wrap text-gray-700 leading-relaxed">{{ $nda->content }}</div>
                 </div>
 
@@ -391,7 +391,7 @@
             </div>
 
             <!-- Signature Section -->
-            <div class="bg-gradient-to-r from-slate-50 via-indigo-50/30 to-violet-50/30 px-8 sm:px-12 py-8 border-t border-gray-100">
+            <div class="bg-gray-50 px-8 sm:px-12 py-8 border-t border-gray-100">
                 <form method="POST" action="{{ route('nda.general.sign') }}" class="space-y-8" id="ndaForm">
                     @csrf
 
@@ -433,7 +433,7 @@
                     </div>
 
                     <!-- Consent Checkbox -->
-                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-6">
+                    <div class="bg-gray-50 border-2 border-amber-200 rounded-2xl p-6">
                         <label class="flex items-start gap-4 cursor-pointer group">
                             <input type="checkbox" id="agree" name="agree" required
                                    class="consent-checkbox mt-1 flex-shrink-0">
@@ -494,26 +494,25 @@
 
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
-                        <a href="{{ route('dashboard') }}" class="order-2 sm:order-1 text-gray-600 hover:text-gray-900 font-semibold flex items-center gap-2 transition-colors">
+                        <x-ui.button as="a" href="{{ route('dashboard') }}" variant="ghost" class="order-2 sm:order-1">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
                             {{ __('Cancel') }}
-                        </a>
-                        <button type="submit" id="submitBtn" disabled
-                                class="btn-sign order-1 sm:order-2 w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 text-white font-bold text-lg px-10 py-4 rounded-2xl shadow-xl">
+                        </x-ui.button>
+                        <x-ui.button as="submit" id="submitBtn" disabled variant="primary" size="lg" class="order-1 sm:order-2 w-full sm:w-auto">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                             </svg>
                             {{ __('Sign NDA & Continue') }}
-                        </button>
+                        </x-ui.button>
                     </div>
                 </form>
             </div>
         </div>
 
         <!-- Support Section -->
-        <div class="text-center animate-slide-up" style="animation-delay: 0.4s;">
+        <div class="text-center">
             <p class="text-sm text-gray-500">
                 {{ __('Have questions about this NDA?') }}
                 <a href="{{ route('contact') }}" class="text-indigo-600 hover:text-indigo-700 font-semibold ml-1 inline-flex items-center gap-1">

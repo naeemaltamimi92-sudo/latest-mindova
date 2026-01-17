@@ -37,9 +37,9 @@
         100% { opacity: 1; transform: scale(1); }
     }
 
-    .animate-float { animation: float 8s ease-in-out infinite; }
-    .animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
-    .animate-bounce-in { animation: bounce-in 0.6s ease-out forwards; }
+    .animate-float { animation: float 8s-out infinite; }
+    .animate-slide-up { animation: slide-up 0.6s forwards; }
+    .animate-bounce-in { animation: bounce-in 0.6s forwards; }
 
     .gradient-animate {
         background-size: 200% 200%;
@@ -192,15 +192,15 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/30 py-8">
+<div class="min-h-screen bg-gray-50 py-8">
 
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 py-12 mb-10 mx-4 sm:mx-8 lg:mx-auto lg:max-w-6xl rounded-[2.5rem] shadow-2xl gradient-animate">
+    <div class="relative overflow-hidden bg-secondary-500 py-12 mb-10 mx-4 sm:mx-8 lg:mx-auto lg:max-w-6xl rounded-[2.5rem] shadow-2xl">
         <!-- Animated Background Elements -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-float"></div>
-            <div class="absolute top-10 right-10 w-96 h-96 bg-yellow-300/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-            <div class="absolute -bottom-32 left-1/2 w-72 h-72 bg-cyan-300/10 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
+            <div class="absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute top-10 right-10 w-96 h-96 bg-yellow-300/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-32 left-1/2 w-72 h-72 bg-cyan-300/10 rounded-full blur-3xl"></div>
 
             <!-- Decorative Grid -->
             <div class="absolute inset-0 opacity-10">
@@ -216,12 +216,12 @@
         </div>
 
         <div class="relative max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div class="text-center animate-slide-up">
+            <div class="text-center">
                 <!-- Welcome Badge -->
                 <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-xl border border-white/30 rounded-full px-6 py-2.5 mb-6 shadow-xl">
                     <div class="relative">
-                        <div class="w-3 h-3 bg-emerald-300 rounded-full animate-pulse"></div>
-                        <div class="absolute inset-0 w-3 h-3 bg-emerald-300 rounded-full animate-ping"></div>
+                        <div class="w-3 h-3 bg-emerald-300 rounded-full"></div>
+                        <div class="absolute inset-0 w-3 h-3 bg-emerald-300 rounded-full"></div>
                     </div>
                     <span class="text-sm font-bold text-white tracking-wide">{{ __('Welcome to MINDOVA') }}</span>
                 </div>
@@ -230,7 +230,7 @@
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight">
                     {{ __('Complete Your') }}
                     <span class="relative inline-block">
-                        <span class="bg-gradient-to-r from-yellow-200 via-pink-200 to-yellow-200 bg-clip-text text-transparent">{{ __('Profile') }}</span>
+                        <span class="text-secondary-300">{{ __('Profile') }}</span>
                         <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                             <path d="M2 10C50 2 150 2 198 10" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
                         </svg>
@@ -273,12 +273,12 @@
 
         @if(request()->get('type') === 'volunteer' || auth()->user()->isVolunteer())
         <!-- Volunteer Profile Form -->
-        <div class="bg-white rounded-[2rem] shadow-2xl border border-gray-100 overflow-hidden animate-slide-up" style="animation-delay: 0.2s;">
+        <div class="bg-white rounded-[2rem] shadow-2xl border border-gray-100 overflow-hidden">
 
             <!-- Form Header -->
-            <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-cyan-50 px-8 sm:px-12 py-8 border-b border-gray-100">
+            <div class="bg-gray-50 px-8 sm:px-12 py-8 border-b border-gray-100">
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg">
+                    <div class="w-16 h-16 bg-secondary-500 rounded-2xl flex items-center justify-center shadow-lg">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
@@ -294,7 +294,7 @@
                 @csrf
 
                 <!-- Field of Expertise Section -->
-                <div class="form-field-premium animate-slide-up" style="animation-delay: 0.3s;">
+                <div class="form-field-premium">
                     <label class="flex items-center gap-2 text-sm font-bold text-gray-900 mb-4">
                         <span class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
                             <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -323,7 +323,7 @@
                         @foreach($fields as $field)
                         <div class="field-card bg-white border-2 border-gray-100 rounded-xl p-4 text-center hover:shadow-lg {{ old('field') == $field['name'] ? 'selected' : '' }}"
                              data-field="{{ $field['name'] }}" onclick="selectField('{{ $field['name'] }}')">
-                            <div class="field-icon w-12 h-12 mx-auto bg-gray-100 rounded-xl flex items-center justify-center mb-2 transition-all">
+                            <div class="field-icon w-12 h-12 mx-auto bg-gray-100 rounded-xl flex items-center justify-center mb-2">
                                 <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $field['icon'] !!}</svg>
                             </div>
                             <span class="text-xs font-bold text-gray-700">{{ __($field['name']) }}</span>
@@ -347,7 +347,7 @@
                 </div>
 
                 <!-- Availability Section -->
-                <div class="form-field-premium animate-slide-up" style="animation-delay: 0.4s;">
+                <div class="form-field-premium">
                     <label class="flex items-center gap-2 text-sm font-bold text-gray-900 mb-4">
                         <span class="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center">
                             <svg class="w-4 h-4 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -357,7 +357,7 @@
                         {{ __('Weekly Availability') }} <span class="text-red-500">*</span>
                     </label>
 
-                    <div class="bg-gradient-to-r from-cyan-50 to-teal-50 border-2 border-cyan-100 rounded-2xl p-6">
+                    <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-6">
                         <div class="flex flex-col sm:flex-row items-center gap-6">
                             <div class="flex-1 w-full">
                                 <input type="range" name="availability_hours_per_week" id="availabilitySlider"
@@ -384,7 +384,7 @@
                 </div>
 
                 <!-- Bio Section -->
-                <div class="form-field-premium animate-slide-up" style="animation-delay: 0.5s;">
+                <div class="form-field-premium">
                     <label class="flex items-center gap-2 text-sm font-bold text-gray-900 mb-4">
                         <span class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center">
                             <svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -409,7 +409,7 @@
                 </div>
 
                 <!-- CV Upload Section -->
-                <div class="form-field-premium animate-slide-up" style="animation-delay: 0.6s;">
+                <div class="form-field-premium">
                     <label class="flex items-center gap-2 text-sm font-bold text-gray-900 mb-4">
                         <span class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
                             <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -424,7 +424,7 @@
                         <input type="file" name="cv" id="cvInput" accept=".pdf,.doc,.docx" class="hidden" onchange="handleCVUpload(this)">
 
                         <div id="cvUploadContent">
-                            <div class="w-20 h-20 mx-auto bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-4">
+                            <div class="w-20 h-20 mx-auto bg-secondary-300 rounded-2xl flex items-center justify-center mb-4">
                                 <svg class="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                 </svg>
@@ -440,21 +440,21 @@
                         </div>
 
                         <div id="cvFileInfo" class="hidden">
-                            <div class="w-20 h-20 mx-auto bg-gradient-to-br from-emerald-100 to-teal-100 rounded-2xl flex items-center justify-center mb-4">
+                            <div class="w-20 h-20 mx-auto bg-secondary-100 rounded-2xl flex items-center justify-center mb-4">
                                 <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
                             <h3 class="text-lg font-bold text-emerald-700 mb-1" id="cvFileName">{{ __('File Selected') }}</h3>
                             <p class="text-sm text-gray-500" id="cvFileSize"></p>
-                            <button type="button" onclick="removeCVFile(event)" class="mt-3 text-sm text-red-500 hover:text-red-700 font-semibold">
+                            <x-ui.button variant="link" size="sm" onclick="removeCVFile(event)" class="mt-3 text-red-500 hover:text-red-700">
                                 {{ __('Remove') }}
-                            </button>
+                            </x-ui.button>
                         </div>
                     </div>
 
                     <!-- AI Analysis Info -->
-                    <div class="mt-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4">
+                    <div class="mt-4 bg-secondary-50 border border-secondary-200 rounded-xl p-4">
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -475,9 +475,9 @@
                 </div>
 
                 <!-- NDA Notice -->
-                <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-violet-50 border-2 border-blue-200 rounded-2xl p-6 animate-slide-up" style="animation-delay: 0.7s;">
+                <div class="bg-gray-50 border-2 border-primary-200 rounded-2xl p-6">
                     <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                             </svg>
@@ -502,15 +502,15 @@
                 </div>
 
                 <!-- Submit Button -->
-                <div class="pt-6 animate-slide-up" style="animation-delay: 0.8s;">
-                    <button type="submit" class="btn-premium group relative w-full bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white font-bold text-lg px-8 py-5 rounded-2xl shadow-xl">
+                <div class="pt-6">
+                    <x-ui.button as="submit" variant="primary" size="xl" fullWidth class="btn-premium rounded-2xl">
                         <span class="relative z-10 inline-flex items-center justify-center w-full gap-3">
                             <span>{{ __('Complete Profile & Continue to NDA') }}</span>
-                            <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
                         </span>
-                    </button>
+                    </x-ui.button>
 
                     <p class="text-center text-xs text-gray-500 mt-4">
                         {{ __('By completing your profile, you agree to our') }}
@@ -524,12 +524,12 @@
 
         @else
         <!-- Company Profile Form -->
-        <div class="bg-white rounded-[2rem] shadow-2xl border border-gray-100 overflow-hidden animate-slide-up" style="animation-delay: 0.2s;">
+        <div class="bg-white rounded-[2rem] shadow-2xl border border-gray-100 overflow-hidden">
 
             <!-- Form Header -->
-            <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-violet-50 px-8 sm:px-12 py-8 border-b border-gray-100">
+            <div class="bg-gray-50 px-8 sm:px-12 py-8 border-b border-gray-100">
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-lg">
+                    <div class="w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center shadow-lg">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>
@@ -606,14 +606,14 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="btn-premium group w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-bold text-lg px-8 py-5 rounded-2xl shadow-xl">
+                    <x-ui.button as="submit" variant="primary" size="xl" fullWidth class="btn-premium rounded-2xl">
                         <span class="relative z-10 inline-flex items-center justify-center w-full gap-3">
                             <span>{{ __('Complete Profile') }}</span>
-                            <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
                         </span>
-                    </button>
+                    </x-ui.button>
                 </div>
             </form>
         </div>

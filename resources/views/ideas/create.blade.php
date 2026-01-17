@@ -9,12 +9,12 @@
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .float { animation: float 3s ease-in-out infinite; }
+    .float { animation: float 3s-out infinite; }
     @keyframes float {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-10px); }
     }
-    .pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+    .pulse-glow { animation: pulseGlow 2s-out infinite; }
     @keyframes pulseGlow {
         0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
         50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); }
@@ -32,15 +32,15 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50/30">
+<div class="min-h-screen bg-gray-50">
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 py-12 mb-12 rounded-3xl max-w-5xl mx-auto shadow-2xl">
+    <div class="relative overflow-hidden bg-secondary-500 py-12 mb-12 rounded-3xl max-w-5xl mx-auto shadow-2xl">
         <!-- Animated Background Effects -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-400/20 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-purple-400/20 via-transparent to-transparent"></div>
+            <div class="absolute top-0 left-0 w-full h-full "></div>
+            <div class="absolute bottom-0 right-0 w-full h-full "></div>
             <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-violet-400/20 rounded-full blur-3xl float"></div>
-            <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl float" style="animation-delay: 2s;"></div>
+            <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl float"></div>
         </div>
 
         <!-- Grid Pattern Overlay -->
@@ -59,8 +59,8 @@
             <!-- Status Badge -->
             <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-6 shadow-lg">
                 <div class="relative">
-                    <div class="w-2.5 h-2.5 bg-amber-400 rounded-full animate-pulse"></div>
-                    <div class="absolute inset-0 w-2.5 h-2.5 bg-amber-400 rounded-full animate-ping"></div>
+                    <div class="w-2.5 h-2.5 bg-amber-400 rounded-full"></div>
+                    <div class="absolute inset-0 w-2.5 h-2.5 bg-amber-400 rounded-full"></div>
                 </div>
                 <span class="text-sm font-semibold text-white/90">{{ __('Community Discussion') }}</span>
             </div>
@@ -68,7 +68,7 @@
             <!-- Main Heading -->
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight tracking-tight">
                 {{ __('Share Your') }}
-                <span class="bg-gradient-to-r from-amber-300 via-yellow-200 to-orange-300 bg-clip-text text-transparent">{{ __('Idea') }}</span>
+                <span class="text-secondary-200">{{ __('Idea') }}</span>
             </h1>
             <p class="text-lg text-white/80 font-medium leading-relaxed max-w-2xl mx-auto">
                 {{ __('Contribute your creative solution to help solve this community challenge') }}
@@ -79,8 +79,8 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <!-- Breadcrumb -->
         <div class="mb-8 slide-up" style="animation-delay: 0.1s">
-            <a href="{{ route('challenges.show', $challenge->id) }}" class="inline-flex items-center gap-2 text-violet-600 hover:text-violet-700 font-semibold transition-colors group">
-                <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <a href="{{ route('challenges.show', $challenge->id) }}" class="inline-flex items-center gap-2 text-violet-600 hover:text-violet-700 font-semibold group">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
                 {{ __('Back to Challenge') }}
@@ -88,10 +88,10 @@
         </div>
 
         <!-- Challenge Context Card -->
-        <div class="bg-gradient-to-r from-violet-50 via-purple-50 to-indigo-50 border-2 border-violet-200 rounded-3xl p-8 mb-8 slide-up" style="animation-delay: 0.15s">
+        <div class="bg-gray-50 border-2 border-violet-200 rounded-3xl p-8 mb-8 slide-up" style="animation-delay: 0.15s">
             <div class="flex items-start gap-5">
                 <div class="flex-shrink-0">
-                    <div class="w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg pulse-glow">
+                    <div class="w-14 h-14 bg-secondary-500 rounded-2xl flex items-center justify-center shadow-lg pulse-glow">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                         </svg>
@@ -117,7 +117,7 @@
         <!-- Main Form Card -->
         <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden slide-up" style="animation-delay: 0.2s">
             <!-- Form Header -->
-            <div class="bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-6">
+            <div class="bg-secondary-500 px-8 py-6">
                 <div class="flex items-center gap-4">
                     <div class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,7 +137,7 @@
                 <!-- Idea Title -->
                 <div class="space-y-4">
                     <label class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">1</span>
+                        <span class="flex-shrink-0 w-12 h-12 bg-secondary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">1</span>
                         <div>
                             <span class="block text-lg font-black text-slate-900">{{ __('Idea Title') }}</span>
                             <span class="text-sm text-slate-500">{{ __('Give your idea a clear, catchy name') }}</span>
@@ -145,7 +145,7 @@
                     </label>
                     <input type="text" name="title" required
                            x-model="title"
-                           class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-violet-500/20 focus:border-violet-500 transition-all text-lg text-slate-900 placeholder-slate-400 shadow-sm"
+                           class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-violet-500/20 focus:border-violet-500 text-lg text-slate-900 placeholder-slate-400 shadow-sm"
                            placeholder="{{ __('e.g., Smart Lighting with Motion Sensors') }}"
                            maxlength="255">
                     <p class="text-sm text-slate-500 flex items-center gap-2">
@@ -166,7 +166,7 @@
                 <!-- Idea Description -->
                 <div class="space-y-4">
                     <label class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">2</span>
+                        <span class="flex-shrink-0 w-12 h-12 bg-secondary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">2</span>
                         <div>
                             <span class="block text-lg font-black text-slate-900">{{ __('Description') }}</span>
                             <span class="text-sm text-slate-500">{{ __('Explain your idea in detail - the more context, the better') }}</span>
@@ -176,7 +176,7 @@
                         <textarea name="description" required rows="12"
                                   x-model="description"
                                   @input="updateCharCount"
-                                  class="textarea-glow w-full px-6 py-5 border-2 border-violet-200 bg-gradient-to-br from-white to-violet-50/30 rounded-2xl focus:border-violet-500 transition-all text-slate-900 placeholder-slate-400 resize-none shadow-sm leading-relaxed"
+                                  class="textarea-glow w-full px-6 py-5 border-2 border-violet-200 bg-white rounded-2xl focus:border-violet-500 text-slate-900 placeholder-slate-400 resize-none shadow-sm leading-relaxed"
                                   placeholder="{{ __('Describe your idea in detail...
 
 Include:
@@ -196,7 +196,7 @@ Include:
                             </svg>
                             {{ __('Minimum 100 characters, maximum 2000 characters') }}
                         </p>
-                        <p class="text-sm font-semibold text-red-600" x-show="charCount < 100 && charCount > 0" x-transition>
+                        <p class="text-sm font-semibold text-red-600" x-show="charCount < 100 && charCount > 0">
                             {{ __('Need') }} <span x-text="100 - charCount"></span> {{ __('more characters') }}
                         </p>
                     </div>
@@ -210,10 +210,10 @@ Include:
                 </div>
 
                 <!-- How It Works Info Card -->
-                <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
+                <div class="bg-gray-50 border-2 border-amber-200 rounded-2xl p-8">
                     <div class="flex items-start gap-4">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                            <div class="w-12 h-12 bg-secondary-300 rounded-xl flex items-center justify-center shadow-lg">
                                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                 </svg>
@@ -223,7 +223,7 @@ Include:
                             <h3 class="text-lg font-bold text-amber-900 mb-4">{{ __('What happens after you submit?') }}</h3>
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div class="flex items-start gap-3 bg-white/60 rounded-xl p-4">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
+                                    <div class="w-8 h-8 bg-secondary-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
                                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                         </svg>
@@ -234,7 +234,7 @@ Include:
                                     </div>
                                 </div>
                                 <div class="flex items-start gap-3 bg-white/60 rounded-xl p-4">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
+                                    <div class="w-8 h-8 bg-secondary-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
                                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                         </svg>
@@ -245,7 +245,7 @@ Include:
                                     </div>
                                 </div>
                                 <div class="flex items-start gap-3 bg-white/60 rounded-xl p-4">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
+                                    <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
                                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                                         </svg>
@@ -256,7 +256,7 @@ Include:
                                     </div>
                                 </div>
                                 <div class="flex items-start gap-3 bg-white/60 rounded-xl p-4">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
+                                    <div class="w-8 h-8 bg-secondary-300 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
                                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                         </svg>
@@ -273,21 +273,23 @@ Include:
 
                 <!-- Action Buttons -->
                 <div class="flex flex-col sm:flex-row justify-end gap-4 pt-8 border-t border-slate-200">
-                    <a href="{{ route('challenges.show', $challenge->id) }}" class="group inline-flex items-center justify-center bg-white border-2 border-slate-200 text-slate-700 font-bold px-8 py-4 rounded-xl transition-all hover:border-slate-300 hover:bg-slate-50 shadow-sm">
-                        <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <x-ui.button as="a" href="{{ route('challenges.show', $challenge->id) }}" variant="outline" size="lg">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         {{ __('Cancel') }}
-                    </a>
-                    <button type="submit"
+                    </x-ui.button>
+                    <x-ui.button as="submit"
                             :disabled="charCount < 100"
-                            :class="charCount < 100 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 hover:shadow-2xl'"
-                            class="group inline-flex items-center justify-center bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold px-12 py-4 rounded-xl transition-all transform shadow-xl">
-                        <svg class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            variant="primary"
+                            size="lg"
+                            class="shadow-xl"
+                            :class="charCount < 100 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl'">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                         </svg>
                         {{ __('Submit Idea') }}
-                    </button>
+                    </x-ui.button>
                 </div>
             </form>
         </div>

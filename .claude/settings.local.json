@@ -47,7 +47,11 @@
       "Bash(del \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\replace_ar.php\")",
       "Bash(del C:xampphtdocsmindovatest_user_methods.php)",
       "Bash(if not exist \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\resources\\\\views\\\\emails\" mkdir \"C:\\\\xampp\\\\htdocs\\\\mindova\\\\resources\\\\views\\\\emails\")",
-      "Bash(powershell -Command \"Get-Content ''C:\\\\xampp\\\\htdocs\\\\abc\\\\mindova\\\\storage\\\\logs\\\\laravel.log'' -Tail 5\")"
+      "Bash(powershell -Command \"Get-Content ''C:\\\\xampp\\\\htdocs\\\\abc\\\\mindova\\\\storage\\\\logs\\\\laravel.log'' -Tail 5\")",
+      "Bash(sort:*)",
+      "Bash(xargs cat:*)",
+      "Bash(git -C /Users/awni/Desktop/naeem/latest-mindova log --all --oneline -- \"app/View/Components/LanguageSwitcher.php\")",
+      "Bash(tr:*)"
     ]
   }
 }

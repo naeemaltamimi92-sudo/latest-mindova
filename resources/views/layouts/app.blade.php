@@ -157,17 +157,9 @@
     {{-- Contextual Page Assistant Styles --}}
     <link rel="stylesheet" href="{{ asset('css/contextual-assistant.css') }}">
 
-    {{-- Contextual Guide Styles --}}
-    <link rel="stylesheet" href="{{ asset('css/contextual-guide.css') }}">
-
     {{-- Guided Tour System Styles --}}
     <link rel="stylesheet" href="{{ asset('css/guided-tour.css') }}">
 
-    {{-- Language Switcher Styles --}}
-    <link rel="stylesheet" href="{{ asset('css/language-switcher.css') }}">
-
-    {{-- 2027 Modern Language Transitions & Enhanced Design --}}
-    <link rel="stylesheet" href="{{ asset('css/language-transitions-2027.css') }}">
 
     {{-- RTL Support Styles --}}
     @if($isRTL ?? false)
@@ -414,150 +406,8 @@
         });
     </script>
 
-    <!-- Navigation - 2027 Design -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-md" x-data="{ open: false, notificationsOpen: false }">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <!-- Logo and primary navigation -->
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <a href="{{ url('/') }}" class="group flex items-center space-x-3">
-                            <!-- Mindova Logo -->
-                            <img src="{{ asset('images/mindova-logo.svg') }}" alt="Mindova Logo" class="h-12 w-12 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-2xl font-black bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 bg-clip-text text-transparent">Mindova</span>
-                        </a>
-                    </div>
-
-                    @auth
-                    <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
-                        @if(auth()->user()->isAdmin())
-                        {{-- Admin Navigation --}}
-                        <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.dashboard') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('Dashboard') }}
-                        </a>
-                        <a href="{{ route('admin.challenges.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.challenges.*') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('Challenges') }}
-                        </a>
-                        <a href="{{ route('admin.companies.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.companies.*') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('Companies') }}
-                        </a>
-                        <a href="{{ route('admin.volunteers.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.volunteers.*') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('Contributors') }}
-                        </a>
-                        @elseif(auth()->user()->isVolunteer())
-                        {{-- Contributor Navigation --}}
-                        <a href="{{ route('dashboard') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('dashboard') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('Dashboard') }}
-                        </a>
-                        <a href="{{ route('assignments.my') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('assignments.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('My Tasks') }}
-                        </a>
-                        <a href="{{ route('teams.my') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('teams.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('My Teams') }}
-                        </a>
-                        <a href="{{ route('community.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('community.*') && !request()->routeIs('volunteer.challenges.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('Community') }}
-                        </a>
-                        @if(auth()->user()->volunteer && \App\Models\Challenge::where('volunteer_id', auth()->user()->volunteer->id)->where('source_type', 'volunteer')->exists())
-                        <a href="{{ route('volunteer.challenges.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('volunteer.challenges.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('My Challenges') }}
-                        </a>
-                        @endif
-                        @elseif(auth()->user()->isCompany())
-                        {{-- Company Navigation --}}
-                        <a href="{{ route('dashboard') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('dashboard') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('Dashboard') }}
-                        </a>
-                        <a href="{{ route('challenges.index') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('challenges.*') && !request()->routeIs('community.*') ? 'border-primary-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} text-sm font-medium">
-                            {{ __('My Challenges') }}
-                        </a>
-                        @endif
-                    </div>
-                    @else
-                    <!-- Guest Navigation - Positioned Left Near Logo -->
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-6">
-                        <a href="{{ route('how-it-works') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('how-it-works') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-600 hover:border-slate-300 hover:text-slate-900' }} text-sm font-semibold transition-colors">
-                            {{ __('How It Works') }}
-                        </a>
-                        <a href="{{ route('success-stories') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('success-stories') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-600 hover:border-slate-300 hover:text-slate-900' }} text-sm font-semibold transition-colors">
-                            {{ __('Success Stories') }}
-                        </a>
-                        <a href="{{ route('help') }}" class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('help') ? 'border-indigo-500 text-slate-900' : 'border-transparent text-slate-600 hover:border-slate-300 hover:text-slate-900' }} text-sm font-semibold transition-colors">
-                            {{ __('Help') }}
-                        </a>
-                    </div>
-                    @endauth
-                </div>
-
-                <!-- Right side navigation -->
-                <div class="flex items-center space-x-4">
-                    <!-- Language Switcher -->
-                    <x-language-switcher />
-
-                    @auth
-                    <!-- Notifications -->
-                    <div class="relative mr-4" x-data="notificationDropdown()">
-                        <button @click="toggleNotifications" class="relative p-2 text-gray-500 hover:text-gray-700 focus:outline-none">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                            </svg>
-                            <span x-show="unreadCount > 0" x-text="unreadCount" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
-                        </button>
-
-                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg overflow-hidden z-50" style="display: none;">
-                            <div class="px-4 py-3 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
-                                <h3 class="text-sm font-semibold text-gray-900">{{ __('Notifications') }}</h3>
-                                <button @click="markAllRead" class="text-xs text-primary-600 hover:text-primary-700">{{ __('Mark all as read') }}</button>
-                            </div>
-                            <div class="max-h-96 overflow-y-auto">
-                                <template x-for="notification in notifications" :key="notification.id">
-                                    <div :class="{'bg-blue-50': !notification.is_read}" class="px-4 py-3 border-b border-gray-200 hover:bg-gray-50 cursor-pointer" @click="handleNotificationClick(notification)">
-                                        <p class="text-sm font-medium text-gray-900" x-text="notification.title"></p>
-                                        <p class="text-xs text-gray-600 mt-1" x-text="notification.message"></p>
-                                        <p class="text-xs text-gray-400 mt-1" x-text="timeAgo(notification.created_at)"></p>
-                                    </div>
-                                </template>
-                                <div x-show="notifications.length === 0" class="px-4 py-8 text-center text-gray-500">
-                                    {{ __('No notifications') }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- User dropdown -->
-                    <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none">
-                            <span>{{ auth()->user()->name }}</span>
-                            <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-
-                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50" style="display: none;">
-                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ __('Profile') }}</a>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    {{ __('Logout') }}
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    @else
-                    <!-- Guest Actions -->
-                    <div class="flex items-center space-x-4">
-                        <a href="{{ route('login') }}" class="text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors">
-                            {{ __('Sign In') }}
-                        </a>
-                        <a href="{{ route('register') }}" class="inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 text-white font-bold px-6 py-2.5 rounded-xl transition-all transform hover:scale-105 shadow-md hover:shadow-lg">
-                            {{ __('Get Started') }}
-                        </a>
-                    </div>
-                    @endauth
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!-- Unified Navigation -->
+    @include('partials.navbar')
 
     <!-- Page content -->
     <main class="{{ request()->routeIs('login') || request()->routeIs('register') ? '' : 'py-8' }}">
@@ -582,7 +432,7 @@
 
     <!-- Modern Footer - 2027 Design (Only for Guests) -->
     @guest
-    <footer class="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white mt-20">
+    <footer class="bg-primary-500 text-white mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <!-- Main Footer Content -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -593,7 +443,7 @@
                         <img src="{{ asset('images/mindova-logo.svg') }}" alt="Mindova Logo" class="h-10 w-10">
                         <span class="text-xl font-black">Mindova</span>
                     </div>
-                    <p class="text-white/70 text-sm leading-relaxed mb-4">
+                    <p class="text-white/90 text-sm leading-relaxed mb-4">
                         {{ __('AI-powered platform connecting talented contributors with real-world challenges') }}
                     </p>
                 </div>
@@ -602,10 +452,10 @@
                 <div>
                     <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">{{ __('Platform') }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="{{ route('how-it-works') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('How It Works') }}</a></li>
-                        <li><a href="{{ route('register') }}?type=volunteer" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('For Contributors') }}</a></li>
-                        <li><a href="{{ route('register') }}?type=company" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('For Companies') }}</a></li>
-                        <li><a href="{{ route('success-stories') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('Success Stories') }}</a></li>
+                        <li><a href="{{ route('how-it-works') }}" class="text-white hover:text-white/80 text-sm">{{ __('How It Works') }}</a></li>
+                        <li><a href="{{ route('register') }}?type=volunteer" class="text-white hover:text-white/80 text-sm">{{ __('For Contributors') }}</a></li>
+                        <li><a href="{{ route('register') }}?type=company" class="text-white hover:text-white/80 text-sm">{{ __('For Companies') }}</a></li>
+                        <li><a href="{{ route('success-stories') }}" class="text-white hover:text-white/80 text-sm">{{ __('Success Stories') }}</a></li>
                     </ul>
                 </div>
 
@@ -613,10 +463,10 @@
                 <div>
                     <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">{{ __('Resources') }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="{{ route('help') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('Help Center') }}</a></li>
-                        <li><a href="{{ route('guidelines') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('Community Guidelines') }}</a></li>
-                        <li><a href="{{ route('api-docs') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('API Documentation') }}</a></li>
-                        <li><a href="{{ route('blog') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('Blog') }}</a></li>
+                        <li><a href="{{ route('help') }}" class="text-white hover:text-white/80 text-sm">{{ __('Help Center') }}</a></li>
+                        <li><a href="{{ route('guidelines') }}" class="text-white hover:text-white/80 text-sm">{{ __('Community Guidelines') }}</a></li>
+                        <li><a href="{{ route('api-docs') }}" class="text-white hover:text-white/80 text-sm">{{ __('API Documentation') }}</a></li>
+                        <li><a href="{{ route('blog') }}" class="text-white hover:text-white/80 text-sm">{{ __('Blog') }}</a></li>
                     </ul>
                 </div>
 
@@ -624,10 +474,10 @@
                 <div>
                     <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">{{ __('Company') }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="{{ route('about') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('About Us') }}</a></li>
-                        <li><a href="{{ route('contact') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('Contact') }}</a></li>
-                        <li><a href="{{ route('privacy') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('Privacy Policy') }}</a></li>
-                        <li><a href="{{ route('terms') }}" class="text-white/70 hover:text-white text-sm transition-colors">{{ __('Terms of Service') }}</a></li>
+                        <li><a href="{{ route('about') }}" class="text-white hover:text-white/80 text-sm">{{ __('About Us') }}</a></li>
+                        <li><a href="{{ route('contact') }}" class="text-white hover:text-white/80 text-sm">{{ __('Contact') }}</a></li>
+                        <li><a href="{{ route('privacy') }}" class="text-white hover:text-white/80 text-sm">{{ __('Privacy Policy') }}</a></li>
+                        <li><a href="{{ route('terms') }}" class="text-white hover:text-white/80 text-sm">{{ __('Terms of Service') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -635,13 +485,13 @@
             <!-- Bottom Bar -->
             <div class="pt-8 border-t border-white/10">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p class="text-white/60 text-sm">
+                    <p class="text-white/80 text-sm">
                         © 2025 Mindova. {{ __('All Rights Reserved') }}. {{ __('Made with') }} <span class="text-pink-500">❤️</span> {{ __('for innovation') }}.
                     </p>
                     <div class="flex items-center space-x-6">
-                        <a href="{{ route('privacy') }}" class="text-white/60 hover:text-white text-sm transition-colors">{{ __('Privacy') }}</a>
-                        <a href="{{ route('terms') }}" class="text-white/60 hover:text-white text-sm transition-colors">{{ __('Terms') }}</a>
-                        <a href="{{ route('contact') }}" class="text-white/60 hover:text-white text-sm transition-colors">{{ __('Contact') }}</a>
+                        <a href="{{ route('privacy') }}" class="text-white hover:text-white/80 text-sm">{{ __('Privacy') }}</a>
+                        <a href="{{ route('terms') }}" class="text-white hover:text-white/80 text-sm">{{ __('Terms') }}</a>
+                        <a href="{{ route('contact') }}" class="text-white hover:text-white/80 text-sm">{{ __('Contact') }}</a>
                     </div>
                 </div>
             </div>
@@ -751,9 +601,6 @@
     {{-- Contextual Page Assistant - Lightweight UI guide (NOT a chatbot/helpdesk/tutorial) --}}
     <x-contextual-assistant />
 
-    {{-- Contextual Guide - Minimal MVP help system (JavaScript inline) --}}
-    <x-contextual-guide />
-
     {{-- Guided Tour System - Context-aware onboarding --}}
     <x-guided-tour />
 
@@ -766,24 +613,21 @@
     <!-- Cookie Consent Banner -->
     @if($cookieConsentEnabled ?? false)
     <div x-data="{ show: !localStorage.getItem('cookie_consent') }" x-show="show" x-cloak
-         class="fixed bottom-0 inset-x-0 z-50 p-4 bg-slate-900 text-white shadow-2xl"
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 translate-y-full"
-         x-transition:enter-end="opacity-100 translate-y-0">
+         class="fixed bottom-0 inset-x-0 z-50 p-4 bg-slate-900 text-white shadow-2xl">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <p class="text-sm text-slate-300">
                 {{ $cookieConsentText ?? 'We use cookies to enhance your experience. By continuing, you agree to our cookie policy.' }}
                 <a href="{{ route('privacy') }}" class="underline hover:text-white">{{ __('Learn more') }}</a>
             </p>
             <div class="flex items-center gap-3">
-                <button @click="localStorage.setItem('cookie_consent', 'declined'); show = false"
-                        class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                <x-ui.button @click="localStorage.setItem('cookie_consent', 'declined'); show = false"
+                        variant="ghost" size="sm" class="text-slate-400 hover:text-white">
                     {{ __('Decline') }}
-                </button>
-                <button @click="localStorage.setItem('cookie_consent', 'accepted'); show = false"
-                        class="px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-semibold rounded-lg hover:from-indigo-600 hover:to-purple-600 transition-all">
+                </x-ui.button>
+                <x-ui.button @click="localStorage.setItem('cookie_consent', 'accepted'); show = false"
+                        variant="primary" size="sm">
                     {{ __('Accept') }}
-                </button>
+                </x-ui.button>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 /* ====================================
    Contextual Page Assistant Styles
    Lightweight, Subtle, Non-intrusive
+   (Animations removed)
    ==================================== */
 
 .contextual-assistant {
@@ -13,7 +14,6 @@
     gap: 16px;
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none; /* Allow clicking through except on interactive elements */
 }
 
@@ -41,17 +41,6 @@
         0 4px 12px var(--shadow-color-primary-light, rgba(62, 59, 146, 0.2)),
         0 2px 4px var(--shadow-color-black, rgba(0, 0, 0, 0.1));
     position: relative;
-    /* Subtle bounce animation on load */
-    animation: gentleBounce 0.6s ease-out;
-}
-
-@keyframes gentleBounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-8px);
-    }
 }
 
 .assistant-face {
@@ -87,8 +76,6 @@
     height: 6px;
     background: var(--color-slate-900, #1a202c);
     border-radius: 50%;
-    transition: transform 0.1s ease-out;
-    /* Subtle eye movement - not jerky */
 }
 
 /* Mouth (subtle smile) */
@@ -110,20 +97,7 @@
         0 10px 40px rgba(0, 0, 0, 0.08),
         0 2px 8px rgba(0, 0, 0, 0.04);
     position: relative;
-    /* Subtle slide-in animation */
-    animation: slideInRight 0.4s ease-out 0.2s both;
     border: 1px solid rgba(62, 59, 146, 0.1);
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
 }
 
 /* Speech bubble triangle (pointing to assistant) */
@@ -170,14 +144,8 @@
     cursor: pointer;
     padding: 4px;
     opacity: 0.3;
-    transition: opacity 0.2s ease;
     color: var(--color-gray-600, #4a5568);
     border-radius: 4px;
-}
-
-.assistant-dismiss:hover {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.05);
 }
 
 .assistant-dismiss:focus {
@@ -209,17 +177,6 @@
     }
 }
 
-/* ===== Accessibility ===== */
-@media (prefers-reduced-motion: reduce) {
-    .contextual-assistant,
-    .assistant-avatar,
-    .assistant-bubble,
-    .pupil {
-        animation: none !important;
-        transition: none !important;
-    }
-}
-
 /* ===== Dark Mode Support (Optional) ===== */
 @media (prefers-color-scheme: dark) {
     .assistant-bubble {
@@ -242,9 +199,6 @@
         color: var(--color-slate-300, #cbd5e0);
     }
 
-    .assistant-dismiss:hover {
-        background: var(--glass-border-light, rgba(255, 255, 255, 0.1));
-    }
 }
 
 /* ===== Print Styles ===== */

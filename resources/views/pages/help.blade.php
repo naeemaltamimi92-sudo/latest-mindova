@@ -4,16 +4,16 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 pt-32 pb-24">
+<div class="relative overflow-hidden bg-gray-50 pt-32 pb-24">
     <!-- Floating Background Elements -->
-    <div class="floating-element absolute top-20 -left-32 w-96 h-96 bg-gradient-blue opacity-20 rounded-full blur-3xl animate-float"></div>
-    <div class="floating-element absolute top-40 right-0 w-[32rem] h-[32rem] bg-gradient-purple opacity-20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-    <div class="floating-element absolute -bottom-20 left-1/3 w-80 h-80 bg-gradient-green opacity-20 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
+    <div class="floating-element absolute top-20 -left-32 w-96 h-96 bg-primary-500 opacity-20 rounded-full blur-3xl"></div>
+    <div class="floating-element absolute top-40 right-0 w-[32rem] h-[32rem] bg-primary-400 opacity-20 rounded-full blur-3xl"></div>
+    <div class="floating-element absolute -bottom-20 left-1/3 w-80 h-80 bg-secondary-500 opacity-20 rounded-full blur-3xl"></div>
 
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center animate-slide-in-up">
+        <div class="text-center">
             <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-white/40 rounded-full px-6 py-2 mb-8 shadow-lg">
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse-glow"></div>
+                <div class="w-2 h-2 bg-green-500 rounded-full-glow"></div>
                 <span class="text-sm font-semibold text-gray-700">{{ __('24/7 Support Available') }}</span>
             </div>
 
@@ -32,9 +32,9 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Getting Started -->
-            <div class="card-premium animate-slide-in-up">
+            <div class="card-premium">
                 <div class="flex items-center mb-6">
-                    <div class="icon-badge bg-gradient-blue mr-4">
+                    <div class="icon-badge bg-primary-500 mr-4">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
@@ -44,9 +44,9 @@
 
                 <div class="space-y-4">
                     <details class="group border-b border-gray-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600">
                             <span>{{ __('How do I create an account?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -54,9 +54,9 @@
                     </details>
 
                     <details class="group border-b border-gray-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600">
                             <span>{{ __('What\'s the difference between Volunteer and Company accounts?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -64,9 +64,9 @@
                     </details>
 
                     <details class="group border-b border-gray-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600">
                             <span>{{ __('How does the AI matching work?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -76,9 +76,9 @@
             </div>
 
             <!-- For Contributors -->
-            <div class="card-premium bg-gradient-to-br from-blue-50/50 to-purple-50/50 border-2 border-blue-200 animate-slide-in-up" style="animation-delay: 0.1s;">
+            <div class="card-premium bg-gray-50 border-2 border-blue-200">
                 <div class="flex items-center mb-6">
-                    <div class="icon-badge bg-gradient-green mr-4">
+                    <div class="icon-badge bg-secondary-500 mr-4">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
@@ -88,9 +88,9 @@
 
                 <div class="space-y-4">
                     <details class="group border-b border-blue-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600">
                             <span>{{ __('How do I find tasks?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -98,9 +98,9 @@
                     </details>
 
                     <details class="group border-b border-blue-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600">
                             <span>{{ __('What happens after I\'m invited to a team?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -108,9 +108,9 @@
                     </details>
 
                     <details class="group border-b border-blue-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-blue-600">
                             <span>{{ __('How is my reputation score calculated?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -120,9 +120,9 @@
             </div>
 
             <!-- For Companies -->
-            <div class="card-premium bg-gradient-to-br from-green-50/50 to-emerald-50/50 border-2 border-green-200 animate-slide-in-up" style="animation-delay: 0.2s;">
+            <div class="card-premium bg-gray-50 border-2 border-green-200">
                 <div class="flex items-center mb-6">
-                    <div class="icon-badge bg-gradient-purple mr-4">
+                    <div class="icon-badge bg-primary-400 mr-4">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>
@@ -132,9 +132,9 @@
 
                 <div class="space-y-4">
                     <details class="group border-b border-green-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-green-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-green-600">
                             <span>{{ __('How do I post a challenge?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -142,9 +142,9 @@
                     </details>
 
                     <details class="group border-b border-green-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-green-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-green-600">
                             <span>{{ __('How long does AI analysis take?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -152,9 +152,9 @@
                     </details>
 
                     <details class="group border-b border-green-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-green-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-green-600">
                             <span>{{ __('Can I see who\'s on my teams?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -164,9 +164,9 @@
             </div>
 
             <!-- Teams & Collaboration -->
-            <div class="card-premium bg-gradient-to-br from-purple-50/50 to-pink-50/50 border-2 border-purple-200 animate-slide-in-up" style="animation-delay: 0.3s;">
+            <div class="card-premium bg-gray-50 border-2 border-purple-200">
                 <div class="flex items-center mb-6">
-                    <div class="icon-badge bg-gradient-orange mr-4">
+                    <div class="icon-badge bg-secondary-300 mr-4">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
@@ -176,9 +176,9 @@
 
                 <div class="space-y-4">
                     <details class="group border-b border-purple-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-purple-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-purple-600">
                             <span>{{ __('What is a "micro company"?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -186,9 +186,9 @@
                     </details>
 
                     <details class="group border-b border-purple-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-purple-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-purple-600">
                             <span>{{ __('Who becomes the team leader?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -196,9 +196,9 @@
                     </details>
 
                     <details class="group border-b border-purple-200 pb-4">
-                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-purple-600 transition-colors">
+                        <summary class="flex justify-between items-center font-semibold text-gray-900 cursor-pointer hover:text-purple-600">
                             <span>{{ __('Can I leave a team?') }}</span>
-                            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </summary>
@@ -211,45 +211,45 @@
 </section>
 
 <!-- Need More Help Section -->
-<section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+<section class="py-20 bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="card-premium text-center bg-white border-2 border-blue-200">
-            <div class="icon-badge bg-gradient-blue mx-auto mb-6">
+            <div class="icon-badge bg-primary-500 mx-auto mb-6">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
                 </svg>
             </div>
             <h3 class="text-3xl font-bold text-gray-900 mb-4">{{ __('Still Have Questions?') }}</h3>
             <p class="text-gray-700 mb-8 text-lg">{{ __('Can\'t find what you\'re looking for? Our support team is here to help!') }}</p>
-            <a href="{{ route('contact') }}" class="inline-flex items-center btn-primary bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg">
+            <x-ui.button as="a" href="{{ route('contact') }}" variant="primary" size="lg">
                 {{ __('Contact Support') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
-            </a>
+            </x-ui.button>
         </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="py-24 bg-gradient-animated text-white relative overflow-hidden">
+<section class="py-24 bg-primary-500 text-white relative overflow-hidden">
     <div class="absolute inset-0 bg-black/10"></div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h3 class="text-4xl md:text-5xl font-bold mb-6">{{ __('Ready to Get Started?') }}</h3>
         <p class="text-xl text-white/90 mb-10">{{ __('Join our community and start transforming challenges into innovation') }}</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="{{ route('register') }}" class="inline-flex items-center bg-white text-blue-600 hover:text-blue-700 font-semibold text-lg px-10 py-4 rounded-xl transition-all transform hover:scale-105 shadow-2xl">
+            <x-ui.button as="a" href="{{ route('register') }}" variant="secondary" size="lg">
                 {{ __('Join as Contributor') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
-            </a>
-            <a href="{{ route('register') }}" class="inline-flex items-center bg-white/20 backdrop-blur-sm border-2 border-white hover:bg-white/30 text-white font-semibold text-lg px-10 py-4 rounded-xl transition-all transform hover:scale-105 shadow-2xl">
+            </x-ui.button>
+            <x-ui.button as="a" href="{{ route('register') }}" variant="outline" size="lg">
                 {{ __('Post a Challenge') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
-            </a>
+            </x-ui.button>
         </div>
     </div>
 </section>

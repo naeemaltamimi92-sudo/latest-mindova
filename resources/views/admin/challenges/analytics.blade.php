@@ -33,8 +33,8 @@
         from { width: 0; }
     }
 
-    .animate-float { animation: float 6s ease-in-out infinite; }
-    .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .animate-float { animation: float 6s-out infinite; }
+    .animate-pulse-glow { animation: pulse-glow 2s-out infinite; }
     .animate-shimmer {
         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
         background-size: 200% 100%;
@@ -120,20 +120,20 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+<div class="min-h-screen bg-gray-50">
     <!-- Ultra Premium Hero Header -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-violet-900 py-12 mb-10 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+    <div class="relative overflow-hidden bg-primary-500 py-12 mb-10 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
         <!-- Animated Background Elements -->
         <div class="absolute inset-0 overflow-hidden">
             <!-- Gradient Orbs -->
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-500/30 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-violet-500/30 via-transparent to-transparent"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-500/10 via-transparent to-transparent"></div>
+            <div class="absolute top-0 left-0 w-full h-full "></div>
+            <div class="absolute bottom-0 right-0 w-full h-full "></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full "></div>
 
             <!-- Floating Elements -->
-            <div class="absolute top-10 left-10 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl animate-float"></div>
-            <div class="absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-            <div class="absolute top-1/2 left-1/4 w-48 h-48 bg-purple-500/15 rounded-full blur-2xl animate-float" style="animation-delay: 4s;"></div>
+            <div class="absolute top-10 left-10 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 left-1/4 w-48 h-48 bg-purple-500/15 rounded-full blur-2xl"></div>
 
             <!-- Grid Pattern -->
             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 40px 40px;"></div>
@@ -145,8 +145,8 @@
                 <div class="flex items-center gap-6">
                     <!-- Animated Icon -->
                     <div class="relative group">
-                        <div class="absolute -inset-2 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 rounded-3xl blur-lg opacity-50 group-hover:opacity-75 transition duration-500 animate-pulse-glow"></div>
-                        <div class="relative h-20 w-20 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-violet-600 flex items-center justify-center shadow-2xl">
+                        <div class="absolute -inset-2 bg-secondary-400 rounded-3xl blur-lg opacity-50 group-hover:opacity-75duration-500-glow"></div>
+                        <div class="relative h-20 w-20 rounded-2xl bg-primary-500 flex items-center justify-center shadow-2xl">
                             <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                             </svg>
@@ -166,7 +166,7 @@
                         <!-- Title -->
                         <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight">
                             {{ __('Analytics') }}
-                            <span class="bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 bg-clip-text text-transparent">{{ __('Dashboard') }}</span>
+                            <span class="text-secondary-200">{{ __('Dashboard') }}</span>
                         </h1>
                         <p class="text-lg text-indigo-200/80 mt-2 max-w-xl">{{ __('Deep insights and performance metrics for platform challenges') }}</p>
                     </div>
@@ -176,8 +176,8 @@
                 <div class="flex flex-wrap items-center gap-4">
                     <!-- Period Selector -->
                     <form method="GET" class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl blur opacity-30"></div>
-                        <select name="period" onchange="this.form.submit()" class="relative rounded-xl bg-white/15 backdrop-blur-md border border-white/30 text-white font-semibold px-5 py-3 focus:border-indigo-400 focus:ring-indigo-400 text-sm cursor-pointer hover:bg-white/25 transition-all">
+                        <div class="absolute inset-0 bg-primary-500 rounded-xl blur opacity-30"></div>
+                        <select name="period" onchange="this.form.submit()" class="relative rounded-xl bg-white/15 backdrop-blur-md border border-white/30 text-white font-semibold px-5 py-3 focus:border-indigo-400 focus:ring-indigo-400 text-sm cursor-pointer hover:bg-white/25">
                             <option value="7" {{ $period == '7' ? 'selected' : '' }} class="text-slate-900">{{ __('Last 7 Days') }}</option>
                             <option value="30" {{ $period == '30' ? 'selected' : '' }} class="text-slate-900">{{ __('Last 30 Days') }}</option>
                             <option value="90" {{ $period == '90' ? 'selected' : '' }} class="text-slate-900">{{ __('Last 90 Days') }}</option>
@@ -185,19 +185,19 @@
                         </select>
                     </form>
 
-                    <a href="{{ route('admin.challenges.index') }}" class="group inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/30 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/25 transition-all">
-                        <svg class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <x-ui.button as="a" href="{{ route('admin.challenges.index') }}" variant="secondary">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         {{ __('Back') }}
-                    </a>
+                    </x-ui.button>
                 </div>
             </div>
 
             <!-- Key Metrics Cards - Floating -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
                 <!-- Avg Analysis Time -->
-                <div class="metric-card bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 animate-slide-in-up" style="animation-delay: 0.1s">
+                <div class="metric-card bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5" style="animation-delay: 0.1s">
                     <div class="flex items-start justify-between">
                         <div>
                             <p class="text-sm text-white/60 font-medium mb-1">{{ __('Avg Analysis') }}</p>
@@ -209,7 +209,7 @@
                                 <span class="text-xs text-emerald-400 font-semibold">12% {{ __('faster') }}</span>
                             </div>
                         </div>
-                        <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                        <div class="h-14 w-14 rounded-2xl bg-primary-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
                             <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -218,7 +218,7 @@
                 </div>
 
                 <!-- Avg Completion -->
-                <div class="metric-card bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 animate-slide-in-up" style="animation-delay: 0.2s">
+                <div class="metric-card bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5" style="animation-delay: 0.2s">
                     <div class="flex items-start justify-between">
                         <div>
                             <p class="text-sm text-white/60 font-medium mb-1">{{ __('Avg Completion') }}</p>
@@ -230,7 +230,7 @@
                                 <span class="text-xs text-emerald-400 font-semibold">{{ __('On track') }}</span>
                             </div>
                         </div>
-                        <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                        <div class="h-14 w-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
                             <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -239,16 +239,16 @@
                 </div>
 
                 <!-- Engagement -->
-                <div class="metric-card bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 animate-slide-in-up" style="animation-delay: 0.3s">
+                <div class="metric-card bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5" style="animation-delay: 0.3s">
                     <div class="flex items-start justify-between">
                         <div>
                             <p class="text-sm text-white/60 font-medium mb-1">{{ __('Engagement') }}</p>
                             <p class="text-3xl font-black text-white">{{ $metrics['volunteer_engagement'] }}<span class="text-lg text-white/60">%</span></p>
                             <div class="w-full bg-white/20 rounded-full h-1.5 mt-3">
-                                <div class="bg-gradient-to-r from-purple-400 to-pink-400 h-1.5 rounded-full animate-progress" style="width: {{ $metrics['volunteer_engagement'] }}%"></div>
+                                <div class="bg-secondary-400 h-1.5 rounded-full animate-progress" style="width: {{ $metrics['volunteer_engagement'] }}%"></div>
                             </div>
                         </div>
-                        <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                        <div class="h-14 w-14 rounded-2xl bg-secondary-400 flex items-center justify-center shadow-lg shadow-purple-500/30">
                             <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
@@ -257,7 +257,7 @@
                 </div>
 
                 <!-- Success Rate -->
-                <div class="metric-card bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 animate-slide-in-up" style="animation-delay: 0.4s">
+                <div class="metric-card bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5" style="animation-delay: 0.4s">
                     <div class="flex items-start justify-between">
                         <div>
                             <p class="text-sm text-white/60 font-medium mb-1">{{ __('Success Rate') }}</p>
@@ -269,7 +269,7 @@
                                 <span class="text-xs text-amber-400 font-semibold">{{ __('Excellent') }}</span>
                             </div>
                         </div>
-                        <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/30">
+                        <div class="h-14 w-14 rounded-2xl bg-secondary-300 flex items-center justify-center shadow-lg shadow-amber-500/30">
                             <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
                             </svg>
@@ -287,7 +287,7 @@
             <div class="chart-container glass-card shadow-xl p-6 animate-scale-in" style="animation-delay: 0.2s">
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center gap-3">
-                        <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <div class="h-10 w-10 rounded-xl bg-primary-500 flex items-center justify-center">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
                             </svg>
@@ -308,7 +308,7 @@
             <div class="chart-container glass-card shadow-xl p-6 animate-scale-in" style="animation-delay: 0.3s">
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center gap-3">
-                        <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+                        <div class="h-10 w-10 rounded-xl bg-secondary-500 flex items-center justify-center">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
@@ -331,7 +331,7 @@
             <!-- Challenge Types with Premium Progress Bars -->
             <div class="chart-container glass-card shadow-xl p-6 animate-scale-in" style="animation-delay: 0.4s">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+                    <div class="h-10 w-10 rounded-xl bg-primary-400 flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                         </svg>
@@ -342,7 +342,7 @@
                     </div>
                 </div>
                 <div class="space-y-5">
-                    @php $colors = ['from-indigo-500 to-purple-500', 'from-emerald-500 to-teal-500', 'from-amber-500 to-orange-500', 'from-pink-500 to-rose-500', 'from-blue-500 to-cyan-500']; @endphp
+                    @php $colors = ['bg-primary-500', 'bg-secondary-500', 'bg-secondary-300', 'bg-secondary-400', 'bg-primary-400']; @endphp
                     @foreach($typeDistribution as $index => $type)
                     @php
                         $total = $typeDistribution->sum('count');
@@ -352,8 +352,8 @@
                     <div class="group">
                         <div class="flex items-center justify-between mb-2">
                             <div class="flex items-center gap-3">
-                                <div class="h-3 w-3 rounded-full bg-gradient-to-r {{ $colorClass }}"></div>
-                                <span class="text-sm font-semibold text-slate-700 group-hover:text-slate-900 transition-colors">
+                                <div class="h-3 w-3 rounded-full {{ $colorClass }}"></div>
+                                <span class="text-sm font-semibold text-slate-700 group-hover:text-slate-900">
                                     {{ __(ucfirst(str_replace('_', ' ', $type->challenge_type ?? 'Unknown'))) }}
                                 </span>
                             </div>
@@ -363,7 +363,7 @@
                             </div>
                         </div>
                         <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                            <div class="bg-gradient-to-r {{ $colorClass }} h-2.5 rounded-full animate-progress transition-all group-hover:shadow-lg" style="width: {{ $percentage }}%"></div>
+                            <div class="{{ $colorClass }} h-2.5 rounded-full animate-progress group-hover:shadow-lg" style="width: {{ $percentage }}%"></div>
                         </div>
                     </div>
                     @endforeach
@@ -373,7 +373,7 @@
             <!-- Top Companies with Ranking -->
             <div class="chart-container glass-card shadow-xl p-6 animate-scale-in" style="animation-delay: 0.5s">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+                    <div class="h-10 w-10 rounded-xl bg-secondary-300 flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                         </svg>
@@ -385,28 +385,28 @@
                 </div>
                 <div class="space-y-3">
                     @forelse($topCompanies as $index => $company)
-                    <div class="group flex items-center justify-between p-4 bg-gradient-to-r from-slate-50 to-white rounded-2xl border border-slate-100 hover:border-amber-200 hover:shadow-lg transition-all duration-300">
+                    <div class="group flex items-center justify-between p-4 bg-white rounded-2xl border border-slate-100 hover:border-amber-200 hover:shadow-lg">
                         <div class="flex items-center gap-4">
                             <!-- Rank Badge -->
                             <div class="rank-badge relative h-10 w-10 rounded-xl flex items-center justify-center font-black text-lg shadow-lg
-                                @if($index === 0) bg-gradient-to-br from-yellow-400 to-amber-500 text-yellow-900
-                                @elseif($index === 1) bg-gradient-to-br from-slate-300 to-slate-400 text-slate-700
-                                @elseif($index === 2) bg-gradient-to-br from-amber-600 to-orange-600 text-white
-                                @else bg-gradient-to-br from-slate-100 to-slate-200 text-slate-600
+                                @if($index === 0) bg-secondary-200 text-yellow-900
+                                @elseif($index === 1) bg-gray-300 text-slate-700
+                                @elseif($index === 2) bg-secondary-300 text-white
+                                @else bg-gray-100 text-slate-600
                                 @endif">
                                 {{ $index + 1 }}
                             </div>
                             <!-- Company Avatar -->
-                            <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <div class="h-12 w-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg">
                                 <span class="text-white text-sm font-bold">{{ strtoupper(substr($company->company_name ?? 'CO', 0, 2)) }}</span>
                             </div>
                             <div>
-                                <p class="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{{ $company->company_name ?? $company->user->name ?? __('Unknown') }}</p>
+                                <p class="font-bold text-slate-900 group-hover:text-indigo-600">{{ $company->company_name ?? $company->user->name ?? __('Unknown') }}</p>
                                 <p class="text-xs text-slate-500">{{ $company->challenges_count }} {{ __('challenges submitted') }}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-500/30">
+                            <span class="px-4 py-2 bg-primary-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-500/30">
                                 {{ $company->challenges_count }}
                             </span>
                         </div>
@@ -429,7 +429,7 @@
         <div class="chart-container glass-card shadow-xl p-6 mb-8 animate-scale-in" style="animation-delay: 0.6s">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+                    <div class="h-10 w-10 rounded-xl bg-secondary-500 flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                         </svg>
@@ -459,7 +459,7 @@
         @if($scoresByField->count() > 0)
         <div class="chart-container glass-card shadow-xl p-6 animate-scale-in" style="animation-delay: 0.7s">
             <div class="flex items-center gap-3 mb-8">
-                <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center">
+                <div class="h-10 w-10 rounded-xl bg-secondary-400 flex items-center justify-center">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
                     </svg>
@@ -470,9 +470,9 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                @php $fieldColors = ['from-indigo-500 to-purple-600', 'from-emerald-500 to-teal-600', 'from-amber-500 to-orange-600', 'from-pink-500 to-rose-600', 'from-cyan-500 to-blue-600']; @endphp
+                @php $fieldColors = ['bg-primary-500', 'bg-secondary-500', 'bg-secondary-300', 'bg-secondary-400', 'bg-primary-400']; @endphp
                 @foreach($scoresByField as $index => $field)
-                <div class="group text-center p-6 bg-gradient-to-br from-slate-50 to-white rounded-2xl border border-slate-100 hover:border-indigo-200 hover:shadow-xl transition-all duration-300">
+                <div class="group text-center p-6 bg-white rounded-2xl border border-slate-100 hover:border-indigo-200 hover:shadow-xl">
                     <!-- Circular Progress -->
                     <div class="circular-progress mx-auto mb-4 relative">
                         <svg class="w-full h-full" viewBox="0 0 120 120">

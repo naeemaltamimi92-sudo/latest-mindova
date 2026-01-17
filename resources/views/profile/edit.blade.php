@@ -47,11 +47,11 @@
     }
 
     .animate-float {
-        animation: float 6s ease-in-out infinite;
+        animation: float 6s-out infinite;
     }
 
     .animate-pulse-ring {
-        animation: pulse-ring 3s ease-in-out infinite;
+        animation: pulse-ring 3s-out infinite;
     }
 
     .animate-gradient {
@@ -60,11 +60,11 @@
     }
 
     .animate-slide-up {
-        animation: slide-up 0.6s ease-out forwards;
+        animation: slide-up 0.6s forwards;
     }
 
     .animate-glow {
-        animation: glow-pulse 2s ease-in-out infinite;
+        animation: glow-pulse 2s-out infinite;
     }
 
     .animate-rotate-slow {
@@ -72,7 +72,7 @@
     }
 
     .animate-bounce-gentle {
-        animation: bounce-gentle 2s ease-in-out infinite;
+        animation: bounce-gentle 2s-out infinite;
     }
 
     /* Stagger animations */
@@ -201,25 +201,25 @@
         height: 6px;
         background: rgba(255, 255, 255, 0.6);
         border-radius: 50%;
-        animation: float 4s ease-in-out infinite;
+        animation: float 4s-out infinite;
     }
 </style>
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-violet-50/30 to-emerald-50/30">
+<div class="min-h-screen bg-gray-50">
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 py-16 mb-12">
+    <div class="relative overflow-hidden bg-secondary-500 py-16 mb-12">
         <!-- Animated Background Effects -->
         <div class="absolute inset-0 overflow-hidden">
             <!-- Gradient Overlays -->
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-emerald-400/30 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-cyan-400/30 via-transparent to-transparent"></div>
+            <div class="absolute top-0 left-0 w-full h-full "></div>
+            <div class="absolute bottom-0 right-0 w-full h-full "></div>
 
             <!-- Floating Orbs -->
-            <div class="absolute top-10 left-[10%] w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl animate-float"></div>
-            <div class="absolute bottom-10 right-[10%] w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl animate-pulse-ring"></div>
+            <div class="absolute top-10 left-[10%] w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-[10%] w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl-ring"></div>
 
             <!-- Decorative Grid -->
             <div class="absolute inset-0 opacity-10">
@@ -234,11 +234,11 @@
             </div>
 
             <!-- Particles -->
-            <div class="particle top-[20%] left-[15%]" style="animation-delay: 0s;"></div>
-            <div class="particle top-[40%] left-[25%]" style="animation-delay: 1s;"></div>
-            <div class="particle top-[60%] right-[20%]" style="animation-delay: 2s;"></div>
-            <div class="particle top-[30%] right-[30%]" style="animation-delay: 3s;"></div>
-            <div class="particle bottom-[25%] left-[40%]" style="animation-delay: 1.5s;"></div>
+            <div class="particle top-[20%] left-[15%]"></div>
+            <div class="particle top-[40%] left-[25%]"></div>
+            <div class="particle top-[60%] right-[20%]"></div>
+            <div class="particle top-[30%] right-[30%]"></div>
+            <div class="particle bottom-[25%] left-[40%]"></div>
         </div>
 
         <div class="relative max-w-6xl mx-auto px-6 sm:px-8">
@@ -261,8 +261,8 @@
 
                     <!-- Avatar Container -->
                     <div class="relative group">
-                        <div class="absolute -inset-2 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 rounded-full blur opacity-50 group-hover:opacity-70 transition duration-500"></div>
-                        <div class="relative w-36 h-36 lg:w-44 lg:h-44 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-2xl ring-4 ring-white/30 overflow-hidden">
+                        <div class="absolute -inset-2 bg-secondary-400 rounded-full blur opacity-50 group-hover:opacity-70duration-500"></div>
+                        <div class="relative w-36 h-36 lg:w-44 lg:h-44 rounded-full bg-secondary-500 flex items-center justify-center shadow-2xl ring-4 ring-white/30 overflow-hidden">
                             @if(auth()->user()->isVolunteer() && auth()->user()->volunteer && auth()->user()->volunteer->profile_picture)
                                 <img src="{{ asset('storage/' . auth()->user()->volunteer->profile_picture) }}" alt="{{ auth()->user()->name }}" class="w-full h-full object-cover">
                             @elseif(auth()->user()->isCompany() && auth()->user()->company && auth()->user()->company->logo_path)
@@ -273,7 +273,7 @@
                         </div>
 
                         <!-- Edit Avatar Button -->
-                        <div class="absolute bottom-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform">
+                        <div class="absolute bottom-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg cursor-pointer">
                             <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -285,8 +285,8 @@
                 <!-- Profile Info -->
                 <div class="text-center lg:text-left flex-1">
                     <!-- Badge -->
-                    <div class="inline-flex items-center gap-2 glass rounded-full px-5 py-2.5 mb-5 animate-slide-up">
-                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <div class="inline-flex items-center gap-2 glass rounded-full px-5 py-2.5 mb-5">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
                         <span class="text-sm font-bold text-white/90">{{ __('Profile Settings') }}</span>
                         <span class="px-2 py-0.5 bg-white/20 rounded-full text-xs font-bold text-white">
                             @if(auth()->user()->isVolunteer())
@@ -298,18 +298,18 @@
                     </div>
 
                     <!-- Name -->
-                    <h1 class="text-4xl lg:text-5xl font-black text-white mb-3 animate-slide-up stagger-1">
+                    <h1 class="text-4xl lg:text-5xl font-black text-white mb-3 stagger-1">
                         {{ auth()->user()->name }}
                     </h1>
 
                     <!-- Email -->
-                    <p class="text-lg text-white/70 mb-6 animate-slide-up stagger-2">{{ auth()->user()->email }}</p>
+                    <p class="text-lg text-white/70 mb-6 stagger-2">{{ auth()->user()->email }}</p>
 
                     <!-- Quick Stats Row -->
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-4 animate-slide-up stagger-3">
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4 stagger-3">
                         @if(auth()->user()->isVolunteer() && auth()->user()->volunteer)
                             <div class="glass rounded-xl px-5 py-3 flex items-center gap-3">
-                                <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center">
+                                <div class="w-10 h-10 bg-secondary-300 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                     </svg>
@@ -320,7 +320,7 @@
                                 </div>
                             </div>
                             <div class="glass rounded-xl px-5 py-3 flex items-center gap-3">
-                                <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg flex items-center justify-center">
+                                <div class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
@@ -331,7 +331,7 @@
                                 </div>
                             </div>
                             <div class="glass rounded-xl px-5 py-3 flex items-center gap-3">
-                                <div class="w-10 h-10 bg-gradient-to-br from-violet-400 to-purple-500 rounded-lg flex items-center justify-center">
+                                <div class="w-10 h-10 bg-secondary-500 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                                     </svg>
@@ -343,7 +343,7 @@
                             </div>
                         @else
                             <div class="glass rounded-xl px-5 py-3 flex items-center gap-3">
-                                <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
+                                <div class="w-10 h-10 bg-secondary-500 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                                     </svg>
@@ -378,7 +378,7 @@
                 @endphp
 
                 <div class="hidden xl:block">
-                    <div class="glass rounded-2xl p-6 animate-slide-up stagger-4">
+                    <div class="glass rounded-2xl p-6 stagger-4">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="relative">
                                 <svg class="w-20 h-20 progress-ring" viewBox="0 0 100 100">
@@ -421,16 +421,16 @@
         <div x-data="{ activeTab: 'account', ...securitySettings() }" class="mb-10">
             <div class="flex flex-wrap gap-2 p-2 bg-white rounded-2xl shadow-lg border border-slate-100 mb-8">
                 <button @click="activeTab = 'account'"
-                        :class="activeTab === 'account' ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg' : 'text-slate-600 hover:bg-slate-50'"
-                        class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2">
+                        :class="activeTab === 'account' ? 'bg-white text-primary-500 shadow-lg border border-primary-200' : 'text-slate-600 hover:bg-slate-50'"
+                        class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     {{ __('Account') }}
                 </button>
                 <button @click="activeTab = 'profile'"
-                        :class="activeTab === 'profile' ? 'bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg' : 'text-slate-600 hover:bg-slate-50'"
-                        class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2">
+                        :class="activeTab === 'profile' ? 'bg-white text-primary-500 shadow-lg border border-primary-200' : 'text-slate-600 hover:bg-slate-50'"
+                        class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
@@ -441,8 +441,8 @@
                     @endif
                 </button>
                 <button @click="activeTab = 'security'"
-                        :class="activeTab === 'security' ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg' : 'text-slate-600 hover:bg-slate-50'"
-                        class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2">
+                        :class="activeTab === 'security' ? 'bg-white text-primary-500 shadow-lg border border-primary-200' : 'text-slate-600 hover:bg-slate-50'"
+                        class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                     </svg>
@@ -451,27 +451,27 @@
             </div>
 
             <!-- Account Tab -->
-            <div x-show="activeTab === 'account'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-1 transform translate-y-0">
+            <div x-show="activeTab === 'account'"   >
                 <div class="premium-card shadow-xl border border-slate-100" style="--card-gradient-from: #10b981; --card-gradient-to: #06b6d4;">
-                    <div class="bg-gradient-to-r from-emerald-600 to-teal-600 px-8 py-8">
+                    <div class="bg-white px-8 py-8 border-b border-primary-100">
                         <div class="flex items-center gap-5">
-                            <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center shadow-lg">
+                                <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-2xl font-black text-white">{{ __('Account Information') }}</h2>
-                                <p class="text-emerald-100">{{ __('Your basic account details and settings') }}</p>
+                                <h2 class="text-2xl font-black text-primary-500">{{ __('Account Information') }}</h2>
+                                <p class="text-slate-500">{{ __('Your basic account details and settings') }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="p-8">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Name Card -->
-                            <div class="stat-card group bg-gradient-to-br from-slate-50 to-emerald-50/50 rounded-2xl p-6 border-2 border-slate-100 hover:border-emerald-200">
+                            <div class="stat-card group bg-gray-50 rounded-2xl p-6 border-2 border-slate-100 hover:border-emerald-200">
                                 <div class="flex items-start gap-4">
-                                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center shadow-lg transition-transform">
+                                    <div class="stat-icon w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                         </svg>
@@ -484,9 +484,9 @@
                             </div>
 
                             <!-- Email Card -->
-                            <div class="stat-card group bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-2xl p-6 border-2 border-slate-100 hover:border-blue-200">
+                            <div class="stat-card group bg-gray-50 rounded-2xl p-6 border-2 border-slate-100 hover:border-blue-200">
                                 <div class="flex items-start gap-4">
-                                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg transition-transform">
+                                    <div class="stat-icon w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                         </svg>
@@ -499,9 +499,9 @@
                             </div>
 
                             <!-- Account Type Card -->
-                            <div class="stat-card group bg-gradient-to-br from-slate-50 to-violet-50/50 rounded-2xl p-6 border-2 border-slate-100 hover:border-violet-200">
+                            <div class="stat-card group bg-gray-50 rounded-2xl p-6 border-2 border-slate-100 hover:border-violet-200">
                                 <div class="flex items-start gap-4">
-                                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg transition-transform">
+                                    <div class="stat-icon w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                                         @if(auth()->user()->isVolunteer())
                                             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
@@ -515,7 +515,7 @@
                                     <div class="flex-1">
                                         <dt class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{{ __('Account Type') }}</dt>
                                         <dd>
-                                            <span class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-500 to-purple-500 text-white rounded-xl text-sm font-bold shadow-lg">
+                                            <span class="inline-flex items-center gap-2 px-4 py-2 bg-white text-primary-500 border border-primary-200 rounded-xl text-sm font-bold shadow-lg">
                                                 {{ ucfirst(auth()->user()->user_type) }}
                                             </span>
                                         </dd>
@@ -524,9 +524,9 @@
                             </div>
 
                             <!-- LinkedIn Card -->
-                            <div class="stat-card group bg-gradient-to-br from-slate-50 to-sky-50/50 rounded-2xl p-6 border-2 border-slate-100 hover:border-sky-200">
+                            <div class="stat-card group bg-gray-50 rounded-2xl p-6 border-2 border-slate-100 hover:border-sky-200">
                                 <div class="flex items-start gap-4">
-                                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg transition-transform">
+                                    <div class="stat-icon w-12 h-12 bg-primary-400 rounded-xl flex items-center justify-center shadow-lg">
                                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                                         </svg>
@@ -535,9 +535,9 @@
                                         <dt class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{{ __('LinkedIn') }}</dt>
                                         <dd>
                                             @if(auth()->user()->linkedin_id)
-                                            <a href="{{ auth()->user()->linkedin_profile_url }}" target="_blank" class="inline-flex items-center gap-2 text-sky-600 hover:text-sky-800 font-bold transition-colors group">
+                                            <a href="{{ auth()->user()->linkedin_profile_url }}" target="_blank" class="inline-flex items-center gap-2 text-sky-600 hover:text-sky-800 font-bold group">
                                                 {{ __('View Profile') }}
-                                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                                 </svg>
                                             </a>
@@ -559,7 +559,7 @@
                         <div class="mt-8 pt-8 border-t-2 border-slate-100">
                             <div class="flex items-center justify-between flex-wrap gap-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl flex items-center justify-center">
+                                    <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
                                         <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                         </svg>
@@ -582,20 +582,20 @@
             </div>
 
             <!-- Profile Tab -->
-            <div x-show="activeTab === 'profile'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-1 transform translate-y-0">
+            <div x-show="activeTab === 'profile'"   >
                 @if(auth()->user()->isVolunteer() && auth()->user()->volunteer)
                 <!-- Contributor Profile Card -->
                 <div class="premium-card shadow-xl border border-slate-100" style="--card-gradient-from: #8b5cf6; --card-gradient-to: #a855f7;">
-                    <div class="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 px-8 py-8">
+                    <div class="bg-white px-8 py-8 border-b border-primary-100">
                         <div class="flex items-center gap-5">
-                            <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center shadow-lg">
+                                <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-2xl font-black text-white">{{ __('Contributor Profile') }}</h2>
-                                <p class="text-violet-100">{{ __('Manage your volunteer information and skills') }}</p>
+                                <h2 class="text-2xl font-black text-primary-500">{{ __('Contributor Profile') }}</h2>
+                                <p class="text-slate-500">{{ __('Manage your volunteer information and skills') }}</p>
                             </div>
                         </div>
                     </div>
@@ -604,13 +604,13 @@
                         @csrf
 
                         <!-- Profile Picture Upload -->
-                        <div x-data="{ preview: null }" class="bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 border-2 border-violet-100 rounded-3xl p-8">
+                        <div x-data="{ preview: null }" class="bg-gray-50 border-2 border-violet-100 rounded-3xl p-8">
                             <label class="block text-lg font-black text-slate-900 mb-6">{{ __('Profile Picture') }}</label>
                             <div class="flex flex-col sm:flex-row items-center gap-10">
                                 <!-- Current/Preview Picture -->
                                 <div class="relative group cursor-pointer">
-                                    <div class="absolute -inset-2 bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 rounded-full blur opacity-40 group-hover:opacity-60 transition-all duration-500 animate-pulse-ring"></div>
-                                    <div class="relative w-40 h-40 rounded-full border-4 border-white overflow-hidden bg-gradient-to-br from-violet-100 to-purple-100 shadow-2xl group-hover:scale-105 transition-transform duration-300">
+                                    <div class="absolute -inset-2 bg-secondary-400 rounded-full blur opacity-40 group-hover:opacity-60-ring"></div>
+                                    <div class="relative w-40 h-40 rounded-full border-4 border-white overflow-hidden bg-gray-100 shadow-2xl">
                                         <template x-if="preview">
                                             <img :src="preview" alt="Preview" class="w-full h-full object-cover">
                                         </template>
@@ -631,7 +631,7 @@
                                 </div>
                                 <!-- Upload Button -->
                                 <div class="flex-1 text-center sm:text-left">
-                                    <label for="profile_picture" class="cursor-pointer inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 text-white font-bold rounded-2xl hover:from-violet-700 hover:via-purple-700 hover:to-fuchsia-700 transition-all shadow-xl hover:shadow-2xl hover:scale-105 shimmer-btn">
+                                    <label for="profile_picture" class="cursor-pointer inline-flex items-center gap-3 px-8 py-4 bg-white text-primary-500 border border-primary-200 font-bold rounded-2xl hover:bg-primary-50 shadow-xl hover:shadow-2xl shimmer-btn">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                         </svg>
@@ -647,7 +647,7 @@
 
                         <!-- Stats Grid -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-100 rounded-2xl p-6 group hover:border-blue-300 transition-all">
+                            <div class="bg-gray-50 border-2 border-blue-100 rounded-2xl p-6 group hover:border-blue-300">
                                 <label class="block text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                                     <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -656,7 +656,7 @@
                                 </label>
                                 <input type="number" name="availability_hours_per_week" min="0" max="168"
                                        lang="en" inputmode="numeric" pattern="[0-9]*"
-                                       class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 transition-all font-semibold text-lg bg-white"
+                                       class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 font-semibold text-lg bg-white"
                                        value="{{ auth()->user()->volunteer->availability_hours_per_week }}"
                                        placeholder="{{ __('Enter hours (0-168)') }}">
                                 <p class="text-xs text-slate-500 mt-3 flex items-center gap-1">
@@ -666,7 +666,7 @@
                                     {{ __('Hours you can contribute per week') }}
                                 </p>
                             </div>
-                            <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-6 group hover:border-amber-300 transition-all">
+                            <div class="bg-gray-50 border-2 border-amber-200 rounded-2xl p-6 group hover:border-amber-300">
                                 <label class="block text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                                     <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
@@ -674,13 +674,13 @@
                                     {{ __('Reputation Score') }}
                                 </label>
                                 <div class="flex items-center gap-4">
-                                    <div class="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-xl animate-glow">
+                                    <div class="w-16 h-16 bg-secondary-300 rounded-2xl flex items-center justify-center shadow-xl">
                                         <svg class="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                         </svg>
                                     </div>
                                     <div>
-                                        <span class="text-5xl font-black bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">{{ auth()->user()->volunteer->reputation_score }}</span>
+                                        <span class="text-5xl font-black text-secondary-500">{{ auth()->user()->volunteer->reputation_score }}</span>
                                         <p class="text-sm text-slate-500 mt-1">{{ __('Points earned') }}</p>
                                     </div>
                                 </div>
@@ -688,19 +688,19 @@
                         </div>
 
                         <!-- Bio -->
-                        <div class="bg-gradient-to-br from-slate-50 to-violet-50/50 border-2 border-slate-100 rounded-2xl p-6 hover:border-violet-200 transition-all">
+                        <div class="bg-gray-50 border-2 border-slate-100 rounded-2xl p-6 hover:border-violet-200">
                             <label class="block text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
                                 </svg>
                                 {{ __('Bio') }}
                             </label>
-                            <textarea name="bio" rows="5" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-violet-500 focus:ring-4 focus:ring-violet-500/20 transition-all font-medium resize-none bg-white" placeholder="{{ __('Tell us about yourself, your experience, and what you\'re passionate about...') }}">{{ auth()->user()->volunteer->bio }}</textarea>
+                            <textarea name="bio" rows="5" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-violet-500 focus:ring-4 focus:ring-violet-500/20 font-medium resize-none bg-white" placeholder="{{ __('Tell us about yourself, your experience, and what you\'re passionate about...') }}">{{ auth()->user()->volunteer->bio }}</textarea>
                             <p class="text-xs text-slate-500 mt-2">{{ __('A great bio helps companies understand your background') }}</p>
                         </div>
 
                         <!-- CV Analysis Status -->
-                        <div class="bg-gradient-to-br from-slate-50 to-blue-50/50 border-2 border-slate-100 rounded-2xl p-6">
+                        <div class="bg-gray-50 border-2 border-slate-100 rounded-2xl p-6">
                             <label class="block text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
@@ -709,16 +709,16 @@
                             </label>
                             <div class="flex items-center flex-wrap gap-4">
                                 <span class="px-6 py-3 rounded-xl text-sm font-bold shadow-lg flex items-center gap-2
-                                    {{ auth()->user()->volunteer->ai_analysis_status === 'completed' ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white' : '' }}
-                                    {{ auth()->user()->volunteer->ai_analysis_status === 'processing' ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white' : '' }}
-                                    {{ auth()->user()->volunteer->ai_analysis_status === 'pending' ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white' : '' }}
-                                    {{ auth()->user()->volunteer->ai_analysis_status === 'failed' ? 'bg-gradient-to-r from-red-500 to-rose-500 text-white' : '' }}">
+                                    {{ auth()->user()->volunteer->ai_analysis_status === 'completed' ? 'bg-white text-primary-500 border border-primary-200' : '' }}
+                                    {{ auth()->user()->volunteer->ai_analysis_status === 'processing' ? 'bg-secondary-300 text-slate-900' : '' }}
+                                    {{ auth()->user()->volunteer->ai_analysis_status === 'pending' ? 'bg-primary-500 text-white' : '' }}
+                                    {{ auth()->user()->volunteer->ai_analysis_status === 'failed' ? 'bg-white text-primary-500 border border-primary-200' : '' }}">
                                     @if(auth()->user()->volunteer->ai_analysis_status === 'completed')
                                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                         </svg>
                                     @elseif(auth()->user()->volunteer->ai_analysis_status === 'processing')
-                                        <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24">
                                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                         </svg>
@@ -734,7 +734,7 @@
                                     {{ __(ucfirst(auth()->user()->volunteer->ai_analysis_status)) }}
                                 </span>
                                 @if(auth()->user()->volunteer->ai_analysis_confidence)
-                                <span class="px-6 py-3 bg-gradient-to-r from-blue-100 to-indigo-100 border-2 border-blue-200 rounded-xl text-sm font-bold text-blue-700 flex items-center gap-2">
+                                <span class="px-6 py-3 bg-gray-100 border-2 border-blue-200 rounded-xl text-sm font-bold text-blue-700 flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
@@ -746,7 +746,7 @@
 
                         <!-- Extracted Skills -->
                         @if(auth()->user()->volunteer->skills->count() > 0)
-                        <div class="bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 border-2 border-violet-100 rounded-2xl p-6">
+                        <div class="bg-gray-50 border-2 border-violet-100 rounded-2xl p-6">
                             <label class="block text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
@@ -756,10 +756,10 @@
                             </label>
                             <div class="flex flex-wrap gap-3">
                                 @foreach(auth()->user()->volunteer->skills as $skill)
-                                <span class="px-4 py-2.5 rounded-xl text-sm font-bold shadow-md transition-all hover:scale-105 hover:shadow-lg cursor-default
-                                    {{ $skill->proficiency_level === 'expert' ? 'bg-gradient-to-r from-violet-500 to-purple-500 text-white' : '' }}
-                                    {{ $skill->proficiency_level === 'advanced' ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white' : '' }}
-                                    {{ $skill->proficiency_level === 'intermediate' ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white' : '' }}
+                                <span class="px-4 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg cursor-default
+                                    {{ $skill->proficiency_level === 'expert' ? 'bg-white text-primary-500 border border-primary-200' : '' }}
+                                    {{ $skill->proficiency_level === 'advanced' ? 'bg-primary-500 text-white' : '' }}
+                                    {{ $skill->proficiency_level === 'intermediate' ? 'bg-white text-primary-500 border border-primary-200' : '' }}
                                     {{ !in_array($skill->proficiency_level, ['expert', 'advanced', 'intermediate']) ? 'bg-slate-100 text-slate-700 border border-slate-200' : '' }}">
                                     {{ $skill->skill_name }}
                                     @if($skill->proficiency_level)
@@ -772,16 +772,16 @@
                         @endif
 
                         <!-- Upload New CV -->
-                        <div class="bg-gradient-to-br from-slate-50 to-violet-50/50 border-2 border-dashed border-violet-300 rounded-2xl p-8 hover:border-violet-400 transition-all group">
+                        <div class="bg-gray-50 border-2 border-dashed border-violet-300 rounded-2xl p-8 hover:border-violet-400 group">
                             <div class="text-center">
-                                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-violet-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-xl mb-4 group-hover:scale-110 transition-transform">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-16 h-16 mx-auto bg-white border border-primary-200 rounded-2xl flex items-center justify-center shadow-xl mb-4">
+                                    <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                     </svg>
                                 </div>
                                 <label class="block text-lg font-bold text-slate-900 mb-2">{{ __('Upload New CV') }}</label>
                                 <p class="text-sm text-slate-500 mb-4">{{ __('Upload a new CV (PDF, DOC, or DOCX)') }}</p>
-                                <label for="cv_upload" class="cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-violet-300 text-violet-600 font-bold rounded-xl hover:bg-violet-50 hover:border-violet-400 transition-all">
+                                <label for="cv_upload" class="cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-violet-300 text-violet-600 font-bold rounded-xl hover:bg-violet-50 hover:border-violet-400">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
                                     </svg>
@@ -793,12 +793,12 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 text-white font-bold text-lg px-10 py-5 rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl hover:shadow-2xl shimmer-btn">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <x-ui.button as="submit" variant="secondary" size="xl" fullWidth class="shimmer-btn">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                             {{ __('Save Changes') }}
-                        </button>
+                        </x-ui.button>
                     </form>
                 </div>
                 @endif
@@ -806,7 +806,7 @@
                 @if(auth()->user()->isCompany() && auth()->user()->company)
                 <!-- Company Profile Card -->
                 <div class="premium-card shadow-xl border border-slate-100" style="--card-gradient-from: #0284c7; --card-gradient-to: #06b6d4;">
-                    <div class="bg-gradient-to-r from-sky-600 via-blue-600 to-cyan-600 px-8 py-8">
+                    <div class="bg-primary-500 px-8 py-8">
                         <div class="flex items-center gap-5">
                             <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -824,13 +824,13 @@
                         @csrf
 
                         <!-- Company Logo -->
-                        <div x-data="{ logoPreview: null }" class="bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50 border-2 border-sky-100 rounded-3xl p-8">
+                        <div x-data="{ logoPreview: null }" class="bg-gray-50 border-2 border-sky-100 rounded-3xl p-8">
                             <label class="block text-lg font-black text-slate-900 mb-6">{{ __('Company Logo') }}</label>
                             <div class="flex flex-col sm:flex-row items-center gap-10">
                                 <!-- Current/Preview Logo -->
                                 <div class="relative group">
-                                    <div class="absolute -inset-2 bg-gradient-to-r from-sky-400 via-blue-400 to-cyan-400 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-all duration-500"></div>
-                                    <div class="relative w-36 h-36 rounded-2xl border-4 border-white overflow-hidden bg-gradient-to-br from-sky-100 to-blue-100 shadow-2xl group-hover:scale-105 transition-transform duration-300 flex items-center justify-center">
+                                    <div class="absolute -inset-2 bg-primary-400 rounded-2xl blur opacity-30 group-hover:opacity-50"></div>
+                                    <div class="relative w-36 h-36 rounded-2xl border-4 border-white overflow-hidden bg-gray-100 shadow-2xl flex items-center justify-center">
                                         <template x-if="logoPreview">
                                             <img :src="logoPreview" alt="Preview" class="w-full h-full object-cover">
                                         </template>
@@ -849,7 +849,7 @@
                                 </div>
                                 <!-- Upload Button -->
                                 <div class="flex-1 text-center sm:text-left">
-                                    <label for="company_logo" class="cursor-pointer inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-sky-600 via-blue-600 to-cyan-600 text-white font-bold rounded-2xl hover:from-sky-700 hover:via-blue-700 hover:to-cyan-700 transition-all shadow-xl hover:shadow-2xl hover:scale-105 shimmer-btn">
+                                    <label for="company_logo" class="cursor-pointer inline-flex items-center gap-3 px-8 py-4 bg-primary-500 text-white font-bold rounded-2xl hover:bg-primary-600 shadow-xl hover:shadow-2xl shimmer-btn">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                         </svg>
@@ -863,51 +863,51 @@
                         </div>
 
                         <!-- Company Name -->
-                        <div class="bg-gradient-to-br from-sky-50 to-blue-50/50 border-2 border-sky-100 rounded-2xl p-6 hover:border-sky-200 transition-all">
+                        <div class="bg-gray-50 border-2 border-sky-100 rounded-2xl p-6 hover:border-sky-200">
                             <label class="block text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                                 </svg>
                                 {{ __('Company Name') }}
                             </label>
-                            <input type="text" name="company_name" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 transition-all font-semibold text-lg bg-white" value="{{ auth()->user()->company->company_name }}">
+                            <input type="text" name="company_name" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 font-semibold text-lg bg-white" value="{{ auth()->user()->company->company_name }}">
                         </div>
 
                         <!-- Industry & Website -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-gradient-to-br from-slate-50 to-sky-50/50 border-2 border-slate-100 rounded-2xl p-6 hover:border-sky-200 transition-all">
+                            <div class="bg-gray-50 border-2 border-slate-100 rounded-2xl p-6 hover:border-sky-200">
                                 <label class="block text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                                     <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                     </svg>
                                     {{ __('Industry') }}
                                 </label>
-                                <input type="text" name="industry" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 transition-all font-semibold bg-white" value="{{ auth()->user()->company->industry }}">
+                                <input type="text" name="industry" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 font-semibold bg-white" value="{{ auth()->user()->company->industry }}">
                             </div>
-                            <div class="bg-gradient-to-br from-slate-50 to-sky-50/50 border-2 border-slate-100 rounded-2xl p-6 hover:border-sky-200 transition-all">
+                            <div class="bg-gray-50 border-2 border-slate-100 rounded-2xl p-6 hover:border-sky-200">
                                 <label class="block text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                                     <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
                                     </svg>
                                     {{ __('Website') }}
                                 </label>
-                                <input type="url" name="website" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 transition-all font-semibold bg-white" value="{{ auth()->user()->company->website }}" placeholder="https://example.com">
+                                <input type="url" name="website" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 font-semibold bg-white" value="{{ auth()->user()->company->website }}" placeholder="https://example.com">
                             </div>
                         </div>
 
                         <!-- Description -->
-                        <div class="bg-gradient-to-br from-slate-50 to-sky-50/50 border-2 border-slate-100 rounded-2xl p-6 hover:border-sky-200 transition-all">
+                        <div class="bg-gray-50 border-2 border-slate-100 rounded-2xl p-6 hover:border-sky-200">
                             <label class="block text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
                                 </svg>
                                 {{ __('Description') }}
                             </label>
-                            <textarea name="description" rows="5" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 transition-all font-medium resize-none bg-white" placeholder="{{ __('Tell volunteers about your company...') }}">{{ auth()->user()->company->description }}</textarea>
+                            <textarea name="description" rows="5" class="premium-input w-full px-5 py-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 font-medium resize-none bg-white" placeholder="{{ __('Tell volunteers about your company...') }}">{{ auth()->user()->company->description }}</textarea>
                         </div>
 
                         <!-- Statistics -->
-                        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-200 rounded-2xl p-8">
+                        <div class="bg-gray-50 border-2 border-emerald-200 rounded-2xl p-8">
                             <label class="block text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
                                 <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -916,24 +916,24 @@
                             </label>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 <div class="stat-card bg-white rounded-2xl p-6 text-center shadow-lg border border-emerald-100">
-                                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl stat-icon transition-transform">
+                                    <div class="w-16 h-16 bg-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl stat-icon">
                                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                                         </svg>
                                     </div>
                                     <dt class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">{{ __('Total Challenges') }}</dt>
-                                    <dd class="text-4xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">{{ auth()->user()->company->total_challenges_submitted }}</dd>
+                                    <dd class="text-4xl font-black text-secondary-500">{{ auth()->user()->company->total_challenges_submitted }}</dd>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-sky-600 via-blue-600 to-cyan-600 text-white font-bold text-lg px-10 py-5 rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl hover:shadow-2xl shimmer-btn">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <x-ui.button as="submit" variant="primary" size="xl" fullWidth class="shimmer-btn">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                             {{ __('Save Changes') }}
-                        </button>
+                        </x-ui.button>
                     </form>
                 </div>
                 @endif
@@ -941,20 +941,20 @@
 
             <!-- Security Tab -->
             <div x-show="activeTab === 'security'"
-                 x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 transform translate-y-4"
-                 x-transition:enter-end="opacity-1 transform translate-y-0">
+                 
+                 
+                 >
                 <div class="premium-card shadow-xl border border-slate-100" style="--card-gradient-from: #e11d48; --card-gradient-to: #ec4899;">
-                    <div class="bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 px-8 py-8">
+                    <div class="bg-white px-8 py-8 border-b border-primary-100">
                         <div class="flex items-center gap-5">
-                            <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center shadow-lg">
+                                <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-2xl font-black text-white">{{ __('Security Settings') }}</h2>
-                                <p class="text-rose-100">{{ __('Manage your account security and privacy') }}</p>
+                                <h2 class="text-2xl font-black text-primary-500">{{ __('Security Settings') }}</h2>
+                                <p class="text-slate-500">{{ __('Manage your account security and privacy') }}</p>
                             </div>
                         </div>
                     </div>
@@ -991,10 +991,10 @@
 
                         <!-- Password Section - Only show for users who have a password (not OAuth-only users) -->
                         @if(auth()->user()->hasPassword())
-                        <div class="bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-rose-100 rounded-2xl p-6">
+                        <div class="bg-gray-50 border-2 border-rose-100 rounded-2xl p-6">
                             <div class="flex items-center justify-between flex-wrap gap-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                                    <div class="w-12 h-12 bg-secondary-600 rounded-xl flex items-center justify-center shadow-lg">
                                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
                                         </svg>
@@ -1010,21 +1010,21 @@
                                         </p>
                                     </div>
                                 </div>
-                                <button type="button" @click="showPasswordModal = true" class="px-5 py-2.5 bg-white border-2 border-rose-200 text-rose-600 font-bold rounded-xl hover:bg-rose-50 hover:border-rose-300 transition-all flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <x-ui.button type="button" @click="showPasswordModal = true" variant="outline" class="border-rose-200 text-rose-600 hover:bg-rose-50 hover:border-rose-300">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                                     </svg>
                                     {{ __('Change Password') }}
-                                </button>
+                                </x-ui.button>
                             </div>
                         </div>
                         @endif
 
                         <!-- Two-Factor Authentication -->
-                        <div class="bg-gradient-to-br from-violet-50 to-purple-50 border-2 border-violet-100 rounded-2xl p-6">
+                        <div class="bg-gray-50 border-2 border-violet-100 rounded-2xl p-6">
                             <div class="flex items-center justify-between flex-wrap gap-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 bg-gradient-to-br {{ auth()->user()->hasTwoFactorEnabled() ? 'from-emerald-500 to-teal-500' : 'from-violet-500 to-purple-500' }} rounded-xl flex items-center justify-center shadow-lg">
+                                    <div class="w-12 h-12 {{ auth()->user()->hasTwoFactorEnabled() ? 'bg-secondary-500' : 'bg-secondary-500' }} rounded-xl flex items-center justify-center shadow-lg">
                                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                                         </svg>
@@ -1045,27 +1045,27 @@
                                 </div>
                                 <div class="flex items-center gap-2">
                                     @if(auth()->user()->hasTwoFactorEnabled())
-                                        <button type="button" @click="showRecoveryCodesModal = true" class="px-4 py-2.5 bg-white border-2 border-violet-200 text-violet-600 font-bold rounded-xl hover:bg-violet-50 hover:border-violet-300 transition-all text-sm">
+                                        <x-ui.button type="button" @click="showRecoveryCodesModal = true" variant="outline" size="sm" class="border-violet-200 text-violet-600 hover:bg-violet-50 hover:border-violet-300">
                                             {{ __('View Recovery Codes') }}
-                                        </button>
-                                        <button type="button" @click="showDisable2FAModal = true" class="px-4 py-2.5 bg-white border-2 border-red-200 text-red-600 font-bold rounded-xl hover:bg-red-50 hover:border-red-300 transition-all text-sm">
+                                        </x-ui.button>
+                                        <x-ui.button type="button" @click="showDisable2FAModal = true" variant="outline" size="sm" class="border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300">
                                             {{ __('Disable') }}
-                                        </button>
+                                        </x-ui.button>
                                     @else
-                                        <button type="button" @click="enableTwoFactor()" :disabled="loading2FA" class="px-5 py-2.5 bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold rounded-xl hover:from-violet-700 hover:to-purple-700 transition-all flex items-center gap-2 disabled:opacity-50">
+                                        <x-ui.button type="button" @click="enableTwoFactor()" ::disabled="loading2FA" variant="secondary">
                                             <template x-if="loading2FA">
-                                                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                                <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
                                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                 </svg>
                                             </template>
                                             <template x-if="!loading2FA">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                                                 </svg>
                                             </template>
                                             {{ __('Enable 2FA') }}
-                                        </button>
+                                        </x-ui.button>
                                     @endif
                                 </div>
                             </div>
@@ -1080,9 +1080,9 @@
                         </div>
 
                         <!-- Active Sessions -->
-                        <div class="bg-gradient-to-br from-slate-50 to-emerald-50/50 border-2 border-slate-100 rounded-2xl p-6">
+                        <div class="bg-gray-50 border-2 border-slate-100 rounded-2xl p-6">
                             <div class="flex items-center gap-3 mb-4">
-                                <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center shadow-lg">
+                                <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                     </svg>
@@ -1095,7 +1095,7 @@
                             <div class="bg-white rounded-xl p-4 border border-slate-200">
                                 <div class="flex items-center justify-between flex-wrap gap-3">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                                        <div class="w-3 h-3 bg-emerald-500 rounded-full"></div>
                                         <div>
                                             <p class="font-semibold text-slate-900">{{ request()->header('User-Agent') ? substr(request()->header('User-Agent'), 0, 50) . '...' : 'Unknown Device' }}</p>
                                             <p class="text-xs text-slate-500">{{ request()->ip() }} - {{ __('Active now') }}</p>
@@ -1109,7 +1109,7 @@
                         </div>
 
                         <!-- Danger Zone -->
-                        <div class="bg-gradient-to-br from-red-50 to-rose-50 border-2 border-red-200 rounded-2xl p-6">
+                        <div class="bg-gray-50 border-2 border-red-200 rounded-2xl p-6">
                             <h3 class="font-bold text-red-700 mb-4 flex items-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
@@ -1117,9 +1117,9 @@
                                 {{ __('Danger Zone') }}
                             </h3>
                             <p class="text-sm text-slate-600 mb-4">{{ __('Once you delete your account, there is no going back. Please be certain.') }}</p>
-                            <button type="button" class="px-5 py-2.5 bg-white border-2 border-red-300 text-red-600 font-bold rounded-xl hover:bg-red-50 hover:border-red-400 transition-all">
+                            <x-ui.button type="button" variant="outline" class="border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400">
                                 {{ __('Delete Account') }}
-                            </button>
+                            </x-ui.button>
                         </div>
                     </div>
                 </div>
@@ -1128,18 +1128,18 @@
             <!-- Password Change Modal -->
             <div x-show="showPasswordModal" x-cloak class="fixed inset-0 z-[9999] flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true" @keydown.escape.window="if(!changingPassword) { showPasswordModal = false; resetPasswordForm(); }">
                 <!-- Simple Dark Overlay -->
-                <div x-show="showPasswordModal" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 z-10 bg-slate-900/50" @click="if(!changingPassword) { showPasswordModal = false; resetPasswordForm(); }"></div>
+                <div x-show="showPasswordModal"       class="absolute inset-0 z-10 bg-slate-900/50" @click="if(!changingPassword) { showPasswordModal = false; resetPasswordForm(); }"></div>
                 <!-- Modal Dialog -->
-                <div x-show="showPasswordModal" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden" @click.stop>
+                <div x-show="showPasswordModal"       class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden" @click.stop>
                     <!-- Header with close button -->
-                    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-rose-500 to-pink-500">
+                    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-secondary-600">
                         <h3 class="text-lg font-bold text-white flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
                             </svg>
                             {{ __('Change Password') }}
                         </h3>
-                        <button type="button" @click="if(!changingPassword) { showPasswordModal = false; resetPasswordForm(); }" class="text-white/80 hover:text-white transition-colors" :class="{ 'opacity-50 cursor-not-allowed': changingPassword }">
+                        <button type="button" @click="if(!changingPassword) { showPasswordModal = false; resetPasswordForm(); }" class="text-white/80 hover:text-white" :class="{ 'opacity-50 cursor-not-allowed': changingPassword }">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -1147,7 +1147,7 @@
                     </div>
 
                     <!-- Success Message -->
-                    <div x-show="passwordSuccess" x-transition class="px-6 py-8 text-center">
+                    <div x-show="passwordSuccess" class="px-6 py-8 text-center">
                         <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -1162,7 +1162,7 @@
                         <!-- Body -->
                         <div class="px-6 py-5 space-y-4">
                             <!-- Error Message -->
-                            <div x-show="passwordError" x-transition class="bg-red-50 border border-red-200 rounded-lg p-3 flex items-start gap-2">
+                            <div x-show="passwordError" class="bg-red-50 border border-red-200 rounded-lg p-3 flex items-start gap-2">
                                 <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                                 </svg>
@@ -1172,27 +1172,27 @@
                             @if(auth()->user()->hasPassword())
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">{{ __('Current Password') }}</label>
-                                <input type="password" x-model="currentPassword" :disabled="changingPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="{{ __('Enter current password') }}">
+                                <input type="password" x-model="currentPassword" :disabled="changingPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="{{ __('Enter current password') }}">
                             </div>
                             @endif
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">{{ __('New Password') }}</label>
-                                <input type="password" x-model="newPassword" :disabled="changingPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="{{ __('Enter new password') }}">
+                                <input type="password" x-model="newPassword" :disabled="changingPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="{{ __('Enter new password') }}">
                                 <p class="text-xs text-slate-500 mt-1">{{ __('Min 8 characters, with uppercase, lowercase, and numbers') }}</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">{{ __('Confirm Password') }}</label>
-                                <input type="password" x-model="confirmPassword" :disabled="changingPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="{{ __('Confirm new password') }}">
+                                <input type="password" x-model="confirmPassword" :disabled="changingPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 disabled:bg-slate-100 disabled:cursor-not-allowed" placeholder="{{ __('Confirm new password') }}">
                             </div>
                         </div>
                         <!-- Footer -->
                         <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
-                            <button type="button" @click="showPasswordModal = false; resetPasswordForm();" :disabled="changingPassword" class="px-4 py-2 text-slate-600 font-medium rounded-lg hover:bg-slate-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <button type="button" @click="showPasswordModal = false; resetPasswordForm();" :disabled="changingPassword" class="px-4 py-2 text-slate-600 font-medium rounded-lg hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed">
                                 {{ __('Cancel') }}
                             </button>
-                            <button type="button" @click="changePassword()" :disabled="changingPassword || !newPassword || !confirmPassword" class="px-5 py-2.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-lg hover:from-rose-600 hover:to-pink-600 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <button type="button" @click="changePassword()" :disabled="changingPassword || !newPassword || !confirmPassword" class="px-5 py-2.5 bg-white text-primary-500 border border-primary-200 font-bold rounded-lg hover:bg-primary-50 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                                 <template x-if="changingPassword">
-                                    <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
@@ -1212,18 +1212,18 @@
             <!-- Enable 2FA Modal -->
             <div x-show="showEnable2FAModal" x-cloak class="fixed inset-0 z-[9999] flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true" @keydown.escape.window="showEnable2FAModal = false">
                 <!-- Simple Dark Overlay -->
-                <div x-show="showEnable2FAModal" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 z-10 bg-slate-900/50" @click="showEnable2FAModal = false; if(showRecoveryCodes) location.reload();"></div>
+                <div x-show="showEnable2FAModal"       class="absolute inset-0 z-10 bg-slate-900/50" @click="showEnable2FAModal = false; if(showRecoveryCodes) location.reload();"></div>
                 <!-- Modal Dialog -->
-                <div x-show="showEnable2FAModal" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden" @click.stop>
+                <div x-show="showEnable2FAModal"       class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden" @click.stop>
                     <!-- Header with close button -->
-                    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-violet-500 to-purple-500">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <div class="flex items-center justify-between px-6 py-4 border-b border-primary-100 bg-white">
+                        <h3 class="text-lg font-bold text-primary-500 flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                             </svg>
                             {{ __('Enable 2FA') }}
                         </h3>
-                        <button type="button" @click="showEnable2FAModal = false; if(showRecoveryCodes) location.reload();" class="text-white/80 hover:text-white transition-colors">
+                        <button type="button" @click="showEnable2FAModal = false; if(showRecoveryCodes) location.reload();" class="text-slate-400 hover:text-slate-600">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -1243,7 +1243,7 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">{{ __('Enter 6-digit code') }}</label>
-                                <input type="text" x-model="verificationCode" maxlength="6" pattern="[0-9]*" inputmode="numeric" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all text-center text-xl font-mono tracking-widest" placeholder="000000">
+                                <input type="text" x-model="verificationCode" maxlength="6" pattern="[0-9]*" inputmode="numeric" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 text-center text-xl font-mono tracking-widest" placeholder="000000">
                             </div>
                             <p x-show="error2FA" x-text="error2FA" class="text-sm text-red-600 mt-2"></p>
                         </div>
@@ -1265,7 +1265,7 @@
                                     </template>
                                 </div>
                             </div>
-                            <button type="button" @click="copyRecoveryCodes()" class="w-full px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+                            <button type="button" @click="copyRecoveryCodes()" class="w-full px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                                 </svg>
@@ -1275,12 +1275,12 @@
                     </div>
                     <!-- Footer -->
                     <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
-                        <button type="button" @click="showEnable2FAModal = false; if(showRecoveryCodes) location.reload();" class="px-4 py-2 text-slate-600 font-medium rounded-lg hover:bg-slate-100 transition-colors">
+                        <button type="button" @click="showEnable2FAModal = false; if(showRecoveryCodes) location.reload();" class="px-4 py-2 text-slate-600 font-medium rounded-lg hover:bg-slate-100">
                             {{ __('Close') }}
                         </button>
-                        <button x-show="!showRecoveryCodes" type="button" @click="confirmTwoFactor()" :disabled="verificationCode.length !== 6 || confirming2FA" class="px-4 py-2 bg-violet-500 text-white font-medium rounded-lg hover:bg-violet-600 transition-colors disabled:opacity-50 flex items-center gap-2">
+                        <button x-show="!showRecoveryCodes" type="button" @click="confirmTwoFactor()" :disabled="verificationCode.length !== 6 || confirming2FA" class="px-4 py-2 bg-violet-500 text-white font-medium rounded-lg hover:bg-violet-600 disabled:opacity-50 flex items-center gap-2">
                             <template x-if="confirming2FA">
-                                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
@@ -1294,18 +1294,18 @@
             <!-- Disable 2FA Modal -->
             <div x-show="showDisable2FAModal" x-cloak class="fixed inset-0 z-[9999] flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true" @keydown.escape.window="showDisable2FAModal = false">
                 <!-- Simple Dark Overlay -->
-                <div x-show="showDisable2FAModal" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 z-10 bg-slate-900/50" @click="showDisable2FAModal = false"></div>
+                <div x-show="showDisable2FAModal"       class="absolute inset-0 z-10 bg-slate-900/50" @click="showDisable2FAModal = false"></div>
                 <!-- Modal Dialog -->
-                <div x-show="showDisable2FAModal" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden" @click.stop>
+                <div x-show="showDisable2FAModal"       class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden" @click.stop>
                     <!-- Header with close button -->
-                    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-red-500 to-rose-500">
+                    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-secondary-700">
                         <h3 class="text-lg font-bold text-white flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                             </svg>
                             {{ __('Disable 2FA') }}
                         </h3>
-                        <button type="button" @click="showDisable2FAModal = false" class="text-white/80 hover:text-white transition-colors">
+                        <button type="button" @click="showDisable2FAModal = false" class="text-white/80 hover:text-white">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -1318,18 +1318,18 @@
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1.5">{{ __('Confirm with password') }}</label>
-                            <input type="password" x-model="disablePassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all" placeholder="{{ __('Your password') }}">
+                            <input type="password" x-model="disablePassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-500/20" placeholder="{{ __('Your password') }}">
                         </div>
                         <p x-show="errorDisable2FA" x-text="errorDisable2FA" class="text-sm text-red-600"></p>
                     </div>
                     <!-- Footer -->
                     <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
-                        <button type="button" @click="showDisable2FAModal = false" class="px-4 py-2 text-slate-600 font-medium rounded-lg hover:bg-slate-100 transition-colors">
+                        <button type="button" @click="showDisable2FAModal = false" class="px-4 py-2 text-slate-600 font-medium rounded-lg hover:bg-slate-100">
                             {{ __('Cancel') }}
                         </button>
-                        <button type="button" @click="disableTwoFactor()" :disabled="!disablePassword || disabling2FA" class="px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 flex items-center gap-2">
+                        <button type="button" @click="disableTwoFactor()" :disabled="!disablePassword || disabling2FA" class="px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 disabled:opacity-50 flex items-center gap-2">
                             <template x-if="disabling2FA">
-                                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
@@ -1343,18 +1343,18 @@
             <!-- Recovery Codes Modal -->
             <div x-show="showRecoveryCodesModal" x-cloak class="fixed inset-0 z-[9999] flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true" @keydown.escape.window="showRecoveryCodesModal = false">
                 <!-- Simple Dark Overlay -->
-                <div x-show="showRecoveryCodesModal" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 z-10 bg-slate-900/50" @click="showRecoveryCodesModal = false; viewingRecoveryCodes = false; recoveryPassword = ''; viewedRecoveryCodes = [];"></div>
+                <div x-show="showRecoveryCodesModal"       class="absolute inset-0 z-10 bg-slate-900/50" @click="showRecoveryCodesModal = false; viewingRecoveryCodes = false; recoveryPassword = ''; viewedRecoveryCodes = [];"></div>
                 <!-- Modal Dialog -->
-                <div x-show="showRecoveryCodesModal" x-transition:enter="ease-out duration-200" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden" @click.stop>
+                <div x-show="showRecoveryCodesModal"       class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden" @click.stop>
                     <!-- Header with close button -->
-                    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-violet-500 to-purple-500">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <div class="flex items-center justify-between px-6 py-4 border-b border-primary-100 bg-white">
+                        <h3 class="text-lg font-bold text-primary-500 flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                             </svg>
                             {{ __('Recovery Codes') }}
                         </h3>
-                        <button type="button" @click="showRecoveryCodesModal = false; viewingRecoveryCodes = false; recoveryPassword = ''; viewedRecoveryCodes = [];" class="text-white/80 hover:text-white transition-colors">
+                        <button type="button" @click="showRecoveryCodesModal = false; viewingRecoveryCodes = false; recoveryPassword = ''; viewedRecoveryCodes = [];" class="text-slate-400 hover:text-slate-600">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -1366,7 +1366,7 @@
                             <p class="text-sm text-slate-600 mb-3">{{ __('Enter your password to view recovery codes.') }}</p>
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">{{ __('Password') }}</label>
-                                <input type="password" x-model="recoveryPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all" placeholder="{{ __('Your password') }}">
+                                <input type="password" x-model="recoveryPassword" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20" placeholder="{{ __('Your password') }}">
                             </div>
                             <p x-show="errorRecovery" x-text="errorRecovery" class="text-sm text-red-600 mt-2"></p>
                         </div>
@@ -1379,15 +1379,15 @@
                                     </template>
                                 </div>
                             </div>
-                            <button type="button" @click="copyViewedRecoveryCodes()" class="w-full px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition-colors flex items-center justify-center gap-2 mb-2">
+                            <button type="button" @click="copyViewedRecoveryCodes()" class="w-full px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 flex items-center justify-center gap-2 mb-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                                 </svg>
                                 {{ __('Copy Codes') }}
                             </button>
-                            <button type="button" @click="regenerateRecoveryCodes()" :disabled="regenerating" class="w-full px-4 py-2 bg-amber-100 text-amber-700 font-medium rounded-lg hover:bg-amber-200 transition-colors flex items-center justify-center gap-2">
+                            <button type="button" @click="regenerateRecoveryCodes()" :disabled="regenerating" class="w-full px-4 py-2 bg-amber-100 text-amber-700 font-medium rounded-lg hover:bg-amber-200 flex items-center justify-center gap-2">
                                 <template x-if="regenerating">
-                                    <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
@@ -1403,12 +1403,12 @@
                     </div>
                     <!-- Footer -->
                     <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3">
-                        <button type="button" @click="showRecoveryCodesModal = false; viewingRecoveryCodes = false; recoveryPassword = ''; viewedRecoveryCodes = [];" class="px-4 py-2 text-slate-600 font-medium rounded-lg hover:bg-slate-100 transition-colors">
+                        <button type="button" @click="showRecoveryCodesModal = false; viewingRecoveryCodes = false; recoveryPassword = ''; viewedRecoveryCodes = [];" class="px-4 py-2 text-slate-600 font-medium rounded-lg hover:bg-slate-100">
                             {{ __('Close') }}
                         </button>
-                        <button x-show="!viewingRecoveryCodes" type="button" @click="viewRecoveryCodes()" :disabled="!recoveryPassword || loadingRecovery" class="px-4 py-2 bg-violet-500 text-white font-medium rounded-lg hover:bg-violet-600 transition-colors disabled:opacity-50 flex items-center gap-2">
+                        <button x-show="!viewingRecoveryCodes" type="button" @click="viewRecoveryCodes()" :disabled="!recoveryPassword || loadingRecovery" class="px-4 py-2 bg-violet-500 text-white font-medium rounded-lg hover:bg-violet-600 disabled:opacity-50 flex items-center gap-2">
                             <template x-if="loadingRecovery">
-                                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>

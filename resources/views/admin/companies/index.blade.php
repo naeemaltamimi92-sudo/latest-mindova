@@ -3,23 +3,23 @@
 @section('title', __('Companies Management'))
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
+<div class="min-h-screen bg-gray-50">
     <!-- Premium Header -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 py-10 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+    <div class="relative overflow-hidden bg-primary-500 py-10 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-cyan-500/20 via-transparent to-transparent"></div>
-            <div class="floating-element absolute top-10 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
-            <div class="floating-element absolute bottom-10 right-10 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute top-0 left-0 w-full h-full "></div>
+            <div class="absolute bottom-0 right-0 w-full h-full "></div>
+            <div class="floating-element absolute top-10 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div class="floating-element absolute bottom-10 right-10 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"></div>
         </div>
 
         <div class="relative max-w-7xl mx-auto px-6 sm:px-8">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div class="flex items-center gap-5">
                     <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-2xl blur opacity-40 group-hover:opacity-60 transition duration-500"></div>
-                        <div class="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-2xl">
+                        <div class="absolute -inset-1 bg-primary-400 rounded-2xl blur opacity-40 group-hover:opacity-60duration-500"></div>
+                        <div class="relative h-16 w-16 rounded-2xl bg-primary-500 flex items-center justify-center shadow-2xl">
                             <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                             </svg>
@@ -37,12 +37,12 @@
                         <p class="text-blue-200/80 mt-1">{{ __('View and manage all companies on the platform') }}</p>
                     </div>
                 </div>
-                <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/20 transition-all">
+                <x-ui.button as="a" href="{{ route('admin.dashboard') }}" variant="secondary">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                     {{ __('Back to Dashboard') }}
-                </a>
+                </x-ui.button>
             </div>
 
             <!-- Quick Stats -->
@@ -106,10 +106,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4">
         <!-- Premium Filters Card -->
         <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 mb-8 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-50 to-transparent rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary-50 rounded-full -translate-y-1/2 translate-x-1/2"></div>
             <div class="relative">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg">
+                    <div class="h-10 w-10 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                         </svg>
@@ -145,15 +145,15 @@
                         </select>
                     </div>
                     <div class="flex gap-3">
-                        <button type="submit" class="group inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold px-7 py-3.5 rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all shadow-lg shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5">
-                            <svg class="h-5 w-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <x-ui.button as="submit" variant="primary">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                             Search
-                        </button>
-                        <a href="{{ route('admin.companies.index') }}" class="inline-flex items-center gap-2 bg-slate-100 text-slate-700 font-bold px-6 py-3.5 rounded-xl hover:bg-slate-200 transition-all">
+                        </x-ui.button>
+                        <x-ui.button as="a" href="{{ route('admin.companies.index') }}" variant="secondary">
                             Clear
-                        </a>
+                        </x-ui.button>
                     </div>
                 </form>
             </div>
@@ -162,17 +162,17 @@
         <!-- Companies Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
             @forelse($companies as $index => $company)
-            <a href="{{ route('admin.companies.show', $company) }}" class="group bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 overflow-hidden hover:-translate-y-1 animate-slide-in-up" style="animation-delay: {{ $index * 0.05 }}s;">
+            <a href="{{ route('admin.companies.show', $company) }}" class="group bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-2xl hover:border-blue-200 overflow-hidden" style="animation-delay: {{ $index * 0.05 }}s;">
                 <!-- Top Accent -->
-                <div class="h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500"></div>
+                <div class="h-1 bg-primary-500"></div>
 
                 <div class="p-6">
                     <div class="flex items-start gap-4">
                         <div class="relative">
                             @if($company->logo_path)
-                            <img src="{{ asset('storage/' . $company->logo_path) }}" alt="{{ $company->company_name }}" class="h-16 w-16 rounded-2xl object-cover shadow-lg group-hover:scale-110 transition-transform ring-2 ring-slate-100">
+                            <img src="{{ asset('storage/' . $company->logo_path) }}" alt="{{ $company->company_name }}" class="h-16 w-16 rounded-2xl object-cover shadow-lg ring-2 ring-slate-100">
                             @else
-                            <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <div class="h-16 w-16 rounded-2xl bg-primary-500 flex items-center justify-center shadow-lg">
                                 <span class="text-white font-bold text-xl">{{ substr($company->company_name ?? $company->user->name, 0, 2) }}</span>
                             </div>
                             @endif
@@ -185,7 +185,7 @@
                             @endif
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600 truncate">
                                 {{ $company->company_name ?? $company->user->name }}
                             </h3>
                             <p class="text-sm text-slate-500 truncate">{{ $company->user->email }}</p>
@@ -199,15 +199,15 @@
 
                     <!-- Stats Row -->
                     <div class="mt-6 grid grid-cols-3 gap-3">
-                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-3 text-center border border-blue-100/50">
+                        <div class="bg-gray-50 rounded-xl p-3 text-center border border-blue-100/50">
                             <p class="text-xl font-black text-blue-600">{{ $company->challenges_count }}</p>
                             <p class="text-xs text-slate-500 font-medium">Challenges</p>
                         </div>
-                        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-3 text-center border border-emerald-100/50">
+                        <div class="bg-gray-50 rounded-xl p-3 text-center border border-emerald-100/50">
                             <p class="text-xl font-black text-emerald-600">{{ $company->challenges->where('status', 'active')->count() }}</p>
                             <p class="text-xs text-slate-500 font-medium">Active</p>
                         </div>
-                        <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-3 text-center border border-violet-100/50">
+                        <div class="bg-secondary-50 rounded-xl p-3 text-center border border-violet-100/50">
                             <p class="text-xl font-black text-violet-600">{{ $company->challenges->where('status', 'completed')->count() }}</p>
                             <p class="text-xs text-slate-500 font-medium">Completed</p>
                         </div>
@@ -215,14 +215,14 @@
                 </div>
 
                 <!-- Footer -->
-                <div class="px-6 py-4 bg-slate-50/50 group-hover:bg-blue-50/50 transition-colors border-t border-slate-100 flex items-center justify-between">
+                <div class="px-6 py-4 bg-slate-50/50 group-hover:bg-blue-50/50 border-t border-slate-100 flex items-center justify-between">
                     <div class="flex items-center gap-2 text-sm text-slate-500">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                         <span>{{ $company->created_at->format('M d, Y') }}</span>
                     </div>
-                    <div class="flex items-center gap-2 text-blue-600 font-semibold text-sm group-hover:translate-x-1 transition-transform">
+                    <div class="flex items-center gap-2 text-blue-600 font-semibold text-sm">
                         View Details
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -232,16 +232,16 @@
             </a>
             @empty
             <div class="col-span-full bg-white rounded-3xl shadow-sm border border-slate-100 p-16 text-center">
-                <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center mx-auto mb-6">
+                <div class="w-24 h-24 rounded-3xl bg-gray-100 flex items-center justify-center mx-auto mb-6">
                     <svg class="h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                     </svg>
                 </div>
                 <h3 class="text-2xl font-bold text-slate-900 mb-2">No Companies Found</h3>
                 <p class="text-slate-500 mb-6">Try adjusting your search filters or check back later.</p>
-                <a href="{{ route('admin.companies.index') }}" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold px-8 py-3 rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all shadow-lg">
+                <x-ui.button as="a" href="{{ route('admin.companies.index') }}" variant="primary">
                     Clear Filters
-                </a>
+                </x-ui.button>
             </div>
             @endforelse
         </div>

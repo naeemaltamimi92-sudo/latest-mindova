@@ -37,7 +37,7 @@
                 }
             "
             :rows="expanded ? 8 : 3"
-            class="w-full px-4 py-3 text-sm text-slate-900 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all resize-none"
+            class="w-full px-4 py-3 text-sm text-slate-900 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 resize-none"
             :class="saving && 'opacity-50'"
             :disabled="saving"
             placeholder="{{ __('Enter text...') }}"

@@ -26,11 +26,11 @@
             <p class="bubble-text">{{ $guidance['text'] }}</p>
         </div>
         {{-- Optional close button (subtle) --}}
-        <button type="button" class="assistant-dismiss" onclick="dismissAssistant()" aria-label="Dismiss assistant" title="Dismiss (for this session)">
+        <x-ui.button variant="ghost" size="sm" class="assistant-dismiss" onclick="dismissAssistant()" aria-label="Dismiss assistant" title="Dismiss (for this session)">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1L11 11M1 11L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-        </button>
+        </x-ui.button>
     </div>
 </div>
 

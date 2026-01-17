@@ -9,7 +9,7 @@
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    .fade-in { animation: fadeIn 0.5s forwards; }
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -88,7 +88,7 @@
         background: rgba(255, 255, 255, 0.8);
     }
     .priority-badge {
-        animation: glow 2s ease-in-out infinite alternate;
+        animation: glow 2s-out infinite alternate;
     }
     @keyframes glow {
         from { box-shadow: 0 0 5px currentColor; }
@@ -98,14 +98,14 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30" x-data="submissionsPage()">
+<div class="min-h-screen bg-gray-50" x-data="submissionsPage()">
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
 
         <!-- Premium Header -->
         <div class="mb-8 slide-up">
             <div class="bg-white rounded-3xl shadow-2xl shadow-emerald-500/10 border border-slate-200/60 overflow-hidden">
                 <!-- Hero Section -->
-                <div class="relative bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 px-8 py-8 overflow-hidden">
+                <div class="relative bg-secondary-500 px-8 py-8 overflow-hidden">
                     <!-- Background Pattern -->
                     <div class="absolute inset-0 opacity-10">
                         <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -163,32 +163,32 @@
                     @endphp
 
                     @foreach($statItems as $stat)
-                    <button
+                    <x-ui.button
                         @click="activeFilter = '{{ $stat['key'] }}'"
                         :class="activeFilter === '{{ $stat['key'] }}' ? 'bg-{{ $stat['color'] }}-50 border-b-2 border-{{ $stat['color'] }}-500' : 'hover:bg-slate-50'"
-                        class="stat-card px-4 py-5 text-center transition-all relative group"
+                        class="stat-card px-4 py-5 text-center relative group"
                     >
                         <div class="flex flex-col items-center">
-                            <div class="mb-2 p-2 rounded-xl transition-all"
+                            <div class="mb-2 p-2 rounded-xl"
                                 :class="activeFilter === '{{ $stat['key'] }}' ? 'bg-{{ $stat['color'] }}-100' : 'bg-slate-100 group-hover:bg-{{ $stat['color'] }}-100'"
                             >
-                                <svg class="w-5 h-5 transition-colors"
+                                <svg class="w-5 h-5"
                                     :class="activeFilter === '{{ $stat['key'] }}' ? 'text-{{ $stat['color'] }}-600' : 'text-slate-400 group-hover:text-{{ $stat['color'] }}-500'"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat['icon'] }}"/>
                                 </svg>
                             </div>
-                            <div class="text-2xl font-black transition-colors"
+                            <div class="text-2xl font-black"
                                 :class="activeFilter === '{{ $stat['key'] }}' ? 'text-{{ $stat['color'] }}-600' : '{{ $stat['value'] > 0 ? 'text-slate-900' : 'text-slate-300' }}'"
                             >
                                 {{ $stat['value'] }}
                             </div>
                             <div class="text-xs font-semibold text-slate-500 mt-1">{{ $stat['label'] }}</div>
                         </div>
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-{{ $stat['color'] }}-500 transition-all duration-300"
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-{{ $stat['color'] }}-500"
                             :class="activeFilter === '{{ $stat['key'] }}' ? 'w-full' : 'group-hover:w-1/2'"
                         ></div>
-                    </button>
+                    </x-ui.button>
                     @endforeach
                 </div>
             </div>
@@ -196,8 +196,8 @@
 
         <!-- Success Message -->
         @if(session('success'))
-        <div class="mb-6 slide-up" style="animation-delay: 0.1s" x-data="{ show: true }" x-show="show" x-transition>
-            <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 text-emerald-800 px-6 py-4 rounded-2xl flex items-center justify-between shadow-lg shadow-emerald-500/10">
+        <div class="mb-6 slide-up" style="animation-delay: 0.1s" x-data="{ show: true }" x-show="show">
+            <div class="bg-gray-50 border border-emerald-200 text-emerald-800 px-6 py-4 rounded-2xl flex items-center justify-between shadow-lg shadow-emerald-500/10">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -206,11 +206,11 @@
                     </div>
                     <span class="font-semibold">{{ session('success') }}</span>
                 </div>
-                <button @click="show = false" class="text-emerald-500 hover:text-emerald-700">
+                <x-ui.button @click="show = false" variant="ghost" size="sm" class="text-emerald-500 hover:text-emerald-700">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
-                </button>
+                </x-ui.button>
             </div>
         </div>
         @endif
@@ -222,8 +222,8 @@
                 $statusConfig = [
                     'submitted' => [
                         'bg' => 'amber',
-                        'gradient' => 'from-amber-500 via-orange-500 to-amber-600',
-                        'lightGradient' => 'from-amber-50 to-orange-50',
+                        'gradient' => 'bg-secondary-300',
+                        'lightGradient' => 'bg-secondary-50',
                         'text' => 'amber-700',
                         'label' => 'Pending Review',
                         'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
@@ -231,8 +231,8 @@
                     ],
                     'under_review' => [
                         'bg' => 'blue',
-                        'gradient' => 'from-blue-500 via-indigo-500 to-blue-600',
-                        'lightGradient' => 'from-blue-50 to-indigo-50',
+                        'gradient' => 'bg-primary-500',
+                        'lightGradient' => 'bg-primary-50',
                         'text' => 'blue-700',
                         'label' => 'Under Review',
                         'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z',
@@ -240,8 +240,8 @@
                     ],
                     'approved' => [
                         'bg' => 'emerald',
-                        'gradient' => 'from-emerald-500 via-teal-500 to-emerald-600',
-                        'lightGradient' => 'from-emerald-50 to-teal-50',
+                        'gradient' => 'bg-secondary-500',
+                        'lightGradient' => 'bg-secondary-50',
                         'text' => 'emerald-700',
                         'label' => 'Approved',
                         'icon' => 'M5 13l4 4L19 7',
@@ -249,8 +249,8 @@
                     ],
                     'revision_requested' => [
                         'bg' => 'orange',
-                        'gradient' => 'from-orange-500 via-amber-500 to-orange-600',
-                        'lightGradient' => 'from-orange-50 to-amber-50',
+                        'gradient' => 'bg-secondary-400',
+                        'lightGradient' => 'bg-secondary-50',
                         'text' => 'orange-700',
                         'label' => 'Revision Requested',
                         'icon' => 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
@@ -258,8 +258,8 @@
                     ],
                     'rejected' => [
                         'bg' => 'red',
-                        'gradient' => 'from-red-500 via-rose-500 to-red-600',
-                        'lightGradient' => 'from-red-50 to-rose-50',
+                        'gradient' => 'bg-secondary-700',
+                        'lightGradient' => 'bg-secondary-50',
                         'text' => 'red-700',
                         'label' => 'Rejected',
                         'icon' => 'M6 18L18 6M6 6l12 12',
@@ -271,14 +271,14 @@
 
             <div
                 x-show="activeFilter === 'all' || activeFilter === '{{ $submission->status }}'"
-                x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 transform translate-y-4"
-                x-transition:enter-end="opacity-100 transform translate-y-0"
+                
+                
+                
                 class="submission-card bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden slide-up group"
                 style="animation-delay: {{ 0.15 + ($index * 0.05) }}s"
             >
                 <!-- Status Bar -->
-                <div class="h-1.5 bg-gradient-to-r {{ $config['gradient'] }}"></div>
+                <div class="h-1.5 {{ $config['gradient'] }}"></div>
 
                 <div class="p-6 lg:p-8">
                     <div class="flex flex-col xl:flex-row xl:items-start gap-6">
@@ -288,7 +288,7 @@
                             <div class="flex flex-wrap items-start gap-3 mb-4">
                                 <div class="flex-1 min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 mb-2">
-                                        <h3 class="text-xl font-bold text-slate-900 truncate group-hover:text-indigo-600 transition-colors">
+                                        <h3 class="text-xl font-bold text-slate-900 truncate group-hover:text-indigo-600">
                                             {{ $submission->task->title ?? 'Task' }}
                                         </h3>
                                         <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-{{ $config['bg'] }}-100 text-{{ $config['text'] }} rounded-full text-xs font-bold {{ $config['priority'] ? 'priority-badge' : '' }}">
@@ -319,7 +319,7 @@
                             <div class="flex flex-wrap items-center gap-4 mb-5">
                                 <!-- Volunteer Badge -->
                                 <div class="flex items-center gap-3 bg-slate-50 rounded-xl px-4 py-2.5">
-                                    <div class="volunteer-avatar w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-indigo-500/30">
+                                    <div class="volunteer-avatar w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-indigo-500/30">
                                         {{ strtoupper(substr($submission->volunteer->user->name ?? 'V', 0, 1)) }}
                                     </div>
                                     <div>
@@ -346,7 +346,7 @@
                             </div>
 
                             <!-- Description Preview -->
-                            <div class="bg-gradient-to-r {{ $config['lightGradient'] }} rounded-2xl p-5 mb-5 border border-{{ $config['bg'] }}-100">
+                            <div class="{{ $config['lightGradient'] }} rounded-2xl p-5 mb-5 border border-{{ $config['bg'] }}-100">
                                 <div class="flex items-start gap-3">
                                     <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
                                         <svg class="w-4 h-4 text-{{ $config['text'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -365,7 +365,7 @@
                             <div class="flex flex-wrap items-center gap-3">
                                 @if($submission->deliverable_url)
                                 <a href="{{ $submission->deliverable_url }}" target="_blank"
-                                    class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-sm font-semibold transition-all hover:scale-105">
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-sm font-semibold">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                     </svg>
@@ -427,17 +427,16 @@
                             @endif
 
                             <!-- Review Button -->
-                            <a href="{{ route('company.submissions.show', $submission->id) }}"
-                                class="group/btn relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 hover:scale-105">
+                            <x-ui.button as="a" href="{{ route('company.submissions.show', $submission->id) }}" variant="primary" class="group/btn shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                 </svg>
                                 <span>Review</span>
-                                <svg class="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
-                            </a>
+                            </x-ui.button>
                         </div>
                     </div>
 
@@ -468,20 +467,19 @@
             <!-- Empty State -->
             <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-12 text-center slide-up" style="animation-delay: 0.2s">
                 <div class="max-w-md mx-auto">
-                    <div class="w-24 h-24 bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                    <div class="w-24 h-24 bg-gray-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
                         <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-slate-900 mb-2">No Submissions Yet</h3>
                     <p class="text-slate-500 mb-6">Work submissions from volunteers will appear here once they submit their deliverables for your challenges.</p>
-                    <a href="{{ route('challenges.index') }}"
-                        class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+                    <x-ui.button as="a" href="{{ route('challenges.index') }}" variant="primary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                         </svg>
                         View Your Challenges
-                    </a>
+                    </x-ui.button>
                 </div>
             </div>
             @endforelse

@@ -66,7 +66,7 @@
                 });
             }
         "
-        class="w-28 px-3 py-2 text-sm font-mono text-slate-900 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+        class="w-28 px-3 py-2 text-sm font-mono text-slate-900 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
         :class="saving && 'opacity-50'"
         :disabled="saving"
         placeholder="#000000"

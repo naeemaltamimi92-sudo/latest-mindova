@@ -10,11 +10,11 @@
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800" rel="stylesheet" />
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+<body class="min-h-screen bg-primary-500 flex items-center justify-center p-4">
     <div class="w-full max-w-md">
         <!-- Logo -->
         <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-4">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl mb-4">
                 <span class="text-2xl font-bold text-white">M</span>
             </div>
             <h1 class="text-2xl font-bold text-white">Mindova Admin</h1>
@@ -46,7 +46,7 @@
                 <div>
                     <label for="current_password" class="block text-sm font-medium text-slate-700 mb-1.5">{{ __('Current Password') }}</label>
                     <input type="password" id="current_password" name="current_password" required
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors @error('current_password') border-red-500 @enderror"
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('current_password') border-red-500 @enderror"
                         placeholder="{{ __('Enter current password') }}">
                     @error('current_password')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -57,7 +57,7 @@
                 <div>
                     <label for="password" class="block text-sm font-medium text-slate-700 mb-1.5">{{ __('New Password') }}</label>
                     <input type="password" id="password" name="password" required
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors @error('password') border-red-500 @enderror"
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-500 @enderror"
                         placeholder="{{ __('Enter new password') }}">
                     @error('password')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -68,13 +68,13 @@
                 <div>
                     <label for="password_confirmation" class="block text-sm font-medium text-slate-700 mb-1.5">{{ __('Confirm Password') }}</label>
                     <input type="password" id="password_confirmation" name="password_confirmation" required
-                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="{{ __('Confirm new password') }}">
                 </div>
 
-                <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 focus:ring-4 focus:ring-blue-500/50 transition-all">
+                <x-ui.button as="submit" variant="primary" fullWidth>
                     {{ __('Change Password') }}
-                </button>
+                </x-ui.button>
             </form>
         </div>
 

@@ -3,20 +3,20 @@
 @section('title', ($company->company_name ?? $company->user->name) . ' - Company Details')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
+<div class="min-h-screen bg-gray-50">
     <!-- Premium Header -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 py-12 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+    <div class="relative overflow-hidden bg-primary-500 py-12 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-cyan-500/20 via-transparent to-transparent"></div>
-            <div class="floating-element absolute top-10 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
-            <div class="floating-element absolute bottom-10 right-10 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute top-0 left-0 w-full h-full "></div>
+            <div class="absolute bottom-0 right-0 w-full h-full "></div>
+            <div class="floating-element absolute top-10 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div class="floating-element absolute bottom-10 right-10 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"></div>
         </div>
 
         <div class="relative max-w-7xl mx-auto px-6 sm:px-8">
             <!-- Breadcrumb -->
-            <a href="{{ route('admin.companies.index') }}" class="inline-flex items-center gap-2 text-white/70 hover:text-white font-medium mb-6 transition-colors">
+            <a href="{{ route('admin.companies.index') }}" class="inline-flex items-center gap-2 text-white/70 hover:text-white font-medium mb-6">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
@@ -26,11 +26,11 @@
             <div class="flex flex-col lg:flex-row lg:items-center gap-8">
                 <!-- Company Logo -->
                 <div class="relative group">
-                    <div class="absolute -inset-2 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 rounded-3xl blur opacity-40 group-hover:opacity-60 transition duration-500"></div>
+                    <div class="absolute -inset-2 bg-primary-400 rounded-3xl blur opacity-40 group-hover:opacity-60duration-500"></div>
                     @if($company->logo_path)
                     <img src="{{ asset('storage/' . $company->logo_path) }}" alt="{{ $company->company_name }}" class="relative h-28 w-28 lg:h-32 lg:w-32 rounded-2xl object-cover shadow-2xl ring-4 ring-white/20">
                     @else
-                    <div class="relative h-28 w-28 lg:h-32 lg:w-32 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-2xl ring-4 ring-white/20">
+                    <div class="relative h-28 w-28 lg:h-32 lg:w-32 rounded-2xl bg-primary-500 flex items-center justify-center shadow-2xl ring-4 ring-white/20">
                         <span class="text-white font-black text-4xl">{{ substr($company->company_name ?? $company->user->name, 0, 2) }}</span>
                     </div>
                     @endif
@@ -73,19 +73,19 @@
 
                 <!-- Quick Actions -->
                 <div class="flex flex-col gap-3">
-                    <a href="{{ route('companies.show', $company->id) }}" target="_blank" class="inline-flex items-center justify-center gap-2 bg-white text-blue-600 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-all shadow-lg">
+                    <x-ui.button as="a" href="{{ route('companies.show', $company->id) }}" target="_blank" variant="primary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                         </svg>
                         View Public Profile
-                    </a>
+                    </x-ui.button>
                     @if($company->user->email)
-                    <a href="mailto:{{ $company->user->email }}" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/20 transition-all">
+                    <x-ui.button as="a" href="mailto:{{ $company->user->email }}" variant="secondary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
                         Contact
-                    </a>
+                    </x-ui.button>
                     @endif
                 </div>
             </div>
@@ -95,9 +95,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Stats Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 -mt-4 relative z-10">
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl group">
                 <div class="flex items-center gap-4">
-                    <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <div class="h-14 w-14 rounded-2xl bg-primary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                         </svg>
@@ -109,9 +109,9 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl group">
                 <div class="flex items-center gap-4">
-                    <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <div class="h-14 w-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
@@ -123,9 +123,9 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl group">
                 <div class="flex items-center gap-4">
-                    <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <div class="h-14 w-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -137,9 +137,9 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl group">
                 <div class="flex items-center gap-4">
-                    <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <div class="h-14 w-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                         </svg>
@@ -156,7 +156,7 @@
             <!-- Company Information Card -->
             <div class="lg:col-span-1 space-y-6">
                 <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
-                    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-5">
+                    <div class="bg-primary-500 px-6 py-5">
                         <h2 class="text-lg font-bold text-white flex items-center gap-3">
                             <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
                                 <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,7 +177,7 @@
                         </div>
                         <div class="group">
                             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Email Address</p>
-                            <a href="mailto:{{ $company->user->email }}" class="text-base font-semibold text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-2">
+                            <a href="mailto:{{ $company->user->email }}" class="text-base font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-2">
                                 {{ $company->user->email }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
@@ -187,7 +187,7 @@
                         @if($company->website)
                         <div class="group">
                             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Website</p>
-                            <a href="{{ $company->website }}" target="_blank" class="text-base font-semibold text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-2">
+                            <a href="{{ $company->website }}" target="_blank" class="text-base font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-2">
                                 {{ $company->website }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
@@ -211,7 +211,7 @@
                 </div>
 
                 <!-- Member Info Card -->
-                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white shadow-xl">
+                <div class="bg-primary-500 rounded-2xl p-6 text-white shadow-xl">
                     <div class="flex items-center gap-4 mb-4">
                         <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,28 +232,28 @@
 
                 <!-- Quick Links Card -->
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
-                    <div class="px-6 py-4 bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-100">
+                    <div class="px-6 py-4 bg-gray-50 border-b border-slate-100">
                         <h3 class="font-bold text-slate-900">Quick Links</h3>
                     </div>
                     <div class="p-4 space-y-2">
-                        <a href="{{ route('admin.companies.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors group">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                        <a href="{{ route('admin.companies.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 group">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200">
                                 <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                 </svg>
                             </div>
                             <span class="font-medium text-slate-700 group-hover:text-slate-900">All Companies</span>
                         </a>
-                        <a href="{{ route('admin.challenges.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors group">
-                            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
+                        <a href="{{ route('admin.challenges.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 group">
+                            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200">
                                 <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                 </svg>
                             </div>
                             <span class="font-medium text-slate-700 group-hover:text-slate-900">All Challenges</span>
                         </a>
-                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors group">
-                            <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 group">
+                            <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200">
                                 <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                                 </svg>
@@ -267,7 +267,7 @@
             <!-- Challenges List -->
             <div class="lg:col-span-2">
                 <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
-                    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-5 flex items-center justify-between">
+                    <div class="bg-primary-500 px-6 py-5 flex items-center justify-between">
                         <h2 class="text-lg font-bold text-white flex items-center gap-3">
                             <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
                                 <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -283,7 +283,7 @@
 
                     <div class="divide-y divide-slate-100">
                         @forelse($company->challenges as $index => $challenge)
-                        <a href="{{ route('admin.challenges.show', $challenge) }}" class="block p-6 hover:bg-slate-50 transition-all group animate-slide-in-up" style="animation-delay: {{ $index * 0.05 }}s;">
+                        <a href="{{ route('admin.challenges.show', $challenge) }}" class="block p-6 hover:bg-slate-50 group" style="animation-delay: {{ $index * 0.05 }}s;">
                             <div class="flex items-start justify-between gap-6">
                                 <div class="flex-1 min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 mb-3">
@@ -294,7 +294,7 @@
                                             @elseif($challenge->status === 'analyzing') bg-violet-100 text-violet-700 border border-violet-200
                                             @else bg-slate-100 text-slate-700 border border-slate-200 @endif">
                                             @if($challenge->status === 'active')
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                             @endif
                                             {{ ucfirst($challenge->status) }}
                                         </span>
@@ -309,7 +309,7 @@
                                         @endif
                                     </div>
 
-                                    <h3 class="font-bold text-lg text-slate-900 group-hover:text-indigo-600 transition-colors mb-2">
+                                    <h3 class="font-bold text-lg text-slate-900 group-hover:text-indigo-600 mb-2">
                                         {{ $challenge->title }}
                                     </h3>
 
@@ -336,7 +336,7 @@
                                 </div>
 
                                 <div class="flex flex-col items-end gap-3">
-                                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 px-4 py-3 rounded-xl border border-slate-200 text-center min-w-[80px]">
+                                    <div class="bg-gray-50 px-4 py-3 rounded-xl border border-slate-200 text-center min-w-[80px]">
                                         <div class="flex items-center justify-center gap-2">
                                             <svg class="h-4 w-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
@@ -346,7 +346,7 @@
                                         <p class="text-xs text-slate-500 mt-0.5">Tasks</p>
                                     </div>
 
-                                    <div class="flex items-center gap-2 text-indigo-600 font-semibold text-sm group-hover:translate-x-1 transition-transform">
+                                    <div class="flex items-center gap-2 text-indigo-600 font-semibold text-sm">
                                         View
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -357,7 +357,7 @@
                         </a>
                         @empty
                         <div class="p-16 text-center">
-                            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center mx-auto mb-6">
+                            <div class="w-20 h-20 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-6">
                                 <svg class="h-10 w-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                 </svg>

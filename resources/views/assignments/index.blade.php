@@ -20,11 +20,6 @@
         100% { background-position: 200% 0; }
     }
 
-    @keyframes gradient-shift {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-    }
-
     @keyframes slide-up {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
@@ -37,26 +32,15 @@
         100% { opacity: 1; transform: scale(1); }
     }
 
-    @keyframes count-up {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
     @keyframes glow {
         0%, 100% { box-shadow: 0 0 5px rgba(99, 102, 241, 0.3); }
         50% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.6), 0 0 30px rgba(99, 102, 241, 0.4); }
     }
 
-    .animate-float { animation: float 6s ease-in-out infinite; }
-    .animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
-    .animate-bounce-in { animation: bounce-in 0.6s ease-out forwards; }
-    .animate-count-up { animation: count-up 0.5s ease-out forwards; }
-    .animate-glow { animation: glow 2s ease-in-out infinite; }
-
-    .gradient-animate {
-        background-size: 200% 200%;
-        animation: gradient-shift 4s ease infinite;
-    }
+    .animate-float { animation: float 6s-out infinite; }
+    .animate-slide-up { animation: slide-up 0.6s forwards; }
+    .animate-bounce-in { animation: bounce-in 0.6s forwards; }
+    .animate-glow { animation: glow 2s-out infinite; }
 
     .shimmer-effect {
         background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
@@ -199,7 +183,7 @@
 
     /* Empty State */
     .empty-state-illustration {
-        animation: float 4s ease-in-out infinite;
+        animation: float 4s-out infinite;
     }
 
     /* Progress Bar */
@@ -221,13 +205,13 @@
 
     /* Deadline Warning */
     .deadline-urgent {
-        animation: glow 1s ease-in-out infinite;
+        animation: glow 1s-out infinite;
     }
 </style>
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/20 to-violet-50/30">
+<div class="min-h-screen bg-gray-50">
 
     @php
     $assignments = \App\Models\TaskAssignment::where('volunteer_id', auth()->user()->volunteer?->id)
@@ -245,94 +229,21 @@
     $totalTasks = array_sum($counts);
     @endphp
 
-    <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 py-12 mb-10 mx-4 sm:mx-8 lg:mx-auto lg:max-w-7xl rounded-[2.5rem] shadow-2xl gradient-animate">
-        <!-- Animated Background Elements -->
-        <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-float"></div>
-            <div class="absolute top-10 right-10 w-96 h-96 bg-cyan-300/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-            <div class="absolute -bottom-32 left-1/2 w-72 h-72 bg-pink-300/10 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
-
-            <!-- Decorative Pattern -->
-            <div class="absolute inset-0 opacity-5">
-                <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="task-pattern" width="60" height="60" patternUnits="userSpaceOnUse">
-                            <path d="M30 5 L50 15 L50 35 L30 45 L10 35 L10 15 Z" fill="none" stroke="white" stroke-width="1"/>
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#task-pattern)" />
-                </svg>
-            </div>
-        </div>
-
-        <div class="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                <!-- Left Content -->
-                <div class="animate-slide-up">
-                    <!-- Status Badge -->
-                    <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-xl border border-white/30 rounded-full px-6 py-2.5 mb-6 shadow-xl">
-                        <div class="relative">
-                            <div class="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
-                            <div class="absolute inset-0 w-3 h-3 bg-emerald-400 rounded-full animate-ping"></div>
-                        </div>
-                        <span class="text-sm font-bold text-white tracking-wide">{{ __('Task Management Center') }}</span>
-                    </div>
-
-                    <!-- Main Title -->
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight">
-                        {{ __('My') }}
-                        <span class="relative inline-block">
-                            <span class="bg-gradient-to-r from-yellow-200 via-pink-200 to-yellow-200 bg-clip-text text-transparent">{{ __('Tasks') }}</span>
-                            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 120 12" fill="none">
-                                <path d="M2 10C30 2 90 2 118 10" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
-                            </svg>
-                        </span>
-                    </h1>
-
-                    <p class="text-lg md:text-xl text-white/90 font-medium max-w-xl leading-relaxed">
-                        {{ __('Track your invitations, manage work in progress, and celebrate your completed contributions.') }}
-                    </p>
-                </div>
-
-                <!-- Right Content - Quick Stats -->
-                <div class="grid grid-cols-2 gap-4 animate-slide-up" style="animation-delay: 0.2s;">
-                    <div class="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-5 text-center">
-                        <div class="text-4xl font-black text-white mb-1 animate-count-up">{{ $totalTasks }}</div>
-                        <div class="text-sm text-white/80 font-medium">{{ __('Total Tasks') }}</div>
-                    </div>
-                    <div class="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-5 text-center">
-                        <div class="text-4xl font-black text-emerald-300 mb-1 animate-count-up" style="animation-delay: 0.1s;">{{ $counts['completed'] }}</div>
-                        <div class="text-sm text-white/80 font-medium">{{ __('Completed') }}</div>
-                    </div>
-                    <div class="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-5 text-center">
-                        <div class="text-4xl font-black text-amber-300 mb-1 animate-count-up" style="animation-delay: 0.2s;">{{ $counts['invited'] }}</div>
-                        <div class="text-sm text-white/80 font-medium">{{ __('Pending') }}</div>
-                    </div>
-                    <div class="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-5 text-center">
-                        <div class="text-4xl font-black text-purple-300 mb-1 animate-count-up" style="animation-delay: 0.3s;">{{ $counts['in_progress'] }}</div>
-                        <div class="text-sm text-white/80 font-medium">{{ __('In Progress') }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
 
         <!-- Premium Stats Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10 animate-slide-up" style="animation-delay: 0.3s;">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
             <!-- Invitations -->
             <div class="stat-card bg-white rounded-2xl p-5 shadow-lg shadow-amber-500/5 border-2 border-amber-100 hover:border-amber-300" onclick="switchTab('invited')">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
+                    <div class="stat-icon w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
                     </div>
                     @if($counts['invited'] > 0)
-                    <span class="px-2.5 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold animate-pulse">{{ __('New') }}</span>
+                    <span class="px-2.5 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold">{{ __('New') }}</span>
                     @endif
                 </div>
                 <div class="text-3xl font-black {{ $counts['invited'] > 0 ? 'text-amber-600' : 'text-slate-300' }}">{{ $counts['invited'] }}</div>
@@ -342,7 +253,7 @@
             <!-- Accepted -->
             <div class="stat-card bg-white rounded-2xl p-5 shadow-lg shadow-blue-500/5 border-2 border-blue-100 hover:border-blue-300" onclick="switchTab('accepted')">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center">
+                    <div class="stat-icon w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -355,8 +266,8 @@
             <!-- In Progress -->
             <div class="stat-card bg-white rounded-2xl p-5 shadow-lg shadow-purple-500/5 border-2 border-purple-100 hover:border-purple-300" onclick="switchTab('in_progress')">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-600 animate-spin" style="animation-duration: 3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="stat-icon w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-purple-600" style="animation-duration: 3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
                     </div>
@@ -371,7 +282,7 @@
             <!-- Completed -->
             <div class="stat-card bg-white rounded-2xl p-5 shadow-lg shadow-emerald-500/5 border-2 border-emerald-100 hover:border-emerald-300" onclick="switchTab('completed')">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl flex items-center justify-center">
+                    <div class="stat-icon w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
@@ -384,7 +295,7 @@
             <!-- Declined -->
             <div class="stat-card bg-white rounded-2xl p-5 shadow-lg shadow-red-500/5 border-2 border-red-100 hover:border-red-300" onclick="switchTab('declined')">
                 <div class="flex items-center justify-between mb-3">
-                    <div class="stat-icon w-12 h-12 bg-gradient-to-br from-red-100 to-rose-100 rounded-xl flex items-center justify-center">
+                    <div class="stat-icon w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -396,13 +307,13 @@
         </div>
 
         <!-- Tabs Section -->
-        <div x-data="{ activeTab: '{{ $counts['invited'] > 0 ? 'invited' : ($counts['in_progress'] > 0 ? 'in_progress' : 'invited') }}' }" class="animate-slide-up" style="animation-delay: 0.4s;">
+        <div x-data="{ activeTab: '{{ $counts['invited'] > 0 ? 'invited' : ($counts['in_progress'] > 0 ? 'in_progress' : 'invited') }}' }" class="animate-slide-up">
             <!-- Premium Tab Navigation -->
             <div class="bg-white rounded-[1.5rem] shadow-xl border border-slate-200/60 p-3 mb-8">
                 <nav class="flex flex-wrap gap-2">
                     <button @click="activeTab = 'invited'" id="tab-invited"
-                        :class="activeTab === 'invited' ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30' : 'text-slate-600 hover:bg-amber-50'"
-                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300">
+                        :class="activeTab === 'invited' ? 'bg-secondary-300 text-slate-900 shadow-lg shadow-amber-500/30' : 'text-slate-600 hover:bg-amber-50'"
+                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm">
                         <span class="flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -414,8 +325,8 @@
                         </span>
                     </button>
                     <button @click="activeTab = 'accepted'" id="tab-accepted"
-                        :class="activeTab === 'accepted' ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg shadow-blue-500/30' : 'text-slate-600 hover:bg-blue-50'"
-                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300">
+                        :class="activeTab === 'accepted' ? 'bg-primary-500 text-white shadow-lg shadow-blue-500/30' : 'text-slate-600 hover:bg-blue-50'"
+                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm">
                         <span class="flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -427,8 +338,8 @@
                         </span>
                     </button>
                     <button @click="activeTab = 'in_progress'" id="tab-in_progress"
-                        :class="activeTab === 'in_progress' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/30' : 'text-slate-600 hover:bg-purple-50'"
-                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300">
+                        :class="activeTab === 'in_progress' ? 'bg-white text-primary-500 border border-primary-200 shadow-lg shadow-purple-500/30' : 'text-slate-600 hover:bg-purple-50'"
+                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm">
                         <span class="flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -440,8 +351,8 @@
                         </span>
                     </button>
                     <button @click="activeTab = 'completed'" id="tab-completed"
-                        :class="activeTab === 'completed' ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/30' : 'text-slate-600 hover:bg-emerald-50'"
-                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300">
+                        :class="activeTab === 'completed' ? 'bg-white text-primary-500 border border-primary-200 shadow-lg shadow-emerald-500/30' : 'text-slate-600 hover:bg-emerald-50'"
+                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm">
                         <span class="flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -453,8 +364,8 @@
                         </span>
                     </button>
                     <button @click="activeTab = 'declined'" id="tab-declined"
-                        :class="activeTab === 'declined' ? 'bg-gradient-to-r from-red-500 to-rose-500 text-white shadow-lg shadow-red-500/30' : 'text-slate-600 hover:bg-red-50'"
-                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300">
+                        :class="activeTab === 'declined' ? 'bg-white text-primary-500 border border-primary-200 shadow-lg shadow-red-500/30' : 'text-slate-600 hover:bg-red-50'"
+                        class="premium-tab flex-1 sm:flex-none whitespace-nowrap px-6 py-3.5 rounded-xl font-bold text-sm">
                         <span class="flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -469,18 +380,18 @@
             </div>
 
             <!-- INVITED TAB -->
-            <div x-show="activeTab === 'invited'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
+            <div x-show="activeTab === 'invited'"    class="space-y-6">
                 @forelse($assignments->get('invited', collect()) as $index => $assignment)
-                <div class="task-card-premium invited bg-white rounded-[1.5rem] shadow-xl border-2 border-amber-100 animate-slide-up" style="animation-delay: {{ 0.1 * $index }}s; --card-gradient: var(--gradient-invited);">
+                <div class="task-card-premium invited bg-white rounded-[1.5rem] shadow-xl border-2 border-amber-100" style="animation-delay: {{ 0.1 * $index }}s; --card-gradient: var(--gradient-invited);">
                     <!-- Top Accent Bar -->
-                    <div class="h-1.5 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400"></div>
+                    <div class="h-1.5 bg-secondary-300"></div>
 
                     <div class="p-8">
                         <!-- Header Row -->
                         <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-6">
                             <div class="flex-1">
                                 <div class="flex flex-wrap items-center gap-3 mb-3">
-                                    <span class="px-4 py-1.5 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-700 rounded-full text-xs font-black uppercase tracking-wider border border-amber-200">
+                                    <span class="px-4 py-1.5 bg-gray-100 text-amber-700 rounded-full text-xs font-black uppercase tracking-wider border border-amber-200">
                                         {{ __('New Invitation') }}
                                     </span>
                                     @if($assignment->task->deadline && $assignment->task->deadline->isPast())
@@ -525,7 +436,7 @@
                         <!-- Details Grid -->
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                             <!-- Task Description -->
-                            <div class="lg:col-span-2 bg-gradient-to-br from-slate-50 to-slate-100/50 rounded-2xl p-6 border border-slate-200">
+                            <div class="lg:col-span-2 bg-gray-50 rounded-2xl p-6 border border-slate-200">
                                 <h4 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
                                     <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -577,7 +488,7 @@
                             </h4>
                             <div class="flex flex-wrap gap-2">
                                 @foreach($assignment->task->required_skills as $skill)
-                                <span class="skill-pill px-4 py-2 bg-gradient-to-r from-indigo-50 to-violet-50 text-indigo-700 border-2 border-indigo-200 rounded-xl text-sm font-semibold">
+                                <span class="skill-pill px-4 py-2 bg-gray-50 text-indigo-700 border-2 border-indigo-200 rounded-xl text-sm font-semibold">
                                     {{ $skill }}
                                 </span>
                                 @endforeach
@@ -588,7 +499,7 @@
                         <!-- Match Reasoning -->
                         @php $reasoning = json_decode($assignment->match_reasoning, true); @endphp
                         @if($reasoning)
-                        <div class="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 rounded-2xl p-6 mb-6 border-2 border-emerald-200">
+                        <div class="bg-gray-50 rounded-2xl p-6 mb-6 border-2 border-emerald-200">
                             <h4 class="font-bold text-emerald-800 mb-4 flex items-center gap-2">
                                 <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
                                     <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -637,7 +548,7 @@
 
                         <!-- Action Bar -->
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t-2 border-slate-100">
-                            <a href="{{ route('tasks.show', $assignment->task->id) }}" class="text-indigo-600 hover:text-indigo-700 font-bold flex items-center gap-2 transition-colors">
+                            <a href="{{ route('tasks.show', $assignment->task->id) }}" class="text-indigo-600 hover:text-indigo-700 font-bold flex items-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -647,18 +558,18 @@
                             <div class="flex gap-3">
                                 <form action="{{ route('assignments.decline', $assignment->id) }}" method="POST" class="inline">
                                     @csrf
-                                    <button type="submit" class="btn-action px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all" onclick="return confirm('{{ __('Are you sure you want to decline this invitation?') }}')">
+                                    <x-ui.button as="submit" variant="ghost" onclick="return confirm('{{ __('Are you sure you want to decline this invitation?') }}')">
                                         {{ __('Decline') }}
-                                    </button>
+                                    </x-ui.button>
                                 </form>
                                 <form action="{{ route('assignments.accept', $assignment->id) }}" method="POST" class="inline">
                                     @csrf
-                                    <button type="submit" class="btn-action px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition-all flex items-center gap-2">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <x-ui.button as="submit" variant="secondary">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                                         </svg>
                                         {{ __('Accept Invitation') }}
-                                    </button>
+                                    </x-ui.button>
                                 </form>
                             </div>
                         </div>
@@ -667,7 +578,7 @@
                 @empty
                 <!-- Empty State -->
                 <div class="bg-white rounded-[2rem] shadow-xl border-2 border-dashed border-amber-200 p-16 text-center">
-                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gradient-to-br from-amber-100 to-orange-100 rounded-3xl flex items-center justify-center mb-6">
+                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gray-100 rounded-3xl flex items-center justify-center mb-6">
                         <svg class="w-16 h-16 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
@@ -679,10 +590,10 @@
             </div>
 
             <!-- ACCEPTED TAB -->
-            <div x-show="activeTab === 'accepted'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
+            <div x-show="activeTab === 'accepted'"    class="space-y-6">
                 @forelse($assignments->get('accepted', collect()) as $assignment)
                 <div class="task-card-premium accepted bg-white rounded-[1.5rem] shadow-xl border-2 border-blue-100" style="--card-gradient: var(--gradient-accepted);">
-                    <div class="h-1.5 bg-gradient-to-r from-blue-400 via-indigo-500 to-blue-400"></div>
+                    <div class="h-1.5 bg-primary-500"></div>
                     <div class="p-8">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             <div class="flex-1">
@@ -704,19 +615,19 @@
                                     </span>
                                 </div>
                             </div>
-                            <a href="{{ route('tasks.show', $assignment->task->id) }}" class="btn-action inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 transition-all">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <x-ui.button as="a" href="{{ route('tasks.show', $assignment->task->id) }}" variant="primary" size="lg">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                                 {{ __('Start Working') }}
-                            </a>
+                            </x-ui.button>
                         </div>
                     </div>
                 </div>
                 @empty
                 <div class="bg-white rounded-[2rem] shadow-xl border-2 border-dashed border-blue-200 p-16 text-center">
-                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mb-6">
+                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gray-100 rounded-3xl flex items-center justify-center mb-6">
                         <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -728,16 +639,16 @@
             </div>
 
             <!-- IN PROGRESS TAB -->
-            <div x-show="activeTab === 'in_progress'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
+            <div x-show="activeTab === 'in_progress'"    class="space-y-6">
                 @forelse($assignments->get('in_progress', collect()) as $assignment)
                 <div class="task-card-premium in_progress bg-white rounded-[1.5rem] shadow-xl border-2 border-purple-100" style="--card-gradient: var(--gradient-in-progress);">
-                    <div class="h-1.5 bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400"></div>
+                    <div class="h-1.5 bg-secondary-500"></div>
                     <div class="p-8">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             <div class="flex-1">
                                 <div class="flex items-center gap-3 mb-3">
                                     <span class="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-xs font-black uppercase tracking-wider">
-                                        <span class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
+                                        <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
                                         {{ __('In Progress') }}
                                     </span>
                                     @if($assignment->task->deadline)
@@ -772,18 +683,18 @@
                                     @endif
                                 </div>
                             </div>
-                            <a href="{{ route('tasks.show', $assignment->task->id) }}" class="btn-action inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-xl shadow-lg shadow-purple-500/30 transition-all">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <x-ui.button as="a" href="{{ route('tasks.show', $assignment->task->id) }}" variant="secondary" size="lg">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                                 </svg>
                                 {{ __('Continue') }}
-                            </a>
+                            </x-ui.button>
                         </div>
                     </div>
                 </div>
                 @empty
                 <div class="bg-white rounded-[2rem] shadow-xl border-2 border-dashed border-purple-200 p-16 text-center">
-                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl flex items-center justify-center mb-6">
+                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gray-100 rounded-3xl flex items-center justify-center mb-6">
                         <svg class="w-16 h-16 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
@@ -795,10 +706,10 @@
             </div>
 
             <!-- COMPLETED TAB -->
-            <div x-show="activeTab === 'completed'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
+            <div x-show="activeTab === 'completed'"    class="space-y-6">
                 @forelse($assignments->get('completed', collect()) as $assignment)
                 <div class="task-card-premium completed bg-white rounded-[1.5rem] shadow-xl border-2 border-emerald-100" style="--card-gradient: var(--gradient-completed);">
-                    <div class="h-1.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-400"></div>
+                    <div class="h-1.5 bg-secondary-500"></div>
                     <div class="p-8">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             <div class="flex-1">
@@ -822,19 +733,19 @@
                                     @endif
                                 </div>
                             </div>
-                            <a href="{{ route('tasks.show', $assignment->task->id) }}" class="btn-action inline-flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <x-ui.button as="a" href="{{ route('tasks.show', $assignment->task->id) }}" variant="ghost">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                 </svg>
                                 {{ __('View Details') }}
-                            </a>
+                            </x-ui.button>
                         </div>
                     </div>
                 </div>
                 @empty
                 <div class="bg-white rounded-[2rem] shadow-xl border-2 border-dashed border-emerald-200 p-16 text-center">
-                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gradient-to-br from-emerald-100 to-teal-100 rounded-3xl flex items-center justify-center mb-6">
+                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gray-100 rounded-3xl flex items-center justify-center mb-6">
                         <svg class="w-16 h-16 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>
                         </svg>
@@ -846,10 +757,10 @@
             </div>
 
             <!-- DECLINED TAB -->
-            <div x-show="activeTab === 'declined'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" class="space-y-6">
+            <div x-show="activeTab === 'declined'"    class="space-y-6">
                 @forelse($assignments->get('declined', collect()) as $assignment)
                 <div class="task-card-premium declined bg-white rounded-[1.5rem] shadow-sm border border-red-100 opacity-75" style="--card-gradient: var(--gradient-declined);">
-                    <div class="h-1 bg-gradient-to-r from-red-300 via-rose-400 to-red-300"></div>
+                    <div class="h-1 bg-secondary-700"></div>
                     <div class="p-6">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <div class="flex-1">
@@ -869,7 +780,7 @@
                 </div>
                 @empty
                 <div class="bg-white rounded-[2rem] shadow-xl border-2 border-dashed border-red-200 p-16 text-center">
-                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gradient-to-br from-red-100 to-rose-100 rounded-3xl flex items-center justify-center mb-6">
+                    <div class="empty-state-illustration w-32 h-32 mx-auto bg-gray-100 rounded-3xl flex items-center justify-center mb-6">
                         <svg class="w-16 h-16 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
                         </svg>

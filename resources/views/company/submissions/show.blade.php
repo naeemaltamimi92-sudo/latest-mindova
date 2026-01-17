@@ -104,40 +104,40 @@
     $statusConfig = [
         'submitted' => [
             'bg' => 'amber',
-            'gradient' => 'from-amber-500 via-orange-500 to-amber-600',
-            'lightGradient' => 'from-amber-50 to-orange-50',
+            'gradient' => 'bg-secondary-300',
+            'lightGradient' => 'bg-secondary-50',
             'text' => 'amber-700',
             'label' => __('Pending Review'),
             'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
         ],
         'under_review' => [
             'bg' => 'blue',
-            'gradient' => 'from-blue-500 via-indigo-500 to-blue-600',
-            'lightGradient' => 'from-blue-50 to-indigo-50',
+            'gradient' => 'bg-primary-500',
+            'lightGradient' => 'bg-primary-50',
             'text' => 'blue-700',
             'label' => __('Under Review'),
             'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z'
         ],
         'approved' => [
             'bg' => 'emerald',
-            'gradient' => 'from-emerald-500 via-teal-500 to-emerald-600',
-            'lightGradient' => 'from-emerald-50 to-teal-50',
+            'gradient' => 'bg-secondary-500',
+            'lightGradient' => 'bg-secondary-50',
             'text' => 'emerald-700',
             'label' => __('Approved'),
             'icon' => 'M5 13l4 4L19 7'
         ],
         'revision_requested' => [
             'bg' => 'orange',
-            'gradient' => 'from-orange-500 via-amber-500 to-orange-600',
-            'lightGradient' => 'from-orange-50 to-amber-50',
+            'gradient' => 'bg-secondary-400',
+            'lightGradient' => 'bg-secondary-50',
             'text' => 'orange-700',
             'label' => __('Revision Requested'),
             'icon' => 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'
         ],
         'rejected' => [
             'bg' => 'red',
-            'gradient' => 'from-red-500 via-rose-500 to-red-600',
-            'lightGradient' => 'from-red-50 to-rose-50',
+            'gradient' => 'bg-secondary-700',
+            'lightGradient' => 'bg-secondary-50',
             'text' => 'red-700',
             'label' => __('Rejected'),
             'icon' => 'M6 18L18 6M6 6l12 12'
@@ -146,14 +146,14 @@
     $config = $statusConfig[$submission->status] ?? $statusConfig['submitted'];
 @endphp
 
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30" x-data="reviewPage()">
+<div class="min-h-screen bg-gray-50" x-data="reviewPage()">
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
 
         <!-- Back Navigation -->
         <a href="{{ route('company.submissions.index') }}"
             class="inline-flex items-center gap-2 text-slate-600 hover:text-indigo-600 font-semibold mb-6 slide-up group">
-            <div class="w-8 h-8 rounded-lg bg-white shadow-sm border border-slate-200 flex items-center justify-center group-hover:bg-indigo-50 group-hover:border-indigo-200 transition-all">
-                <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-8 h-8 rounded-lg bg-white shadow-sm border border-slate-200 flex items-center justify-center group-hover:bg-indigo-50 group-hover:border-indigo-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
             </div>
@@ -162,7 +162,7 @@
 
         <!-- Hero Header -->
         <div class="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 border border-slate-200/60 overflow-hidden mb-8 slide-up" style="animation-delay: 0.1s">
-            <div class="relative bg-gradient-to-br {{ $config['gradient'] }} px-8 py-10 overflow-hidden">
+            <div class="relative {{ $config['gradient'] }} px-8 py-10 overflow-hidden">
                 <!-- Background Elements -->
                 <div class="absolute inset-0 opacity-10">
                     <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -229,7 +229,7 @@
 
                 <!-- Submission Description -->
                 <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-up" style="animation-delay: 0.15s">
-                    <div class="px-8 py-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                    <div class="px-8 py-5 border-b border-slate-100 bg-white">
                         <h2 class="font-bold text-slate-900 flex items-center gap-3 text-lg">
                             <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -249,7 +249,7 @@
                 <!-- Deliverable -->
                 @if($submission->deliverable_url)
                 <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-up" style="animation-delay: 0.2s">
-                    <div class="px-8 py-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                    <div class="px-8 py-5 border-b border-slate-100 bg-white">
                         <h2 class="font-bold text-slate-900 flex items-center gap-3 text-lg">
                             <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -261,17 +261,17 @@
                     </div>
                     <div class="p-8">
                         <a href="{{ $submission->deliverable_url }}" target="_blank"
-                            class="group flex items-center gap-5 p-6 bg-gradient-to-r from-indigo-50 via-purple-50 to-indigo-50 border-2 border-indigo-100 rounded-2xl hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-100 transition-all">
-                            <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform">
+                            class="group flex items-center gap-5 p-6 bg-gray-50 border-2 border-indigo-100 rounded-2xl hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-100">
+                            <div class="w-14 h-14 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
                                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-bold text-slate-900 text-lg group-hover:text-indigo-700 transition-colors">{{ __('View Deliverable') }}</p>
+                                <p class="font-bold text-slate-900 text-lg group-hover:text-indigo-700">{{ __('View Deliverable') }}</p>
                                 <p class="text-sm text-slate-500 truncate mt-1">{{ $submission->deliverable_url }}</p>
                             </div>
-                            <svg class="w-6 h-6 text-indigo-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                         </a>
@@ -284,7 +284,7 @@
                 @php $aiFeedback = is_string($submission->ai_feedback) ? json_decode($submission->ai_feedback, true) : $submission->ai_feedback; @endphp
                 @if($aiFeedback)
                 <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-up" style="animation-delay: 0.25s">
-                    <div class="px-8 py-5 border-b border-slate-100 bg-gradient-to-r from-violet-50 via-purple-50 to-violet-50">
+                    <div class="px-8 py-5 border-b border-slate-100 bg-gray-50">
                         <h2 class="font-bold text-violet-900 flex items-center gap-3 text-lg">
                             <div class="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center pulse-ring">
                                 <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -301,7 +301,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             @if(isset($aiFeedback['strengths']) && count($aiFeedback['strengths']) > 0)
-                            <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-200">
+                            <div class="bg-gray-50 rounded-2xl p-6 border border-emerald-200">
                                 <h3 class="font-bold text-emerald-800 mb-4 flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -324,7 +324,7 @@
                             @endif
 
                             @if(isset($aiFeedback['areas_for_improvement']) && count($aiFeedback['areas_for_improvement']) > 0)
-                            <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
+                            <div class="bg-gray-50 rounded-2xl p-6 border border-amber-200">
                                 <h3 class="font-bold text-amber-800 mb-4 flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
@@ -354,7 +354,7 @@
                 <!-- Review History Timeline -->
                 @if($submission->reviews && $submission->reviews->count() > 0)
                 <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-up" style="animation-delay: 0.3s">
-                    <div class="px-8 py-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                    <div class="px-8 py-5 border-b border-slate-100 bg-white">
                         <h2 class="font-bold text-slate-900 flex items-center gap-3 text-lg">
                             <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -456,7 +456,7 @@
                 <!-- Review Form -->
                 @if(in_array($submission->status, ['submitted', 'under_review', 'revision_requested']))
                 <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden slide-up" style="animation-delay: 0.35s">
-                    <div class="px-8 py-5 border-b border-slate-100 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50">
+                    <div class="px-8 py-5 border-b border-slate-100 bg-secondary-50">
                         <h2 class="font-bold text-emerald-900 flex items-center gap-3 text-lg">
                             <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -477,8 +477,8 @@
                                     <!-- Approve -->
                                     <label class="relative cursor-pointer">
                                         <input type="radio" name="decision" value="approved" class="peer sr-only" required x-model="decision">
-                                        <div class="decision-card p-6 border-2 border-slate-200 rounded-2xl peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:shadow-lg peer-checked:shadow-emerald-100 transition-all hover:border-emerald-300 hover:bg-emerald-50/50">
-                                            <div class="w-14 h-14 bg-emerald-100 peer-checked:bg-emerald-500 rounded-xl flex items-center justify-center mb-4 transition-colors">
+                                        <div class="decision-card p-6 border-2 border-slate-200 rounded-2xl peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:shadow-lg peer-checked:shadow-emerald-100 hover:border-emerald-300 hover:bg-emerald-50/50">
+                                            <div class="w-14 h-14 bg-emerald-100 peer-checked:bg-emerald-500 rounded-xl flex items-center justify-center mb-4">
                                                 <svg class="w-7 h-7 text-emerald-600 peer-checked:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                                 </svg>
@@ -491,8 +491,8 @@
                                     <!-- Request Revision -->
                                     <label class="relative cursor-pointer">
                                         <input type="radio" name="decision" value="revision_requested" class="peer sr-only" x-model="decision">
-                                        <div class="decision-card p-6 border-2 border-slate-200 rounded-2xl peer-checked:border-orange-500 peer-checked:bg-orange-50 peer-checked:shadow-lg peer-checked:shadow-orange-100 transition-all hover:border-orange-300 hover:bg-orange-50/50">
-                                            <div class="w-14 h-14 bg-orange-100 peer-checked:bg-orange-500 rounded-xl flex items-center justify-center mb-4 transition-colors">
+                                        <div class="decision-card p-6 border-2 border-slate-200 rounded-2xl peer-checked:border-orange-500 peer-checked:bg-orange-50 peer-checked:shadow-lg peer-checked:shadow-orange-100 hover:border-orange-300 hover:bg-orange-50/50">
+                                            <div class="w-14 h-14 bg-orange-100 peer-checked:bg-orange-500 rounded-xl flex items-center justify-center mb-4">
                                                 <svg class="w-7 h-7 text-orange-600 peer-checked:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                                                 </svg>
@@ -505,8 +505,8 @@
                                     <!-- Reject -->
                                     <label class="relative cursor-pointer">
                                         <input type="radio" name="decision" value="rejected" class="peer sr-only" x-model="decision">
-                                        <div class="decision-card p-6 border-2 border-slate-200 rounded-2xl peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:shadow-lg peer-checked:shadow-red-100 transition-all hover:border-red-300 hover:bg-red-50/50">
-                                            <div class="w-14 h-14 bg-red-100 peer-checked:bg-red-500 rounded-xl flex items-center justify-center mb-4 transition-colors">
+                                        <div class="decision-card p-6 border-2 border-slate-200 rounded-2xl peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:shadow-lg peer-checked:shadow-red-100 hover:border-red-300 hover:bg-red-50/50">
+                                            <div class="w-14 h-14 bg-red-100 peer-checked:bg-red-500 rounded-xl flex items-center justify-center mb-4">
                                                 <svg class="w-7 h-7 text-red-600 peer-checked:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                                 </svg>
@@ -564,7 +564,7 @@
                             <div>
                                 <label class="block text-sm font-bold text-slate-700 mb-3">{{ __('Your Feedback') }}</label>
                                 <textarea name="feedback" rows="5" required minlength="10"
-                                    class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all resize-none text-slate-700"
+                                    class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 resize-none text-slate-700"
                                     placeholder="{{ __('Provide detailed, constructive feedback about the submission...') }}"></textarea>
                                 @error('feedback')
                                 <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
@@ -573,17 +573,15 @@
 
                             <!-- Submit Button -->
                             <div class="flex items-center justify-between pt-4">
-                                <a href="{{ route('company.submissions.index') }}"
-                                    class="px-6 py-3 text-slate-600 hover:text-slate-900 font-semibold transition-colors">
+                                <x-ui.button as="a" href="{{ route('company.submissions.index') }}" variant="ghost">
                                     {{ __('Cancel') }}
-                                </a>
-                                <button type="submit"
-                                    class="px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 hover:scale-105 flex items-center gap-2">
+                                </x-ui.button>
+                                <x-ui.button as="submit" variant="primary" size="lg" class="shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                     {{ __('Submit Review') }}
-                                </button>
+                                </x-ui.button>
                             </div>
                         </div>
                     </form>
@@ -596,7 +594,7 @@
 
                 <!-- Contributor Profile Card -->
                 <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-in-right" style="animation-delay: 0.1s">
-                    <div class="p-6 bg-gradient-to-br from-indigo-500 via-purple-500 to-indigo-600 text-white relative overflow-hidden">
+                    <div class="p-6 bg-primary-500 text-white relative overflow-hidden">
                         <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                         <div class="relative flex items-center gap-4">
                             <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-2xl font-black border border-white/30">
@@ -652,7 +650,7 @@
 
                 <!-- Task Details Card -->
                 <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-in-right" style="animation-delay: 0.15s">
-                    <div class="px-6 py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                    <div class="px-6 py-4 border-b border-slate-100 bg-white">
                         <h2 class="font-bold text-slate-900 flex items-center gap-2">
                             <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -691,7 +689,7 @@
 
                 <!-- AI Score Card -->
                 <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-in-right" style="animation-delay: 0.2s">
-                    <div class="px-6 py-4 border-b border-slate-100 bg-gradient-to-r from-violet-50 to-purple-50">
+                    <div class="px-6 py-4 border-b border-slate-100 bg-gray-50">
                         <h2 class="font-bold text-violet-900 flex items-center gap-2">
                             <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -752,7 +750,7 @@
                 </div>
 
                 <!-- Quick Stats -->
-                <div class="bg-gradient-to-br from-indigo-500 via-purple-500 to-indigo-600 rounded-3xl shadow-lg p-6 text-white slide-in-right" style="animation-delay: 0.25s">
+                <div class="bg-primary-500 rounded-3xl shadow-lg p-6 text-white slide-in-right" style="animation-delay: 0.25s">
                     <h3 class="font-bold text-lg mb-4">Quick Stats</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">

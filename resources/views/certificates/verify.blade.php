@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-12">
@@ -32,10 +32,9 @@
                         placeholder="MDVA-2025-XXXXXX"
                         class="flex-1 rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg font-mono"
                         required>
-                    <button type="submit"
-                        class="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                    <x-ui.button as="submit" variant="primary">
                         {{ __('Verify') }}
-                    </button>
+                    </x-ui.button>
                 </div>
                 <p class="mt-2 text-sm text-gray-500">
                     {{ __('Format: MDVA-YYYY-XXXXXX (e.g., MDVA-2025-A7B3C9)') }}

@@ -57,71 +57,14 @@
         50% { border-color: rgba(139, 92, 246, 0.6); }
     }
 
-    .animate-float { animation: float 6s ease-in-out infinite; }
+    .animate-float { animation: float 6s-out infinite; }
     .animate-pulse-ring { animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
     .animate-spin-slow { animation: spin-slow 3s linear infinite; }
-    .animate-countdown-pulse { animation: countdown-pulse 1s ease-in-out infinite; }
+    .animate-countdown-pulse { animation: countdown-pulse 1s-out infinite; }
     .animate-shimmer { animation: shimmer 2s infinite; }
     .animate-slide-up { animation: slide-up 0.6s ease forwards; }
     .animate-bounce-in { animation: bounce-in 0.6s ease forwards; }
-    .animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
-
-    /* Hero Section */
-    .dashboard-hero {
-        background: var(--gradient-hero, linear-gradient(135deg, #4f46e5 0%, #7c3aed 30%, #a855f7 60%, #ec4899 100%));
-        background-size: 400% 400%;
-        animation: gradient-shift 12s ease infinite;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .dashboard-hero::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-
-    .hero-orb {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(60px);
-        opacity: 0.4;
-    }
-
-    /* Profile Avatar */
-    .profile-avatar {
-        position: relative;
-        width: 80px;
-        height: 80px;
-    }
-
-    .profile-avatar-ring {
-        position: absolute;
-        inset: -4px;
-        border: 3px solid rgba(255,255,255,0.3);
-        border-radius: 50%;
-        animation: border-dance 3s ease-in-out infinite;
-    }
-
-    .profile-avatar-img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid rgba(255,255,255,0.5);
-    }
-
-    .profile-avatar-placeholder {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 4px solid rgba(255,255,255,0.3);
-    }
+    .animate-glow-pulse { animation: glow-pulse 2s-out infinite; }
 
     /* Stat Cards */
     .stat-card {
@@ -130,39 +73,13 @@
         padding: 1.5rem;
         position: relative;
         overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         border: 2px solid transparent;
-    }
-
-    .stat-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: var(--card-gradient);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.4s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-    }
-
-    .stat-card:hover::before {
-        transform: scaleX(1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
     .stat-card.highlighted {
         border-color: var(--highlight-color);
         background: var(--highlight-bg);
-    }
-
-    .stat-card.highlighted::before {
-        transform: scaleX(1);
     }
 
     .stat-icon {
@@ -172,11 +89,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .stat-card:hover .stat-icon {
-        transform: scale(1.1) rotate(-5deg);
     }
 
     /* Section Cards */
@@ -289,36 +201,6 @@
         border: 1px solid var(--color-border, #e2e8f0);
     }
 
-    /* Action Buttons */
-    .btn-primary {
-        background: var(--gradient-card-purple, linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%));
-        color: white;
-        font-weight: 700;
-        padding: 0.875rem 1.75rem;
-        border-radius: 14px;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .btn-primary::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-        transform: translateX(-100%);
-        transition: transform 0.5s ease;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 15px 30px -5px var(--shadow-color-primary, rgba(79, 70, 229, 0.4));
-    }
-
-    .btn-primary:hover::before {
-        transform: translateX(100%);
-    }
-
     .btn-accept {
         background: linear-gradient(135deg, var(--color-success, #10b981) 0%, var(--color-success-dark, #059669) 100%);
         color: white;
@@ -388,7 +270,7 @@
     }
 
     .cv-modal-content {
-        animation: slide-up 0.5s ease-out;
+        animation: slide-up 0.5s;
     }
 
     /* Empty State */
@@ -417,7 +299,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        animation: float 4s ease-in-out infinite;
+        animation: float 4s-out infinite;
         box-shadow: 0 20px 40px -10px var(--shadow-color-primary-light, rgba(99, 102, 241, 0.3));
     }
 
@@ -494,15 +376,15 @@
 @section('content')
 <!-- CV Analysis Notification Modal -->
 @if($volunteer->cv_file_path && $volunteer->ai_analysis_status === 'pending')
-<div id="cvAnalysisModal" class="cv-analysis-modal fixed inset-0 bg-gradient-to-br from-indigo-900/80 via-violet-900/80 to-purple-900/80 z-50 flex items-center justify-center p-4">
+<div id="cvAnalysisModal" class="cv-analysis-modal fixed inset-0 bg-primary-500/80 z-50 flex items-center justify-center p-4">
     <div class="cv-modal-content bg-white rounded-[2rem] shadow-2xl max-w-lg w-full overflow-hidden">
         <!-- Modal Header -->
-        <div class="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 px-8 py-6 text-center">
+        <div class="bg-primary-500 px-8 py-6 text-center">
             <div class="relative w-24 h-24 mx-auto mb-4">
-                <div class="absolute inset-0 rounded-full border-4 border-white/30 animate-pulse-ring"></div>
-                <div class="absolute inset-2 rounded-full border-4 border-white/40 animate-pulse-ring" style="animation-delay: 0.5s;"></div>
+                <div class="absolute inset-0 rounded-full border-4 border-white/30-ring"></div>
+                <div class="absolute inset-2 rounded-full border-4 border-white/40-ring"></div>
                 <div class="absolute inset-4 bg-white rounded-full flex items-center justify-center shadow-xl">
-                    <svg class="w-10 h-10 text-indigo-600 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-10 h-10 text-indigo-600-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                 </div>
@@ -514,7 +396,7 @@
         <!-- Modal Body -->
         <div class="px-8 py-8">
             <div class="text-center mb-6">
-                <div class="inline-flex items-center justify-center bg-gradient-to-r from-indigo-50 to-violet-50 border-2 border-indigo-200 rounded-2xl px-8 py-4">
+                <div class="inline-flex items-center justify-center bg-gray-50 border-2 border-primary-200 rounded-2xl px-8 py-4">
                     <div class="text-center">
                         <div class="text-5xl font-black text-indigo-600 animate-countdown-pulse" id="countdownTimer">2:00</div>
                         <p class="text-xs font-bold text-indigo-500 uppercase tracking-wider mt-1">{{ __('Estimated Time') }}</p>
@@ -535,9 +417,9 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl animate-pulse">
+                <div class="flex items-center gap-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
                     <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center">
-                        <svg class="w-4 h-4 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                         </svg>
                     </div>
@@ -571,9 +453,9 @@
         </div>
 
         <div class="px-8 pb-8">
-            <button onclick="closeModal()" class="w-full btn-primary text-center">
+            <x-ui.button onclick="closeModal()" fullWidth>
                 {{ __('Continue to Dashboard') }}
-            </button>
+            </x-ui.button>
         </div>
     </div>
 </div>
@@ -606,21 +488,21 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 
 <!-- CV Processing Banner -->
 @if($volunteer->cv_file_path && $volunteer->ai_analysis_status === 'processing')
-<div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-white py-4 px-6 mb-8 rounded-2xl shadow-lg mx-4 lg:mx-8">
+<div class="bg-secondary-300 text-slate-900 py-4 px-6 mb-8 rounded-2xl shadow-lg mx-4 lg:mx-8">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-4">
-            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                <svg class="w-5 h-5 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-10 h-10 bg-slate-500 rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                 </svg>
             </div>
             <div>
                 <p class="font-bold">{{ __('CV Analysis in Progress') }}</p>
-                <p class="text-sm text-white/80">{{ __('Your skills are being extracted. Page will refresh automatically.') }}</p>
+                <p class="text-sm text-slate-600">{{ __('Your skills are being extracted. Page will refresh automatically.') }}</p>
             </div>
         </div>
         <div class="text-right">
-            <p class="text-xs text-white/80">{{ __('Est. time') }}</p>
+            <p class="text-xs text-slate-600">{{ __('Est. time') }}</p>
             <p class="font-bold">~1 min</p>
         </div>
     </div>
@@ -628,73 +510,12 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 <script>setTimeout(() => location.reload(), 60000);</script>
 @endif
 
-<!-- Premium Hero Section -->
-<div class="dashboard-hero py-10 lg:py-14 mb-10 rounded-3xl shadow-2xl mx-4 lg:mx-8 relative">
-    <!-- Animated Orbs -->
-    <div class="hero-orb w-64 h-64 bg-pink-400 top-0 left-0 animate-float" style="animation-delay: 0s;"></div>
-    <div class="hero-orb w-96 h-96 bg-indigo-300 bottom-0 right-0 animate-float" style="animation-delay: 2s;"></div>
-    <div class="hero-orb w-48 h-48 bg-violet-400 top-1/2 left-1/3 animate-float" style="animation-delay: 4s;"></div>
-
-    <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8">
-            <!-- Profile Section -->
-            <div class="flex flex-col sm:flex-row items-center gap-6 flex-1">
-                <!-- Avatar -->
-                <div class="profile-avatar animate-bounce-in">
-                    <div class="profile-avatar-ring"></div>
-                    @if(auth()->user()->volunteer && auth()->user()->volunteer->profile_picture)
-                        <img src="{{ asset('storage/' . auth()->user()->volunteer->profile_picture) }}"
-                             alt="{{ auth()->user()->name }}"
-                             class="profile-avatar-img">
-                    @else
-                        <div class="profile-avatar-placeholder">
-                            <span class="text-3xl font-black text-white">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
-                        </div>
-                    @endif
-                </div>
-
-                <!-- Welcome Text -->
-                <div class="text-center sm:text-left animate-slide-up">
-                    <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-3">
-                        <div class="relative">
-                            <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></div>
-                            <div class="absolute inset-0 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping"></div>
-                        </div>
-                        <span class="text-sm font-semibold text-white">{{ __('Active Volunteer') }}</span>
-                    </div>
-                    <h1 class="text-3xl lg:text-4xl font-black text-white mb-2">
-                        {{ __('Welcome back,') }}
-                        <span class="bg-gradient-to-r from-yellow-200 via-pink-200 to-yellow-200 bg-clip-text text-transparent">{{ auth()->user()->name }}!</span>
-                    </h1>
-                    <p class="text-white/80 text-lg">{{ __('Your command center for tasks, teams, and community impact') }}</p>
-                </div>
-            </div>
-
-            <!-- Quick Stats in Hero -->
-            <div class="flex flex-wrap gap-4 justify-center lg:justify-end animate-slide-up" style="animation-delay: 0.2s;">
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/20 text-center min-w-[100px]">
-                    <div class="text-3xl font-black text-white">{{ $stats['pending_assignments'] ?? 0 }}</div>
-                    <div class="text-xs text-white/80 font-medium">{{ __('Invitations') }}</div>
-                </div>
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/20 text-center min-w-[100px]">
-                    <div class="text-3xl font-black text-emerald-300">{{ $stats['completed_tasks'] ?? 0 }}</div>
-                    <div class="text-xs text-white/80 font-medium">{{ __('Completed') }}</div>
-                </div>
-                <div class="bg-white/15 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/20 text-center min-w-[100px]">
-                    <div class="text-3xl font-black text-yellow-300">{{ $volunteer->reputation_score ?? 50 }}</div>
-                    <div class="text-xs text-white/80 font-medium">{{ __('Reputation') }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="max-w-7xl mx-auto px-4 lg:px-8 pb-12">
+<div class="max-w-7xl mx-auto px-4 lg:px-8 pb-12 pt-8">
     <!-- Primary Action Card -->
-    <div class="section-card mb-10 animate-slide-up" style="--card-gradient: linear-gradient(90deg, #4f46e5, #7c3aed);">
+    <div class="section-card mb-10" style="--card-gradient: linear-gradient(90deg, #4f46e5, #7c3aed);">
         <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div class="flex items-center gap-4">
-                <div class="stat-icon bg-gradient-to-br from-indigo-500 to-violet-500 shadow-lg">
+                <div class="stat-icon bg-primary-500 shadow-lg">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                     </svg>
@@ -715,12 +536,12 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                     {{ $activeTasks->count() }} {{ __('Active') }}
                 </span>
                 @endif
-                <a href="{{ route('assignments.my') }}" class="btn-primary inline-flex items-center gap-2">
+                <x-ui.button as="a" href="{{ route('assignments.my') }}">
                     {{ __('View All Tasks') }}
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
-                </a>
+                </x-ui.button>
             </div>
         </div>
     </div>
@@ -728,14 +549,14 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
     <!-- Stats Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-10">
         <!-- Team Invitations -->
-        <div class="stat-card animate-slide-up {{ ($stats['team_invitations'] ?? 0) > 0 ? 'highlighted' : '' }}"
+        <div class="stat-card {{ ($stats['team_invitations'] ?? 0) > 0 ? 'highlighted' : '' }}"
              style="--card-gradient: linear-gradient(90deg, #8b5cf6, #a855f7); --highlight-color: #a855f7; --highlight-bg: linear-gradient(135deg, #f5f3ff, #ede9fe); animation-delay: 0.1s;">
             <div class="flex items-start justify-between mb-4">
                 <div>
                     <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{{ __('Team Invitations') }}</p>
                     <h3 class="text-4xl font-black text-gray-900">{{ $stats['team_invitations'] ?? 0 }}</h3>
                 </div>
-                <div class="stat-icon bg-gradient-to-br from-violet-500 to-purple-500">
+                <div class="stat-icon bg-secondary-500">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
@@ -754,18 +575,11 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
         </div>
 
         <!-- Task Assignments -->
-        <div class="stat-card animate-slide-up {{ ($stats['pending_assignments'] ?? 0) > 0 ? 'highlighted' : '' }}"
+        <div class="stat-card {{ ($stats['pending_assignments'] ?? 0) > 0 ? 'highlighted' : '' }}"
              style="--card-gradient: linear-gradient(90deg, #3b82f6, #6366f1); --highlight-color: #6366f1; --highlight-bg: linear-gradient(135deg, #eef2ff, #e0e7ff); animation-delay: 0.2s;">
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{{ __('Task Invitations') }}</p>
-                    <h3 class="text-4xl font-black text-gray-900">{{ $stats['pending_assignments'] ?? 0 }}</h3>
-                </div>
-                <div class="stat-icon bg-gradient-to-br from-blue-500 to-indigo-500">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                    </svg>
-                </div>
+            <div class="mb-4">
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{{ __('Task Invitations') }}</p>
+                <h3 class="text-4xl font-black text-gray-900">{{ $stats['pending_assignments'] ?? 0 }}</h3>
             </div>
             @if(($stats['pending_assignments'] ?? 0) > 0)
             <p class="text-xs text-indigo-600 font-semibold">{{ __('Awaiting response') }}</p>
@@ -775,13 +589,13 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
         </div>
 
         <!-- Completed Tasks -->
-        <div class="stat-card animate-slide-up" style="--card-gradient: linear-gradient(90deg, #10b981, #14b8a6); animation-delay: 0.3s;">
+        <div class="stat-card" style="--card-gradient: linear-gradient(90deg, #10b981, #14b8a6); animation-delay: 0.3s;">
             <div class="flex items-start justify-between mb-4">
                 <div>
                     <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{{ __('Completed Tasks') }}</p>
                     <h3 class="text-4xl font-black text-gray-900">{{ $stats['completed_tasks'] ?? 0 }}</h3>
                 </div>
-                <div class="stat-icon bg-gradient-to-br from-emerald-500 to-teal-500">
+                <div class="stat-icon bg-secondary-500">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -796,13 +610,13 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
         </div>
 
         <!-- Reputation Score -->
-        <div class="stat-card animate-slide-up" style="--card-gradient: linear-gradient(90deg, #f59e0b, #ef4444); animation-delay: 0.4s;">
+        <div class="stat-card" style="--card-gradient: linear-gradient(90deg, #f59e0b, #ef4444); animation-delay: 0.4s;">
             <div class="flex items-start justify-between mb-4">
                 <div>
                     <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{{ __('Reputation Score') }}</p>
                     <h3 class="text-4xl font-black text-gray-900">{{ $volunteer->reputation_score ?? 50 }}</h3>
                 </div>
-                <div class="stat-icon bg-gradient-to-br from-amber-500 to-orange-500">
+                <div class="stat-icon bg-secondary-500">
                     <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                     </svg>
@@ -814,10 +628,10 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 
     <!-- Team Invitations Section -->
     @if(isset($teamInvitations) && $teamInvitations->count() > 0)
-    <div class="section-card mb-10 animate-slide-up">
+    <div class="section-card mb-10">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-                <div class="stat-icon bg-gradient-to-br from-violet-500 to-purple-500">
+                <div class="stat-icon bg-secondary-500">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                     </svg>
@@ -849,16 +663,16 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                     <div class="flex items-center gap-2">
                         <form action="{{ route('teams.accept', $team) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn-accept inline-flex items-center gap-2">
+                            <x-ui.button as="submit" variant="success" size="sm">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
                                 {{ __('Accept') }}
-                            </button>
+                            </x-ui.button>
                         </form>
                         <form action="{{ route('teams.decline', $team) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn-decline">{{ __('Decline') }}</button>
+                            <x-ui.button as="submit" variant="secondary" size="sm">{{ __('Decline') }}</x-ui.button>
                         </form>
                     </div>
                 </div>
@@ -870,9 +684,9 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 
     <!-- Pending Assignments Section -->
     @if($pendingAssignments->count() > 0)
-    <div class="section-card mb-10 animate-slide-up">
+    <div class="section-card mb-10">
         <div class="flex items-center gap-3 mb-6">
-            <div class="stat-icon bg-gradient-to-br from-blue-500 to-indigo-500">
+            <div class="stat-icon bg-primary-500">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                 </svg>
@@ -912,16 +726,16 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                     <div class="flex items-center gap-2">
                         <form action="/api/assignments/{{ $assignment->id }}/accept" method="POST">
                             @csrf
-                            <button type="submit" class="btn-accept inline-flex items-center gap-2">
+                            <x-ui.button as="submit" variant="success" size="sm">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
                                 {{ __('Accept') }}
-                            </button>
+                            </x-ui.button>
                         </form>
                         <form action="/api/assignments/{{ $assignment->id }}/reject" method="POST">
                             @csrf
-                            <button type="submit" class="btn-decline">{{ __('Decline') }}</button>
+                            <x-ui.button as="submit" variant="secondary" size="sm">{{ __('Decline') }}</x-ui.button>
                         </form>
                     </div>
                 </div>
@@ -933,10 +747,10 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 
     <!-- Active Tasks Section -->
     @if(isset($activeTasks) && $activeTasks->count() > 0)
-    <div class="section-card mb-10 animate-slide-up">
+    <div class="section-card mb-10">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-                <div class="stat-icon bg-gradient-to-br from-emerald-500 to-teal-500">
+                <div class="stat-icon bg-secondary-500">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                     </svg>
@@ -971,10 +785,10 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
     @endif
 
     <!-- Profile & Skills Section -->
-    <div class="section-card mb-10 animate-slide-up">
+    <div class="section-card mb-10">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div class="flex items-center gap-3">
-                <div class="stat-icon bg-gradient-to-br from-indigo-500 to-violet-500">
+                <div class="stat-icon bg-primary-500">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
@@ -992,26 +806,26 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                 {{ __('CV:') }} {{ __(ucfirst($volunteer->ai_analysis_status)) }}
             </span>
             @else
-            <a href="{{ route('complete-profile') }}" class="btn-primary inline-flex items-center gap-2 text-sm">
+            <x-ui.button as="a" href="{{ route('complete-profile') }}" size="sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                 </svg>
                 {{ __('Upload CV') }}
-            </a>
+            </x-ui.button>
             @endif
         </div>
 
         <!-- Profile Info Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl p-5">
+            <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-5">
                 <h3 class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">{{ __('Field of Expertise') }}</h3>
                 <p class="text-lg font-bold text-gray-900">{{ $volunteer->field ?? __('Not set') }}</p>
             </div>
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl p-5">
+            <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-5">
                 <h3 class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">{{ __('Experience Level') }}</h3>
                 <p class="text-lg font-bold text-gray-900">{{ $volunteer->experience_level ?? __('Not analyzed') }}</p>
             </div>
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-2xl p-5">
+            <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-5">
                 <h3 class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">{{ __('Years of Experience') }}</h3>
                 <p class="text-lg font-bold text-gray-900">{{ $volunteer->years_of_experience ?? 0 }} {{ __('years') }}</p>
             </div>
@@ -1019,7 +833,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 
         <!-- Skills -->
         @if($volunteer->skills && $volunteer->skills->count() > 0)
-        <div class="bg-gradient-to-br from-indigo-50 to-violet-50 border-2 border-indigo-200 rounded-2xl p-6 mb-6">
+        <div class="bg-gray-50 border-2 border-primary-200 rounded-2xl p-6 mb-6">
             <h3 class="text-lg font-black text-gray-900 mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
@@ -1042,7 +856,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 
         <!-- Education -->
         @if($volunteer->education && is_array($volunteer->education) && count($volunteer->education) > 0)
-        <div class="bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-2xl p-6 mb-6">
+        <div class="bg-gray-50 border-2 border-primary-200 rounded-2xl p-6 mb-6">
             <h3 class="text-lg font-black text-gray-900 mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
@@ -1066,7 +880,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 
         <!-- Work Experience -->
         @if($volunteer->work_experience && is_array($volunteer->work_experience) && count($volunteer->work_experience) > 0)
-        <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-6">
+        <div class="bg-gray-50 border-2 border-secondary-200 rounded-2xl p-6">
             <h3 class="text-lg font-black text-gray-900 mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
@@ -1100,7 +914,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                 <h3 class="text-xl font-bold text-gray-700 mb-2">{{ __('CV Analysis in Progress') }}</h3>
                 <p class="text-gray-500 max-w-md mx-auto">{{ __('Our AI is extracting your skills and experience. This usually takes about 2 minutes.') }}</p>
                 <div class="mt-4 inline-flex items-center text-indigo-600 font-semibold">
-                    <svg class="w-5 h-5 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                     </svg>
                     {{ __('Analyzing...') }}
@@ -1108,12 +922,12 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                 @elseif(!$volunteer->cv_file_path)
                 <h3 class="text-xl font-bold text-gray-700 mb-2">{{ __('No Profile Data Yet') }}</h3>
                 <p class="text-gray-500 max-w-md mx-auto mb-6">{{ __('Upload your CV to automatically extract your skills, education, and work experience.') }}</p>
-                <a href="{{ route('complete-profile') }}" class="btn-primary inline-flex items-center gap-2">
+                <x-ui.button as="a" href="{{ route('complete-profile') }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                     </svg>
                     {{ __('Upload Your CV') }}
-                </a>
+                </x-ui.button>
                 @endif
             </div>
         </div>
@@ -1121,9 +935,9 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
     </div>
 
     <!-- Quick Actions -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-slide-up">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <a href="{{ route('assignments.my') }}" class="quick-action">
-            <div class="quick-action-icon bg-gradient-to-br from-indigo-500 to-violet-500">
+            <div class="quick-action-icon bg-primary-500">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
@@ -1132,7 +946,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             <p class="text-xs text-gray-500">{{ __('View assignments') }}</p>
         </a>
         <a href="{{ route('teams.my') }}" class="quick-action">
-            <div class="quick-action-icon bg-gradient-to-br from-violet-500 to-purple-500">
+            <div class="quick-action-icon bg-secondary-500">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
@@ -1141,7 +955,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             <p class="text-xs text-gray-500">{{ __('Collaborate') }}</p>
         </a>
         <a href="{{ route('profile.edit') }}" class="quick-action">
-            <div class="quick-action-icon bg-gradient-to-br from-emerald-500 to-teal-500">
+            <div class="quick-action-icon bg-secondary-500">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                 </svg>
@@ -1150,7 +964,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             <p class="text-xs text-gray-500">{{ __('Update info') }}</p>
         </a>
         <a href="{{ route('community.index') }}" class="quick-action">
-            <div class="quick-action-icon bg-gradient-to-br from-pink-500 to-rose-500">
+            <div class="quick-action-icon bg-secondary-600">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                 </svg>

@@ -29,15 +29,15 @@
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-5px); }
     }
-    .animate-float { animation: float 6s ease-in-out infinite; }
-    .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .animate-float { animation: float 6s-out infinite; }
+    .animate-pulse-glow { animation: pulse-glow 2s-out infinite; }
     .animate-shimmer {
         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
         background-size: 200% 100%;
         animation: shimmer 2s infinite;
     }
-    .animate-slide-in-up { animation: slide-in-up 0.6s ease-out forwards; }
-    .animate-bounce-subtle { animation: bounce-subtle 2s ease-in-out infinite; }
+    .animate-slide-in-up { animation: slide-in-up 0.6s forwards; }
+    .animate-bounce-subtle { animation: bounce-subtle 2s-out infinite; }
 
     /* Idea Card Hover Effects */
     .idea-card {
@@ -108,14 +108,14 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+<div class="min-h-screen bg-gray-50">
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700">
+    <div class="relative overflow-hidden bg-primary-500">
         <!-- Animated Background Elements -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="animate-float absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="animate-float absolute top-40 right-10 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl" style="animation-delay: 2s;"></div>
-            <div class="animate-float absolute bottom-0 left-1/3 w-72 h-72 bg-indigo-300/20 rounded-full blur-3xl" style="animation-delay: 4s;"></div>
+            <div class="animate-float absolute top-40 right-10 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl"></div>
+            <div class="animate-float absolute bottom-0 left-1/3 w-72 h-72 bg-indigo-300/20 rounded-full blur-3xl"></div>
         </div>
 
         <!-- Grid Pattern -->
@@ -123,9 +123,9 @@
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
             <!-- Breadcrumb -->
-            <nav class="flex items-center gap-2 text-sm mb-6 animate-slide-in-up">
-                <a href="{{ route('community.index') }}" class="text-white/70 hover:text-white transition-colors flex items-center gap-1.5 group">
-                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <nav class="flex items-center gap-2 text-sm mb-6">
+                <a href="{{ route('community.index') }}" class="text-white/70 hover:text-white flex items-center gap-1.5 group">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                     {{ __('Community') }}
@@ -137,7 +137,7 @@
             </nav>
 
             <!-- Badges Row -->
-            <div class="flex flex-wrap items-center gap-3 mb-6 animate-slide-in-up" style="animation-delay: 0.1s;">
+            <div class="flex flex-wrap items-center gap-3 mb-6">
                 <!-- Field Badge -->
                 @if($challenge->field)
                 <span class="inline-flex items-center px-4 py-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-sm font-semibold text-white shadow-lg">
@@ -149,7 +149,7 @@
                 @endif
 
                 <!-- Score Badge -->
-                <span class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full text-sm font-bold text-white shadow-lg">
+                <span class="inline-flex items-center px-4 py-2 bg-secondary-300 rounded-full text-sm font-bold text-slate-900 shadow-lg">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                     </svg>
@@ -166,12 +166,12 @@
             </div>
 
             <!-- Title -->
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight animate-slide-in-up" style="animation-delay: 0.2s;">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight">
                 {{ $challenge->title }}
             </h1>
 
             <!-- Meta Info -->
-            <div class="flex flex-wrap items-center gap-4 text-white/80 animate-slide-in-up" style="animation-delay: 0.3s;">
+            <div class="flex flex-wrap items-center gap-4 text-white/80">
                 @if($challenge->isVolunteerSubmitted())
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
@@ -216,21 +216,21 @@
 
     {{-- Closed Challenge Banner --}}
     @if($challenge->isClosed())
-    <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-4">
+    <div class="bg-white text-primary-500 px-6 py-4 border-b border-primary-100">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                     </svg>
                 </div>
                 <div>
                     <p class="font-bold">{{ __('Challenge Closed') }}</p>
-                    <p class="text-sm text-white/80">{{ __('A correct answer has been selected.') }}</p>
+                    <p class="text-sm text-slate-500">{{ __('A correct answer has been selected.') }}</p>
                 </div>
             </div>
             @if($challenge->closed_at)
-            <span class="text-sm text-white/80">
+            <span class="text-sm text-slate-500">
                 {{ __('Closed') }} {{ $challenge->closed_at->diffForHumans() }}
             </span>
             @endif
@@ -242,10 +242,10 @@
         <!-- Stats Cards - Floating Above -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 -mt-16 mb-10 relative z-10">
             <!-- Total Ideas -->
-            <div class="group animate-slide-in-up" style="animation-delay: 0.1s;">
-                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+            <div class="group">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-2xl">
                     <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <div class="w-14 h-14 bg-primary-400 rounded-2xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"/>
                             </svg>
@@ -259,10 +259,10 @@
             </div>
 
             <!-- High Quality -->
-            <div class="group animate-slide-in-up" style="animation-delay: 0.2s;">
-                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-emerald-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+            <div class="group">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-emerald-200 hover:shadow-2xl">
                     <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <div class="w-14 h-14 bg-secondary-500 rounded-2xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
@@ -276,10 +276,10 @@
             </div>
 
             <!-- Contributors -->
-            <div class="group animate-slide-in-up" style="animation-delay: 0.3s;">
-                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-violet-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+            <div class="group">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-violet-200 hover:shadow-2xl">
                     <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <div class="w-14 h-14 bg-secondary-500 rounded-2xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                             </svg>
@@ -293,10 +293,10 @@
             </div>
 
             <!-- Time Status -->
-            <div class="group animate-slide-in-up" style="animation-delay: 0.4s;">
-                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-amber-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+            <div class="group">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-amber-200 hover:shadow-2xl">
                     <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <div class="w-14 h-14 bg-secondary-300 rounded-2xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                             </svg>
@@ -324,8 +324,8 @@
             <!-- Left Column - Main Content -->
             <div class="lg:col-span-2 space-y-8">
                 <!-- Challenge Description Card -->
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden animate-slide-in-up" style="animation-delay: 0.5s;">
-                    <div class="bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 px-6 py-5">
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-primary-500 px-6 py-5">
                         <h2 class="text-lg font-bold text-white flex items-center gap-3">
                             <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -342,10 +342,10 @@
 
                         @if($challenge->refined_brief)
                         <div class="mt-8 relative">
-                            <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-20"></div>
-                            <div class="relative bg-gradient-to-br from-indigo-50 via-violet-50 to-purple-50 border border-indigo-200 rounded-2xl p-6">
+                            <div class="absolute -inset-1 bg-secondary-500 rounded-2xl blur opacity-20"></div>
+                            <div class="relative bg-gray-50 border border-indigo-200 rounded-2xl p-6">
                                 <div class="flex items-start gap-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                                    <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
                                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M13 7H7v6h6V7z"/>
                                             <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/>
@@ -366,18 +366,18 @@
                 </div>
 
                 <!-- Community Ideas Section -->
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden animate-slide-in-up" style="animation-delay: 0.6s;">
-                    <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 px-6 py-5">
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-white px-6 py-5 border-b border-primary-100">
                         <div class="flex items-center justify-between">
-                            <h2 class="text-lg font-bold text-white flex items-center gap-3">
-                                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <h2 class="text-lg font-bold text-primary-500 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"/>
                                     </svg>
                                 </div>
                                 {{ __('Community Ideas') }}
                             </h2>
-                            <span class="px-4 py-1.5 bg-white/20 backdrop-blur rounded-full text-sm font-bold text-white">
+                            <span class="px-4 py-1.5 bg-primary-100 rounded-full text-sm font-bold text-primary-500">
                                 {{ $totalIdeas }} {{ Str::plural(__('idea'), $totalIdeas) }}
                             </span>
                         </div>
@@ -387,11 +387,11 @@
                         @if($challenge->ideas->count() > 0)
                             <div class="space-y-6">
                                 @foreach($challenge->ideas as $index => $idea)
-                                <div class="idea-card relative {{ $canSeeSpam && $idea->is_spam ? 'ring-2 ring-red-300 bg-gradient-to-br from-red-50 to-rose-50 border-red-200' : ($idea->ai_quality_score >= 7 ? 'ring-2 ring-emerald-300 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200' : 'bg-gradient-to-br from-slate-50 to-white border-slate-200') }} rounded-2xl p-6 border" style="animation-delay: {{ 0.1 * $index }}s;">
+                                <div class="idea-card relative {{ $canSeeSpam && $idea->is_spam ? 'ring-2 ring-red-300 bg-red-50 border-red-200' : ($idea->ai_quality_score >= 7 ? 'ring-2 ring-emerald-300 bg-gray-50 border-emerald-200' : 'bg-gray-50 border-slate-200') }} rounded-2xl p-6 border" style="animation-delay: {{ 0.1 * $index }}s;">
                                     <!-- High Quality Ribbon -->
                                     @if($idea->ai_quality_score >= 7)
                                     <div class="absolute -top-3 -right-3">
-                                        <div class="quality-badge w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+                                        <div class="quality-badge w-12 h-12 bg-secondary-500 rounded-full flex items-center justify-center shadow-lg">
                                             <span class="text-white text-lg">⭐</span>
                                         </div>
                                     </div>
@@ -400,7 +400,7 @@
                                     <!-- Correct Answer Badge -->
                                     @if($idea->is_correct_answer)
                                     <div class="absolute -top-3 -left-3 z-20">
-                                        <div class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full shadow-lg flex items-center gap-2">
+                                        <div class="px-4 py-2 bg-secondary-500 rounded-full shadow-lg flex items-center gap-2">
                                             <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                             </svg>
@@ -412,7 +412,7 @@
                                     <!-- Spam Badge (Admin Only) -->
                                     @if($canSeeSpam && $idea->is_spam)
                                     <div class="absolute -top-3 -left-3">
-                                        <div class="px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-lg">
+                                        <div class="px-3 py-1 bg-secondary-600 rounded-full shadow-lg">
                                             <span class="text-white text-xs font-bold">{{ __('Spam') }}</span>
                                         </div>
                                     </div>
@@ -422,7 +422,7 @@
                                     <div class="flex items-start justify-between mb-5">
                                         <div class="flex items-center gap-4">
                                             <div class="relative">
-                                                <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                                                <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
                                                     {{ strtoupper(substr($idea->volunteer->user->name ?? 'U', 0, 1)) }}
                                                 </div>
                                                 @if($idea->ai_quality_score >= 7)
@@ -447,7 +447,7 @@
                                         @if($idea->ai_quality_score)
                                         <div class="flex items-center gap-2">
                                             <span class="px-4 py-2 rounded-xl text-sm font-bold shadow-sm
-                                                {{ $idea->ai_quality_score >= 7 ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white' : ($idea->ai_quality_score >= 5 ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-600') }}">
+                                                {{ $idea->ai_quality_score >= 7 ? 'bg-white text-primary-500 border border-primary-200' : ($idea->ai_quality_score >= 5 ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-600') }}">
                                                 {{ number_format($idea->ai_quality_score, 1) }}/10
                                             </span>
                                         </div>
@@ -461,7 +461,7 @@
 
                                     <!-- Spam Reason (Admin Only) -->
                                     @if($canSeeSpam && $idea->is_spam && $idea->spam_reason)
-                                    <div class="bg-gradient-to-r from-red-100 to-rose-100 border border-red-200 rounded-xl p-4 mb-5">
+                                    <div class="bg-red-100 border border-red-200 rounded-xl p-4 mb-5">
                                         <div class="flex items-start gap-3">
                                             <div class="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
                                                 <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -478,7 +478,7 @@
 
                                     <!-- AI Feedback for High-Quality Ideas -->
                                     @if($idea->ai_quality_score >= 7 && $idea->ai_feedback)
-                                    <div class="bg-gradient-to-r from-emerald-100 to-teal-100 border border-emerald-200 rounded-xl p-4 mb-5">
+                                    <div class="bg-gray-100 border border-emerald-200 rounded-xl p-4 mb-5">
                                         <div class="flex items-start gap-3">
                                             <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
                                                 <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -525,9 +525,9 @@
                                                     <form action="{{ route('community.idea.vote', $idea) }}" method="POST" class="inline">
                                                         @csrf
                                                         <input type="hidden" name="vote_type" value="up">
-                                                        <button type="submit" class="vote-btn flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all
+                                                        <button type="submit" class="vote-btn flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium
                                                             {{ $hasUpvoted
-                                                                ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-transparent shadow-lg'
+                                                                ? 'bg-white text-primary-500 border border-primary-200 shadow-lg'
                                                                 : 'bg-white border border-slate-200 text-slate-600 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-600' }}">
                                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
@@ -540,9 +540,9 @@
                                                     <form action="{{ route('community.idea.vote', $idea) }}" method="POST" class="inline">
                                                         @csrf
                                                         <input type="hidden" name="vote_type" value="down">
-                                                        <button type="submit" class="vote-btn flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all
+                                                        <button type="submit" class="vote-btn flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium
                                                             {{ $hasDownvoted
-                                                                ? 'bg-gradient-to-r from-red-500 to-rose-500 text-white border-transparent shadow-lg'
+                                                                ? 'bg-white text-primary-500 border border-primary-200 shadow-lg'
                                                                 : 'bg-white border border-slate-200 text-slate-600 hover:bg-red-50 hover:border-red-300 hover:text-red-600' }}">
                                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -600,13 +600,12 @@
                                                   method="POST"
                                                   onsubmit="return confirm('{{ __('Are you sure you want to mark this as the correct answer? This will close the challenge and no new ideas can be submitted.') }}');">
                                                 @csrf
-                                                <button type="submit"
-                                                        class="w-full px-4 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
-                                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                <x-ui.button as="submit" variant="secondary" fullWidth>
+                                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                                     </svg>
                                                     {{ __('Mark as Correct Answer') }}
-                                                </button>
+                                                </x-ui.button>
                                             </form>
                                         </div>
                                         @endif
@@ -617,7 +616,7 @@
                         @else
                             <!-- Empty State -->
                             <div class="text-center py-16">
-                                <div class="w-20 h-20 bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                                <div class="w-20 h-20 bg-gray-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
                                     <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                     </svg>
@@ -638,7 +637,7 @@
                         @if(auth()->user()->isVolunteer())
                             @if($challenge->isClosed())
                             {{-- Closed Challenge Message --}}
-                            <div class="bg-slate-50 rounded-3xl border border-slate-200 p-6 text-center animate-slide-in-up" style="animation-delay: 0.7s;">
+                            <div class="bg-slate-50 rounded-3xl border border-slate-200 p-6 text-center">
                                 <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                                     <svg class="w-8 h-8 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
@@ -648,11 +647,11 @@
                                 <p class="text-sm text-slate-500">{{ __('This challenge has been closed and is no longer accepting new ideas.') }}</p>
                             </div>
                             @else
-                        <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden animate-slide-in-up" style="animation-delay: 0.7s;">
-                            <div class="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 px-6 py-5">
-                                <h3 class="text-lg font-bold text-white flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center animate-bounce-subtle">
-                                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden">
+                            <div class="bg-white px-6 py-5 border-b border-primary-100">
+                                <h3 class="text-lg font-bold text-primary-500 flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center-subtle">
+                                        <svg class="w-5 h-5 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"/>
                                         </svg>
                                     </div>
@@ -664,7 +663,7 @@
                                     @csrf
                                     <div class="mb-5">
                                         <textarea name="content" rows="6" required
-                                            class="w-full rounded-2xl border-2 border-slate-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-sm p-4 transition-colors resize-none"
+                                            class="w-full rounded-2xl border-2 border-slate-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 text-sm p-4 resize-none"
                                             placeholder="{{ __('Share your thoughts, suggestions, or solutions for this challenge...') }}">{{ old('content') }}</textarea>
                                         @error('content')
                                         <p class="text-red-600 text-xs mt-2 flex items-center gap-1">
@@ -677,7 +676,7 @@
                                     </div>
 
                                     <!-- Tips Card -->
-                                    <div class="bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-200 rounded-xl p-4 mb-5">
+                                    <div class="bg-gray-50 border border-violet-200 rounded-xl p-4 mb-5">
                                         <div class="flex items-start gap-3">
                                             <div class="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
                                                 <svg class="w-4 h-4 text-violet-600" fill="currentColor" viewBox="0 0 20 20">
@@ -691,21 +690,21 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold rounded-2xl hover:from-violet-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <x-ui.button as="submit" variant="secondary" fullWidth size="lg">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                                         </svg>
                                         {{ __('Submit Idea') }}
-                                    </button>
+                                    </x-ui.button>
                                 </form>
                             </div>
                         </div>
                             @endif
                         @else
                         <!-- Company View -->
-                        <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-6 animate-slide-in-up" style="animation-delay: 0.7s;">
+                        <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-6">
                             <div class="text-center">
-                                <div class="w-16 h-16 bg-gradient-to-br from-indigo-100 to-violet-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                                     <svg class="w-8 h-8 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                     </svg>
@@ -717,25 +716,25 @@
                         @endif
                     @else
                     <!-- Guest CTA -->
-                    <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 text-center animate-slide-in-up" style="animation-delay: 0.7s;">
-                        <div class="w-16 h-16 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 text-center">
+                        <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
                             </svg>
                         </div>
                         <h4 class="font-bold text-slate-900 mb-2">{{ __('Join the Discussion') }}</h4>
                         <p class="text-sm text-slate-500 mb-6">{{ __('Sign in to share your ideas and insights.') }}</p>
-                        <a href="{{ route('login') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold rounded-xl hover:from-violet-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl">
+                        <x-ui.button as="a" href="{{ route('login') }}" variant="secondary">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
                             </svg>
                             {{ __('Sign In') }}
-                        </a>
+                        </x-ui.button>
                     </div>
                     @endauth
 
                     <!-- Challenge Owner Info -->
-                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 animate-slide-in-up" style="animation-delay: 0.8s;">
+                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
                         <h4 class="font-bold text-slate-900 mb-5 flex items-center gap-2">
                             <svg class="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4z" clip-rule="evenodd"/>
@@ -743,7 +742,7 @@
                             {{ __('Posted By') }}
                         </h4>
                         <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                            <div class="w-14 h-14 bg-primary-500 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
                                 {{ strtoupper(substr($challenge->company?->company_name ?? ($challenge->volunteer?->user?->name ?? 'C'), 0, 1)) }}
                             </div>
                             <div>
@@ -769,7 +768,7 @@
 
                     <!-- Top Contributors -->
                     @if($challenge->ideas->count() > 0)
-                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 animate-slide-in-up" style="animation-delay: 0.9s;">
+                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
                         <h4 class="font-bold text-slate-900 mb-5 flex items-center gap-2">
                             <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/>
@@ -778,14 +777,14 @@
                         </h4>
                         <div class="space-y-4">
                             @foreach($challenge->ideas->sortByDesc(function($idea) { return ($idea->community_votes_up ?? 0) - ($idea->community_votes_down ?? 0); })->take(5) as $rank => $topIdea)
-                            <div class="flex items-center gap-3 p-3 rounded-xl {{ $rank === 0 ? 'bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200' : 'bg-slate-50 border border-slate-100' }} transition-all hover:shadow-sm">
+                            <div class="flex items-center gap-3 p-3 rounded-xl {{ $rank === 0 ? 'bg-gray-50 border border-amber-200' : 'bg-slate-50 border border-slate-100' }} hover:shadow-sm">
                                 <!-- Rank Badge -->
-                                <div class="w-8 h-8 {{ $rank === 0 ? 'bg-gradient-to-br from-amber-400 to-yellow-500' : ($rank === 1 ? 'bg-gradient-to-br from-slate-300 to-slate-400' : ($rank === 2 ? 'bg-gradient-to-br from-amber-600 to-orange-700' : 'bg-slate-200')) }} rounded-full flex items-center justify-center text-{{ $rank < 3 ? 'white' : 'slate-600' }} text-xs font-bold shadow-sm">
+                                <div class="w-8 h-8 {{ $rank === 0 ? 'bg-secondary-300' : ($rank === 1 ? 'bg-gray-300' : ($rank === 2 ? 'bg-secondary-300' : 'bg-slate-200')) }} rounded-full flex items-center justify-center text-{{ $rank < 3 ? 'white' : 'slate-600' }} text-xs font-bold shadow-sm">
                                     {{ $rank + 1 }}
                                 </div>
 
                                 <!-- Avatar -->
-                                <div class="w-10 h-10 bg-gradient-to-br from-violet-400 to-purple-500 rounded-xl flex items-center justify-center text-white text-sm font-bold">
+                                <div class="w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center text-white text-sm font-bold">
                                     {{ strtoupper(substr($topIdea->volunteer->user->name ?? 'U', 0, 1)) }}
                                 </div>
 
@@ -814,7 +813,7 @@
                     @endif
 
                     <!-- Participation Stats -->
-                    <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl shadow-lg p-6 text-white animate-slide-in-up" style="animation-delay: 1s;">
+                    <div class="bg-primary-500 rounded-3xl shadow-lg p-6 text-white">
                         <h4 class="font-bold mb-4 flex items-center gap-2">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
@@ -844,7 +843,7 @@
                                 <span class="text-white/70">{{ __('Quality Distribution') }}</span>
                             </div>
                             <div class="w-full h-2 bg-white/20 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full transition-all" style="width: {{ $totalIdeas > 0 ? ($highQualityIdeas->count() / $totalIdeas) * 100 : 0 }}%"></div>
+                                <div class="h-full bg-secondary-500 rounded-full" style="width: {{ $totalIdeas > 0 ? ($highQualityIdeas->count() / $totalIdeas) * 100 : 0 }}%"></div>
                             </div>
                         </div>
                     </div>

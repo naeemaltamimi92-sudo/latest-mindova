@@ -31,7 +31,7 @@
                 });
             }
         "
-        class="w-64 px-4 py-2 text-sm font-medium text-slate-900 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+        class="w-64 px-4 py-2 text-sm font-medium text-slate-900 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
         :class="saving && 'opacity-50'"
         :disabled="saving"
         placeholder="{{ __('Enter value...') }}"
