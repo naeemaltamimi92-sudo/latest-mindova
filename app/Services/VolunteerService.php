@@ -14,6 +14,9 @@ class VolunteerService
      */
     public function updateProfile(User $user, array $data): Volunteer
     {
+        // Check if user is self-identifying as student
+        $isStudent = $data['is_student'] ?? false;
+
         // Create volunteer profile if it doesn't exist
         if (!$user->volunteer) {
             // Update user type to volunteer if not already
@@ -24,33 +27,53 @@ class VolunteerService
             // Get profile picture from session if available
             $profilePicture = session('volunteer_profile_picture');
 
-            $volunteer = Volunteer::create([
+            $volunteerData = [
                 'user_id' => $user->id,
                 'field' => $data['field'] ?? null,
                 'availability_hours_per_week' => $data['availability_hours_per_week'] ?? 0,
                 'bio' => $data['bio'] ?? null,
                 'profile_picture' => $profilePicture,
                 'reputation_score' => 50.00,
-                'ai_analysis_status' => 'pending',
-                'validation_status' => 'pending',
                 'skills_normalized' => false,
-            ]);
+            ];
+
+            // If student, set experience_level and skip analysis
+            if ($isStudent) {
+                $volunteerData['experience_level'] = 'Student';
+                $volunteerData['ai_analysis_status'] = 'completed';
+                $volunteerData['validation_status'] = 'passed';
+                $volunteerData['years_of_experience'] = 0;
+            } else {
+                $volunteerData['ai_analysis_status'] = 'pending';
+                $volunteerData['validation_status'] = 'pending';
+            }
+
+            $volunteer = Volunteer::create($volunteerData);
 
             // Clear the profile picture from session after using it
             session()->forget('volunteer_profile_picture');
         } else {
             $volunteer = $user->volunteer;
 
-            // Update basic fields
-            $volunteer->update([
+            $updateData = [
                 'field' => $data['field'] ?? $volunteer->field,
                 'availability_hours_per_week' => $data['availability_hours_per_week'] ?? $volunteer->availability_hours_per_week,
                 'bio' => $data['bio'] ?? $volunteer->bio,
-            ]);
+            ];
+
+            // If switching to student status
+            if ($isStudent && $volunteer->experience_level !== 'Student') {
+                $updateData['experience_level'] = 'Student';
+                $updateData['ai_analysis_status'] = 'completed';
+                $updateData['validation_status'] = 'passed';
+                $updateData['years_of_experience'] = 0;
+            }
+
+            $volunteer->update($updateData);
         }
 
-        // Handle CV upload if provided
-        if (isset($data['cv']) && $data['cv']) {
+        // Handle CV upload if provided - ONLY if NOT a student
+        if (!$isStudent && isset($data['cv']) && $data['cv']) {
             // Delete old CV if exists
             if ($volunteer->cv_file_path) {
                 Storage::delete($volunteer->cv_file_path);

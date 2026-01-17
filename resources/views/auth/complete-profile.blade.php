@@ -453,8 +453,24 @@
                         </div>
                     </div>
 
+                    <!-- Student Option -->
+                    <div class="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" name="is_student" id="isStudentCheckbox"
+                                   value="1" {{ old('is_student') ? 'checked' : '' }}
+                                   class="mt-1 w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
+                                   onchange="toggleStudentMode(this.checked)">
+                            <div>
+                                <span class="font-bold text-gray-900">{{ __('I am a student') }}</span>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    {{ __('Select this if you are currently enrolled in a degree program. Your profile will be marked as "Student" level and CV analysis will be skipped.') }}
+                                </p>
+                            </div>
+                        </label>
+                    </div>
+
                     <!-- AI Analysis Info -->
-                    <div class="mt-4 bg-secondary-50 border border-secondary-200 rounded-xl p-4">
+                    <div id="aiAnalysisInfo" class="mt-4 bg-secondary-50 border border-secondary-200 rounded-xl p-4">
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -622,6 +638,22 @@
 </div>
 
 <script>
+// Student Mode Toggle
+function toggleStudentMode(isStudent) {
+    const aiAnalysisInfo = document.getElementById('aiAnalysisInfo');
+    if (aiAnalysisInfo) {
+        aiAnalysisInfo.style.display = isStudent ? 'none' : 'block';
+    }
+}
+
+// Initialize student mode on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('isStudentCheckbox');
+    if (checkbox) {
+        toggleStudentMode(checkbox.checked);
+    }
+});
+
 // Field Selection
 function selectField(fieldName) {
     document.querySelectorAll('.field-card').forEach(card => {

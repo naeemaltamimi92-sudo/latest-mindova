@@ -29,7 +29,11 @@ class ProfileController extends Controller
                 'availability_hours_per_week' => 'required|integer|min:0|max:168',
                 'bio' => 'nullable|string|max:1000',
                 'cv' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+                'is_student' => 'nullable',
             ]);
+
+            // Convert checkbox value to boolean
+            $validated['is_student'] = $request->boolean('is_student');
 
             $this->volunteerService->updateProfile($request->user(), $validated);
 

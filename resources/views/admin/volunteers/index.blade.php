@@ -130,6 +130,17 @@
                         </div>
                     </div>
                     <div class="min-w-[180px]">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">{{ __('Experience Level') }}</label>
+                        <select name="experience_level" class="w-full py-3.5 rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-slate-50/50">
+                            <option value="">{{ __('All Levels') }}</option>
+                            <option value="Student" {{ request('experience_level') === 'Student' ? 'selected' : '' }}>{{ __('Student') }}</option>
+                            <option value="Junior" {{ request('experience_level') === 'Junior' ? 'selected' : '' }}>{{ __('Junior') }}</option>
+                            <option value="Mid" {{ request('experience_level') === 'Mid' ? 'selected' : '' }}>{{ __('Mid') }}</option>
+                            <option value="Expert" {{ request('experience_level') === 'Expert' ? 'selected' : '' }}>{{ __('Expert') }}</option>
+                            <option value="Manager" {{ request('experience_level') === 'Manager' ? 'selected' : '' }}>{{ __('Manager') }}</option>
+                        </select>
+                    </div>
+                    <div class="min-w-[180px]">
                         <label class="block text-sm font-semibold text-slate-700 mb-2">{{ __('Sort By') }}</label>
                         <select name="sort_by" class="w-full py-3.5 rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-slate-50/50">
                             <option value="reputation_score" {{ request('sort_by') === 'reputation_score' ? 'selected' : '' }}>{{ __('Reputation') }}</option>
