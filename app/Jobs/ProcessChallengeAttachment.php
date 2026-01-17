@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Jobs\Concerns\RobustJob;
 use App\Models\ChallengeAttachment;
-use App\Services\AttachmentProcessingService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -12,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class ProcessChallengeAttachment implements ShouldQueue, ShouldBeUnique
@@ -58,10 +58,13 @@ class ProcessChallengeAttachment implements ShouldQueue, ShouldBeUnique
 
     /**
      * Execute the job.
+     *
+     * PDFs are now sent directly to Claude AI, so we just verify the file exists
+     * and mark the attachment as ready for processing.
      */
-    public function handle(AttachmentProcessingService $processingService): void
+    public function handle(): void
     {
-        $this->executeWithRobustHandling(function () use ($processingService) {
+        $this->executeWithRobustHandling(function () {
             // Refresh the model
             $this->attachment->refresh();
 
@@ -73,22 +76,22 @@ class ProcessChallengeAttachment implements ShouldQueue, ShouldBeUnique
                 return;
             }
 
-            // Extract text from the attachment
-            $extractedText = $processingService->extractText($this->attachment);
-
-            if ($extractedText) {
-                Log::info('Attachment processed successfully', [
-                    'attachment_id' => $this->attachment->id,
-                    'text_length' => strlen($extractedText),
-                ]);
-            } else {
-                Log::warning('No text extracted from attachment', [
-                    'attachment_id' => $this->attachment->id,
-                ]);
-
-                // Mark as processed even if no text (e.g., for images)
-                $this->attachment->markAsProcessed();
+            // Verify file exists
+            $fullPath = Storage::path($this->attachment->file_path);
+            if (!file_exists($fullPath)) {
+                throw new \Exception("File not found: {$this->attachment->file_path}");
             }
+
+            // Mark as processed (PDF will be sent directly to AI, no text extraction needed)
+            $this->attachment->update([
+                'processed' => true,
+                'processed_at' => now(),
+            ]);
+
+            Log::info('Attachment marked as ready for AI processing', [
+                'attachment_id' => $this->attachment->id,
+                'file_path' => $this->attachment->file_path,
+            ]);
 
         }, [
             'attachment_id' => $this->attachment->id,
@@ -113,7 +116,6 @@ class ProcessChallengeAttachment implements ShouldQueue, ShouldBeUnique
         // Mark as failed processing (still keep the attachment)
         $this->attachment->update([
             'processed' => false,
-            'extracted_text' => 'Failed to process attachment: ' . $exception->getMessage(),
         ]);
     }
 

@@ -51,7 +51,8 @@
       "Bash(sort:*)",
       "Bash(xargs cat:*)",
       "Bash(git -C /Users/awni/Desktop/naeem/latest-mindova log --all --oneline -- \"app/View/Components/LanguageSwitcher.php\")",
-      "Bash(tr:*)"
+      "Bash(tr:*)",
+      "Bash(python3:*)"
     ]
   }
 }

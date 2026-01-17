@@ -45,8 +45,6 @@ class ChallengeController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|min:100|max:5000',
-            'submission_deadline' => 'nullable|date|after:today',
-            'completion_deadline' => 'nullable|date|after:submission_deadline',
         ]);
 
         $user = $request->user();
@@ -63,8 +61,6 @@ class ChallengeController extends Controller
             'title' => $validated['title'],
             'original_description' => $validated['description'],
             'status' => 'submitted',
-            'submission_deadline' => $validated['submission_deadline'] ?? null,
-            'completion_deadline' => $validated['completion_deadline'] ?? null,
         ]);
 
         // Increment company's challenge count
@@ -120,8 +116,6 @@ class ChallengeController extends Controller
         $validated = $request->validate([
             'title' => 'sometimes|string|max:255',
             'description' => 'sometimes|string|min:100|max:5000',
-            'submission_deadline' => 'sometimes|nullable|date|after:today',
-            'completion_deadline' => 'sometimes|nullable|date|after:submission_deadline',
         ]);
 
         if (isset($validated['description'])) {

@@ -122,66 +122,11 @@
                 </div>
             </div>
 
-            <!-- Step 3: Deadlines -->
-            <div class="space-y-4">
-                <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">3</span>
-                    <div>
-                        <span class="block text-lg font-black text-slate-900">{{ __('Deadlines') }}</span>
-                        <span class="inline-flex items-center gap-2 text-sm text-slate-500">
-                            {{ __('Set timeframes for your challenge') }}
-                            <span class="px-2 py-0.5 bg-slate-100 text-slate-500 text-xs font-semibold rounded-lg">{{ __('Optional') }}</span>
-                        </span>
-                    </div>
-                </label>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                            {{ __('Submission Deadline') }}
-                        </label>
-                        <input type="date" name="submission_deadline" lang="en"
-                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 shadow-sm group-hover:border-indigo-300"
-                               value="{{ old('submission_deadline', $challenge->submission_deadline?->format('Y-m-d')) }}"
-                               style="color-scheme: light;">
-                        <p class="text-xs text-slate-500 mt-2">{{ __('When should volunteers submit their work?') }}</p>
-                        @error('submission_deadline')
-                        <p class="text-red-600 text-sm mt-2 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ __('Completion Deadline') }}
-                        </label>
-                        <input type="date" name="completion_deadline" lang="en"
-                               class="w-full px-5 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 shadow-sm group-hover:border-violet-300"
-                               value="{{ old('completion_deadline', $challenge->completion_deadline?->format('Y-m-d')) }}"
-                               style="color-scheme: light;">
-                        <p class="text-xs text-slate-500 mt-2">{{ __('When should the challenge be fully completed?') }}</p>
-                        @error('completion_deadline')
-                        <p class="text-red-600 text-sm mt-2 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-slate-200"></div>
-                </div>
-            </div>
-
-            <!-- Step 4: Existing Attachments -->
+            <!-- Step 3: Existing Attachments -->
             @if($challenge->attachments->count() > 0)
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">4</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">3</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Existing Attachments') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Current documents attached to this challenge') }}</span>
@@ -227,10 +172,10 @@
             </div>
             @endif
 
-            <!-- Step 5: Upload New Attachments -->
+            <!-- Step 4: Upload New Attachments -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">{{ $challenge->attachments->count() > 0 ? '5' : '4' }}</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">{{ $challenge->attachments->count() > 0 ? '4' : '3' }}</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Add New Documents') }}</span>
                         <span class="inline-flex items-center gap-2 text-sm text-slate-500">

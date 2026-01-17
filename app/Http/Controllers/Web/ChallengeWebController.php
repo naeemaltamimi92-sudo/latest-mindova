@@ -148,8 +148,6 @@ class ChallengeWebController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|min:100|max:5000',
-            'submission_deadline' => 'nullable|date|after:today',
-            'completion_deadline' => 'nullable|date|after:submission_deadline',
         ]);
 
         // Create the challenge
@@ -158,8 +156,6 @@ class ChallengeWebController extends Controller
             'title' => $validated['title'],
             'description' => $validated['description'],
             'original_description' => $validated['description'],
-            'submission_deadline' => $validated['submission_deadline'] ?? null,
-            'completion_deadline' => $validated['completion_deadline'] ?? null,
             'status' => 'submitted',
         ]);
 
@@ -421,8 +417,6 @@ class ChallengeWebController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|min:100|max:5000',
-            'submission_deadline' => 'nullable|date',
-            'completion_deadline' => 'nullable|date|after_or_equal:submission_deadline',
             'attachments.*' => 'nullable|file|max:10240',
             'remove_attachments' => 'nullable|string',
         ]);
@@ -461,8 +455,6 @@ class ChallengeWebController extends Controller
             'title' => $validated['title'],
             'description' => $validated['description'],
             'original_description' => $validated['description'],
-            'submission_deadline' => $validated['submission_deadline'] ?? null,
-            'completion_deadline' => $validated['completion_deadline'] ?? null,
             'status' => 'submitted',
             'ai_analysis_status' => 'pending',
             'rejection_reason' => null,

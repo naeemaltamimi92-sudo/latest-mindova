@@ -52,15 +52,33 @@ class ChallengeBriefService extends AnthropicService
         $prompt = $this->buildPrompt($challenge);
         $systemPrompt = $this->getSystemPrompt();
 
-        $response = $this->makeRequest(
-            prompt: $prompt,
-            options: [
-                'system_prompt' => $systemPrompt,
-                'temperature' => 0.5,
-            ],
-            relatedType: Challenge::class,
-            relatedId: $challenge->id
-        );
+        // Check if challenge has a PDF attachment to send directly to Claude
+        $pdfAttachment = $challenge->attachments()
+            ->where('file_type', 'pdf')
+            ->first();
+
+        if ($pdfAttachment) {
+            $response = $this->makeDocumentRequest(
+                prompt: $prompt,
+                filePath: $pdfAttachment->file_path,
+                options: [
+                    'system_prompt' => $systemPrompt,
+                    'temperature' => 0.5,
+                ],
+                relatedType: Challenge::class,
+                relatedId: $challenge->id
+            );
+        } else {
+            $response = $this->makeRequest(
+                prompt: $prompt,
+                options: [
+                    'system_prompt' => $systemPrompt,
+                    'temperature' => 0.5,
+                ],
+                relatedType: Challenge::class,
+                relatedId: $challenge->id
+            );
+        }
 
         // Check if the response indicates an invalid/rejected challenge
         if (isset($response['is_valid']) && $response['is_valid'] === false) {
@@ -101,19 +119,11 @@ class ChallengeBriefService extends AnthropicService
         $existingFields = $this->getExistingVolunteerFields();
         $fieldsListForPrompt = implode(', ', $existingFields);
 
-        // Get attachment content if available
-        $attachmentContent = $this->getAttachmentContent($challenge);
-
-        $attachmentSection = '';
-        if ($attachmentContent) {
-            $attachmentSection = <<<ATTACHMENTS
-
-
-Supporting Attachments:
-{$attachmentContent}
-
-ATTACHMENTS;
-        }
+        // Check if there's a PDF attachment (it will be sent directly to Claude)
+        $hasPdfAttachment = $challenge->attachments()->where('file_type', 'pdf')->exists();
+        $pdfNote = $hasPdfAttachment
+            ? "\n\nNote: A PDF document has been attached to this challenge. Please analyze its content as part of the challenge brief.\n"
+            : '';
 
         return <<<PROMPT
 Analyze the following challenge submission and create a refined, structured brief.
@@ -121,7 +131,7 @@ Analyze the following challenge submission and create a refined, structured brie
 Challenge Title: {$challenge->title}
 
 Original Description:
-{$challenge->original_description}{$attachmentSection}
+{$challenge->original_description}{$pdfNote}
 
 CRITICAL: FIRST, determine if this is a VALID challenge submission. You MUST reject and return is_valid=false if ANY of these apply:
 - It contains gibberish, random characters, or nonsensical text (e.g., "dsafdsfds", "fffffffff", "aaaaaa")
@@ -276,30 +286,5 @@ SYSTEM;
                 ? ['notes' => $analysis['validation_notes']]
                 : null,
         ]);
-    }
-
-    /**
-     * Get attachment content for AI analysis
-     *
-     * @param Challenge $challenge
-     * @return string|null
-     */
-    protected function getAttachmentContent(Challenge $challenge): ?string
-    {
-        // Check if challenge has attachments
-        $attachments = $challenge->attachments()->processed()->get();
-
-        if ($attachments->isEmpty()) {
-            return null;
-        }
-
-        $content = '';
-
-        foreach ($attachments as $attachment) {
-            $content .= "\n--- File: {$attachment->file_name} ({$attachment->file_type}) ---\n";
-            $content .= $attachment->extracted_text . "\n";
-        }
-
-        return $content;
     }
 }

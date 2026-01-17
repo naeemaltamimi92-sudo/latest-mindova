@@ -21,8 +21,6 @@ class ChallengeResource extends JsonResource
             'complexity_level' => $this->complexity_level,
             'challenge_type' => $this->challenge_type,
             'status' => $this->status,
-            'submission_deadline' => $this->submission_deadline,
-            'completion_deadline' => $this->completion_deadline,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'company' => new CompanyResource($this->whenLoaded('company')),

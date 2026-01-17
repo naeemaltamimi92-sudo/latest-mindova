@@ -21,7 +21,6 @@ class Challenge extends Model
         'field',
         'challenge_type',
         'status',
-        'deadline',
         'ai_analysis_status',
         'rejection_reason',
         'ai_analyzed_at',
@@ -55,7 +54,6 @@ class Challenge extends Model
         return [
             'complexity_level' => 'integer',
             'score' => 'integer',
-            'deadline' => 'date',
             'ai_analyzed_at' => 'datetime',
             'aggregated_solutions' => 'array',
             'average_solution_quality' => 'decimal:2',
@@ -343,27 +341,11 @@ class Challenge extends Model
 
     /**
      * Get time-based progress percentage.
-     * Considers both task completion and time elapsed.
+     * Returns task completion progress.
      */
     public function getTimeBasedProgressAttribute(): float
     {
-        $taskProgress = $this->progress_percentage;
-
-        if (!$this->deadline || !$this->created_at) {
-            return $taskProgress;
-        }
-
-        $totalDuration = $this->created_at->diffInDays($this->deadline);
-        $elapsed = $this->created_at->diffInDays(now());
-
-        if ($totalDuration <= 0) {
-            return $taskProgress;
-        }
-
-        $timeProgress = min(($elapsed / $totalDuration) * 100, 100);
-
-        // Weighted average: 70% task completion, 30% time elapsed
-        return round(($taskProgress * 0.7) + ($timeProgress * 0.3), 1);
+        return $this->progress_percentage;
     }
 
     /**
@@ -400,24 +382,10 @@ class Challenge extends Model
     }
 
     /**
-     * Get challenge health status based on progress vs time.
+     * Get challenge health status.
      */
     public function getHealthStatusAttribute(): string
     {
-        if (!$this->deadline) {
-            return 'on_track';
-        }
-
-        $taskProgress = $this->progress_percentage;
-        $timeProgress = $this->time_based_progress;
-
-        // If task progress is ahead or equal to time progress, we're on track
-        if ($taskProgress >= $timeProgress - 10) {
-            return 'on_track';
-        } elseif ($taskProgress >= $timeProgress - 25) {
-            return 'at_risk';
-        } else {
-            return 'behind';
-        }
+        return 'on_track';
     }
 }

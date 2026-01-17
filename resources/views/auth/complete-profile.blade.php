@@ -581,26 +581,68 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="form-field-premium">
-                        <label class="block text-sm font-bold text-gray-900 mb-2">{{ __('Industry') }}</label>
-                        <input type="text" name="industry"
-                               class="input-premium w-full px-5 py-4 rounded-xl" value="{{ old('industry') }}"
-                               placeholder="{{ __('e.g., Healthcare, Technology, Finance') }}">
-                        @error('industry')
-                        <p class="text-red-600 text-sm mt-2 font-semibold">{{ $message }}</p>
-                        @enderror
+                <!-- Industry Selection -->
+                <div class="form-field-premium">
+                    <label class="flex items-center gap-2 text-sm font-bold text-gray-900 mb-4">
+                        <span class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </span>
+                        {{ __('Industry') }}
+                    </label>
+
+                    @php
+                        $industries = [
+                            ['name' => 'Technology', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>'],
+                            ['name' => 'Healthcare', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>'],
+                            ['name' => 'Finance', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>'],
+                            ['name' => 'Manufacturing', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>'],
+                            ['name' => 'E-commerce', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>'],
+                            ['name' => 'Education', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>'],
+                            ['name' => 'Energy', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>'],
+                            ['name' => 'Real Estate', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>'],
+                            ['name' => 'Consulting', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>'],
+                            ['name' => 'Other', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>'],
+                        ];
+                    @endphp
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-4" id="industryCards">
+                        @foreach($industries as $industry)
+                        <div class="field-card bg-white border-2 border-gray-100 rounded-xl p-4 text-center hover:shadow-lg {{ old('industry') == $industry['name'] ? 'selected' : '' }}"
+                             data-industry="{{ $industry['name'] }}" onclick="selectIndustry('{{ $industry['name'] }}')">
+                            <div class="field-icon w-12 h-12 mx-auto bg-gray-100 rounded-xl flex items-center justify-center mb-2">
+                                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $industry['icon'] !!}</svg>
+                            </div>
+                            <span class="text-xs font-bold text-gray-700">{{ __($industry['name']) }}</span>
+                        </div>
+                        @endforeach
                     </div>
 
-                    <div class="form-field-premium">
-                        <label class="block text-sm font-bold text-gray-900 mb-2">{{ __('Website') }}</label>
-                        <input type="url" name="website"
-                               class="input-premium w-full px-5 py-4 rounded-xl" value="{{ old('website') }}"
-                               placeholder="{{ __('https://yourcompany.com') }}">
-                        @error('website')
-                        <p class="text-red-600 text-sm mt-2 font-semibold">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <input type="hidden" name="industry" id="selectedIndustry" value="{{ old('industry') }}">
+                    <p class="text-xs text-gray-500 flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ __('Select the industry that best describes your company') }}
+                    </p>
+                    @error('industry')
+                    <p class="text-red-600 text-sm mt-2 font-semibold flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                        {{ $message }}
+                    </p>
+                    @enderror
+                </div>
+
+                <!-- Website -->
+                <div class="form-field-premium">
+                    <label class="block text-sm font-bold text-gray-900 mb-2">{{ __('Website') }}</label>
+                    <input type="url" name="website"
+                           class="input-premium w-full px-5 py-4 rounded-xl" value="{{ old('website') }}"
+                           placeholder="{{ __('https://yourcompany.com') }}">
+                    @error('website')
+                    <p class="text-red-600 text-sm mt-2 font-semibold">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="form-field-premium">
@@ -661,6 +703,15 @@ function selectField(fieldName) {
     });
     document.querySelector(`[data-field="${fieldName}"]`).classList.add('selected');
     document.getElementById('selectedField').value = fieldName;
+}
+
+// Industry Selection (Company)
+function selectIndustry(industryName) {
+    document.querySelectorAll('#industryCards .field-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+    document.querySelector(`[data-industry="${industryName}"]`).classList.add('selected');
+    document.getElementById('selectedIndustry').value = industryName;
 }
 
 // Availability Slider
