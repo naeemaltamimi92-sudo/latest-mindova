@@ -73,6 +73,9 @@ abstract class AnthropicService
             $content = preg_replace('/\s*```$/i', '', $content);
             $content = trim($content);
 
+            // Sanitize control characters before JSON parsing
+            $content = $this->sanitizeJsonString($content);
+
             $parsedResponse = json_decode($content, true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {
@@ -188,6 +191,9 @@ abstract class AnthropicService
             $responseContent = preg_replace('/^```(?:json)?\s*/i', '', $responseContent);
             $responseContent = preg_replace('/\s*```$/i', '', $responseContent);
             $responseContent = trim($responseContent);
+
+            // Sanitize control characters before JSON parsing
+            $responseContent = $this->sanitizeJsonString($responseContent);
 
             $parsedResponse = json_decode($responseContent, true);
 
@@ -324,5 +330,36 @@ abstract class AnthropicService
     {
         $threshold = config('ai.confidence_threshold.' . $this->getRequestType(), 70.0);
         return $confidence >= $threshold;
+    }
+
+    /**
+     * Sanitize JSON string by escaping control characters within string values.
+     *
+     * Claude sometimes returns JSON with unescaped control characters (newlines, tabs)
+     * inside string values, which causes json_decode() to fail.
+     */
+    protected function sanitizeJsonString(string $json): string
+    {
+        return preg_replace_callback(
+            '/"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"/',
+            function ($matches) {
+                $str = $matches[1];
+                $str = preg_replace_callback(
+                    '/[\x00-\x1F]/',
+                    function ($m) {
+                        $char = ord($m[0]);
+                        return match ($char) {
+                            0x09 => '\\t',
+                            0x0A => '\\n',
+                            0x0D => '\\r',
+                            default => sprintf('\\u%04X', $char),
+                        };
+                    },
+                    $str
+                );
+                return '"' . $str . '"';
+            },
+            $json
+        );
     }
 }
