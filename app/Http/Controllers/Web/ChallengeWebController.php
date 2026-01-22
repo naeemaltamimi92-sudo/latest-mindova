@@ -191,6 +191,7 @@ class ChallengeWebController extends Controller
             },
             'teams.leader.user',
             'teams.members.volunteer.user',
+            'teams.members.volunteer.skills',
             'challengeAnalyses',
             'attachments',
             'comments.user',

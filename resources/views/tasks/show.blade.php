@@ -585,6 +585,29 @@
             </div>
             <form id="submitSolutionForm" method="POST" action="" enctype="multipart/form-data" class="p-8">
                 @csrf
+
+                @if(session('error'))
+                <div class="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 mb-4">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="font-medium">{{ session('error') }}</span>
+                    </div>
+                </div>
+                @endif
+
+                @if($errors->any())
+                <div class="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 mb-4">
+                    <p class="font-bold mb-2">{{ __('Please fix the following errors:') }}</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <div class="space-y-6">
                     <div>
                         <label class="block text-sm font-bold text-slate-900 mb-2">{{ __('Solution Description') }} *</label>
@@ -621,7 +644,7 @@
 
                 <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-slate-200">
                     <x-ui.button type="button" onclick="closeSubmitSolutionModal()" variant="ghost">{{ __('Cancel') }}</x-ui.button>
-                    <x-ui.button as="submit" variant="secondary">{{ __('Submit Solution') }}</x-ui.button>
+                    <x-ui.button type="submit" variant="secondary">{{ __('Submit Solution') }}</x-ui.button>
                 </div>
             </form>
         </div>
@@ -638,5 +661,14 @@ function showSubmitSolutionModal(assignmentId) {
 function closeSubmitSolutionModal() {
     document.getElementById('submitSolutionModal').classList.add('hidden');
 }
+
+// Auto-open modal if there are errors
+@if(session('error') || $errors->any())
+document.addEventListener('DOMContentLoaded', function() {
+    @if($myAssignment)
+    showSubmitSolutionModal({{ $myAssignment->id }});
+    @endif
+});
+@endif
 </script>
 @endsection

@@ -72,4 +72,12 @@ class Task extends Model
     {
         return $this->hasMany(TaskAssignment::class);
     }
+
+    /**
+     * Get all work submissions for this task.
+     */
+    public function submissions()
+    {
+        return $this->hasMany(WorkSubmission::class);
+    }
 }

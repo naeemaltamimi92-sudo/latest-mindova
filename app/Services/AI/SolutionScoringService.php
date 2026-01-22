@@ -77,6 +77,8 @@ class SolutionScoringService extends AnthropicService
             $deliverableInfo = "\nDeliverable URL: {$submission->deliverable_url}";
         }
 
+        $requiredSkills = is_array($task->required_skills) ? implode(', ', $task->required_skills) : ($task->required_skills ?? 'None specified');
+
         return <<<PROMPT
 Analyze the following task solution submission and evaluate its quality and completeness.
 
@@ -90,7 +92,7 @@ Title: {$task->title}
 Description: {$task->description}
 Complexity Score: {$task->complexity_score}/10
 Estimated Hours: {$task->estimated_hours}
-Required Skills: {$task->required_skills}
+Required Skills: {$requiredSkills}
 
 SUBMITTED SOLUTION:
 Volunteer: {$volunteer->user->name}

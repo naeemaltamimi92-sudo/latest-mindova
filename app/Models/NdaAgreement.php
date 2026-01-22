@@ -45,17 +45,16 @@ class NdaAgreement extends Model
 
         $content = file_get_contents($filePath);
 
-        // Return an object with the expected properties
-        $nda = new \stdClass();
-        $nda->id = 1;
-        $nda->title = 'Mindova Platform General Non-Disclosure Agreement';
-        $nda->type = 'general';
-        $nda->version = '1.0';
-        $nda->content = $content;
-        $nda->is_active = true;
-        $nda->effective_date = now();
-
-        return $nda;
+        // Create or retrieve the actual database record
+        return self::firstOrCreate(
+            ['type' => 'general', 'is_active' => true],
+            [
+                'title' => 'Mindova Platform General Non-Disclosure Agreement',
+                'version' => '1.0',
+                'content' => $content,
+                'effective_date' => now(),
+            ]
+        );
     }
 
     /**
@@ -72,16 +71,15 @@ class NdaAgreement extends Model
 
         $content = file_get_contents($filePath);
 
-        // Return an object with the expected properties
-        $nda = new \stdClass();
-        $nda->id = 2;
-        $nda->title = 'Mindova Challenge-Specific Non-Disclosure Agreement';
-        $nda->type = 'challenge_specific';
-        $nda->version = '1.0';
-        $nda->content = $content;
-        $nda->is_active = true;
-        $nda->effective_date = now();
-
-        return $nda;
+        // Create or retrieve the actual database record
+        return self::firstOrCreate(
+            ['type' => 'challenge_specific', 'is_active' => true],
+            [
+                'title' => 'Mindova Challenge-Specific Non-Disclosure Agreement',
+                'version' => '1.0',
+                'content' => $content,
+                'effective_date' => now(),
+            ]
+        );
     }
 }

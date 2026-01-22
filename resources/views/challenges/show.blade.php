@@ -673,50 +673,327 @@
 
                 <!-- Teams Tab -->
                 @if($challenge->teams->count() > 0)
-                <div x-show="activeTab === 'teams'"   >
-                    <div class="grid grid-cols-1 gap-6">
+                <div x-show="activeTab === 'teams'">
+                    <div class="space-y-6">
                         @foreach($challenge->teams as $team)
-                        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-lg">
-                            <div class="flex items-start gap-4">
-                                <div class="w-14 h-14 bg-primary-500 rounded-2xl flex items-center justify-center text-white font-black text-xl">
-                                    {{ strtoupper(substr($team->name, 0, 2)) }}
+                        <div x-data="{ expanded: true }"
+                             class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
+
+                            <!-- Team Header (Always Visible) - Click to Expand -->
+                            <div @click="expanded = !expanded" class="p-6 cursor-pointer">
+                                <div class="flex items-start gap-4">
+                                    <!-- Team Avatar -->
+                                    <div class="w-14 h-14 bg-primary-500 rounded-2xl flex items-center justify-center text-white font-black text-xl flex-shrink-0">
+                                        {{ strtoupper(substr($team->name, 0, 2)) }}
+                                    </div>
+
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex flex-wrap items-center gap-3 mb-2">
+                                            <h3 class="text-lg font-black text-slate-900">{{ $team->name }}</h3>
+
+                                            <!-- Team Status Badge -->
+                                            <span class="px-3 py-1 rounded-full text-xs font-bold
+                                                {{ $team->status === 'active' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : '' }}
+                                                {{ $team->status === 'forming' ? 'bg-amber-50 text-amber-700 border border-amber-200' : '' }}
+                                                {{ $team->status === 'completed' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200' : '' }}
+                                                {{ $team->status === 'disbanded' ? 'bg-slate-50 text-slate-500 border border-slate-200' : '' }}">
+                                                {{ __(ucfirst($team->status ?? 'forming')) }}
+                                            </span>
+
+                                            <!-- Member Count -->
+                                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">
+                                                {{ $team->members->count() + 1 }} {{ __('members') }}
+                                            </span>
+                                        </div>
+
+                                        <!-- Leader Info -->
+                                        @if($team->leader && $team->leader->user)
+                                        <p class="text-sm text-slate-500 flex items-center gap-1.5">
+                                            <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                                            </svg>
+                                            {{ __('Led by') }} {{ $team->leader->user->name }}
+                                        </p>
+                                        @endif
+
+                                        <!-- Team Match Score -->
+                                        @if($team->team_match_score)
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <div class="flex items-center gap-1.5">
+                                                <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                                </svg>
+                                                <span class="text-sm font-bold text-indigo-600">{{ number_format($team->team_match_score, 0) }}%</span>
+                                                <span class="text-xs text-slate-500">{{ __('Match Score') }}</span>
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </div>
+
+                                    <!-- Collapsed Member Avatars & Expand Icon -->
+                                    <div class="flex items-center gap-4">
+                                        <!-- Overlapping Avatars (collapsed view) -->
+                                        <div class="flex items-center -space-x-3" x-show="!expanded">
+                                            @if($team->leader && $team->leader->user)
+                                            <div class="relative w-10 h-10 bg-secondary-300 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-white shadow-md">
+                                                {{ strtoupper(substr($team->leader->user->name, 0, 1)) }}
+                                            </div>
+                                            @endif
+                                            @foreach($team->members->take(3) as $member)
+                                            @if($member->volunteer && $member->volunteer->user)
+                                            <div class="relative w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-white shadow-md">
+                                                {{ strtoupper(substr($member->volunteer->user->name, 0, 1)) }}
+                                            </div>
+                                            @endif
+                                            @endforeach
+                                            @if($team->members->count() > 3)
+                                            <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-600 font-bold text-xs border-2 border-white">
+                                                +{{ $team->members->count() - 3 }}
+                                            </div>
+                                            @endif
+                                        </div>
+
+                                        <!-- Expand/Collapse Icon -->
+                                        <div class="flex-shrink-0">
+                                            <svg class="w-5 h-5 text-slate-400 transition-transform duration-300"
+                                                 :class="expanded ? 'rotate-180' : ''"
+                                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="flex-1">
-                                    <h3 class="text-lg font-black text-slate-900">{{ $team->name }}</h3>
-                                    @if($team->leader && $team->leader->user)
-                                    <p class="text-sm text-slate-500 flex items-center gap-1.5 mt-1">
-                                        <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
-                                        </svg>
-                                        {{ __('Led by') }} {{ $team->leader->user->name }}
-                                    </p>
-                                    @endif
-                                </div>
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">
-                                    {{ $team->members->count() + 1 }} {{ __('members') }}
-                                </span>
                             </div>
 
-                            <!-- Team Members -->
-                            <div class="mt-4 pt-4 border-t border-slate-100">
-                                <div class="flex items-center -space-x-3">
-                                    @if($team->leader && $team->leader->user)
-                                    <div class="team-avatar relative w-10 h-10 bg-secondary-300 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-white shadow-md" title="{{ $team->leader->user->name }} ({{ __('Leader') }})">
-                                        {{ strtoupper(substr($team->leader->user->name, 0, 1)) }}
+                            <!-- Expanded Content -->
+                            <div x-show="expanded"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0"
+                                 x-transition:enter-end="opacity-100"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="opacity-100"
+                                 x-transition:leave-end="opacity-0"
+                                 class="border-t border-slate-100">
+
+                                <div class="p-6 space-y-6">
+
+                                    <!-- Team Description -->
+                                    @if($team->description)
+                                    <div>
+                                        <h4 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">{{ __('Description') }}</h4>
+                                        <p class="text-slate-600 leading-relaxed">{{ $team->description }}</p>
                                     </div>
                                     @endif
-                                    @foreach($team->members->take(5) as $member)
-                                    @if($member->volunteer && $member->volunteer->user)
-                                    <div class="team-avatar relative w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 border-white shadow-md" title="{{ $member->volunteer->user->name }}">
-                                        {{ strtoupper(substr($member->volunteer->user->name, 0, 1)) }}
+
+                                    <!-- Team Objectives -->
+                                    @if($team->objectives && count($team->objectives) > 0)
+                                    <div>
+                                        <h4 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">{{ __('Objectives') }}</h4>
+                                        <ul class="space-y-2">
+                                            @foreach($team->objectives as $objective)
+                                            <li class="flex items-start gap-2">
+                                                <div class="flex-shrink-0 w-5 h-5 bg-primary-500 rounded flex items-center justify-center mt-0.5">
+                                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                </div>
+                                                <span class="text-sm text-slate-700">{{ $objective }}</span>
+                                            </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                     @endif
-                                    @endforeach
-                                    @if($team->members->count() > 5)
-                                    <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-600 font-bold text-xs border-2 border-white">
-                                        +{{ $team->members->count() - 5 }}
+
+                                    <!-- Skills Coverage -->
+                                    @if($team->skills_coverage && (isset($team->skills_coverage['coverage_percentage']) || isset($team->skills_coverage['covered_skills']) || isset($team->skills_coverage['missing_skills'])))
+                                    <div>
+                                        <h4 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">{{ __('Skills Coverage') }}</h4>
+
+                                        <!-- Coverage Progress Bar -->
+                                        @if(isset($team->skills_coverage['coverage_percentage']))
+                                        <div class="mb-4">
+                                            <div class="flex justify-between items-center mb-2">
+                                                <span class="text-sm text-slate-600">{{ __('Overall Coverage') }}</span>
+                                                <span class="text-sm font-bold text-indigo-600">{{ $team->skills_coverage['coverage_percentage'] }}%</span>
+                                            </div>
+                                            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                                                <div class="bg-primary-500 h-2 rounded-full transition-all duration-500"
+                                                     style="width: {{ $team->skills_coverage['coverage_percentage'] }}%"></div>
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <!-- Covered Skills -->
+                                            @if(isset($team->skills_coverage['covered_skills']) && count($team->skills_coverage['covered_skills']) > 0)
+                                            <div>
+                                                <h5 class="text-xs font-bold text-emerald-700 mb-2">{{ __('Covered Skills') }}</h5>
+                                                <div class="flex flex-wrap gap-1.5">
+                                                    @foreach($team->skills_coverage['covered_skills'] as $skill)
+                                                    <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-medium">{{ $skill }}</span>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            @endif
+
+                                            <!-- Missing Skills -->
+                                            @if(isset($team->skills_coverage['missing_skills']) && count($team->skills_coverage['missing_skills']) > 0)
+                                            <div>
+                                                <h5 class="text-xs font-bold text-slate-500 mb-2">{{ __('Missing Skills') }}</h5>
+                                                <div class="flex flex-wrap gap-1.5">
+                                                    @foreach($team->skills_coverage['missing_skills'] as $skill)
+                                                    <span class="px-2.5 py-1 bg-slate-50 text-slate-500 border border-slate-200 rounded-lg text-xs font-medium">{{ $skill }}</span>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
                                     @endif
+
+                                    <!-- Team Members Grid -->
+                                    <div>
+                                        <h4 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-4">{{ __('Team Members') }}</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                                            <!-- Team Leader Card -->
+                                            @if($team->leader && $team->leader->user)
+                                            <div class="bg-amber-50/50 rounded-2xl p-4 border border-amber-200">
+                                                <div class="flex items-start gap-3">
+                                                    <!-- Avatar -->
+                                                    <div class="flex-shrink-0">
+                                                        @if($team->leader->profile_picture)
+                                                        <img src="{{ Storage::url($team->leader->profile_picture) }}"
+                                                             alt="{{ $team->leader->user->name }}"
+                                                             class="w-12 h-12 rounded-xl object-cover">
+                                                        @else
+                                                        <div class="w-12 h-12 rounded-xl bg-amber-500 flex items-center justify-center text-white font-black text-lg">
+                                                            {{ strtoupper(substr($team->leader->user->name, 0, 1)) }}
+                                                        </div>
+                                                        @endif
+                                                    </div>
+
+                                                    <!-- Info -->
+                                                    <div class="flex-1 min-w-0">
+                                                        <div class="flex items-center gap-2 mb-1">
+                                                            <h5 class="text-sm font-bold text-slate-900 truncate">{{ $team->leader->user->name }}</h5>
+                                                            <span class="flex-shrink-0 px-2 py-0.5 bg-amber-100 text-amber-700 border border-amber-300 rounded text-xs font-bold">
+                                                                {{ __('Leader') }}
+                                                            </span>
+                                                        </div>
+
+                                                        <!-- Experience & Reputation -->
+                                                        <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                                                            @if($team->leader->experience_level)
+                                                            <span class="flex items-center gap-1">
+                                                                <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
+                                                                {{ __(ucfirst($team->leader->experience_level)) }}
+                                                            </span>
+                                                            @endif
+                                                            @if($team->leader->reputation_score)
+                                                            <span class="flex items-center gap-1">
+                                                                <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                                                                {{ number_format($team->leader->reputation_score, 0) }} {{ __('rep') }}
+                                                            </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
+
+                                            <!-- Member Cards -->
+                                            @foreach($team->members as $member)
+                                            @if($member->volunteer && $member->volunteer->user)
+                                            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200
+                                                        {{ $member->status === 'invited' ? 'opacity-70' : '' }}
+                                                        {{ $member->status === 'declined' ? 'opacity-50' : '' }}">
+                                                <div class="flex items-start gap-3">
+                                                    <!-- Avatar -->
+                                                    <div class="flex-shrink-0">
+                                                        @if($member->volunteer->profile_picture)
+                                                        <img src="{{ Storage::url($member->volunteer->profile_picture) }}"
+                                                             alt="{{ $member->volunteer->user->name }}"
+                                                             class="w-12 h-12 rounded-xl object-cover">
+                                                        @else
+                                                        <div class="w-12 h-12 rounded-xl bg-primary-500 flex items-center justify-center text-white font-black text-lg">
+                                                            {{ strtoupper(substr($member->volunteer->user->name, 0, 1)) }}
+                                                        </div>
+                                                        @endif
+                                                    </div>
+
+                                                    <!-- Info -->
+                                                    <div class="flex-1 min-w-0">
+                                                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                                                            <h5 class="text-sm font-bold text-slate-900 truncate">{{ $member->volunteer->user->name }}</h5>
+
+                                                            <!-- Role Badge -->
+                                                            @if($member->role === 'specialist')
+                                                            <span class="flex-shrink-0 px-2 py-0.5 bg-violet-50 text-violet-700 border border-violet-200 rounded text-xs font-bold">
+                                                                {{ __('Specialist') }}
+                                                            </span>
+                                                            @endif
+
+                                                            <!-- Status Badge -->
+                                                            <span class="flex-shrink-0 px-2 py-0.5 rounded text-xs font-bold
+                                                                {{ $member->status === 'accepted' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : '' }}
+                                                                {{ $member->status === 'invited' ? 'bg-amber-50 text-amber-700 border border-amber-200' : '' }}
+                                                                {{ $member->status === 'declined' ? 'bg-slate-100 text-slate-500 border border-slate-200' : '' }}
+                                                                {{ $member->status === 'removed' ? 'bg-red-50 text-red-500 border border-red-200' : '' }}">
+                                                                {{ __(ucfirst($member->status ?? 'member')) }}
+                                                            </span>
+                                                        </div>
+
+                                                        <!-- Role Description -->
+                                                        @if($member->role_description)
+                                                        <p class="text-xs text-slate-600 mb-2 line-clamp-2">{{ $member->role_description }}</p>
+                                                        @endif
+
+                                                        <!-- Assigned Skills -->
+                                                        @if($member->assigned_skills && count($member->assigned_skills) > 0)
+                                                        <div class="flex flex-wrap gap-1 mb-2">
+                                                            @foreach(array_slice($member->assigned_skills, 0, 3) as $skill)
+                                                            <span class="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded text-xs font-medium">{{ $skill }}</span>
+                                                            @endforeach
+                                                            @if(count($member->assigned_skills) > 3)
+                                                            <span class="px-2 py-0.5 bg-slate-100 text-slate-500 rounded text-xs font-medium">+{{ count($member->assigned_skills) - 3 }}</span>
+                                                            @endif
+                                                        </div>
+                                                        @endif
+
+                                                        <!-- Experience & Reputation -->
+                                                        <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                                                            @if($member->volunteer->experience_level)
+                                                            <span class="flex items-center gap-1">
+                                                                <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
+                                                                {{ __(ucfirst($member->volunteer->experience_level)) }}
+                                                            </span>
+                                                            @endif
+                                                            @if($member->volunteer->reputation_score)
+                                                            <span class="flex items-center gap-1">
+                                                                <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                                                                {{ number_format($member->volunteer->reputation_score, 0) }} {{ __('rep') }}
+                                                            </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+                                    <!-- View Full Team Link -->
+                                    <div class="pt-4 border-t border-slate-100">
+                                        <a href="{{ route('teams.show', $team) }}"
+                                           class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-xl transition-colors duration-200">
+                                            {{ __('View Full Team Details') }}
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -934,7 +1211,7 @@
                             </div>
                             <div class="flex-1">
                                 <dt class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">{{ __('AI Confidence') }}</dt>
-                                <dd class="text-lg font-bold text-slate-900">{{ round($latestAnalysis->confidence_score * 100) }}%</dd>
+                                <dd class="text-lg font-bold text-slate-900">{{ round($latestAnalysis->confidence_score) }}%</dd>
                             </div>
                         </div>
                         @endif

@@ -95,6 +95,9 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
             if (!($analysis['solves_task'] ?? false) || ($analysis['quality_score'] ?? 0) < 70) {
                 $this->handleLowScoreSolution($analysis);
             } else {
+                // Handle high-score solution - mark assignment as completed
+                $this->handleHighScoreSolution($analysis);
+
                 // Check if all task submissions for this challenge are ready
                 $this->checkChallengeCompletion();
             }
@@ -158,6 +161,76 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
                 ]);
             } catch (\Exception $e) {
                 Log::error('Failed to send revision notification', [
+                    'submission_id' => $this->submission->id,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Handle high-score solution - mark assignment as completed and update volunteer stats.
+     */
+    protected function handleHighScoreSolution(array $analysis): void
+    {
+        Log::info('High-score solution approved', [
+            'submission_id' => $this->submission->id,
+            'quality_score' => $analysis['quality_score'] ?? 0,
+        ]);
+
+        // Update task assignment to completed
+        $assignment = TaskAssignment::where('task_id', $this->submission->task_id)
+            ->where('volunteer_id', $this->submission->volunteer_id)
+            ->first();
+
+        if ($assignment) {
+            $assignment->update([
+                'invitation_status' => 'completed',
+                'completed_at' => now(),
+                'actual_hours' => $this->submission->hours_worked,
+            ]);
+
+            // Check if all assignments for this task are completed, then update task status
+            $pendingAssignments = $assignment->task->assignments()
+                ->whereIn('invitation_status', ['invited', 'accepted', 'in_progress'])
+                ->count();
+
+            if ($pendingAssignments === 0) {
+                $assignment->task->update(['status' => 'completed']);
+                Log::info('Task marked as completed', ['task_id' => $assignment->task_id]);
+            }
+
+            // Update volunteer stats
+            $volunteer = $this->submission->volunteer;
+            if ($volunteer) {
+                $volunteer->increment('total_tasks_completed');
+                $volunteer->increment('total_hours_contributed', $this->submission->hours_worked ?? 0);
+
+                Log::info('Volunteer stats updated', [
+                    'volunteer_id' => $volunteer->id,
+                    'total_tasks_completed' => $volunteer->total_tasks_completed,
+                    'total_hours_contributed' => $volunteer->total_hours_contributed,
+                ]);
+            }
+
+            // Notify volunteer about approval
+            try {
+                $task = $this->submission->task;
+                $notificationService = app(NotificationService::class);
+                $notificationService->send(
+                    user: $this->submission->volunteer->user,
+                    type: 'solution_approved',
+                    title: 'Solution Approved!',
+                    message: "Congratulations! Your solution for \"{$task->title}\" has been approved with a quality score of {$analysis['quality_score']}/100.",
+                    actionUrl: route('assignments.index')
+                );
+
+                Log::info('Approval notification sent to volunteer', [
+                    'volunteer_id' => $this->submission->volunteer_id,
+                    'submission_id' => $this->submission->id,
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Failed to send approval notification', [
                     'submission_id' => $this->submission->id,
                     'error' => $e->getMessage(),
                 ]);
