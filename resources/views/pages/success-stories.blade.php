@@ -387,8 +387,8 @@
 <section class="py-24 bg-primary-500 text-white relative overflow-hidden">
     <div class="absolute inset-0 bg-black/10"></div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h3 class="text-4xl md:text-5xl font-bold mb-6">{{ __('Ready to Create Your Success Story?') }}</h3>
-        <p class="text-xl text-white/90 mb-10 leading-relaxed">{{ __('Join our community of talented contributors and innovative companies solving real-world challenges together.') }}</p>
+        <h3 class="text-4xl md:text-5xl font-bold mb-6 text-white" style="color: white !important;">{{ __('Ready to Create Your Success Story?') }}</h3>
+        <p class="text-xl text-white/90 mb-10 leading-relaxed" style="color: rgba(255, 255, 255, 0.9) !important;">{{ __('Join our community of talented contributors and innovative companies solving real-world challenges together.') }}</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
             <x-ui.button as="a" href="{{ route('register') }}" variant="secondary" size="lg">
                 {{ __('Join as Contributor') }}
@@ -396,7 +396,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
             </x-ui.button>
-            <x-ui.button as="a" href="{{ route('register') }}" variant="outline" size="lg">
+            <x-ui.button as="a" href="{{ route('register') }}" variant="outline" size="lg" class="!border-white !text-white hover:!bg-white hover:!text-primary-500" style="color: white !important; border-color: white !important;">
                 {{ __('Post a Challenge') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>

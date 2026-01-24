@@ -410,7 +410,7 @@
     @include('partials.navbar')
 
     <!-- Page content -->
-    <main class="{{ request()->routeIs('login') || request()->routeIs('register') ? '' : 'py-8' }}">
+    <main class="{{ request()->routeIs('login') || request()->routeIs('register') || request()->routeIs('community.challenge') ? '' : 'py-8' }}">
         @if(session('success'))
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
             <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
@@ -432,6 +432,17 @@
 
     <!-- Modern Footer - 2027 Design (Only for Guests) -->
     @guest
+    <style>
+        footer.bg-primary-500 h3,
+        footer.bg-primary-500 a,
+        footer.bg-primary-500 p,
+        footer.bg-primary-500 span {
+            color: white !important;
+        }
+        footer.bg-primary-500 a:hover {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+    </style>
     <footer class="bg-primary-500 text-white mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <!-- Main Footer Content -->
@@ -441,18 +452,18 @@
                     <div class="flex items-center space-x-3 mb-4">
                         <!-- Mindova Logo -->
                         <img src="{{ asset('images/mindova-logo.svg') }}" alt="Mindova Logo" class="h-10 w-10">
-                        <span class="text-xl font-black">Mindova</span>
+                        <span class="text-xl font-black" style="color: white !important;">Mindova</span>
                     </div>
-                    <p class="text-white/90 text-sm leading-relaxed mb-4">
+                    <p class="text-white/90 text-sm leading-relaxed mb-4" style="color: rgba(255, 255, 255, 0.9) !important;">
                         {{ __('AI-powered platform connecting talented contributors with real-world challenges') }}
                     </p>
                 </div>
 
                 <!-- Platform Links -->
                 <div>
-                    <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">{{ __('Platform') }}</h3>
+                    <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4" style="color: white !important;">{{ __('Platform') }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="{{ route('how-it-works') }}" class="text-white hover:text-white/80 text-sm">{{ __('How It Works') }}</a></li>
+                        <li><a href="{{ route('how-it-works') }}" class="text-white hover:text-white/80 text-sm" style="color: white !important;">{{ __('How It Works') }}</a></li>
                         <li><a href="{{ route('register') }}?type=volunteer" class="text-white hover:text-white/80 text-sm">{{ __('For Contributors') }}</a></li>
                         <li><a href="{{ route('register') }}?type=company" class="text-white hover:text-white/80 text-sm">{{ __('For Companies') }}</a></li>
                         <li><a href="{{ route('success-stories') }}" class="text-white hover:text-white/80 text-sm">{{ __('Success Stories') }}</a></li>
@@ -461,7 +472,7 @@
 
                 <!-- Resources Links -->
                 <div>
-                    <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">{{ __('Resources') }}</h3>
+                    <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4" style="color: white !important;">{{ __('Resources') }}</h3>
                     <ul class="space-y-3">
                         <li><a href="{{ route('help') }}" class="text-white hover:text-white/80 text-sm">{{ __('Help Center') }}</a></li>
                         <li><a href="{{ route('guidelines') }}" class="text-white hover:text-white/80 text-sm">{{ __('Community Guidelines') }}</a></li>
@@ -472,7 +483,7 @@
 
                 <!-- Company Links -->
                 <div>
-                    <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">{{ __('Company') }}</h3>
+                    <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4" style="color: white !important;">{{ __('Company') }}</h3>
                     <ul class="space-y-3">
                         <li><a href="{{ route('about') }}" class="text-white hover:text-white/80 text-sm">{{ __('About Us') }}</a></li>
                         <li><a href="{{ route('contact') }}" class="text-white hover:text-white/80 text-sm">{{ __('Contact') }}</a></li>

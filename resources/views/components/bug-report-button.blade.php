@@ -16,7 +16,7 @@
          class="fixed inset-0 z-50 overflow-y-auto"
          style="display: none;">
         {{-- Backdrop --}}
-        <div class="fixed inset-0 bg-black bg-opacity-50"></div>
+        <div class="fixed inset-0 bg-black/30 backdrop-blur-md transition-opacity"></div>
 
         {{-- Modal Content --}}
         <div class="flex min-h-screen items-center justify-center p-4">

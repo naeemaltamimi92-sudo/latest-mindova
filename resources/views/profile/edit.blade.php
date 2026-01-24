@@ -242,9 +242,9 @@
         </div>
 
         <div class="relative max-w-6xl mx-auto px-6 sm:px-8">
-            <div class="flex flex-col lg:flex-row items-center gap-10">
+            <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
                 <!-- Profile Avatar with Progress Ring -->
-                <div class="relative">
+                <div class="relative shrink-0">
                     <!-- Animated Ring -->
                     <div class="absolute -inset-4 animate-rotate-slow">
                         <svg class="w-full h-full" viewBox="0 0 200 200">
@@ -261,7 +261,7 @@
 
                     <!-- Avatar Container -->
                     <div class="relative group">
-                        <div class="absolute -inset-2 bg-secondary-400 rounded-full blur opacity-50 group-hover:opacity-70duration-500"></div>
+                        <div class="absolute -inset-2 bg-secondary-400 rounded-full blur opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
                         <div class="relative w-36 h-36 lg:w-44 lg:h-44 rounded-full bg-secondary-500 flex items-center justify-center shadow-2xl ring-4 ring-white/30 overflow-hidden">
                             @if(auth()->user()->isVolunteer() && auth()->user()->volunteer && auth()->user()->volunteer->profile_picture)
                                 <img src="{{ asset('storage/' . auth()->user()->volunteer->profile_picture) }}" alt="{{ auth()->user()->name }}" class="w-full h-full object-cover">
@@ -273,7 +273,7 @@
                         </div>
 
                         <!-- Edit Avatar Button -->
-                        <div class="absolute bottom-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg cursor-pointer">
+                        <div class="absolute bottom-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform duration-200">
                             <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -283,12 +283,12 @@
                 </div>
 
                 <!-- Profile Info -->
-                <div class="text-center lg:text-left flex-1">
+                <div class="text-center lg:text-left flex-1 min-w-0">
                     <!-- Badge -->
-                    <div class="inline-flex items-center gap-2 glass rounded-full px-5 py-2.5 mb-5">
-                        <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                    <div class="inline-flex items-center gap-2 glass rounded-full px-5 py-2.5 mb-8">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
                         <span class="text-sm font-bold text-white/90">{{ __('Profile Settings') }}</span>
-                        <span class="px-2 py-0.5 bg-white/20 rounded-full text-xs font-bold text-white">
+                        <span class="px-2 py-0.5 bg-white/20 rounded-full text-xs font-bold text-white ml-1">
                             @if(auth()->user()->isVolunteer())
                                 {{ __('Contributor') }}
                             @else
@@ -298,7 +298,7 @@
                     </div>
 
                     <!-- Name -->
-                    <h1 class="text-4xl lg:text-5xl font-black text-white mb-3 stagger-1">
+                    <h1 class="text-4xl lg:text-5xl font-black text-white mb-4 stagger-1 break-words">
                         {{ auth()->user()->name }}
                     </h1>
 

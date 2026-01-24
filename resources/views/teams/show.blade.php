@@ -63,14 +63,14 @@
                             {{ $team->status === 'forming' ? 'bg-amber-400' : '' }}
                             {{ $team->status === 'completed' ? 'bg-indigo-400' : '' }}"></div>
                     </div>
-                    <span class="text-sm font-semibold text-white/90">{{ __(ucfirst($team->status)) }} {{ __('Team') }}</span>
+                    <span class="text-sm font-semibold !text-white" style="color: white !important;">{{ __(ucfirst($team->status)) }} {{ __('Team') }}</span>
                 </div>
 
                 <!-- Main Heading -->
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-black !text-white mb-4 leading-tight" style="color: white !important;">
                     {{ $team->name }}
                 </h1>
-                <p class="text-lg text-white/80 font-medium leading-relaxed max-w-2xl mb-8">
+                <p class="text-lg !text-white/90 font-medium leading-relaxed max-w-2xl mb-8" style="color: rgba(255, 255, 255, 0.9) !important;">
                     {{ $team->description }}
                 </p>
 
@@ -83,8 +83,8 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-2xl font-black text-white">{{ $team->team_size }}</p>
-                            <p class="text-xs text-white/60 font-semibold uppercase tracking-wider">{{ __('Members') }}</p>
+                            <p class="text-2xl font-black !text-white" style="color: white !important;">{{ $team->team_size }}</p>
+                            <p class="text-xs !text-white/70 font-semibold uppercase tracking-wider" style="color: rgba(255, 255, 255, 0.7) !important;">{{ __('Members') }}</p>
                         </div>
                     </div>
                     @if($team->team_match_score)
@@ -95,8 +95,8 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-2xl font-black text-white">{{ $team->team_match_score }}%</p>
-                            <p class="text-xs text-white/60 font-semibold uppercase tracking-wider">{{ __('Match Score') }}</p>
+                            <p class="text-2xl font-black !text-white" style="color: white !important;">{{ $team->team_match_score }}%</p>
+                            <p class="text-xs !text-white/70 font-semibold uppercase tracking-wider" style="color: rgba(255, 255, 255, 0.7) !important;">{{ __('Match Score') }}</p>
                         </div>
                     </div>
                     @endif
@@ -105,22 +105,26 @@
 
             <!-- Challenge Link Card -->
             <div class="lg:w-80">
-                <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl p-6 shadow-xl hover:bg-white/15 transition-all duration-300 group">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-inner">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                             </svg>
                         </div>
                         <div>
-                            <p class="text-xs text-white/60 font-semibold uppercase tracking-wider">{{ __('Working On') }}</p>
-                            <p class="text-sm font-bold text-white">{{ __('Challenge') }}</p>
+                            <p class="text-[10px] !text-white/80 font-bold uppercase tracking-widest" style="color: rgba(255, 255, 255, 0.8) !important;">{{ __('Working On') }}</p>
+                            <p class="text-sm font-bold !text-white" style="color: white !important;">{{ __('Challenge') }}</p>
                         </div>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-4 line-clamp-2">{{ $team->challenge->title }}</h3>
-                    <x-ui.button as="a" href="{{ route('challenges.show', $team->challenge) }}" variant="ghost" fullWidth class="bg-white/20 hover:bg-white/30 text-white">
+                    
+                    <h3 class="text-lg font-bold !text-white mb-6 line-clamp-2 leading-snug min-h-[3rem]" style="color: white !important;">
+                        {{ $team->challenge->title }}
+                    </h3>
+                    
+                    <x-ui.button as="a" href="{{ route('challenges.show', $team->challenge) }}" size="md" fullWidth class="!bg-white !text-primary-600 hover:!bg-gray-50 border-0 shadow-lg font-bold">
                         {{ __('View Challenge') }}
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </x-ui.button>
@@ -192,28 +196,29 @@
     @endif
 
     <!-- Team Members -->
-    <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 mb-12">
+    <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 mb-20">
         <h2 class="text-2xl font-black text-slate-900 mb-6">{{ __('Team Members') }}</h2>
-        <div class="space-y-5">
+        <div class="block">
             @foreach($team->members as $member)
-            <div class="group bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-indigo-200 hover:shadow-md {{ $member->status === 'invited' && $member->volunteer_id === auth()->user()->volunteer?->id ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-200' : '' }}">
+            <div class="group bg-slate-50 rounded-2xl p-4 border border-slate-200 hover:border-indigo-200 hover:shadow-md transition-all duration-300 {{ $member->status === 'invited' && $member->volunteer_id === auth()->user()->volunteer?->id ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-200' : '' }}"
+                 style="{{ !$loop->last ? 'margin-bottom: 16px;' : '' }}">
                 <div class="flex items-start justify-between">
                     <div class="flex items-start gap-4 flex-1">
                         <!-- Avatar -->
-                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-primary-500 flex items-center justify-center text-white font-black text-xl shadow-sm">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-500 flex items-center justify-center text-white font-black text-lg shadow-sm">
                             {{ substr($member->volunteer->user->name, 0, 1) }}
                         </div>
 
                         <!-- Member Info -->
                         <div class="flex-1 min-w-0">
-                            <div class="flex flex-wrap items-center gap-2 mb-2">
-                                <h3 class="text-lg font-black text-slate-900">{{ $member->volunteer->user->name }}</h3>
+                            <div class="flex flex-wrap items-center gap-3 mb-2">
+                                <h3 class="text-base font-black text-slate-900">{{ $member->volunteer->user->name }}</h3>
                                 @if($member->role === 'leader')
-                                <span class="px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg text-xs font-bold">{{ __('Team Leader') }}</span>
+                                <span class="px-2.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-md text-[10px] font-bold uppercase tracking-wide">{{ __('Team Leader') }}</span>
                                 @elseif($member->role === 'specialist')
-                                <span class="px-3 py-1 bg-violet-50 text-violet-700 border border-violet-200 rounded-lg text-xs font-bold">{{ __('Specialist') }}</span>
+                                <span class="px-2.5 py-0.5 bg-violet-50 text-violet-700 border border-violet-200 rounded-md text-[10px] font-bold uppercase tracking-wide">{{ __('Specialist') }}</span>
                                 @endif
-                                <span class="px-3 py-1 rounded-lg text-xs font-bold border
+                                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold border uppercase tracking-wide
                                     {{ $member->status === 'accepted' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : '' }}
                                     {{ $member->status === 'invited' ? 'bg-amber-50 text-amber-700 border-amber-200' : '' }}
                                     {{ $member->status === 'declined' ? 'bg-slate-100 text-slate-600 border-slate-200' : '' }}">
@@ -222,20 +227,20 @@
                             </div>
 
                             @if($member->role_description)
-                            <p class="text-sm text-slate-600 mb-3 leading-relaxed">{{ $member->role_description }}</p>
+                            <p class="text-sm text-slate-600 mb-3 leading-relaxed line-clamp-2">{{ $member->role_description }}</p>
                             @endif
 
                             <!-- Member Skills -->
                             @if($member->assigned_skills && count($member->assigned_skills) > 0)
-                            <div class="flex flex-wrap gap-2 mb-3">
+                            <div class="flex flex-wrap gap-3 mb-3">
                                 @foreach($member->assigned_skills as $skill)
-                                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-medium">{{ $skill }}</span>
+                                <span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-medium">{{ $skill }}</span>
                                 @endforeach
                             </div>
                             @endif
 
                             <!-- Member Stats -->
-                            <div class="flex flex-wrap items-center gap-4 text-xs">
+                            <div class="flex flex-wrap items-center gap-4 text-xs mt-1">
                                 <div class="flex items-center gap-1.5">
                                     <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
                                     <span class="font-semibold text-slate-700">{{ __(ucfirst($member->volunteer->experience_level ?? 'intermediate')) }}</span>
@@ -289,54 +294,57 @@
                         @endphp
 
                         @if($totalTasks > 0)
-                        <div class="mt-6 pt-6 border-t border-slate-200">
-                            <div class="flex items-center gap-2 mb-5">
+                        <div class="mt-6 pt-6 border-t border-slate-200 lg:mt-0 lg:pt-0 lg:border-t-0 lg:border-l lg:ml-6 lg:pl-6 lg:w-[400px] flex-shrink-0">
+                            <div class="flex items-center gap-2 mb-4">
                                 <div class="w-5 h-5 bg-primary-500 rounded flex items-center justify-center">
                                     <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
                                     </svg>
                                 </div>
-                                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider">{{ __('Performance Metrics') }}</h4>
+                                <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">{{ __('Performance Metrics') }}</h4>
                             </div>
-                            <div class="grid grid-cols-3 gap-6">
+                            <div class="grid grid-cols-3 gap-4">
                                 <!-- Task Progress -->
-                                <div class="flex flex-col items-center bg-white rounded-xl p-4 border border-slate-200">
+                                <div class="flex flex-col items-center bg-white rounded-lg p-3 border border-slate-100 shadow-sm">
                                     <x-progress-circle
                                         :percentage="$taskProgress"
-                                        :size="80"
+                                        :size="65"
                                         label=""
+                                        stroke="5"
                                         color="#6366F1"
                                     />
-                                    <p class="text-xs font-bold text-slate-600 mt-3 uppercase tracking-wider">{{ __('Tasks') }}</p>
-                                    <p class="text-sm font-black text-slate-900">{{ $completedTasks }}/{{ $totalTasks }}</p>
+                                    <p class="text-[10px] font-bold text-slate-500 mt-2 uppercase tracking-wide">{{ __('Tasks') }}</p>
+                                    <p class="text-xs font-black text-slate-900">{{ $completedTasks }}/{{ $totalTasks }}</p>
                                 </div>
 
                                 <!-- Quality Score -->
-                                <div class="flex flex-col items-center bg-white rounded-xl p-4 border border-slate-200">
+                                <div class="flex flex-col items-center bg-white rounded-lg p-3 border border-slate-100 shadow-sm">
                                     <x-progress-circle
                                         :percentage="$performanceScore"
-                                        :size="80"
+                                        :size="65"
                                         label=""
+                                        stroke="5"
                                         color="#10b981"
                                     />
-                                    <p class="text-xs font-bold text-slate-600 mt-3 uppercase tracking-wider">{{ __('Quality') }}</p>
-                                    <p class="text-sm font-black text-slate-900">{{ round($performanceScore) }}%</p>
+                                    <p class="text-[10px] font-bold text-slate-500 mt-2 uppercase tracking-wide">{{ __('Quality') }}</p>
+                                    <p class="text-xs font-black text-slate-900">{{ round($performanceScore) }}%</p>
                                 </div>
 
                                 <!-- Time Efficiency -->
-                                <div class="flex flex-col items-center bg-white rounded-xl p-4 border border-slate-200">
+                                <div class="flex flex-col items-center bg-white rounded-lg p-3 border border-slate-100 shadow-sm">
                                     <x-progress-circle
                                         :percentage="$timeEfficiency"
-                                        :size="80"
+                                        :size="65"
                                         label=""
+                                        stroke="5"
                                         color="#f59e0b"
                                     />
-                                    <p class="text-xs font-bold text-slate-600 mt-3 uppercase tracking-wider">{{ __('Efficiency') }}</p>
-                                    <p class="text-sm font-black text-slate-900">
+                                    <p class="text-[10px] font-bold text-slate-500 mt-2 uppercase tracking-wide">{{ __('Efficiency') }}</p>
+                                    <p class="text-xs font-black text-slate-900 whitespace-nowrap">
                                         @if($totalActual > 0)
                                             {{ $totalActual }}h
                                         @else
-                                            {{ __('Not started') }}
+                                            {{ __('N/A') }}
                                         @endif
                                     </p>
                                 </div>
@@ -366,74 +374,143 @@
                 </div>
             </div>
             @endforeach
-        </div>
-    </div>
-
-    <!-- Team Chat (Only for accepted members) -->
+            <!-- Team Chat (Only for accepted members) -->
     @php
         $myMembership = $team->members->where('volunteer_id', auth()->user()->volunteer?->id)->first();
         $isAcceptedMember = $myMembership && $myMembership->status === 'accepted';
     @endphp
 
     @if($isAcceptedMember)
-    <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100" x-data="teamChat({{ $team->id }})">
-        <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center shadow-sm">
-                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
-                </svg>
+    <div class="card-premium relative overflow-hidden m-10" x-data="teamChat({{ $team->id }})">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8 relative z-10">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center shadow-lg shadow-indigo-500/30 text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900 leading-tight">{{ __('Team Chat') }}</h2>
+                    <p class="text-sm font-medium text-slate-500">{{ __('Collaborate with your team members in real-time') }}</p>
+                </div>
             </div>
-            <h2 class="text-2xl font-black text-slate-900">{{ __('Team Chat') }}</h2>
+            
+            <div class="flex items-center gap-2">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">{{ __('Live') }}</span>
+            </div>
         </div>
 
-        <!-- Chat Messages -->
-        <div class="bg-slate-50 rounded-2xl p-5 h-96 overflow-y-auto mb-5 border border-slate-200" id="chatMessages">
-            <div x-show="loading" class="text-center text-slate-500 py-8">
-                <p class="font-medium">{{ __('Loading messages...') }}</p>
-            </div>
+        <!-- Chat Area -->
+        <div class="bg-slate-50/50 backdrop-blur-sm rounded-3xl border border-slate-200/60 p-6 h-[500px] flex flex-col relative z-10">
+            
+            <!-- Messages List -->
+            <div class="flex-1 overflow-y-auto pr-2 space-y-6 custom-scrollbar" id="chatMessages">
+                <div x-show="loading" class="h-full flex flex-col items-center justify-center text-slate-400">
+                    <svg class="w-10 h-10 animate-spin mb-3 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <p class="font-medium text-sm animate-pulse">{{ __('Loading conversation...') }}</p>
+                </div>
 
-            <template x-for="message in messages" :key="message.id">
-                <div class="mb-4" :class="message.user_id === {{ auth()->id() }} ? 'text-right' : 'text-left'">
-                    <div class="inline-block max-w-[75%]">
-                        <div class="flex items-center gap-2 mb-1.5" :class="message.user_id === {{ auth()->id() }} ? 'flex-row-reverse' : ''">
-                            <span class="text-xs font-bold text-slate-700" x-text="message.user_name"></span>
-                            <span class="text-xs text-slate-500" x-text="message.time_ago"></span>
-                        </div>
-                        <div class="rounded-xl p-3.5 shadow-sm" :class="message.user_id === {{ auth()->id() }} ? 'bg-primary-500 text-white' : 'bg-white border border-slate-200 text-slate-900'">
-                            <p class="text-sm whitespace-pre-wrap leading-relaxed" x-text="message.message"></p>
+                <template x-for="message in messages" :key="message.id">
+                    <div class="group flex flex-col transition-all duration-300 ease-out" 
+                         :class="message.user_id === {{ auth()->id() }} ? 'items-end' : 'items-start'">
+                        
+                        <div class="flex items-end gap-3 max-w-[85%] lg:max-w-[70%]" 
+                             :class="message.user_id === {{ auth()->id() }} ? 'flex-row-reverse' : 'flex-row'">
+                            
+                            <!-- Avatar Placeholder -->
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ring-2 ring-white shadow-sm"
+                                 :class="message.user_id === {{ auth()->id() }} ? 'bg-indigo-100 text-indigo-600' : 'bg-slate-200 text-slate-600'">
+                                <span x-text="message.user_name.charAt(0)"></span>
+                            </div>
+
+                            <div class="flex flex-col" :class="message.user_id === {{ auth()->id() }} ? 'items-end' : 'items-start'">
+                                <div class="flex items-center gap-2 mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-1">
+                                    <span class="text-[10px] font-bold text-slate-500" x-text="message.user_name"></span>
+                                    <span class="text-[10px] text-slate-400" x-text="message.time_ago"></span>
+                                </div>
+                                
+                                <div class="relative px-5 py-3.5 shadow-sm text-sm leading-relaxed transition-transform duration-200 hover:scale-[1.01]"
+                                     :class="message.user_id === {{ auth()->id() }} 
+                                        ? 'bg-gradient-to-br from-indigo-600 to-primary-600 text-white rounded-2xl rounded-tr-sm shadow-indigo-500/20' 
+                                        : 'bg-white text-slate-800 border border-slate-100 rounded-2xl rounded-tl-sm shadow-slate-200/50'">
+                                    <p x-text="message.message" class="whitespace-pre-wrap"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </template>
+                </template>
 
-            <div x-show="!loading && messages.length === 0" class="text-center text-slate-500 py-12">
-                <svg class="w-16 h-16 mx-auto mb-3 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                </svg>
-                <p class="font-semibold">{{ __('No messages yet') }}</p>
-                <p class="text-sm mt-1">{{ __('Start the conversation with your team!') }}</p>
+                <!-- Empty State -->
+                <div x-show="!loading && messages.length === 0" class="h-full flex flex-col items-center justify-center text-center p-8">
+                    <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 border border-slate-100">
+                        <svg class="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-1">{{ __('No messages yet') }}</h3>
+                    <p class="text-sm text-slate-500 max-w-xs mx-auto mb-6">{{ __('Be the first to say hello and kickstart the collaboration!') }}</p>
+                    <div class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold uppercase tracking-wider">
+                        {{ __('Encrypted & Secure') }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="mt-4 relative z-20">
+                <form @submit.prevent="sendMessage" class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-10 group-focus-within:opacity-20 transition duration-500"></div>
+                    <div class="relative flex items-end gap-2 bg-white rounded-2xl p-2 shadow-lg border border-slate-100 focus-within:border-indigo-200 focus-within:ring-4 focus-within:ring-indigo-500/10 transition-all duration-300">
+                        <textarea
+                            x-model="newMessage"
+                            @keydown.enter.prevent="if(!$event.shiftKey) sendMessage()"
+                            placeholder="{{ __('Type your message here...') }}"
+                            class="w-full max-h-32 min-h-[50px] py-3 pl-4 pr-12 bg-transparent border-0 focus:ring-0 text-slate-800 placeholder:text-slate-400 resize-none text-sm leading-relaxed custom-scrollbar"
+                            rows="1"
+                            maxlength="2000"
+                            required
+                        ></textarea>
+                        
+                        <div class="absolute right-2 bottom-2">
+                            <button 
+                                type="submit" 
+                                :disabled="sending || !newMessage.trim()"
+                                class="flex items-center justify-center w-10 h-10 rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none transition-all duration-200"
+                            >
+                                <svg x-show="!sending" class="w-5 h-5 translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
+                                <svg x-show="sending" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center mt-2">
+                    <p class="text-[10px] font-medium text-slate-400">{{ __('Press Enter to send, Shift + Enter for new line') }}</p>
+                </div>
             </div>
         </div>
 
-        <!-- Send Message Form -->
-        <form @submit.prevent="sendMessage" class="flex gap-3">
-            <input
-                type="text"
-                x-model="newMessage"
-                placeholder="{{ __('Type your message...') }}"
-                class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                maxlength="2000"
-                required
-            >
-            <x-ui.button as="submit" variant="primary" ::disabled="sending || !newMessage.trim()">
-                <span x-show="!sending">{{ __('Send') }}</span>
-                <span x-show="sending">{{ __('Sending...') }}</span>
-            </x-ui.button>
-        </form>
+        <!-- Background Decorations -->
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-60 h-60 bg-gradient-to-tr from-blue-500/10 to-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
     </div>
     @endif
 </div>
+        </div>
+    </div>
 
+   
 <script>
 function teamChat(teamId) {
     return {

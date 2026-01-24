@@ -122,65 +122,84 @@
 @section('content')
 <div class="min-h-[calc(100vh-5rem)] flex" data-auth-page="true" style="flex-direction: row !important;">
     <!-- Left Side - Premium Visual Section - 2027 Design -->
-    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-primary-500">
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-slate-900">
         <!-- Advanced Mesh Gradient Background - 2027 Enhanced -->
-        <div class="absolute inset-0 opacity-25">
-            <div class="floating-element absolute top-10 {{ $isRTL ? '-right-20' : '-left-20' }} w-96 h-96 bg-secondary-600 rounded-full blur-3xl-reg-2027"></div>
-            <div class="floating-element absolute top-1/3 {{ $isRTL ? 'left-0' : 'right-0' }} w-[28rem] h-[28rem] bg-secondary-500 rounded-full blur-3xl-reg-2027"></div>
-            <div class="floating-element absolute bottom-10 {{ $isRTL ? 'right-1/4' : 'left-1/4' }} w-80 h-80 bg-primary-400 rounded-full blur-3xl-reg-2027"></div>
+        <div class="absolute inset-0 opacity-80">
+            <div class="floating-element absolute top-10 {{ $isRTL ? '-right-20' : '-left-20' }} w-96 h-96 bg-indigo-500 rounded-full blur-3xl-reg-2027 mix-blend-normal filter blur-[100px] opacity-40"></div>
+            <div class="floating-element absolute top-1/3 {{ $isRTL ? 'left-0' : 'right-0' }} w-[28rem] h-[28rem] bg-violet-500 rounded-full blur-3xl-reg-2027 mix-blend-screen filter blur-[100px] opacity-30"></div>
+            <div class="floating-element absolute bottom-10 {{ $isRTL ? 'right-1/4' : 'left-1/4' }} w-80 h-80 bg-blue-500 rounded-full blur-3xl-reg-2027 mix-blend-overlay filter blur-[80px] opacity-40"></div>
         </div>
 
         <!-- Decorative Grid Pattern -->
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20"></div>
+        <!-- <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20"></div> -->
 
         <div class="relative z-10 flex flex-col justify-start pt-16 px-8 lg:px-12 xl:px-16 text-white" dir="{{ $dir }}">
             <div class="animate-slide-in-up">
                 <!-- Logo/Brand - Enhanced -->
 
 
-                <h1 class="text-4xl lg:text-5xl xl:text-6xl font-black mb-6 leading-[1.1] {{ $textAlign }}">
+                <h1 class="text-4xl lg:text-5xl xl:text-6xl mb-6 leading-[1.1] {{ $textAlign }} !text-white" style="color: #ffffff !important;">
                     {{ __('Join the Future of') }}<br/>
-                    <span class="text-white drop-shadow-lg" style="text-shadow: 0 2px 20px rgba(255,255,255,0.3);">{{ __('Collaborative Innovation') }}</span>
+                    <span class="text-white drop-shadow-sm" style="color: #ffffff !important; text-shadow: 0 0 30px rgba(255,255,255,0.2);">{{ __('Collaborative Innovation') }}</span>
                 </h1>
-                <p class="text-lg lg:text-xl text-white mb-12 leading-relaxed font-medium max-w-xl {{ $textAlign }}" style="text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                <p class="text-lg lg:text-xl text-gray-100 mb-12 leading-relaxed font-medium max-w-xl {{ $textAlign }} !text-gray-100" style="color: #f3f4f6 !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
                     {{ __('Connect with talented contributors or post challenges. Our AI-powered platform creates perfect teams for real-world projects.') }}
                 </p>
 
                 <!-- Features List - 2027 Enhanced -->
-                <div class="space-y-4 lg:space-y-6">
-                    <div class="feature-card-reg-2027 flex items-start gap-3 lg:gap-4 {{ $flexDir }} bg-white/10 border border-white/20 rounded-xl p-4-reg-2027 stagger-reg-2">
-                        <div class="flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12 bg-secondary-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <svg class="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
+                <!-- Features List - 2027 Enhanced - Redesigned -->
+                <div class="space-y-6 lg:space-y-8 mt-12">
+                    <!-- Feature 1 -->
+                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
+                        <div class="flex-shrink-0 relative">
+                            <div class="absolute inset-0 bg-indigo-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
+                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-indigo-500/50 transition-colors duration-300">
+                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-indigo-400 group-hover:text-indigo-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="{{ $textAlign }}">
-                            <h3 class="text-base lg:text-lg font-bold mb-1 text-white drop-shadow-sm">{{ __('AI-Powered Matching') }}</h3>
-                            <p class="text-white text-xs lg:text-sm opacity-90">{{ __('Advanced algorithms form optimal teams based on skills and experience') }}</p>
-                        </div>
-                    </div>
-
-                    <div class="feature-card-reg-2027 flex items-start gap-3 lg:gap-4 {{ $flexDir }} bg-white/10 border border-white/20 rounded-xl p-4-reg-2027 stagger-reg-3">
-                        <div class="flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12 bg-primary-400 rounded-xl flex items-center justify-center shadow-lg">
-                            <svg class="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                        </div>
-                        <div class="{{ $textAlign }}">
-                            <h3 class="text-base lg:text-lg font-bold mb-1 text-white drop-shadow-sm">{{ __('Micro Companies') }}</h3>
-                            <p class="text-white text-xs lg:text-sm opacity-90">{{ __('Work in small, focused teams for maximum efficiency and collaboration') }}</p>
+                        <div class="{{ $textAlign }} pt-1">
+                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-indigo-200 transition-colors" style="color: #ffffff !important;">{{ __('AI-Powered Matching') }}</h3>
+                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
+                                {{ __('Advanced algorithms form optimal teams based on skills and experience') }}
+                            </p>
                         </div>
                     </div>
 
-                    <div class="feature-card-reg-2027 flex items-start gap-3 lg:gap-4 {{ $flexDir }} bg-white/10 border border-white/20 rounded-xl p-4-reg-2027 stagger-reg-4">
-                        <div class="flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
-                            <svg class="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
+                    <!-- Feature 2 -->
+                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
+                        <div class="flex-shrink-0 relative">
+                            <div class="absolute inset-0 bg-violet-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
+                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-violet-500/50 transition-colors duration-300">
+                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-violet-400 group-hover:text-violet-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="{{ $textAlign }}">
-                            <h3 class="text-base lg:text-lg font-bold mb-1 text-white drop-shadow-sm">{{ __('Proven Results') }}</h3>
-                            <p class="text-white text-xs lg:text-sm opacity-90">{{ __('127+ challenges completed with 85% success rate') }}</p>
+                        <div class="{{ $textAlign }} pt-1">
+                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-violet-200 transition-colors" style="color: #ffffff !important;">{{ __('Micro Companies') }}</h3>
+                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
+                                {{ __('Work in small, focused teams for maximum efficiency and collaboration') }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
+                        <div class="flex-shrink-0 relative">
+                            <div class="absolute inset-0 bg-blue-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
+                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-blue-500/50 transition-colors duration-300">
+                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-blue-400 group-hover:text-blue-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="{{ $textAlign }} pt-1">
+                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-blue-200 transition-colors" style="color: #ffffff !important;">{{ __('Proven Results') }}</h3>
+                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
+                                {{ __('127+ challenges completed with 85% success rate') }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -193,25 +212,25 @@
         <div class="max-w-lg w-full" dir="{{ $dir }}">
             <div class="relative group">
                 <!-- Glow effect on hover -->
-                <div class="absolute inset-0 bg-primary-400 rounded-3xl blur-2xl opacity-0 group-hover:opacity-20"></div>
+                <div class="absolute inset-0 bg-indigo-400 rounded-3xl blur-2xl opacity-0 group-hover:opacity-20"></div>
 
                 <div class="relative bg-white/90 backdrop-blur-xl border-2 border-white/60 shadow-2xl rounded-3xl px-6 sm:px-8 md:px-10 py-6 sm:py-8">
                     <!-- Header -->
                     <div class="text-center mb-6">
                         <!-- Mobile Logo -->
                         <div class="lg:hidden mb-6">
-                            <div class="inline-flex items-center space-x-3 bg-gray-50 border-2 border-primary-200 rounded-2xl px-5 py-3 shadow-lg">
-                                <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center shadow-md">
+                            <div class="inline-flex items-center space-x-3 bg-gray-50 border-2 border-gray-200 rounded-2xl px-5 py-3 shadow-lg">
+                                <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center shadow-md">
                                     <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                                     </svg>
                                 </div>
-                                <span class="text-xl font-black text-secondary-500">Mindova</span>
+                                <span class="text-xl font-black text-slate-800">Mindova</span>
                             </div>
                         </div>
 
                         <h2 class="text-3xl font-black text-gray-900 mb-3 leading-tight">
-                            {{ __('Create') }} <span class="text-secondary-500">{{ __('Account') }}</span>
+                            {{ __('Create') }} <span class="text-indigo-600">{{ __('Account') }}</span>
                         </h2>
                         <p class="text-base text-gray-600 font-medium leading-relaxed">{{ __('Join Mindova to start solving challenges or finding talented contributors') }}</p>
                     </div>
@@ -387,7 +406,7 @@
 
                     <!-- Submit Button -->
                     <div>
-                        <x-ui.button as="submit" variant="primary" size="lg" fullWidth class="btn-glow-reg-2027 animate-gradient-flow-2027" style="background: linear-gradient(135deg, var(--color-info, #0ea5e9), var(--color-blue, #3b82f6), var(--color-primary, #6366f1), var(--color-info, #0ea5e9)); background-size: 200% 200%;">
+                        <x-ui.button as="submit" variant="primary" size="lg" fullWidth class="btn-glow-reg-2027 animate-gradient-flow-2027" style="background: linear-gradient(135deg, #4f46e5, #7c3aed, #4f46e5); background-size: 200% 200%;">
                             <span class="relative z-10">{{ __('Create Account') }}</span>
                             <svg class="relative z-10 w-4 h-4 sm:w-5 sm:h-5 {{ $isRTL ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -434,19 +453,19 @@
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
-                        <span class="font-bold text-secondary-500 whitespace-nowrap">{{ __('450+ Volunteers') }}</span>
+                        <span class="font-bold text-slate-700 whitespace-nowrap">{{ __('450+ Volunteers') }}</span>
                     </div>
                     <div class="trust-indicator-2027 flex items-center gap-1.5 sm:gap-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-slate-100-reg-2027 stagger-reg-4">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
-                        <span class="font-bold text-secondary-500 whitespace-nowrap">{{ __('85% Success Rate') }}</span>
+                        <span class="font-bold text-slate-700 whitespace-nowrap">{{ __('85% Success Rate') }}</span>
                     </div>
                     <div class="trust-indicator-2027 flex items-center gap-1.5 sm:gap-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-slate-100-reg-2027 stagger-reg-5">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
-                        <span class="font-bold text-secondary-500 whitespace-nowrap">{{ __('Secure & Private') }}</span>
+                        <span class="font-bold text-slate-700 whitespace-nowrap">{{ __('Secure & Private') }}</span>
                     </div>
                 </div>
             </div>

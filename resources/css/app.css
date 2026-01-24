@@ -35,17 +35,13 @@
 }
 
 /* Animation classes (animations removed) */
-.animate-float {
-}
+.animate-float {}
 
-.animate-glow {
-}
+.animate-glow {}
 
-.animate-slide-in-up {
-}
+.animate-slide-in-up {}
 
-.animate-pulse-glow {
-}
+.animate-pulse-glow {}
 
 /* ===================================
    SHADCN-STYLE BUTTON COMPONENT
@@ -53,7 +49,9 @@
 
 /* Loading spinner animation */
 @keyframes ui-button-spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .animate-spin {
@@ -495,20 +493,7 @@ body {
     min-height: 100vh;
 }
 
-/* Scrollbar Styling - Solid color */
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
 
-::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--color-primary-400);
-    border-radius: 10px;
-}
 
 /* ===================================
    ENHANCED TEXT CONTRAST & READABILITY
@@ -516,7 +501,8 @@ body {
 
 /* Improved Text Colors for Better Contrast */
 .text-gray-900 {
-    color: #111827 !important; /* Darker for better readability */
+    color: #111827 !important;
+    /* Darker for better readability */
 }
 
 .text-gray-800 {
@@ -528,7 +514,8 @@ body {
 }
 
 .text-gray-600 {
-    color: #4b5563 !important; /* Improved from lighter gray */
+    color: #4b5563 !important;
+    /* Improved from lighter gray */
 }
 
 .text-gray-500 {
@@ -536,7 +523,12 @@ body {
 }
 
 /* Enhanced Heading Contrast */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #111827;
     font-weight: 700;
 }
@@ -586,7 +578,9 @@ details p {
 }
 
 /* Better Input Text Visibility */
-input, textarea, select {
+input,
+textarea,
+select {
     color: #111827;
 }
 
@@ -617,7 +611,8 @@ details[open] summary {
 }
 
 /* Better Form Label Visibility */
-label, .label {
+label,
+.label {
     color: #111827 !important;
     font-weight: 600;
 }
@@ -655,7 +650,10 @@ li {
 }
 
 /* Improved Stats Numbers */
-.text-4xl, .text-3xl, .text-2xl, .text-xl {
+.text-4xl,
+.text-3xl,
+.text-2xl,
+.text-xl {
     color: #111827;
     font-weight: 700;
 }
@@ -715,7 +713,8 @@ li {
 }
 
 /* Better Section Heading Visibility */
-section h1, section h2 {
+section h1,
+section h2 {
     color: #0f172a;
 }
 
@@ -824,7 +823,7 @@ select:focus-visible {
     left: -50%;
     width: 200%;
     height: 200%;
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
 }
 
@@ -859,15 +858,13 @@ select:focus-visible {
 }
 
 /* Hover Lift Effect (animations removed) */
-.hover-lift {
-}
+.hover-lift {}
 
 .hover-lift:hover {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.hover-lift-sm {
-}
+.hover-lift-sm {}
 
 .hover-lift-sm:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
@@ -888,8 +885,7 @@ select:focus-visible {
 }
 
 /* Skill Badge Hover */
-.skill-badge {
-}
+.skill-badge {}
 
 .skill-badge:hover {
     box-shadow: 0 4px 12px rgba(90, 61, 235, 0.3);
@@ -920,12 +916,29 @@ select:focus-visible {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
 }
 
-.dashboard-stat-card.stat-blue { --stat-color: var(--color-primary-500); }
-.dashboard-stat-card.stat-green { --stat-color: var(--color-secondary-500); }
-.dashboard-stat-card.stat-purple { --stat-color: var(--color-primary-400); }
-.dashboard-stat-card.stat-orange { --stat-color: var(--color-secondary-300); }
-.dashboard-stat-card.stat-pink { --stat-color: var(--color-secondary-600); }
-.dashboard-stat-card.stat-teal { --stat-color: var(--color-primary-300); }
+.dashboard-stat-card.stat-blue {
+    --stat-color: var(--color-primary-500);
+}
+
+.dashboard-stat-card.stat-green {
+    --stat-color: var(--color-secondary-500);
+}
+
+.dashboard-stat-card.stat-purple {
+    --stat-color: var(--color-primary-400);
+}
+
+.dashboard-stat-card.stat-orange {
+    --stat-color: var(--color-secondary-300);
+}
+
+.dashboard-stat-card.stat-pink {
+    --stat-color: var(--color-secondary-600);
+}
+
+.dashboard-stat-card.stat-teal {
+    --stat-color: var(--color-primary-300);
+}
 
 /* Icon Containers */
 .icon-container {
@@ -1143,8 +1156,7 @@ select:focus-visible {
     vertical-align: middle;
 }
 
-.data-table tbody tr {
-}
+.data-table tbody tr {}
 
 .data-table tbody tr:last-child td {
     border-bottom: none;
@@ -1227,13 +1239,13 @@ select:focus-visible {
     display: flex;
 }
 
-.avatar-stack > * {
+.avatar-stack>* {
     margin-left: -0.5rem;
     border: 2px solid white;
     border-radius: 50%;
 }
 
-.avatar-stack > *:first-child {
+.avatar-stack>*:first-child {
     margin-left: 0;
 }
 
@@ -1647,6 +1659,7 @@ select:focus-visible {
 
 /* Print Styles */
 @media print {
+
     .sidebar,
     .fab,
     .toast,
@@ -1666,4 +1679,175 @@ select:focus-visible {
         background: #f8fafc !important;
         color: #0f172a !important;
     }
+}
+
+/* ===================================
+   DARK THEME & INTERACTIVE MAP
+   =================================== */
+
+.bg-dark-hero {
+    background-color: #050505;
+    background-image: radial-gradient(circle at 50% -20%, #1a1a2e 0%, #050505 100%);
+}
+
+.interactive-map-container {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.4;
+    mask-image: linear-gradient(to bottom, black, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.interactive-global-map {
+    position: relative;
+    z-index: 10;
+    /* Full visibility for the global map section */
+}
+
+.map-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #818cf8;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #818cf8, 0 0 20px #818cf8;
+}
+
+@keyframes map-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+}
+
+.map-connection-line {
+    stroke: #818cf8;
+    stroke-width: 0.5;
+    opacity: 0.2;
+    vector-effect: non-scaling-stroke;
+    animation: connection-pulse 4s infinite ease-in-out;
+}
+
+@keyframes connection-pulse {
+
+    0%,
+    100% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.map-dot-active {
+    animation: map-pulse 3s infinite ease-in-out;
+}
+
+.text-gradient-purple {
+    background: linear-gradient(to right, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.search-input-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-input-container input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 0.75rem 1rem;
+    flex-grow: 1;
+    font-size: 1rem;
+}
+
+.search-input-container input:focus {
+    outline: none;
+}
+
+.btn-primary-gradient {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-gradient:hover {
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+}
+
+.dark-section {
+    background-color: #050505;
+    color: white !important;
+}
+
+.dark-section h1,
+.dark-section h2,
+.dark-section h3,
+.dark-section p {
+    color: white !important;
+}
+
+.dark-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.dark-card h3 {
+    color: white !important;
+}
+
+.dark-card p {
+    color: #cbd5e1 !important;
+}
+
+.dark-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+}
+
+.icon-gradient {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.stat-value {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }

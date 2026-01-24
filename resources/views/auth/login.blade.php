@@ -62,65 +62,80 @@
 @section('content')
 <div class="min-h-[calc(100vh-5rem)] flex" data-auth-page="true" style="flex-direction: row !important;">
     <!-- Left Side - Premium Visual Section (Hidden on mobile) -->
-    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden" style="background: var(--gradient-vibrant, linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7));">
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-slate-900">
         <!-- Advanced Mesh Gradient Background - 2027 Enhanced -->
-        <div class="absolute inset-0 opacity-25">
-            <div class="floating-element absolute top-10 {{ $isRTL ? '-right-20' : '-left-20' }} w-96 h-96 bg-primary-400 rounded-full blur-3xl"></div>
-            <div class="floating-element absolute top-1/3 {{ $isRTL ? 'left-0' : 'right-0' }} w-[28rem] h-[28rem] bg-secondary-500 rounded-full blur-3xl"></div>
-            <div class="floating-element absolute bottom-10 {{ $isRTL ? 'right-1/4' : 'left-1/4' }} w-80 h-80 bg-secondary-600 rounded-full blur-3xl"></div>
+        <div class="absolute inset-0 opacity-80">
+            <div class="floating-element absolute top-10 {{ $isRTL ? '-right-20' : '-left-20' }} w-96 h-96 bg-indigo-500 rounded-full blur-3xl-reg-2027 mix-blend-normal filter blur-[100px] opacity-40"></div>
+            <div class="floating-element absolute top-1/3 {{ $isRTL ? 'left-0' : 'right-0' }} w-[28rem] h-[28rem] bg-violet-500 rounded-full blur-3xl-reg-2027 mix-blend-screen filter blur-[100px] opacity-30"></div>
+            <div class="floating-element absolute bottom-10 {{ $isRTL ? 'right-1/4' : 'left-1/4' }} w-80 h-80 bg-blue-500 rounded-full blur-3xl-reg-2027 mix-blend-overlay filter blur-[80px] opacity-40"></div>
         </div>
 
         <!-- Decorative Grid Pattern -->
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20"></div>
+        <!-- <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20"></div> -->
 
         <div class="relative z-10 flex flex-col justify-center px-8 lg:px-12 xl:px-16 2xl:px-20 text-white" dir="{{ $dir }}">
             <div>
-                <h1 class="text-4xl lg:text-5xl xl:text-6xl font-black mb-6 leading-[1.1] {{ $textAlign }}">
+                <h1 class="text-4xl lg:text-5xl xl:text-6xl mb-6 leading-[1.1] {{ $textAlign }} !text-white" style="color: #ffffff !important;">
                     {{ __('Welcome Back to') }}<br/>
-                    <span class="text-white drop-shadow-lg" style="text-shadow: 0 2px 20px rgba(255,255,255,0.3);">{{ __('Your Innovation Hub') }}</span>
+                    <span class="text-white drop-shadow-lg" style="color: #ffffff !important; text-shadow: 0 0 30px rgba(255,255,255,0.2);">{{ __('Your Innovation Hub') }}</span>
                 </h1>
-                <p class="text-lg lg:text-xl text-white mb-12 leading-relaxed font-medium max-w-xl {{ $textAlign }}" style="text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                <p class="text-lg lg:text-xl text-gray-100 mb-12 leading-relaxed font-medium max-w-xl {{ $textAlign }} !text-gray-100" style="color: #f3f4f6 !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
                     {{ __('Continue your journey of solving challenges and making an impact with talented teams worldwide.') }}
                 </p>
 
-                <!-- Features List -->
-                <div class="space-y-5">
+                <!-- Features List - Redesigned -->
+                <div class="space-y-6 lg:space-y-8 mt-12">
                     <!-- Feature 1 -->
-                    <div class="group flex items-start gap-4 {{ $flexDir }} feature-card-2027 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 hover:border-white/30">
-                        <div class="flex-shrink-0 w-14 h-14 bg-primary-400 rounded-xl flex items-center justify-center shadow-lg">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
+                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
+                        <div class="flex-shrink-0 relative">
+                            <div class="absolute inset-0 bg-indigo-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
+                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-indigo-500/50 transition-colors duration-300">
+                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-indigo-400 group-hover:text-indigo-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="flex-1 {{ $textAlign }}">
-                            <h3 class="text-lg font-black mb-2 text-white drop-shadow-sm">{{ __('Track Your Progress') }}</h3>
-                            <p class="text-white text-sm leading-relaxed opacity-90">{{ __('Monitor tasks, achievements, and team collaboration in real-time with advanced analytics') }}</p>
+                        <div class="{{ $textAlign }} pt-1">
+                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-indigo-200 transition-colors" style="color: #ffffff !important;">{{ __('Track Your Progress') }}</h3>
+                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
+                                {{ __('Monitor tasks, achievements, and team collaboration in real-time with advanced analytics') }}
+                            </p>
                         </div>
                     </div>
 
                     <!-- Feature 2 -->
-                    <div class="group flex items-start gap-4 {{ $flexDir }} feature-card-2027 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 hover:border-white/30">
-                        <div class="flex-shrink-0 w-14 h-14 bg-secondary-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
+                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
+                        <div class="flex-shrink-0 relative">
+                            <div class="absolute inset-0 bg-violet-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
+                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-violet-500/50 transition-colors duration-300">
+                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-violet-400 group-hover:text-violet-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="flex-1 {{ $textAlign }}">
-                            <h3 class="text-lg font-black mb-2 text-white drop-shadow-sm">{{ __('AI-Powered Matching') }}</h3>
-                            <p class="text-white text-sm leading-relaxed opacity-90">{{ __('Get personalized task recommendations and optimal team matches powered by advanced AI') }}</p>
+                        <div class="{{ $textAlign }} pt-1">
+                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-violet-200 transition-colors" style="color: #ffffff !important;">{{ __('AI-Powered Matching') }}</h3>
+                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
+                                {{ __('Get personalized task recommendations and optimal team matches powered by advanced AI') }}
+                            </p>
                         </div>
                     </div>
 
                     <!-- Feature 3 -->
-                    <div class="group flex items-start gap-4 {{ $flexDir }} feature-card-2027 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 hover:border-white/30">
-                        <div class="flex-shrink-0 w-14 h-14 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                            </svg>
+                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
+                        <div class="flex-shrink-0 relative">
+                            <div class="absolute inset-0 bg-blue-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
+                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-blue-500/50 transition-colors duration-300">
+                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-blue-400 group-hover:text-blue-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="flex-1 {{ $textAlign }}">
-                            <h3 class="text-lg font-black mb-2 text-white drop-shadow-sm">{{ __('Build Your Reputation') }}</h3>
-                            <p class="text-white text-sm leading-relaxed opacity-90">{{ __('Earn rewards, badges, and recognition for quality contributions to the community') }}</p>
+                        <div class="{{ $textAlign }} pt-1">
+                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-blue-200 transition-colors" style="color: #ffffff !important;">{{ __('Build Your Reputation') }}</h3>
+                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
+                                {{ __('Earn rewards, badges, and recognition for quality contributions to the community') }}
+                            </p>
                         </div>
                     </div>
                 </div>
