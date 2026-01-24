@@ -890,7 +890,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             <div class="space-y-4">
                 @foreach($volunteer->work_experience as $exp)
                 <div class="timeline-card" style="--dot-color: #f59e0b;">
-                    <h4 class="font-bold text-gray-900">{{ $exp['title'] ?? $exp['position'] ?? __('Position') }}</h4>
+                    <h4 class="font-bold text-gray-900">{{ $exp['job_title'] ?? $exp['title'] ?? $exp['position'] ?? __('Position') }}</h4>
                     <p class="text-sm text-amber-700 font-medium">{{ $exp['company'] ?? $exp['organization'] ?? __('Company') }}</p>
                     @if(isset($exp['duration']) || isset($exp['years']))
                     <p class="text-xs text-gray-500 mt-1">{{ $exp['duration'] ?? $exp['years'] }}</p>

@@ -5,7 +5,7 @@
 @section('content')
 <div class="min-h-screen bg-gray-50/50" x-data="{ activeTab: '{{ session('active_tab', 'profile') }}' }">
     <!-- Premium Header Section -->
-    <div class="relative bg-white pb-32 overflow-hidden">
+    <div class="relative bg-white pb-12 overflow-hidden">
         <!-- Background Decoration -->
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-r from-slate-900 to-slate-800"></div>

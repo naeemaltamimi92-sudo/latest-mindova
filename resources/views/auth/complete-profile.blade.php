@@ -227,17 +227,17 @@
                 </div>
 
                 <!-- Main Title -->
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight" style="color: white !important;">
                     {{ __('Complete Your') }}
                     <span class="relative inline-block">
-                        <span class="text-secondary-300">{{ __('Profile') }}</span>
+                        <span class="text-secondary-300" style="color: var(--color-secondary-300) !important;">{{ __('Profile') }}</span>
                         <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                             <path d="M2 10C50 2 150 2 198 10" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
                         </svg>
                     </span>
                 </h1>
 
-                <p class="text-lg md:text-xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed">
+                <p class="text-lg md:text-xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed" style="color: rgba(255, 255, 255, 0.9) !important;">
                     {{ __('Set up your profile to unlock personalized challenges, AI-powered skill matching, and join a global community of innovators.') }}
                 </p>
 

@@ -20,18 +20,18 @@
             <div class="flex-1">
                 <!-- Breadcrumb -->
                 <div class="flex items-center gap-2 text-white/70 text-sm mb-4">
-                    <a href="{{ route('dashboard') }}" class="hover:text-white">{{ __('Dashboard') }}</a>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="{{ route('dashboard') }}" class="hover:text-white !text-white/70">{{ __('Dashboard') }}</a>
+                    <svg class="w-4 h-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
-                    <span class="text-white font-medium">{{ __('My Challenges') }}</span>
+                    <span class="text-white font-medium !text-white">{{ __('My Challenges') }}</span>
                 </div>
 
                 <!-- Title & Description -->
-                <h1 class="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
+                <h1 class="text-4xl md:text-5xl font-black text-white mb-4 leading-tight !text-white">
                     {{ __('My Challenges') }}
                 </h1>
-                <p class="text-lg text-white/80 max-w-2xl leading-relaxed">
+                <p class="text-lg text-white/80 max-w-2xl leading-relaxed !text-white/80">
                     {{ __('Manage all your submitted challenges, track progress, and monitor volunteer activity.') }}
                 </p>
             </div>

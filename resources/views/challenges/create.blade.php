@@ -20,15 +20,15 @@
                 <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></div>
                 <div class="absolute inset-0 w-2.5 h-2.5 bg-emerald-400 rounded-full"></div>
             </div>
-            <span class="text-sm font-semibold text-white/90">{{ __('New Challenge Submission') }}</span>
+            <span class="text-sm font-semibold !text-white">{{ __('New Challenge Submission') }}</span>
         </div>
 
         <!-- Main Heading -->
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight tracking-tight">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-black !text-white mb-4 leading-tight tracking-tight">
             {{ __('Submit a') }}
-            <span class="text-secondary-200">{{ __('New Challenge') }}</span>
+            <span class="!text-secondary-200">{{ __('New Challenge') }}</span>
         </h1>
-        <p class="text-lg text-white/80 font-medium leading-relaxed max-w-2xl mx-auto">
+        <p class="text-lg !text-white/90 font-medium leading-relaxed max-w-2xl mx-auto">
             {{ __('Share your innovation challenge with our community of talented contributors') }}
         </p>
     </div>
