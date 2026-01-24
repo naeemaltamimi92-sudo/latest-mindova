@@ -35,9 +35,9 @@
                 <!-- CTA Search/Input Area -->
                 <div class="search-input-container mb-16">
                     <input type="text" placeholder="{{ __('Describe your problem...') }}" class="w-full">
-                    <button class="btn-primary-gradient whitespace-nowrap">
+                    <a href="{{ route('register') }}" class="btn-primary-gradient whitespace-nowrap">
                         {{ __('Get started') }}
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Stats Inline -->

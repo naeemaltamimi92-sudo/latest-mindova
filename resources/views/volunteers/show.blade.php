@@ -53,14 +53,14 @@
             <div class="relative group">
                 <div class="absolute -inset-1 bg-primary-500 rounded-3xl blur opacity-40 group-hover:opacity-60duration-500"></div>
                 <div class="relative w-32 h-32 lg:w-40 lg:h-40 bg-primary-500 rounded-2xl flex items-center justify-center shadow-2xl ring-4 ring-white/20 pulse-ring">
-                    <span class="text-4xl lg:text-5xl font-black text-white">{{ substr($volunteer->user->name, 0, 2) }}</span>
+                    <span class="text-4xl lg:text-5xl font-black !text-white">{{ substr($volunteer->user->name, 0, 2) }}</span>
                 </div>
             </div>
 
             <!-- Volunteer Info -->
             <div class="flex-1 text-center lg:text-left">
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-4">
-                    <span class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 rounded-full text-sm font-semibold text-emerald-300">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 rounded-full text-sm font-semibold !text-emerald-300">
                         <div class="relative">
                             <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
                             <div class="absolute inset-0 w-2 h-2 bg-emerald-400 rounded-full"></div>
@@ -68,7 +68,7 @@
                         {{ __('Active Contributor') }}
                     </span>
                     @if($volunteer->availability_hours_per_week >= 20)
-                    <span class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/20 backdrop-blur-md border border-amber-400/30 rounded-full text-sm font-semibold text-amber-300">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/20 backdrop-blur-md border border-amber-400/30 rounded-full text-sm font-semibold !text-amber-300">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/>
                         </svg>
@@ -77,12 +77,12 @@
                     @endif
                 </div>
 
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-black !text-white mb-4 tracking-tight">
                     {{ $volunteer->user->name }}
                 </h1>
 
                 @if($volunteer->bio)
-                <p class="text-lg text-white/80 max-w-2xl leading-relaxed mb-6">
+                <p class="text-lg !text-white/80 max-w-2xl leading-relaxed mb-6">
                     {{ Str::limit($volunteer->bio, 200) }}
                 </p>
                 @endif
@@ -97,7 +97,7 @@
                         {{ __('LinkedIn Profile') }}
                     </x-ui.button>
                     @endif
-                    <div class="inline-flex items-center gap-2 text-white/70 text-sm">
+                    <div class="inline-flex items-center gap-2 !text-white/70 text-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -108,8 +108,8 @@
 
             <!-- Reputation Score Card -->
             <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center min-w-[140px]">
-                <div class="text-4xl font-black text-white mb-1">{{ $volunteer->reputation_score }}</div>
-                <div class="text-sm text-white/70 font-medium">{{ __('Reputation') }}</div>
+                <div class="text-4xl font-black !text-white mb-1">{{ $volunteer->reputation_score }}</div>
+                <div class="text-sm !text-white/70 font-medium">{{ __('Reputation') }}</div>
                 <div class="w-full bg-white/20 rounded-full h-2 mt-3">
                     <div class="bg-secondary-500 h-2 rounded-full" style="width: {{ min(($volunteer->reputation_score / 1000) * 100, 100) }}%"></div>
                 </div>
@@ -415,19 +415,19 @@
             </div>
 
             <!-- Member Info -->
-            <div class="bg-primary-500 rounded-2xl p-6 text-white shadow-xl slide-up" style="animation-delay: 0.4s">
+            <div class="bg-primary-500 rounded-2xl p-6 !text-white shadow-xl slide-up" style="animation-delay: 0.4s">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 !text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-bold">{{ __('Member Since') }}</h3>
-                        <p class="text-slate-300 text-sm">{{ $volunteer->created_at->format('F Y') }}</p>
+                        <h3 class="font-bold !text-white">{{ __('Member Since') }}</h3>
+                        <p class="!text-gray-200 text-sm">{{ $volunteer->created_at->format('F Y') }}</p>
                     </div>
                 </div>
-                <div class="text-sm text-slate-400">
+                <div class="text-sm !text-gray-200">
                     {{ __('Active for :time', ['time' => $volunteer->created_at->diffForHumans(['parts' => 2, 'join' => true, 'syntax' => \Carbon\CarbonInterface::DIFF_RELATIVE_TO_NOW])]) }}
                 </div>
             </div>
