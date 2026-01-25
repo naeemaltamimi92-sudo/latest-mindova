@@ -1157,27 +1157,27 @@
                                 <dd>
                                     <div class="flex items-center gap-2 mb-2">
                                         <span class="text-2xl font-black text-slate-900">{{ $challenge->complexity_level }}</span>
-                                        <span class="text-sm text-slate-500">/10</span>
+                                        <span class="text-sm text-slate-500">/4</span>
                                     </div>
                                     <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
                                         <div class="h-full rounded-full
-                                            @if($challenge->complexity_level <= 3) bg-secondary-500
-                                            @elseif($challenge->complexity_level <= 6) bg-secondary-300
-                                            @elseif($challenge->complexity_level <= 8) bg-secondary-400
+                                            @if($challenge->complexity_level <= 1) bg-secondary-500
+                                            @elseif($challenge->complexity_level <= 2) bg-secondary-300
+                                            @elseif($challenge->complexity_level <= 3) bg-secondary-400
                                             @else bg-secondary-700
                                             @endif"
-                                            style="width: {{ ($challenge->complexity_level / 10) * 100 }}%">
+                                            style="width: {{ ($challenge->complexity_level / 4) * 100 }}%">
                                         </div>
                                     </div>
                                     <span class="text-xs font-semibold mt-1 inline-block
-                                        @if($challenge->complexity_level <= 3) text-emerald-600
-                                        @elseif($challenge->complexity_level <= 6) text-amber-600
-                                        @elseif($challenge->complexity_level <= 8) text-orange-600
+                                        @if($challenge->complexity_level <= 1) text-emerald-600
+                                        @elseif($challenge->complexity_level <= 2) text-amber-600
+                                        @elseif($challenge->complexity_level <= 3) text-orange-600
                                         @else text-red-600
                                         @endif">
-                                        @if($challenge->complexity_level <= 3) {{ __('Simple') }}
-                                        @elseif($challenge->complexity_level <= 6) {{ __('Moderate') }}
-                                        @elseif($challenge->complexity_level <= 8) {{ __('Complex') }}
+                                        @if($challenge->complexity_level <= 1) {{ __('Simple') }}
+                                        @elseif($challenge->complexity_level <= 2) {{ __('Moderate') }}
+                                        @elseif($challenge->complexity_level <= 3) {{ __('Complex') }}
                                         @else {{ __('Advanced') }}
                                         @endif
                                     </span>

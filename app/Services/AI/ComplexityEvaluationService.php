@@ -56,6 +56,18 @@ class ComplexityEvaluationService extends AnthropicService
             throw new \Exception('Invalid complexity level: must be 1-4');
         }
 
+        // Ensure recommended_approach is consistent with complexity_level
+        $expectedApproach = $response['complexity_level'] >= 3 ? 'team_execution' : 'community_discussion';
+
+        if ($response['recommended_approach'] !== $expectedApproach) {
+            \Log::warning('Complexity/approach mismatch detected, correcting', [
+                'complexity_level' => $response['complexity_level'],
+                'original_approach' => $response['recommended_approach'],
+                'corrected_approach' => $expectedApproach,
+            ]);
+            $response['recommended_approach'] = $expectedApproach;
+        }
+
         return $response;
     }
 
@@ -86,10 +98,21 @@ Success Criteria:
 {$successCriteria}
 
 Evaluate the complexity on a scale of 1-4:
-- Level 1: Simple discussion topic, can be solved through community ideation
-- Level 2: Moderate challenge requiring structured ideas and voting
-- Level 3: Complex challenge requiring team execution with multiple workstreams
-- Level 4: Highly complex challenge requiring extensive coordination and specialized skills
+
+- Level 1 (Simple Discussion): Brainstorming, ideation, opinion-gathering. No implementation required.
+  Examples: "How can we improve customer engagement?", "What features would users want?"
+
+- Level 2 (Moderate Discussion): Structured problem-solving through community input. Output is recommendations, not deliverables.
+  Examples: "Design a strategy for entering new market", "Evaluate remote work policy options"
+
+- Level 3 (Team Execution): Requires building/creating something tangible with concrete deliverables.
+  Examples: "Build a mobile app prototype", "Create a marketing campaign"
+
+- Level 4 (Complex Execution): Large-scale implementation with multiple workstreams and specialized expertise.
+  Examples: "Develop a complete platform", "Execute organization-wide transformation"
+
+CRITICAL: If the challenge asks "What should we do?" or "How should we think about X?" -> Level 1-2
+If the challenge asks "Build/Create/Implement X" -> Level 3-4
 
 Provide your evaluation in JSON format:
 
@@ -114,7 +137,9 @@ Provide your evaluation in JSON format:
 Guidelines:
 - Complexity 1-2 → recommended_approach: "community_discussion"
 - Complexity 3-4 → recommended_approach: "team_execution"
-- Be conservative with complexity scoring - err on the side of higher complexity
+- Score complexity accurately based on actual requirements
+- Simple discussions and ideation requests should be Level 1-2
+- Only rate as Level 3-4 if implementation/execution is truly required
 - Consider: scope, technical difficulty, coordination needs, skill requirements
 - Estimated duration should be realistic given the scope
 - For team execution, estimate how many volunteers would be needed
@@ -128,17 +153,25 @@ PROMPT;
     protected function getSystemPrompt(): string
     {
         return <<<SYSTEM
-You are an expert project manager and systems architect specializing in evaluating project complexity and resource requirements. Your role is to assess challenges and determine the appropriate execution approach.
+You are an expert project manager specializing in evaluating project complexity and routing challenges to appropriate workflows.
 
-You must:
+Your PRIMARY goal is ACCURATE classification, not conservative classification.
+
+CRITICAL RULES:
 1. Provide responses in valid JSON format
-2. Accurately assess complexity based on scope, technical requirements, and coordination needs
-3. Make realistic estimates for duration and resource requirements
-4. Distinguish between challenges that can be solved through discussion vs. those requiring implementation
-5. Provide clear reasoning for all assessments
-6. Be conservative - it's better to overestimate complexity than underestimate
+2. Assess complexity based on ACTUAL requirements, not perceived importance
+3. Make realistic estimates for duration and resources
+4. Clearly distinguish between:
+   - Discussion challenges (seeking ideas, opinions, recommendations) -> Level 1-2
+   - Execution challenges (requiring building, creating, implementing) -> Level 3-4
+5. Provide clear reasoning for your assessment
+6. Do NOT inflate complexity - misclassification wastes community resources
 
-Your evaluation determines whether a challenge goes to community discussion or team formation.
+Your evaluation determines workflow routing:
+- Level 1-2: Goes to community discussion (ideation, voting)
+- Level 3-4: Goes to team formation (task decomposition, volunteers)
+
+Complexity is determined by WHAT NEEDS TO BE DONE, not by topic importance.
 SYSTEM;
     }
 

@@ -52,7 +52,8 @@
       "Bash(xargs cat:*)",
       "Bash(git -C /Users/awni/Desktop/naeem/latest-mindova log --all --oneline -- \"app/View/Components/LanguageSwitcher.php\")",
       "Bash(tr:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(git -C /Users/awni/Desktop/naeem/latest-mindova show aa8eb8d:app/Models/Challenge.php)"
     ]
   }
 }
