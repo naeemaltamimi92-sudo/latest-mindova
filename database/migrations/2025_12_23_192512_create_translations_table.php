@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('locale', 10)->index();
             $table->string('group', 100)->nullable()->index();
-            $table->text('key');
+            $table->string('key', 500);
             $table->text('value');
             $table->timestamps();
 
