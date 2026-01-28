@@ -1,82 +1,88 @@
 {{--
     Unified Navbar Partial
-    Clean minimal design for consistent navigation
+    Clean minimal design matching the landing page
+    Navigation items are centered
 --}}
 
 <x-ui.navbar>
-    {{-- Logo and primary navigation --}}
-    <div class="flex">
-        {{-- Brand Logo --}}
-        <div class="flex-shrink-0 flex items-center">
-            <a href="{{ url('/') }}" class="flex items-center gap-2">
-                <img src="{{ asset('images/mindova-logo.svg') }}" alt="Mindova Logo" class="h-9 w-9">
-                <span class="text-xl font-bold text-gray-900">Mindova</span>
-            </a>
-        </div>
+    {{-- Logo --}}
+    <div class="flex-shrink-0 flex items-center">
+        <a href="{{ url('/') }}" class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
+                <span class="text-white font-bold text-sm">M</span>
+            </div>
+            <span class="text-lg font-bold text-gray-900">Mindova</span>
+        </a>
+    </div>
 
-        {{-- Desktop Navigation Links --}}
-        @auth
-        <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
-            @if(auth()->user()->isAdmin())
-                {{-- Admin Navigation --}}
-                <x-ui.navbar-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-ui.navbar-link>
-                <x-ui.navbar-link href="{{ route('admin.challenges.index') }}" :active="request()->routeIs('admin.challenges.*')">
-                    {{ __('Challenges') }}
-                </x-ui.navbar-link>
-                <x-ui.navbar-link href="{{ route('admin.companies.index') }}" :active="request()->routeIs('admin.companies.*')">
-                    {{ __('Companies') }}
-                </x-ui.navbar-link>
-                <x-ui.navbar-link href="{{ route('admin.volunteers.index') }}" :active="request()->routeIs('admin.volunteers.*')">
-                    {{ __('Contributors') }}
-                </x-ui.navbar-link>
-            @elseif(auth()->user()->isVolunteer())
-                {{-- Contributor Navigation --}}
-                <x-ui.navbar-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-ui.navbar-link>
-                <x-ui.navbar-link href="{{ route('assignments.my') }}" :active="request()->routeIs('assignments.*')">
-                    {{ __('My Tasks') }}
-                </x-ui.navbar-link>
-                <x-ui.navbar-link href="{{ route('teams.my') }}" :active="request()->routeIs('teams.*')">
-                    {{ __('My Teams') }}
-                </x-ui.navbar-link>
-                <x-ui.navbar-link href="{{ route('community.index') }}" :active="request()->routeIs('community.*') && !request()->routeIs('volunteer.challenges.*')">
-                    {{ __('Community') }}
-                </x-ui.navbar-link>
-                @if(auth()->user()->volunteer && \App\Models\Challenge::where('volunteer_id', auth()->user()->volunteer->id)->where('source_type', 'volunteer')->exists())
-                <x-ui.navbar-link href="{{ route('volunteer.challenges.index') }}" :active="request()->routeIs('volunteer.challenges.*')">
-                    {{ __('My Challenges') }}
-                </x-ui.navbar-link>
+    {{-- Desktop Navigation Links - Centered --}}
+    <div class="hidden sm:flex sm:items-center sm:justify-center sm:absolute sm:left-1/2 sm:-translate-x-1/2">
+        <div class="flex items-center space-x-1">
+            @auth
+                @if(auth()->user()->isAdmin())
+                    {{-- Admin Navigation --}}
+                    <x-ui.navbar-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('admin.challenges.index') }}" :active="request()->routeIs('admin.challenges.*')">
+                        {{ __('Challenges') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('admin.companies.index') }}" :active="request()->routeIs('admin.companies.*')">
+                        {{ __('Companies') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('admin.volunteers.index') }}" :active="request()->routeIs('admin.volunteers.*')">
+                        {{ __('Contributors') }}
+                    </x-ui.navbar-link>
+                @elseif(auth()->user()->isVolunteer())
+                    {{-- Contributor Navigation --}}
+                    <x-ui.navbar-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('assignments.my') }}" :active="request()->routeIs('assignments.*')">
+                        {{ __('My Tasks') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('teams.my') }}" :active="request()->routeIs('teams.*')">
+                        {{ __('My Teams') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('community.index') }}" :active="request()->routeIs('community.*') && !request()->routeIs('volunteer.challenges.*')">
+                        {{ __('Community') }}
+                    </x-ui.navbar-link>
+                    @if(auth()->user()->volunteer && \App\Models\Challenge::where('volunteer_id', auth()->user()->volunteer->id)->where('source_type', 'volunteer')->exists())
+                    <x-ui.navbar-link href="{{ route('volunteer.challenges.index') }}" :active="request()->routeIs('volunteer.challenges.*')">
+                        {{ __('My Challenges') }}
+                    </x-ui.navbar-link>
+                    @endif
+                @elseif(auth()->user()->isCompany())
+                    {{-- Company Navigation --}}
+                    <x-ui.navbar-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('challenges.index') }}" :active="request()->routeIs('challenges.*') && !request()->routeIs('community.*')">
+                        {{ __('My Challenges') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('company.submissions.index') }}" :active="request()->routeIs('company.submissions.*')">
+                        {{ __('Work Submissions') }}
+                    </x-ui.navbar-link>
                 @endif
-            @elseif(auth()->user()->isCompany())
-                {{-- Company Navigation --}}
-                <x-ui.navbar-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-ui.navbar-link>
-                <x-ui.navbar-link href="{{ route('challenges.index') }}" :active="request()->routeIs('challenges.*') && !request()->routeIs('community.*')">
-                    {{ __('My Challenges') }}
-                </x-ui.navbar-link>
-                <x-ui.navbar-link href="{{ route('company.submissions.index') }}" :active="request()->routeIs('company.submissions.*')">
-                    {{ __('Work Submissions') }}
-                </x-ui.navbar-link>
-            @endif
+            @else
+                {{-- Guest Navigation --}}
+                <a href="{{ route('how-it-works') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                    {{ __('How it works') }}
+                </a>
+                <a href="{{ route('challenges.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                    {{ __('Challenges') }}
+                </a>
+                <a href="{{ route('community.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                    {{ __('Community') }}
+                </a>
+                <a href="{{ route('success-stories') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                    {{ __('Success Stories') }}
+                </a>
+                <a href="{{ route('help') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                    {{ __('Help') }}
+                </a>
+            @endauth
         </div>
-        @else
-        {{-- Guest Navigation --}}
-        <div class="hidden sm:ml-6 sm:flex sm:space-x-6">
-            <x-ui.navbar-link href="{{ route('how-it-works') }}" :active="request()->routeIs('how-it-works')">
-                {{ __('How It Works') }}
-            </x-ui.navbar-link>
-            <x-ui.navbar-link href="{{ route('success-stories') }}" :active="request()->routeIs('success-stories')">
-                {{ __('Success Stories') }}
-            </x-ui.navbar-link>
-            <x-ui.navbar-link href="{{ route('help') }}" :active="request()->routeIs('help')">
-                {{ __('Help') }}
-            </x-ui.navbar-link>
-        </div>
-        @endauth
     </div>
 
     {{-- Right side navigation --}}
@@ -165,7 +171,7 @@
             <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
                 {{ __('Sign In') }}
             </a>
-            <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-primary-500 text-white text-sm font-medium rounded-lg hover:bg-primary-600">
+            <a href="{{ route('register') }}" class="px-4 py-2 bg-primary-500 text-white text-sm font-medium rounded-lg hover:bg-primary-600">
                 {{ __('Get Started') }}
             </a>
         </div>
@@ -242,23 +248,19 @@
                     </button>
                 </form>
             @else
-                <x-ui.navbar-mobile-link href="{{ route('how-it-works') }}" :active="request()->routeIs('how-it-works')">
-                    {{ __('How It Works') }}
-                </x-ui.navbar-mobile-link>
-                <x-ui.navbar-mobile-link href="{{ route('success-stories') }}" :active="request()->routeIs('success-stories')">
-                    {{ __('Success Stories') }}
-                </x-ui.navbar-mobile-link>
-                <x-ui.navbar-mobile-link href="{{ route('help') }}" :active="request()->routeIs('help')">
-                    {{ __('Help') }}
-                </x-ui.navbar-mobile-link>
+                <a href="{{ route('how-it-works') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('How it works') }}</a>
+                <a href="{{ route('challenges.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Challenges') }}</a>
+                <a href="{{ route('community.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Community') }}</a>
+                <a href="{{ route('success-stories') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Success Stories') }}</a>
+                <a href="{{ route('help') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Help') }}</a>
 
                 <div class="border-t border-gray-200 my-2"></div>
 
                 <div class="px-4 py-2 space-y-2">
-                    <a href="{{ route('login') }}" class="flex items-center justify-center w-full px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
+                    <a href="{{ route('login') }}" class="block w-full px-4 py-2 text-center text-gray-700 border border-gray-200 rounded-lg">
                         {{ __('Sign In') }}
                     </a>
-                    <a href="{{ route('register') }}" class="flex items-center justify-center w-full px-4 py-2.5 bg-primary-500 text-white text-sm font-medium rounded-lg hover:bg-primary-600">
+                    <a href="{{ route('register') }}" class="block w-full px-4 py-2 text-center text-white bg-primary-500 rounded-lg">
                         {{ __('Get Started') }}
                     </a>
                 </div>

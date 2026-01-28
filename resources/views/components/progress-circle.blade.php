@@ -1,4 +1,4 @@
-@props(['percentage' => 0, 'size' => 120, 'label' => '', 'color' => 'var(--progress-default)', 'showPercentage' => true, 'stroke' => 10])
+@props(['percentage' => 0, 'size' => 120, 'label' => '', 'color' => 'var(--progress-default)', 'showPercentage' => true, 'stroke' => 10, 'textSize' => 'text-2xl'])
 
 @php
     $radius = ($size - $stroke) / 2;
@@ -35,7 +35,7 @@
     <!-- Content -->
     @if($showPercentage)
     <div class="absolute inset-0 flex flex-col items-center justify-center">
-        <div class="text-2xl font-bold" style="color: {{ $color }}">{{ round($percentage) }}%</div>
+        <div class="{{ $textSize }} font-bold" style="color: {{ $color }}">{{ round($percentage) }}%</div>
         @if($label)
         <div class="text-xs text-gray-500 font-bold uppercase tracking-wider mt-1">{{ $label }}</div>
         @endif

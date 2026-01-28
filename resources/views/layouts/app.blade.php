@@ -410,7 +410,7 @@
     @include('partials.navbar')
 
     <!-- Page content -->
-    <main class="{{ request()->routeIs('login') || request()->routeIs('register') || request()->routeIs('community.challenge') || request()->routeIs('profile.edit') ? '' : 'py-8' }}">
+    <main class="pt-16 {{ request()->routeIs('login') || request()->routeIs('register') || request()->routeIs('community.challenge') || request()->routeIs('profile.edit') ? '' : 'py-8' }}">
         @if(session('success'))
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
             <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">

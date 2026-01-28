@@ -15,191 +15,58 @@
     $right = $isRTL ? 'left' : 'right';
 @endphp
 
-@push('styles')
-<style>
-    /* 2027 Register Page Enhanced Animations */
-    @keyframes float-register-2027 {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        25% { transform: translateY(-12px) rotate(1.5deg); }
-        50% { transform: translateY(-6px) rotate(-1deg); }
-        75% { transform: translateY(-9px) rotate(0.5deg); }
-    }
-
-    @keyframes slide-in-up-reg-2027 {
-        0% { opacity: 0; transform: translateY(25px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes gradient-flow-2027 {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-    }
-
-    @keyframes pulse-border-2027 {
-        0%, 100% { border-color: rgba(14, 165, 233, 0.3); }
-        50% { border-color: rgba(99, 102, 241, 0.6); }
-    }
-
-    .animate-float-reg-2027 {
-        animation: float-register-2027 7s-out infinite;
-    }
-
-    .animate-slide-in-up-reg-2027 {
-        animation: slide-in-up-reg-2027 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        opacity: 0;
-    }
-
-    .animate-gradient-flow-2027 {
-        background-size: 200% 200%;
-        animation: gradient-flow-2027 4s ease infinite;
-    }
-
-    .animate-pulse-border-2027 {
-        animation: pulse-border-2027 2s-out infinite;
-    }
-
-    /* Feature card 2027 style */
-    .feature-card-reg-2027 {
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        backdrop-filter: blur(12px);
-    }
-
-    .feature-card-reg-2027:hover {
-        transform: translateY(-4px);
-        background: rgba(255, 255, 255, 0.25) !important;
-        border-color: rgba(255, 255, 255, 0.4) !important;
-    }
-
-    /* Submit button glow */
-    .btn-glow-reg-2027 {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .btn-glow-reg-2027::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-        transition: left 0.6s ease;
-    }
-
-    .btn-glow-reg-2027:hover::before {
-        left: 100%;
-    }
-
-    /* Trust indicator card */
-    .trust-indicator-2027 {
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .trust-indicator-2027:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Account type selection card */
-    .account-type-card-2027 {
-        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .account-type-card-2027:hover {
-        transform: translateY(-2px);
-    }
-
-    /* Stagger animation delays */
-    .stagger-reg-1 { animation-delay: 0.1s; }
-    .stagger-reg-2 { animation-delay: 0.2s; }
-    .stagger-reg-3 { animation-delay: 0.3s; }
-    .stagger-reg-4 { animation-delay: 0.4s; }
-    .stagger-reg-5 { animation-delay: 0.5s; }
-</style>
-@endpush
-
 @section('content')
 <div class="min-h-[calc(100vh-5rem)] flex" data-auth-page="true" style="flex-direction: row !important;">
-    <!-- Left Side - Premium Visual Section - 2027 Design -->
-    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-slate-900">
-        <!-- Advanced Mesh Gradient Background - 2027 Enhanced -->
-        <div class="absolute inset-0 opacity-80">
-            <div class="floating-element absolute top-10 {{ $isRTL ? '-right-20' : '-left-20' }} w-96 h-96 bg-indigo-500 rounded-full blur-3xl-reg-2027 mix-blend-normal filter blur-[100px] opacity-40"></div>
-            <div class="floating-element absolute top-1/3 {{ $isRTL ? 'left-0' : 'right-0' }} w-[28rem] h-[28rem] bg-violet-500 rounded-full blur-3xl-reg-2027 mix-blend-screen filter blur-[100px] opacity-30"></div>
-            <div class="floating-element absolute bottom-10 {{ $isRTL ? 'right-1/4' : 'left-1/4' }} w-80 h-80 bg-blue-500 rounded-full blur-3xl-reg-2027 mix-blend-overlay filter blur-[80px] opacity-40"></div>
-        </div>
-
-        <!-- Decorative Grid Pattern -->
-        <!-- <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20"></div> -->
-
-        <div class="relative z-10 flex flex-col justify-start pt-16 px-8 lg:px-12 xl:px-16 text-white" dir="{{ $dir }}">
-            <div class="animate-slide-in-up">
-                <!-- Logo/Brand - Enhanced -->
-
-
-                <h1 class="text-4xl lg:text-5xl xl:text-6xl mb-6 leading-[1.1] {{ $textAlign }} !text-white" style="color: #ffffff !important;">
+    <!-- Left Side - Visual Section -->
+    <div class="hidden lg:flex lg:w-1/2 bg-slate-900 min-h-full">
+        <div class="flex flex-col justify-center px-8 lg:px-12 xl:px-16 text-white" dir="{{ $dir }}">
+            <div>
+                <h1 class="text-3xl lg:text-4xl font-bold mb-4 {{ $textAlign }}">
                     {{ __('Join the Future of') }}<br/>
-                    <span class="text-white drop-shadow-sm" style="color: #ffffff !important; text-shadow: 0 0 30px rgba(255,255,255,0.2);">{{ __('Collaborative Innovation') }}</span>
+                    <span class="text-white">{{ __('Collaborative Innovation') }}</span>
                 </h1>
-                <p class="text-lg lg:text-xl text-gray-100 mb-12 leading-relaxed font-medium max-w-xl {{ $textAlign }} !text-gray-100" style="color: #f3f4f6 !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                <p class="text-base text-gray-300 mb-8 leading-relaxed max-w-xl {{ $textAlign }}">
                     {{ __('Connect with talented contributors or post challenges. Our AI-powered platform creates perfect teams for real-world projects.') }}
                 </p>
 
-                <!-- Features List - 2027 Enhanced -->
-                <!-- Features List - 2027 Enhanced - Redesigned -->
-                <div class="space-y-6 lg:space-y-8 mt-12">
+                <!-- Features List -->
+                <div class="space-y-5 mt-8">
                     <!-- Feature 1 -->
-                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
-                        <div class="flex-shrink-0 relative">
-                            <div class="absolute inset-0 bg-indigo-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
-                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-indigo-500/50 transition-colors duration-300">
-                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-indigo-400 group-hover:text-indigo-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
-                            </div>
+                    <div class="flex items-start gap-4 {{ $flexDir }}">
+                        <div class="flex-shrink-0 w-10 h-10 bg-slate-800 border border-slate-700 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
                         </div>
                         <div class="{{ $textAlign }} pt-1">
-                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-indigo-200 transition-colors" style="color: #ffffff !important;">{{ __('AI-Powered Matching') }}</h3>
-                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
-                                {{ __('Advanced algorithms form optimal teams based on skills and experience') }}
-                            </p>
+                            <h3 class="text-base font-semibold text-white mb-1">{{ __('AI-Powered Matching') }}</h3>
+                            <p class="text-slate-400 text-sm">{{ __('Advanced algorithms form optimal teams based on skills and experience') }}</p>
                         </div>
                     </div>
 
                     <!-- Feature 2 -->
-                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
-                        <div class="flex-shrink-0 relative">
-                            <div class="absolute inset-0 bg-violet-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
-                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-violet-500/50 transition-colors duration-300">
-                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-violet-400 group-hover:text-violet-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
-                            </div>
+                    <div class="flex items-start gap-4 {{ $flexDir }}">
+                        <div class="flex-shrink-0 w-10 h-10 bg-slate-800 border border-slate-700 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
                         </div>
                         <div class="{{ $textAlign }} pt-1">
-                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-violet-200 transition-colors" style="color: #ffffff !important;">{{ __('Micro Companies') }}</h3>
-                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
-                                {{ __('Work in small, focused teams for maximum efficiency and collaboration') }}
-                            </p>
+                            <h3 class="text-base font-semibold text-white mb-1">{{ __('Micro Companies') }}</h3>
+                            <p class="text-slate-400 text-sm">{{ __('Work in small, focused teams for maximum efficiency and collaboration') }}</p>
                         </div>
                     </div>
 
                     <!-- Feature 3 -->
-                    <div class="group flex items-start gap-4 lg:gap-5 {{ $flexDir }} transition-all duration-300 hover:translate-x-2">
-                        <div class="flex-shrink-0 relative">
-                            <div class="absolute inset-0 bg-blue-500 blur opacity-20 group-hover:opacity-40 transition-opacity duration-300 rounded-xl"></div>
-                            <div class="relative w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-2xl group-hover:border-blue-500/50 transition-colors duration-300">
-                                <svg class="w-6 h-6 lg:w-7 lg:h-7 text-blue-400 group-hover:text-blue-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                </svg>
-                            </div>
+                    <div class="flex items-start gap-4 {{ $flexDir }}">
+                        <div class="flex-shrink-0 w-10 h-10 bg-slate-800 border border-slate-700 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
                         </div>
                         <div class="{{ $textAlign }} pt-1">
-                            <h3 class="text-lg lg:text-xl font-bold mb-1 !text-white group-hover:text-blue-200 transition-colors" style="color: #ffffff !important;">{{ __('Proven Results') }}</h3>
-                            <p class="!text-slate-400 text-sm lg:text-base font-medium leading-relaxed group-hover:!text-slate-300 transition-colors" style="color: #94a3b8 !important;">
-                                {{ __('127+ challenges completed with 85% success rate') }}
-                            </p>
+                            <h3 class="text-base font-semibold text-white mb-1">{{ __('Proven Results') }}</h3>
+                            <p class="text-slate-400 text-sm">{{ __('127+ challenges completed with 85% success rate') }}</p>
                         </div>
                     </div>
                 </div>
@@ -207,73 +74,67 @@
         </div>
     </div>
 
-    <!-- Right Side - Registration Form - 2027 Design -->
-    <div class="w-full lg:w-1/2 flex items-start justify-center px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 lg:pt-12 xl:pt-16 pb-8 bg-gray-50">
-        <div class="max-w-lg w-full" dir="{{ $dir }}">
-            <div class="relative group">
-                <!-- Glow effect on hover -->
-                <div class="absolute inset-0 bg-indigo-400 rounded-3xl blur-2xl opacity-0 group-hover:opacity-20"></div>
-
-                <div class="relative bg-white/90 backdrop-blur-xl border-2 border-white/60 shadow-2xl rounded-3xl px-6 sm:px-8 md:px-10 py-6 sm:py-8">
-                    <!-- Header -->
-                    <div class="text-center mb-6">
-                        <!-- Mobile Logo -->
-                        <div class="lg:hidden mb-6">
-                            <div class="inline-flex items-center space-x-3 bg-gray-50 border-2 border-gray-200 rounded-2xl px-5 py-3 shadow-lg">
-                                <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center shadow-md">
-                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                                    </svg>
-                                </div>
-                                <span class="text-xl font-black text-slate-800">Mindova</span>
+    <!-- Right Side - Registration Form -->
+    <div class="w-full lg:w-1/2 flex items-start justify-center px-4 sm:px-6 lg:px-8 xl:px-12 py-8 bg-gray-50">
+        <div class="max-w-md w-full" dir="{{ $dir }}">
+            <div class="bg-white border border-gray-200 rounded-xl px-6 py-8">
+                <!-- Header -->
+                <div class="text-center mb-6">
+                    <!-- Mobile Logo -->
+                    <div class="lg:hidden mb-5">
+                        <div class="inline-flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-4 py-2">
+                            <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold">M</span>
                             </div>
+                            <span class="text-lg font-bold text-gray-900">Mindova</span>
                         </div>
-
-                        <h2 class="text-3xl font-black text-gray-900 mb-3 leading-tight">
-                            {{ __('Create') }} <span class="text-indigo-600">{{ __('Account') }}</span>
-                        </h2>
-                        <p class="text-base text-gray-600 font-medium leading-relaxed">{{ __('Join Mindova to start solving challenges or finding talented contributors') }}</p>
                     </div>
 
-                <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data" class="space-y-4 sm:space-y-5">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                        {{ __('Create') }} <span class="text-primary-600">{{ __('Account') }}</span>
+                    </h2>
+                    <p class="text-sm text-gray-600">{{ __('Join Mindova to start solving challenges or finding talented contributors') }}</p>
+                </div>
+
+                <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                     @csrf
 
                     <!-- Account Type Selection -->
                     <div x-data="{ userType: 'volunteer' }">
-                        <label class="block text-xs sm:text-sm font-bold text-gray-900 mb-3 sm:mb-4 {{ $textAlign }}">{{ __('I want to register as') }}</label>
-                        <div class="grid grid-cols-1 xs:grid-cols-2 gap-2 sm:gap-3">
-                            <label class="relative flex cursor-pointer rounded-xl border-2 bg-gray-50/50 p-3 sm:p-4 hover:shadow-md"
-                                   :class="userType === 'volunteer' ? 'border-blue-500 ring-2 ring-blue-200 shadow-lg' : 'border-gray-200'">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2 {{ $textAlign }}">{{ __('I want to register as') }}</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="relative flex cursor-pointer rounded-lg border p-3"
+                                   :class="userType === 'volunteer' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 bg-gray-50'">
                                 <input type="radio" name="user_type" value="volunteer" class="sr-only" checked @change="userType = 'volunteer'">
                                 <span class="flex flex-1 flex-col">
-                                    <span class="flex items-center gap-2 mb-1 sm:mb-2">
-                                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <span class="flex items-center gap-1.5 mb-1">
+                                        <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                         </svg>
-                                        <span class="text-xs sm:text-sm font-bold text-gray-900">{{ __('Contributor') }}</span>
+                                        <span class="text-xs font-semibold text-gray-900">{{ __('Contributor') }}</span>
                                     </span>
-                                    <span class="text-xs text-gray-600">{{ __('Contribute skills to challenges') }}</span>
+                                    <span class="text-[10px] text-gray-600">{{ __('Contribute skills') }}</span>
                                 </span>
-                                <svg class="absolute top-2 right-2 sm:top-3 sm:right-3 h-4 w-4 sm:h-5 sm:w-5 text-blue-600"
+                                <svg class="absolute top-2 right-2 h-3.5 w-3.5 text-primary-600"
                                      :class="userType === 'volunteer' ? 'opacity-100' : 'opacity-0'"
                                      viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
                             </label>
 
-                            <label class="relative flex cursor-pointer rounded-xl border-2 bg-gray-50/50 p-3 sm:p-4 hover:shadow-md"
-                                   :class="userType === 'company' ? 'border-green-500 ring-2 ring-green-200 shadow-lg' : 'border-gray-200'">
+                            <label class="relative flex cursor-pointer rounded-lg border p-3"
+                                   :class="userType === 'company' ? 'border-emerald-500 bg-emerald-50' : 'border-gray-200 bg-gray-50'">
                                 <input type="radio" name="user_type" value="company" class="sr-only" @change="userType = 'company'">
                                 <span class="flex flex-1 flex-col">
-                                    <span class="flex items-center gap-2 mb-1 sm:mb-2">
-                                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <span class="flex items-center gap-1.5 mb-1">
+                                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                                         </svg>
-                                        <span class="text-xs sm:text-sm font-bold text-gray-900">{{ __('Company') }}</span>
+                                        <span class="text-xs font-semibold text-gray-900">{{ __('Company') }}</span>
                                     </span>
-                                    <span class="text-xs text-gray-600">{{ __('Post challenges to solve') }}</span>
+                                    <span class="text-[10px] text-gray-600">{{ __('Post challenges') }}</span>
                                 </span>
-                                <svg class="absolute top-2 right-2 sm:top-3 sm:right-3 h-4 w-4 sm:h-5 sm:w-5 text-green-600"
+                                <svg class="absolute top-2 right-2 h-3.5 w-3.5 text-emerald-600"
                                      :class="userType === 'company' ? 'opacity-100' : 'opacity-0'"
                                      viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -281,94 +142,94 @@
                             </label>
                         </div>
                         @error('user_type')
-                        <p class="text-red-600 text-sm mt-2 font-semibold">{{ $message }}</p>
+                        <p class="text-red-600 text-xs mt-1.5">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Name -->
                     <div>
-                        <label for="name" class="block text-xs sm:text-sm font-bold text-gray-900 mb-2 sm:mb-2.5 {{ $textAlign }}">{{ __('Full Name') }}</label>
+                        <label for="name" class="block text-sm font-semibold text-gray-700 mb-1.5 {{ $textAlign }}">{{ __('Full Name') }}</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="absolute inset-y-0 {{ $left }}-0 {{ $pl }}-3 flex items-center pointer-events-none">
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
                             </div>
                             <input id="name" name="name" type="text" required
-                                   class="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base text-gray-900 font-medium placeholder-gray-400"
+                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
                                    value="{{ old('name') }}"
                                    placeholder="{{ __('John Doe') }}">
                         </div>
                         @error('name')
-                        <p class="text-red-600 text-xs sm:text-sm mt-1.5 sm:mt-2 font-semibold">{{ $message }}</p>
+                        <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Email -->
                     <div>
-                        <label for="email" class="block text-xs sm:text-sm font-bold text-gray-900 mb-2 sm:mb-2.5 {{ $textAlign }}">{{ __('Email Address') }}</label>
+                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-1.5 {{ $textAlign }}">{{ __('Email Address') }}</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="absolute inset-y-0 {{ $left }}-0 {{ $pl }}-3 flex items-center pointer-events-none">
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
                             </div>
                             <input id="email" name="email" type="email" required
-                                   class="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base text-gray-900 font-medium placeholder-gray-400"
+                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
                                    value="{{ old('email') }}"
                                    placeholder="{{ __('john@example.com') }}">
                         </div>
                         @error('email')
-                        <p class="text-red-600 text-xs sm:text-sm mt-1.5 sm:mt-2 font-semibold">{{ $message }}</p>
+                        <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Password -->
                     <div>
-                        <label for="password" class="block text-xs sm:text-sm font-bold text-gray-900 mb-2 sm:mb-2.5 {{ $textAlign }}">{{ __('Password') }}</label>
+                        <label for="password" class="block text-sm font-semibold text-gray-700 mb-1.5 {{ $textAlign }}">{{ __('Password') }}</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="absolute inset-y-0 {{ $left }}-0 {{ $pl }}-3 flex items-center pointer-events-none">
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                                 </svg>
                             </div>
                             <input id="password" name="password" type="password" required
-                                   class="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base text-gray-900 font-medium placeholder-gray-400"
+                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
                                    placeholder="••••••••">
                         </div>
-                        <p class="text-xs text-gray-500 mt-1 ml-1">{{ __('Minimum 8 characters') }}</p>
+                        <p class="text-xs text-gray-500 mt-1">{{ __('Minimum 8 characters') }}</p>
                         @error('password')
-                        <p class="text-red-600 text-xs sm:text-sm mt-1.5 sm:mt-2 font-semibold">{{ $message }}</p>
+                        <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Confirm Password -->
                     <div>
-                        <label for="password_confirmation" class="block text-xs sm:text-sm font-bold text-gray-900 mb-2 sm:mb-2.5 {{ $textAlign }}">{{ __('Confirm Password') }}</label>
+                        <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-1.5 {{ $textAlign }}">{{ __('Confirm Password') }}</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="absolute inset-y-0 {{ $left }}-0 {{ $pl }}-3 flex items-center pointer-events-none">
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                                 </svg>
                             </div>
                             <input id="password_confirmation" name="password_confirmation" type="password" required
-                                   class="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base text-gray-900 font-medium placeholder-gray-400"
+                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
                                    placeholder="••••••••">
                         </div>
                     </div>
 
                     <!-- Profile Picture Upload (Volunteers Only) -->
-                    <div x-show="userType === 'volunteer'" x-data="{ preview: null }" class="animate-slide-in-up">
-                        <label for="profile_picture" class="block text-xs sm:text-sm font-bold text-gray-900 mb-2 sm:mb-2.5 {{ $textAlign }}">{{ __('Profile Picture (Optional)') }}</label>
-                        <div class="flex items-center gap-4">
+                    <div x-show="userType === 'volunteer'" x-data="{ preview: null }">
+                        <label for="profile_picture" class="block text-sm font-semibold text-gray-700 mb-2 {{ $textAlign }}">{{ __('Profile Picture (Optional)') }}</label>
+                        <div class="flex items-center gap-3">
                             <!-- Preview Circle -->
                             <div class="flex-shrink-0">
-                                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center overflow-hidden">
+                                <div class="w-12 h-12 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center overflow-hidden">
                                     <template x-if="preview">
                                         <img :src="preview" alt="Preview" class="w-full h-full object-cover">
                                     </template>
                                     <template x-if="!preview">
-                                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                         </svg>
                                     </template>
@@ -376,69 +237,65 @@
                             </div>
                             <!-- Upload Button -->
                             <div class="flex-1">
-                                <label for="profile_picture" class="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-gray-200 rounded-xl text-xs sm:text-sm font-bold text-gray-700 hover:border-blue-500 hover:text-blue-600 shadow-sm hover:shadow-md">
-                                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <label for="profile_picture" class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs font-medium text-gray-700 hover:border-gray-400">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                     </svg>
                                     {{ __('Choose Photo') }}
                                 </label>
                                 <input id="profile_picture" name="profile_picture" type="file" accept="image/*" class="hidden"
                                        @change="const file = $event.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = (e) => preview = e.target.result; reader.readAsDataURL(file); }">
-                                <p class="text-xs text-gray-500 mt-1.5 ml-1">{{ __('JPG, PNG or GIF (Max 2MB)') }}</p>
+                                <p class="text-xs text-gray-500 mt-1">{{ __('JPG, PNG (Max 2MB)') }}</p>
                             </div>
                         </div>
                         @error('profile_picture')
-                        <p class="text-red-600 text-xs sm:text-sm mt-1.5 sm:mt-2 font-semibold">{{ $message }}</p>
+                        <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Terms Agreement -->
-                    <div class="flex items-start">
+                    <div class="flex items-start gap-2">
                         <input id="terms" name="terms" type="checkbox" required
-                               class="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-0.5 cursor-pointer flex-shrink-0">
-                        <label for="terms" class="ml-2 sm:ml-3 block text-xs sm:text-sm text-gray-700 cursor-pointer">
-                            {{ __('I agree to the') }} <a href="{{ route('terms') }}" class="text-blue-600 hover:text-blue-700 font-semibold hover:underline">{{ __('Terms of Service') }}</a> {{ __('and') }} <a href="{{ route('privacy') }}" class="text-blue-600 hover:text-blue-700 font-semibold hover:underline">{{ __('Privacy Policy') }}</a>
+                               class="h-4 w-4 text-primary-500 focus:ring-primary-400 border-gray-300 rounded mt-0.5 cursor-pointer flex-shrink-0">
+                        <label for="terms" class="text-xs text-gray-600 cursor-pointer">
+                            {{ __('I agree to the') }} <a href="{{ route('terms') }}" class="text-primary-600 hover:text-primary-700 font-medium">{{ __('Terms') }}</a> {{ __('and') }} <a href="{{ route('privacy') }}" class="text-primary-600 hover:text-primary-700 font-medium">{{ __('Privacy') }}</a>
                         </label>
                     </div>
                     @error('terms')
-                    <p class="text-red-600 text-xs sm:text-sm font-semibold">{{ $message }}</p>
+                    <p class="text-red-600 text-xs font-medium">{{ $message }}</p>
                     @enderror
 
                     <!-- Submit Button -->
-                    <div>
-                        <x-ui.button as="submit" variant="primary" size="lg" fullWidth class="btn-glow-reg-2027 animate-gradient-flow-2027" style="background: linear-gradient(135deg, #4f46e5, #7c3aed, #4f46e5); background-size: 200% 200%;">
-                            <span class="relative z-10">{{ __('Create Account') }}</span>
-                            <svg class="relative z-10 w-4 h-4 sm:w-5 sm:h-5 {{ $isRTL ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                            </svg>
-                        </x-ui.button>
-                    </div>
+                    <x-ui.button as="submit" variant="primary" size="sm" fullWidth>
+                        {{ __('Create Account') }}
+                        <svg class="w-4 h-4 {{ $isRTL ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </x-ui.button>
 
                     <!-- Divider -->
-                    <div class="relative">
+                    <div class="relative my-4">
                         <div class="absolute inset-0 flex items-center">
-                            <div class="w-full border-t-2 border-gray-200"></div>
+                            <div class="w-full border-t border-gray-200"></div>
                         </div>
-                        <div class="relative flex justify-center text-xs sm:text-sm">
-                            <span class="px-3 sm:px-4 bg-white text-gray-500 font-semibold">{{ __('Or continue with') }}</span>
+                        <div class="relative flex justify-center text-xs">
+                            <span class="px-3 bg-white text-gray-500">{{ __('Or continue with') }}</span>
                         </div>
                     </div>
 
                     <!-- LinkedIn Button -->
-                    <div>
-                        <x-ui.button as="a" href="{{ route('auth.linkedin.redirect') }}" variant="secondary" fullWidth>
-                            <svg class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" style="fill: var(--color-linkedin, #0077B5);">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                            {{ __('Continue with LinkedIn') }}
-                        </x-ui.button>
-                    </div>
+                    <x-ui.button as="a" href="{{ route('auth.linkedin.redirect') }}" variant="outline" size="sm" fullWidth>
+                        <svg class="h-4 w-4" viewBox="0 0 24 24" style="fill: #0077B5;">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        {{ __('Continue with LinkedIn') }}
+                    </x-ui.button>
 
                     <!-- Login Link -->
-                    <div class="text-center pt-2 sm:pt-4">
-                        <p class="text-xs sm:text-sm text-gray-600">
+                    <div class="text-center pt-2">
+                        <p class="text-sm text-gray-600">
                             {{ __('Already have an account?') }}
-                            <a href="{{ route('login') }}" class="font-bold text-blue-600 hover:text-blue-700 hover:underline">
+                            <a href="{{ route('login') }}" class="font-semibold text-primary-600 hover:text-primary-700">
                                 {{ __('Sign in') }}
                             </a>
                         </p>
@@ -446,26 +303,26 @@
                 </form>
             </div>
 
-            <!-- Trust Indicators - 2027 Enhanced -->
-            <div class="mt-6 sm:mt-8 text-center">
-                <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm">
-                    <div class="trust-indicator-2027 flex items-center gap-1.5 sm:gap-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-slate-100-reg-2027 stagger-reg-3">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <!-- Trust Indicators -->
+            <div class="mt-5 text-center">
+                <div class="flex flex-wrap justify-center items-center gap-2 text-xs">
+                    <div class="flex items-center gap-1 bg-white px-2.5 py-1.5 rounded-lg border border-gray-200">
+                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
-                        <span class="font-bold text-slate-700 whitespace-nowrap">{{ __('450+ Volunteers') }}</span>
+                        <span class="font-medium text-gray-700">{{ __('450+ Volunteers') }}</span>
                     </div>
-                    <div class="trust-indicator-2027 flex items-center gap-1.5 sm:gap-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-slate-100-reg-2027 stagger-reg-4">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="flex items-center gap-1 bg-white px-2.5 py-1.5 rounded-lg border border-gray-200">
+                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
-                        <span class="font-bold text-slate-700 whitespace-nowrap">{{ __('85% Success Rate') }}</span>
+                        <span class="font-medium text-gray-700">{{ __('85% Success') }}</span>
                     </div>
-                    <div class="trust-indicator-2027 flex items-center gap-1.5 sm:gap-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-slate-100-reg-2027 stagger-reg-5">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="flex items-center gap-1 bg-white px-2.5 py-1.5 rounded-lg border border-gray-200">
+                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
-                        <span class="font-bold text-slate-700 whitespace-nowrap">{{ __('Secure & Private') }}</span>
+                        <span class="font-medium text-gray-700">{{ __('Secure') }}</span>
                     </div>
                 </div>
             </div>

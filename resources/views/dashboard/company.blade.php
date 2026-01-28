@@ -345,7 +345,7 @@
                                             @elseif($challenge->avg_submission_quality >= 4) bg-amber-500
                                             @else bg-red-500
                                             @endif" 
-                                            style="width: {{ ($challenge->avg_submission_quality / 100) * 100 }}%"></div>
+                                            style="width: {{ ($challenge->avg_submission_quality / 10) * 100 }}%"></div>
                                     </div>
                                 @else
                                     <p class="text-xs text-gray-400">{{ __('No submissions scored yet') }}</p>
