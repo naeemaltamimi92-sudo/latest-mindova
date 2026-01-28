@@ -32,9 +32,138 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 mt-6">
+        <!-- Application Status Section (Flat Design) -->
+        @php
+        $myAssignment = $task->assignments->where('volunteer_id', auth()->user()->volunteer?->id)->first();
+        @endphp
+
+        @if($myAssignment)
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm mb-8 overflow-hidden">
+            <div class="px-8 py-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100">
+                        @if($myAssignment->invitation_status === 'accepted')
+                            <span class="text-2xl">🚀</span>
+                        @elseif($myAssignment->invitation_status === 'in_progress')
+                            <span class="text-2xl">⚡</span>
+                        @elseif($myAssignment->invitation_status === 'submitted')
+                             <span class="text-2xl">📨</span>
+                        @elseif($myAssignment->invitation_status === 'completed')
+                            <span class="text-2xl">🏆</span>
+                        @else
+                            <span class="text-2xl">👋</span>
+                        @endif
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">{{ __('Your Assignment') }}</h3>
+                        <p class="text-slate-500 text-sm">{{ __('Current Status:') }} <span class="font-semibold text-slate-700">{{ ucfirst(str_replace('_', ' ', $myAssignment->invitation_status)) }}</span></p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    @if($myAssignment->invitation_status === 'invited')
+                        <form action="{{ route('assignments.accept', $myAssignment->id) }}" method="POST" class="inline-block">
+                            @csrf
+                            <x-ui.button as="submit" variant="primary" size="sm">
+                                {{ __('Accept Assignment') }}
+                            </x-ui.button>
+                        </form>
+                        <form action="{{ route('assignments.decline', $myAssignment->id) }}" method="POST" class="inline-block">
+                            @csrf
+                            <x-ui.button as="submit" variant="outline" size="sm">
+                                {{ __('Decline') }}
+                            </x-ui.button>
+                        </form>
+
+                    @elseif($myAssignment->invitation_status === 'accepted')
+                        <form action="{{ route('assignments.start', $myAssignment->id) }}" method="POST" class="inline-block">
+                            @csrf
+                            <x-ui.button as="submit" variant="primary" size="sm">
+                                {{ __('Start Working') }}
+                            </x-ui.button>
+                        </form>
+
+                    @elseif($myAssignment->invitation_status === 'in_progress')
+                        <x-ui.button onclick="showSubmitSolutionModal({{ $myAssignment->id }})" class="!text-white cursor-pointer" variant="primary" size="sm">
+                            {{ __('Submit Solution') }}
+                        </x-ui.button>
+
+                    @elseif($myAssignment->invitation_status === 'submitted')
+                        <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-sm font-semibold border border-blue-100">
+                            {{ __('Under Review') }}
+                        </span>
+
+                    @elseif($myAssignment->invitation_status === 'completed')
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg text-sm font-semibold border border-emerald-100">
+                            {{ __('Completed') }}
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            @php
+                $latestSubmission = $myAssignment->workSubmissions()->latest()->first();
+            @endphp
+
+            @if($latestSubmission)
+            <div class="p-6 bg-slate-50/50">
+                @if($latestSubmission->status === 'revision_requested')
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1 bg-white border border-orange-200 rounded-xl p-5 shadow-sm">
+                        <div class="flex items-start gap-4">
+                            <div class="text-2xl">⚠️</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-900">{{ __('Revision Required') }}</h4>
+                                <div class="flex items-center gap-2 mt-1 mb-2">
+                                     <div class="h-1.5 w-24 bg-slate-100 rounded-full overflow-hidden">
+                                        <div class="h-full bg-orange-500" style="width: {{ $latestSubmission->ai_quality_score }}%"></div>
+                                    </div>
+                                    <span class="text-xs font-medium text-slate-500">{{ $latestSubmission->ai_quality_score }}% Score</span>
+                                </div>
+                                @if($latestSubmission->ai_feedback)
+                                    <p class="text-sm text-slate-600 leading-relaxed mt-2">
+                                        @php $feedback = json_decode($latestSubmission->ai_feedback, true); @endphp
+                                        {{ is_array($feedback) ? ($feedback['feedback'] ?? $latestSubmission->ai_feedback) : $latestSubmission->ai_feedback }}
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @elseif($latestSubmission->status === 'approved')
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1 bg-white border border-emerald-200 rounded-xl p-5 shadow-sm">
+                        <div class="flex items-start gap-4">
+                            <div class="text-2xl">✅</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-900">{{ __('Excellent Work!') }}</h4>
+                                <p class="text-sm text-slate-600 mt-1">{{ __('Your solution has been approved.') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @elseif($latestSubmission->status === 'submitted')
+                 <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1 bg-white border border-blue-200 rounded-xl p-5 shadow-sm text-center">
+                        <div class="inline-block w-6 h-6 text-blue-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-2">{{ __('The company is reviewing your submission...') }}</p>
+                    </div>
+                </div>
+                @endif
+            </div>
+            @endif
+        </div>
+        @endif
+
         <div class="grid lg:grid-cols-3 gap-8">
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-6">
+
+
                 <!-- Task Description -->
                 <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden slide-up" style="animation-delay: 0.2s">
                     <div class="bg-gray-50 px-8 py-6 border-b border-slate-100">
@@ -240,244 +369,7 @@
                 </div>
                 @endif
 
-                @php
-                $myAssignment = $task->assignments->where('volunteer_id', auth()->user()->volunteer?->id)->first();
-                @endphp
 
-                @if($myAssignment)
-                <!-- My Assignment -->
-                <div class="bg-gray-50 rounded-3xl shadow-lg border border-blue-200 overflow-hidden slide-up" style="animation-delay: 0.4s">
-                    <div class="px-8 py-6 border-b border-blue-200">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-                                    </svg>
-                                </div>
-                                <h3 class="font-bold text-slate-900">{{ __('Your Assignment') }}</h3>
-                            </div>
-                            <span class="px-4 py-2 rounded-xl text-sm font-bold
-                                {{ $myAssignment->invitation_status === 'accepted' ? 'bg-green-100 text-green-700 border border-green-200' : '' }}
-                                {{ $myAssignment->invitation_status === 'in_progress' ? 'bg-amber-100 text-amber-700 border border-amber-200' : '' }}
-                                {{ $myAssignment->invitation_status === 'submitted' ? 'bg-blue-100 text-blue-700 border border-blue-200' : '' }}
-                                {{ $myAssignment->invitation_status === 'completed' ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' : '' }}
-                                {{ $myAssignment->invitation_status === 'invited' ? 'bg-violet-100 text-violet-700 border border-violet-200' : '' }}">
-                                {{ ucfirst(str_replace('_', ' ', $myAssignment->invitation_status)) }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="p-6 space-y-4">
-                        @php
-                            $latestSubmission = $myAssignment->workSubmissions()->latest()->first();
-                        @endphp
-
-                        @if($latestSubmission && $latestSubmission->status === 'revision_requested')
-                        <!-- Revision Required Notice -->
-                        <div class="bg-gray-50 border border-orange-200 rounded-2xl p-5">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
-                                    <span class="text-xl">⚠️</span>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-orange-900">{{ __('Revision Required') }}</h4>
-                                    <p class="text-sm text-orange-700">{{ __('Score: :score/100 - Below 70% threshold', ['score' => $latestSubmission->ai_quality_score]) }}</p>
-                                </div>
-                            </div>
-
-                            @if($latestSubmission->ai_feedback)
-                            @php
-                                $feedback = json_decode($latestSubmission->ai_feedback, true);
-                            @endphp
-                            <div class="bg-white rounded-xl p-4 space-y-3">
-                                <p class="text-sm text-slate-700"><strong class="text-slate-900">{{ __('AI Feedback:') }}</strong></p>
-                                <p class="text-sm text-slate-600">{{ is_array($feedback) ? ($feedback['feedback'] ?? $latestSubmission->ai_feedback) : $latestSubmission->ai_feedback }}</p>
-
-                                @if(is_array($feedback) && isset($feedback['areas_for_improvement']))
-                                <div class="mt-3 pt-3 border-t border-slate-100">
-                                    <p class="text-xs font-bold text-orange-700 mb-2">{{ __('Areas for Improvement:') }}</p>
-                                    <ul class="space-y-1">
-                                        @foreach($feedback['areas_for_improvement'] as $area)
-                                        <li class="text-sm text-slate-700 flex items-start gap-2">
-                                            <span class="text-orange-500 mt-1">•</span>{{ $area }}
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-
-                                @if(is_array($feedback) && isset($feedback['missing_requirements']))
-                                <div class="mt-3 pt-3 border-t border-slate-100">
-                                    <p class="text-xs font-bold text-red-700 mb-2">{{ __('Missing Requirements:') }}</p>
-                                    <ul class="space-y-1">
-                                        @foreach($feedback['missing_requirements'] as $req)
-                                        <li class="text-sm text-slate-700 flex items-start gap-2">
-                                            <span class="text-red-500 mt-1">•</span>{{ $req }}
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-                            </div>
-                            @endif
-
-                            <x-ui.button onclick="showSubmitSolutionModal({{ $myAssignment->id }})" variant="secondary" fullWidth class="mt-4">
-                                <span class="text-lg mr-2">📝</span>{{ __('Submit Improved Solution') }}
-                            </x-ui.button>
-                        </div>
-                        @elseif($latestSubmission && $latestSubmission->status === 'approved')
-                        <!-- Approved Solution Notice -->
-                        <div class="bg-gray-50 border border-green-200 rounded-2xl p-5">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
-                                    <span class="text-xl">✅</span>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-green-900">{{ __('Solution Approved!') }}</h4>
-                                    <p class="text-sm text-green-700">{{ __('Score: :score/100 - Great work!', ['score' => $latestSubmission->ai_quality_score]) }}</p>
-                                </div>
-                            </div>
-
-                            @if($latestSubmission->ai_feedback)
-                            @php
-                                $feedback = json_decode($latestSubmission->ai_feedback, true);
-                            @endphp
-                            <div class="bg-white rounded-xl p-4">
-                                <p class="text-sm text-slate-700 mb-2"><strong class="text-slate-900">{{ __('AI Feedback:') }}</strong></p>
-                                <p class="text-sm text-slate-600">{{ is_array($feedback) ? ($feedback['feedback'] ?? $latestSubmission->ai_feedback) : $latestSubmission->ai_feedback }}</p>
-
-                                @if(is_array($feedback) && isset($feedback['strengths']))
-                                <div class="mt-3 pt-3 border-t border-slate-100">
-                                    <p class="text-xs font-bold text-green-700 mb-2">{{ __('Strengths:') }}</p>
-                                    <ul class="space-y-1">
-                                        @foreach($feedback['strengths'] as $strength)
-                                        <li class="text-sm text-slate-700 flex items-start gap-2">
-                                            <span class="text-green-500 mt-1">✓</span>{{ $strength }}
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-                            </div>
-                            @endif
-                        </div>
-                        @elseif($latestSubmission && $latestSubmission->ai_analysis_status === 'pending')
-                        <!-- Analysis Pending -->
-                        <div class="bg-gray-50 border border-blue-200 rounded-2xl p-5">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
-                                    <span class="text-xl">⏳</span>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-blue-900">{{ __('AI Analysis in Progress...') }}</h4>
-                                    <p class="text-sm text-blue-700">{{ __('Your solution is being analyzed. This usually takes 30-60 seconds.') }}</p>
-                                </div>
-                            </div>
-                            <div class="w-full bg-blue-200 rounded-full h-2.5">
-                                <div class="bg-primary-500 h-2.5 rounded-full" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        @endif
-
-                        @if($myAssignment->match_reasoning)
-                        @php
-                        $reasoning = json_decode($myAssignment->match_reasoning, true);
-                        @endphp
-                        <div class="bg-white rounded-2xl p-5 border border-slate-200">
-                            <div class="flex items-center gap-2 mb-3">
-                                <svg class="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                </svg>
-                                <h4 class="font-bold text-slate-900">{{ __('Why you were matched') }} <span class="text-indigo-600">({{ $myAssignment->match_score }}%)</span></h4>
-                            </div>
-                            <p class="text-sm text-slate-700 mb-4">{{ $reasoning['reasoning'] ?? '' }}</p>
-
-                            <div class="grid md:grid-cols-2 gap-4">
-                                @if(isset($reasoning['strengths']))
-                                <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
-                                    <p class="text-xs font-bold text-emerald-700 mb-2">{{ __('Your Strengths') }}</p>
-                                    <ul class="space-y-1">
-                                        @foreach($reasoning['strengths'] as $strength)
-                                        <li class="text-sm text-slate-700 flex items-start gap-2">
-                                            <span class="text-emerald-500 mt-1">✓</span>{{ $strength }}
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-
-                                @if(isset($reasoning['gaps']) && count($reasoning['gaps']) > 0)
-                                <div class="bg-amber-50 rounded-xl p-4 border border-amber-100">
-                                    <p class="text-xs font-bold text-amber-700 mb-2">{{ __('Areas to Develop') }}</p>
-                                    <ul class="space-y-1">
-                                        @foreach($reasoning['gaps'] as $gap)
-                                        <li class="text-sm text-slate-700 flex items-start gap-2">
-                                            <span class="text-amber-500 mt-1">•</span>{{ $gap }}
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-                        @endif
-
-                        <!-- Action Buttons -->
-                        <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-blue-200">
-                            @if($myAssignment->invitation_status === 'invited')
-                            <form action="{{ route('assignments.accept', $myAssignment->id) }}" method="POST" class="inline">
-                                @csrf
-                                <x-ui.button as="submit" variant="secondary">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                    </svg>
-                                    {{ __('Accept Assignment') }}
-                                </x-ui.button>
-                            </form>
-                            <form action="{{ route('assignments.decline', $myAssignment->id) }}" method="POST" class="inline">
-                                @csrf
-                                <x-ui.button as="submit" variant="outline">
-                                    {{ __('Decline') }}
-                                </x-ui.button>
-                            </form>
-                            @elseif($myAssignment->invitation_status === 'accepted')
-                            <form action="{{ route('assignments.start', $myAssignment->id) }}" method="POST" class="inline">
-                                @csrf
-                                <x-ui.button as="submit" variant="primary">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    {{ __('Start Working') }}
-                                </x-ui.button>
-                            </form>
-                            @elseif($myAssignment->invitation_status === 'in_progress')
-                            <x-ui.button onclick="showSubmitSolutionModal({{ $myAssignment->id }})" variant="secondary">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                {{ __('Submit Solution') }}
-                            </x-ui.button>
-                            @elseif($myAssignment->invitation_status === 'submitted')
-                            <span class="inline-flex items-center gap-2 text-blue-700 font-bold px-4 py-2 bg-blue-100 rounded-xl border border-blue-200">
-                                <span class="animate-pulse">⏳</span>{{ __('Solution Submitted - Under Review') }}
-                            </span>
-                            @elseif($myAssignment->invitation_status === 'completed')
-                            <span class="inline-flex items-center gap-2 text-emerald-700 font-bold px-4 py-2 bg-emerald-100 rounded-xl border border-emerald-200">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                {{ __('Completed') }}
-                            </span>
-                            @if($myAssignment->actual_hours)
-                            <span class="text-sm text-slate-600">{{ $myAssignment->actual_hours }} {{ __('hours logged') }}</span>
-                            @endif
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                @endif
             </div>
 
             <!-- Sidebar -->
@@ -579,8 +471,8 @@
 <div id="submitSolutionModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm overflow-y-auto h-full w-full z-50">
     <div class="relative top-20 mx-auto p-0 w-full max-w-2xl">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div class="bg-primary-500 px-8 py-6">
-                <h3 class="text-xl font-bold text-white">{{ __('Submit Your Solution') }}</h3>
+            <div class="bg-gray-100 px-8 py-6">
+                <h3 class="text-xl font-bold ">{{ __('Submit Your Solution') }}</h3>
                 <p class="text-indigo-100 text-sm mt-1">{{ __('Describe your work and submit for AI review') }}</p>
             </div>
             <form id="submitSolutionForm" method="POST" action="" enctype="multipart/form-data" class="p-8">
@@ -611,14 +503,14 @@
                 <div class="space-y-6">
                     <div>
                         <label class="block text-sm font-bold text-slate-900 mb-2">{{ __('Solution Description') }} *</label>
-                        <textarea name="description" rows="4" required class="w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
+                        <textarea name="description" rows="4" required class="w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm p-2"
                                   placeholder="{{ __('Describe your solution, the approach you took, and any key decisions...') }}"></textarea>
                         <p class="text-xs text-slate-500 mt-1">{{ __('Explain what you built and how it solves the task') }}</p>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold text-slate-900 mb-2">{{ __('Deliverable URL') }}</label>
-                        <input type="url" name="deliverable_url" class="w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
+                        <input type="url" name="deliverable_url" class="w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm p-2"
                                placeholder="https://github.com/username/repo">
                         <p class="text-xs text-slate-500 mt-1">{{ __('Link to your code repository, demo, or deliverable') }}</p>
                     </div>
@@ -631,13 +523,13 @@
 
                     <div>
                         <label class="block text-sm font-bold text-slate-900 mb-2">{{ __('Hours Worked') }} *</label>
-                        <input type="number" name="hours_worked" step="0.5" min="0.5" required class="w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
-                               placeholder="{{ __('e.g., 5.5') }}">
+                        <input type="number" name="hours_worked" step="1" min="1" required class="w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm p-2"
+                               placeholder="{{ __('e.g., 5') }}">
                     </div>
 
                     <div class="bg-gray-50 rounded-xl p-4 border border-blue-200">
                         <p class="text-sm text-blue-900">
-                            <strong class="text-indigo-700">📝 {{ __('Note:') }}</strong> {{ __('Your solution will be analyzed by AI to assess quality and completeness. High-quality solutions that solve the task will be combined with other team members\' work and presented to the challenge owner.') }}
+                            <strong class="text-indigo-700">📝 {{ __('Note:') }}</strong> {{ __('Your solution will be reviewed by the company to assess quality and completeness. High-quality solutions that solve the task will be combined with other team members\' work and presented to the challenge owner.') }}
                         </p>
                     </div>
                 </div>

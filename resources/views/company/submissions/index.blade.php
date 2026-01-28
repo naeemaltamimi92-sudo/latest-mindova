@@ -15,24 +15,10 @@
         to { opacity: 1; }
     }
     .submission-card {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
+        transition: box-shadow 0.2s ease;
     }
     .submission-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-    }
-    .submission-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        opacity: 0;
-        transition: opacity 0.3s;
-        pointer-events: none;
-    }
-    .submission-card:hover::before {
-        opacity: 1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
     .stat-card {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -103,7 +89,7 @@
 
         <!-- Premium Header -->
         <div class="mb-8 slide-up">
-            <div class="bg-white rounded-3xl shadow-2xl shadow-emerald-500/10 border border-slate-200/60 overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
                 <!-- Hero Section -->
                 <div class="relative bg-secondary-500 px-8 py-8 overflow-hidden">
                     <!-- Background Pattern -->
@@ -150,7 +136,7 @@
                 </div>
 
                 <!-- Stats Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-6 divide-x divide-y md:divide-y-0 divide-slate-100">
+                <div class="grid grid-cols-2 md:grid-cols-6">
                     @php
                     $statItems = [
                         ['key' => 'all', 'value' => $stats['total'], 'label' => 'All', 'color' => 'slate', 'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'],
@@ -164,9 +150,9 @@
 
                     @foreach($statItems as $stat)
                     <x-ui.button
+                        variant="ghost"
                         @click="activeFilter = '{{ $stat['key'] }}'"
-                        :class="activeFilter === '{{ $stat['key'] }}' ? 'bg-{{ $stat['color'] }}-50 border-b-2 border-{{ $stat['color'] }}-500' : 'hover:bg-slate-50'"
-                        class="stat-card px-4 py-5 text-center relative group"
+                       class="stat-card px-4 py-5 text-center relative group"
                     >
                         <div class="flex flex-col items-center">
                             <div class="mb-2 p-2 rounded-xl"
@@ -274,12 +260,9 @@
                 
                 
                 
-                class="submission-card bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden slide-up group"
+                class="submission-card bg-white rounded-2xl shadow-sm overflow-hidden slide-up group"
                 style="animation-delay: {{ 0.15 + ($index * 0.05) }}s"
             >
-                <!-- Status Bar -->
-                <div class="h-1.5 {{ $config['gradient'] }}"></div>
-
                 <div class="p-6 lg:p-8">
                     <div class="flex flex-col xl:flex-row xl:items-start gap-6">
                         <!-- Left: Main Info -->
@@ -346,19 +329,10 @@
                             </div>
 
                             <!-- Description Preview -->
-                            <div class="{{ $config['lightGradient'] }} rounded-2xl p-5 mb-5 border border-{{ $config['bg'] }}-100">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
-                                        <svg class="w-4 h-4 text-{{ $config['text'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                        </svg>
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm text-slate-700 line-clamp-2 leading-relaxed">
-                                            {{ Str::limit(strip_tags($submission->description), 200) }}
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="bg-slate-50 rounded-xl p-4 mb-5">
+                                <p class="text-sm text-slate-600 line-clamp-2 leading-relaxed">
+                                    {{ Str::limit(strip_tags($submission->description), 200) }}
+                                </p>
                             </div>
 
                             <!-- Deliverable & AI Analysis -->
@@ -441,7 +415,7 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="flex items-center justify-between mt-5 pt-5 border-t border-slate-100">
+                    <div class="flex items-center justify-between mt-5 pt-4 border-t border-slate-100/80">
                         <div class="text-sm text-slate-500">
                             @if($submission->reviewed_at)
                             <span class="flex items-center gap-1.5">

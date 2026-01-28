@@ -426,7 +426,7 @@
                                             stroke-dashoffset="{{ 2 * 3.14159 * 42 * (1 - $assignment->match_score / 100) }}"/>
                                     </svg>
                                     <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                        <span class="text-2xl font-black {{ $assignment->match_score >= 80 ? 'text-emerald-600' : ($assignment->match_score >= 60 ? 'text-amber-600' : 'text-indigo-600') }}">{{ $assignment->match_score }}%</span>
+                                        <span class="text-2xl font-black {{ $assignment->match_score >= 80 ? 'text-emerald-600' : ($assignment->match_score >= 60 ? 'text-amber-600' : 'text-indigo-600') }}">{{ (int)$assignment->match_score }}%</span>
                                     </div>
                                 </div>
                                 <span class="text-xs font-bold text-slate-500 mt-2">{{ __('Match Score') }}</span>

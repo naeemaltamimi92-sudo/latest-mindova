@@ -83,10 +83,9 @@ class AggregateChallengeCompletion implements ShouldQueue, ShouldBeUnique
             $submissionCount = 0;
 
             foreach ($tasks as $task) {
-                // Get the best approved solution for each task
+                // Get the best approved solution for each task (by company review)
                 $bestSubmission = WorkSubmission::where('task_id', $task->id)
-                    ->where('ai_analysis_status', 'completed')
-                    ->where('solves_task', true)
+                    ->where('status', 'approved')
                     ->orderBy('ai_quality_score', 'desc')
                     ->first();
 

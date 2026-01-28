@@ -60,22 +60,30 @@ export default {
         },
         // Semantic colors (now mapped to primary/secondary)
         success: {
-          DEFAULT: 'var(--color-success, #5A3DEB)',
-          light: 'var(--color-success-light, #775FEE)',
-          dark: 'var(--color-success-dark, #4B32C9)',
+          DEFAULT: '#10b981', // emerald-500
+          500: '#10b981',     // emerald-500
+          600: '#059669',     // emerald-600
+          light: '#34d399',   // emerald-400
+          dark: '#059669',    // emerald-600
         },
         warning: {
           DEFAULT: 'var(--color-warning, #9681F2)',
+          500: 'var(--color-warning, #9681F2)',
+          600: 'var(--color-warning-dark, #775FEE)',
           light: 'var(--color-warning-light, #B5A6F6)',
           dark: 'var(--color-warning-dark, #775FEE)',
         },
         danger: {
           DEFAULT: 'var(--color-danger, #3C28A7)',
+          500: 'var(--color-danger, #3C28A7)',
+          600: 'var(--color-danger-dark, #2D1E85)',
           light: 'var(--color-danger-light, #4B32C9)',
           dark: 'var(--color-danger-dark, #2D1E85)',
         },
         info: {
           DEFAULT: 'var(--color-info, #6B7280)',
+          500: 'var(--color-info, #6B7280)',
+          600: 'var(--color-info-dark, #4B5563)',
           light: 'var(--color-info-light, #9CA3AF)',
           dark: 'var(--color-info-dark, #4B5563)',
         },

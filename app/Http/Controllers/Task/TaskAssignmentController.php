@@ -214,7 +214,7 @@ class TaskAssignmentController extends Controller
 
         // Find and invite another volunteer for this task
         $task = $assignment->task;
-        \App\Jobs\MatchVolunteersToTask::dispatch($task);
+        \App\Jobs\MatchVolunteersToTasks::dispatch($task->challenge);
 
         // Check if this is a web request
         if ($request->expectsJson()) {
@@ -338,7 +338,7 @@ class TaskAssignmentController extends Controller
 
         // Validate the request
         $validated = $request->validate([
-            'description' => 'required|string|min:10|max:5000',
+            'description' => 'required|string|min:10',
             'deliverable_url' => 'nullable|url|max:500',
             'attachments.*' => 'nullable|file|max:10240|mimes:pdf,doc,docx,zip,png,jpg,jpeg',
             'hours_worked' => 'required|numeric|min:0.5|max:1000',
@@ -363,7 +363,6 @@ class TaskAssignmentController extends Controller
             'attachments' => $attachmentPaths,
             'hours_worked' => $validated['hours_worked'],
             'status' => 'submitted',
-            'ai_analysis_status' => 'pending',
             'submitted_at' => now(),
         ]);
 
@@ -373,12 +372,12 @@ class TaskAssignmentController extends Controller
             'actual_hours' => $validated['hours_worked'],
         ]);
 
-        // Dispatch AI analysis job
-        AnalyzeSolutionQuality::dispatch($submission);
+        // AI analysis disabled - company will review manually
+        // AnalyzeSolutionQuality::dispatch($submission);
 
         // Notify company about the submission
         $this->notificationService->notifyTaskCompleted($assignment);
 
-        return back()->with('success', 'Solution submitted successfully! AI is analyzing your solution...');
+        return back()->with('success', 'Solution submitted successfully! The company will review your submission.');
     }
 }

@@ -125,11 +125,13 @@
         height: 200%;
         background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
         animation: shimmer 3s infinite;
+        pointer-events: none;
     }
 
     .invitation-card:hover {
         transform: translateY(-4px);
         box-shadow: 0 20px 40px -12px rgba(251, 191, 36, 0.4);
+        cursor: pointer;
     }
 
     /* Task Cards */
@@ -663,7 +665,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                     <div class="flex items-center gap-2">
                         <form action="{{ route('teams.accept', $team) }}" method="POST">
                             @csrf
-                            <x-ui.button as="submit" variant="success" size="sm">
+                            <x-ui.button as="submit" class="cursor-pointer" variant="success" size="sm">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
@@ -672,7 +674,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         </form>
                         <form action="{{ route('teams.decline', $team) }}" method="POST">
                             @csrf
-                            <x-ui.button as="submit" variant="secondary" size="sm">{{ __('Decline') }}</x-ui.button>
+                            <x-ui.button as="submit" variant="danger" size="sm">{{ __('Decline') }}</x-ui.button>
                         </form>
                     </div>
                 </div>
@@ -697,7 +699,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             </div>
         </div>
         <div class="space-y-4">
-            @foreach($pendingAssignments->take(3) as $assignment)
+            @foreach($pendingAssignments as $assignment)
             <div class="invitation-card relative z-10">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div class="flex-1">
@@ -724,19 +726,15 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
-                        <form action="/api/assignments/{{ $assignment->id }}/accept" method="POST">
-                            @csrf
-                            <x-ui.button as="submit" variant="success" size="sm">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                {{ __('Accept') }}
-                            </x-ui.button>
-                        </form>
-                        <form action="/api/assignments/{{ $assignment->id }}/reject" method="POST">
-                            @csrf
-                            <x-ui.button as="submit" variant="secondary" size="sm">{{ __('Decline') }}</x-ui.button>
-                        </form>
+                        <button type="button" onclick="showAcceptModal({{ $assignment->id }}, '{{ addslashes($assignment->task->title) }}')" class="btn-accept inline-flex items-center gap-2 text-sm">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            {{ __('Accept') }}
+                        </button>
+                        <button type="button" onclick="showDeclineModal({{ $assignment->id }}, '{{ addslashes($assignment->task->title) }}')" class="btn-decline text-sm">
+                            {{ __('Decline') }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -974,4 +972,107 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
         </a>
     </div>
 </div>
+
+<!-- Accept Assignment Modal -->
+<div id="acceptAssignmentModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-0 w-full max-w-md">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <div class="bg-black-200 px-8 py-6">
+                <h3 class="text-xl font-bold text-white">{{ __('Accept Task Assignment') }}</h3>
+                <p class="text-black-100 text-sm mt-1">{{ __('Confirm your participation') }}</p>
+            </div>
+            <div class="p-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="flex-shrink-0 h-14 w-14 rounded-2xl bg-emerald-100 flex items-center justify-center">
+                        <svg class="h-7 w-7 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-slate-900 font-semibold" id="acceptTaskTitle"></p>
+                        <p class="text-sm text-slate-500">{{ __('You will be assigned to this task') }}</p>
+                    </div>
+                </div>
+                <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-200 mb-6">
+                    <p class="text-sm text-emerald-800">
+                        <strong>{{ __('Note:') }}</strong> {{ __('By accepting, you commit to completing this task. You can only work on one task at a time.') }}
+                    </p>
+                </div>
+                <form id="acceptAssignmentForm" method="POST" action="">
+                    @csrf
+                    <div class="flex justify-end gap-3">
+                        <x-ui.button type="button" onclick="closeAcceptModal()" variant="ghost">{{ __('Cancel') }}</x-ui.button>
+                        <button class="btn-accept text-white px-6 py-2 rounded-full cursor-pointer" type="submit">{{ __('Accept Task') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Decline Assignment Modal -->
+<div id="declineAssignmentModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-0 w-full max-w-md">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <div class="px-8 py-6">
+                <h3 class="text-xl font-bold text-white">{{ __('Decline Task Assignment') }}</h3>
+                <p class="text-slate-200 text-sm mt-1">{{ __('This task will be offered to others') }}</p>
+            </div>
+            <div class="px-8 py-6">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="flex-shrink-0 h-14 w-14 rounded-2xl bg-slate-100 flex items-center justify-center">
+                        <svg class="h-7 w-7 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-slate-900 font-semibold" id="declineTaskTitle"></p>
+                        <p class="text-sm text-slate-500">{{ __('Are you sure you want to decline?') }}</p>
+                    </div>
+                </div>
+                <form id="declineAssignmentForm" method="POST" action="">
+                    @csrf
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">{{ __('Reason (optional)') }}</label>
+                        <textarea name="reason" rows="5" class="w-full rounded-xl border-slate-300 focus:border-slate-500 focus:ring-slate-500 shadow-sm text-sm p-2" placeholder="{{ __('Let us know why you are declining...') }}"></textarea>
+                    </div>
+                    <div class="flex justify-end gap-3">
+                        <x-ui.button class="cursor-pointer" type="button" onclick="closeDeclineModal()" variant="ghost">{{ __('Cancel') }}</x-ui.button>
+                        <x-ui.button class="cursor-pointer" type="submit" variant="danger">{{ __('Decline Task') }}</x-ui.button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showAcceptModal(assignmentId, taskTitle) {
+    document.getElementById('acceptTaskTitle').textContent = taskTitle;
+    document.getElementById('acceptAssignmentForm').action = '{{ url("assignments") }}/' + assignmentId + '/accept';
+    document.getElementById('acceptAssignmentModal').classList.remove('hidden');
+}
+
+function closeAcceptModal() {
+    document.getElementById('acceptAssignmentModal').classList.add('hidden');
+}
+
+function showDeclineModal(assignmentId, taskTitle) {
+    document.getElementById('declineTaskTitle').textContent = taskTitle;
+    document.getElementById('declineAssignmentForm').action = '{{ url("assignments") }}/' + assignmentId + '/decline';
+    document.getElementById('declineAssignmentModal').classList.remove('hidden');
+}
+
+function closeDeclineModal() {
+    document.getElementById('declineAssignmentModal').classList.add('hidden');
+}
+
+// Close modals on backdrop click
+document.getElementById('acceptAssignmentModal')?.addEventListener('click', function(e) {
+    if (e.target === this) closeAcceptModal();
+});
+document.getElementById('declineAssignmentModal')?.addEventListener('click', function(e) {
+    if (e.target === this) closeDeclineModal();
+});
+</script>
 @endsection

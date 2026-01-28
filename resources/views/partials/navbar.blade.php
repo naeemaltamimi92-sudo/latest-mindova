@@ -58,6 +58,9 @@
                 <x-ui.navbar-link href="{{ route('challenges.index') }}" :active="request()->routeIs('challenges.*') && !request()->routeIs('community.*')">
                     {{ __('My Challenges') }}
                 </x-ui.navbar-link>
+                <x-ui.navbar-link href="{{ route('company.submissions.index') }}" :active="request()->routeIs('company.submissions.*')">
+                    {{ __('Work Submissions') }}
+                </x-ui.navbar-link>
             @endif
         </div>
         @else
@@ -217,6 +220,9 @@
                     </x-ui.navbar-mobile-link>
                     <x-ui.navbar-mobile-link href="{{ route('challenges.index') }}" :active="request()->routeIs('challenges.*')">
                         {{ __('My Challenges') }}
+                    </x-ui.navbar-mobile-link>
+                    <x-ui.navbar-mobile-link href="{{ route('company.submissions.index') }}" :active="request()->routeIs('company.submissions.*')">
+                        {{ __('Work Submissions') }}
                     </x-ui.navbar-mobile-link>
                 @endif
 

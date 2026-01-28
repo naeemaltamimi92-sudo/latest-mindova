@@ -523,17 +523,26 @@
 
                             <!-- Score Sliders -->
                             <div class="bg-slate-50 rounded-2xl p-6">
-                                <h3 class="font-bold text-slate-900 mb-5">{{ __('Rate the Submission (Optional)') }}</h3>
+                                <h3 class="font-bold text-slate-900 mb-2">{{ __('Rate the Submission') }}</h3>
+                                <p class="text-sm text-slate-600 mb-5" x-show="decision === 'approved'">
+                                    <span class="text-red-500 font-semibold">*</span> {{ __('Quality score is required when approving a submission.') }}
+                                </p>
+                                <p class="text-sm text-slate-500 mb-5" x-show="decision !== 'approved'">{{ __('Optional ratings for the submission.') }}</p>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     <!-- Quality Score -->
                                     <div>
                                         <div class="flex items-center justify-between mb-2">
-                                            <label class="text-sm font-medium text-slate-700">{{ __('Quality') }}</label>
+                                            <label class="text-sm font-medium text-slate-700">
+                                                {{ __('Quality') }}
+                                                <span x-show="decision === 'approved'" class="text-red-500">*</span>
+                                            </label>
                                             <span class="text-sm font-bold text-indigo-600" x-text="qualityScore || '-'"></span>
                                         </div>
                                         <input type="range" name="quality_score" min="0" max="100" value="0"
                                             x-model="qualityScore"
+                                            :required="decision === 'approved'"
                                             class="w-full score-slider">
+                                        <p x-show="decision === 'approved' && (!qualityScore || qualityScore < 1)" class="text-xs text-red-500 mt-1">{{ __('Please set a quality score (1-100) to approve.') }}</p>
                                     </div>
 
                                     <!-- Timeliness Score -->
