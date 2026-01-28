@@ -96,6 +96,15 @@
     }
     .markdown-content li { margin: 0.5rem 0; }
     .markdown-content p { margin: 0.75rem 0; line-height: 1.7; }
+    .description-clamped {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .description-full {
+        display: block;
+    }
 </style>
 @endpush
 
@@ -228,7 +237,7 @@
             <div class="lg:col-span-2 space-y-6">
 
                 <!-- Submission Description -->
-                <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-up" style="animation-delay: 0.15s">
+                <div class="bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden hover-lift slide-up" style="animation-delay: 0.15s" x-data="{ expanded: false }">
                     <div class="px-8 py-5 border-b border-slate-100 bg-white">
                         <h2 class="font-bold text-slate-900 flex items-center gap-3 text-lg">
                             <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
@@ -240,9 +249,21 @@
                         </h2>
                     </div>
                     <div class="p-8">
-                        <div class="prose prose-slate max-w-none markdown-content">
-                            {!! nl2br(e($submission->description)) !!}
+                        <div class="prose prose-slate max-w-full markdown-content overflow-hidden">
+                            <div x-ref="description" :class="expanded ? 'description-full' : 'description-clamped'" class="max-w-full break-words">
+                                {!! nl2br(e($submission->description)) !!}
+                            </div>
                         </div>
+                        @if(strlen($submission->description ?? '') > 300)
+                        <button 
+                            @click="expanded = !expanded"
+                            class="mt-4 inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors">
+                            <span x-text="expanded ? '{{ __('Show Less') }}' : '{{ __('Read More') }}'"></span>
+                            <svg class="w-4 h-4 transition-transform" :class="expanded ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        @endif
                     </div>
                 </div>
 

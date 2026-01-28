@@ -23,7 +23,7 @@
 <div class="min-h-screen bg-gray-50">
     <!-- Back Navigation -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 slide-up">
-        <a href="{{ url()->previous() }}" class="inline-flex items-center gap-2 text-slate-600 hover:text-indigo-600 font-medium">
+        <a href="{{ route('assignments.my') }}" class="inline-flex items-center gap-2 text-slate-600 hover:text-indigo-600 font-medium">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>

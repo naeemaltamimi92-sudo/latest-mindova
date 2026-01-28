@@ -28,28 +28,33 @@ class CompanyWebController extends Controller
         // Get all challenge IDs for this company
         $challengeIds = Challenge::where('company_id', $company->id)->pluck('id');
 
-        // Get all submissions for the company's challenges
-        $submissions = WorkSubmission::whereHas('task', function ($query) use ($challengeIds) {
-            $query->whereIn('challenge_id', $challengeIds);
-        })
-        ->with([
-            'task.challenge',
-            'task.workstream',
-            'volunteer.user',
-            'taskAssignment',
-            'reviews'
-        ])
-        ->orderByDesc('submitted_at')
-        ->paginate(15);
+        // Get only the latest submission per assignment
+        $latestSubmissionIds = WorkSubmission::whereHas('task', function ($query) use ($challengeIds) {
+                $query->whereIn('challenge_id', $challengeIds);
+            })
+            ->selectRaw('MAX(id) as id')
+            ->groupBy('task_assignment_id')
+            ->pluck('id');
 
-        // Group submissions by status for stats
+        $submissions = WorkSubmission::whereIn('id', $latestSubmissionIds)
+            ->with([
+                'task.challenge',
+                'task.workstream',
+                'volunteer.user',
+                'taskAssignment',
+                'reviews'
+            ])
+            ->orderByDesc('submitted_at')
+            ->paginate(15);
+
+        // Group submissions by status for stats (only count latest submission per assignment)
         $stats = [
-            'total' => WorkSubmission::whereHas('task', fn($q) => $q->whereIn('challenge_id', $challengeIds))->count(),
-            'pending' => WorkSubmission::whereHas('task', fn($q) => $q->whereIn('challenge_id', $challengeIds))->where('status', 'submitted')->count(),
-            'under_review' => WorkSubmission::whereHas('task', fn($q) => $q->whereIn('challenge_id', $challengeIds))->where('status', 'under_review')->count(),
-            'approved' => WorkSubmission::whereHas('task', fn($q) => $q->whereIn('challenge_id', $challengeIds))->where('status', 'approved')->count(),
-            'revision_requested' => WorkSubmission::whereHas('task', fn($q) => $q->whereIn('challenge_id', $challengeIds))->where('status', 'revision_requested')->count(),
-            'rejected' => WorkSubmission::whereHas('task', fn($q) => $q->whereIn('challenge_id', $challengeIds))->where('status', 'rejected')->count(),
+            'total' => $latestSubmissionIds->count(),
+            'pending' => WorkSubmission::whereIn('id', $latestSubmissionIds)->where('status', 'submitted')->count(),
+            'under_review' => WorkSubmission::whereIn('id', $latestSubmissionIds)->where('status', 'under_review')->count(),
+            'approved' => WorkSubmission::whereIn('id', $latestSubmissionIds)->where('status', 'approved')->count(),
+            'revision_requested' => WorkSubmission::whereIn('id', $latestSubmissionIds)->where('status', 'revision_requested')->count(),
+            'rejected' => WorkSubmission::whereIn('id', $latestSubmissionIds)->where('status', 'rejected')->count(),
         ];
 
         return view('company.submissions.index', compact('submissions', 'stats', 'company'));
