@@ -1,5 +1,5 @@
 {{--
-    shadcn-style Navbar Mobile Link Component for Laravel Blade
+    Clean Minimal Navbar Mobile Link Component
 
     Usage:
     <x-ui.navbar-mobile-link href="/dashboard" :active="true">Dashboard</x-ui.navbar-mobile-link>
@@ -11,10 +11,10 @@
 ])
 
 @php
-$baseClasses = 'flex items-center px-4 py-3 text-base font-medium transition-colors duration-150';
+$baseClasses = 'flex items-center px-4 py-3 text-sm font-medium';
 $activeClasses = $active
     ? 'bg-primary-50 text-primary-700 border-l-4 border-primary-500'
-    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900';
+    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent';
 @endphp
 
 <a href="{{ $href }}" {{ $attributes->class([$baseClasses, $activeClasses]) }} @click="mobileMenuOpen = false">

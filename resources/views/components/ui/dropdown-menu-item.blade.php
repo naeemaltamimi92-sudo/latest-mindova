@@ -1,5 +1,5 @@
 {{--
-    shadcn-style Dropdown Menu Item Component for Laravel Blade
+    Clean Minimal Dropdown Menu Item Component
 
     Usage:
     <x-ui.dropdown-menu-item href="/profile">Profile</x-ui.dropdown-menu-item>
@@ -18,9 +18,9 @@
 $tag = $href ? 'a' : ($as === 'submit' ? 'button' : $as);
 $type = $tag === 'button' ? ($as === 'submit' ? 'submit' : 'button') : null;
 
-$baseClasses = 'flex w-full items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150';
+$baseClasses = 'flex w-full items-center gap-3 px-4 py-2 text-sm';
 $colorClasses = $danger
-    ? 'text-danger-500 hover:bg-danger-50 hover:text-danger-600'
+    ? 'text-red-600 hover:bg-red-50'
     : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900';
 $disabledClasses = $disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
 @endphp

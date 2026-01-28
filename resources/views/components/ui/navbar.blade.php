@@ -1,5 +1,5 @@
 {{--
-    shadcn-style Navbar Component for Laravel Blade
+    Clean Minimal Navbar Component for Laravel Blade
 
     Usage:
     <x-ui.navbar>
@@ -11,11 +11,11 @@
 
 @props([
     'sticky' => true,
-    'height' => '20',
+    'height' => '16',
 ])
 
 @php
-$baseClasses = 'z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-md';
+$baseClasses = 'z-50 bg-white border-b border-gray-200';
 $positionClass = $sticky ? 'sticky top-0' : 'relative';
 $heightClass = "h-{$height}";
 @endphp

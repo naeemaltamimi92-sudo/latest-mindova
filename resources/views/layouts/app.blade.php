@@ -56,8 +56,8 @@
             color: #e2e8f0;
         }
         html.dark nav {
-            background-color: rgba(15, 23, 42, 0.95) !important;
-            border-color: rgba(51, 65, 85, 0.6) !important;
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
         }
         html.dark .bg-white {
             background-color: #1e293b !important;
