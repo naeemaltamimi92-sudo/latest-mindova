@@ -658,11 +658,6 @@ li {
     color: #0f172a !important;
 }
 
-/* Better Section Heading Visibility */
-section h1,
-section h2 {
-    color: #0f172a;
-}
 
 /* Improved Description Text */
 .leading-relaxed {
