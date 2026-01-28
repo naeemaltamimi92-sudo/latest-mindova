@@ -522,43 +522,7 @@ body {
     color: #6b7280 !important;
 }
 
-/* Enhanced Heading Contrast */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #111827;
-    font-weight: 700;
-}
 
-/* Allow text-white to work on headings in colored footer backgrounds */
-footer.bg-primary-500 h1,
-footer.bg-primary-500 h2,
-footer.bg-primary-500 h3,
-footer.bg-primary-500 h4,
-footer.bg-primary-500 h5,
-footer.bg-primary-500 h6 {
-    color: inherit;
-}
-
-/* Better Paragraph Readability */
-p {
-    color: #374151;
-    line-height: 1.75;
-}
-
-/* Card Text Improvements */
-.card-premium p,
-.card-premium .text-gray-600 {
-    color: #4b5563 !important;
-}
-
-.card-premium h3,
-.card-premium .font-bold {
-    color: #111827 !important;
-}
 
 /* Improved Text on Light Backgrounds */
 .bg-blue-50 .text-gray-600,
@@ -649,23 +613,6 @@ li {
     color: #374151;
 }
 
-/* Improved Stats Numbers */
-.text-4xl,
-.text-3xl,
-.text-2xl,
-.text-xl {
-    color: #111827;
-    font-weight: 700;
-}
-
-/* Enhanced Small Text Readability */
-.text-sm {
-    color: #4b5563;
-}
-
-.text-xs {
-    color: #6b7280;
-}
 
 /* Enhanced Badge Text */
 .badge {
