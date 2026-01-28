@@ -156,7 +156,7 @@
                                 </svg>
                             </div>
                             <input id="name" name="name" type="text" required
-                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
+                                   class="w-full {{ $pl }}-10 {{ $pr }}-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
                                    value="{{ old('name') }}"
                                    placeholder="{{ __('John Doe') }}">
                         </div>
@@ -175,7 +175,7 @@
                                 </svg>
                             </div>
                             <input id="email" name="email" type="email" required
-                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
+                                   class="w-full {{ $pl }}-10 {{ $pr }}-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
                                    value="{{ old('email') }}"
                                    placeholder="{{ __('john@example.com') }}">
                         </div>
@@ -194,7 +194,7 @@
                                 </svg>
                             </div>
                             <input id="password" name="password" type="password" required
-                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
+                                   class="w-full {{ $pl }}-10 {{ $pr }}-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
                                    placeholder="••••••••">
                         </div>
                         <p class="text-xs text-gray-500 mt-1">{{ __('Minimum 8 characters') }}</p>
@@ -213,7 +213,7 @@
                                 </svg>
                             </div>
                             <input id="password_confirmation" name="password_confirmation" type="password" required
-                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
+                                   class="w-full {{ $pl }}-10 {{ $pr }}-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }}"
                                    placeholder="••••••••">
                         </div>
                     </div>

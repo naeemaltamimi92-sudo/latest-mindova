@@ -110,7 +110,7 @@
                                 </svg>
                             </div>
                             <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
-                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }} @error('email') border-red-400 @enderror"
+                                   class="w-full {{ $pl }}-10 {{ $pr }}-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }} @error('email') border-red-400 @enderror"
                                    placeholder="{{ __('Enter your email address') }}"
                                    dir="ltr">
                         </div>
@@ -134,7 +134,7 @@
                                 </svg>
                             </div>
                             <input id="password" type="password" name="password" required
-                                   class="w-full {{ $pl }}-9 {{ $pr }}-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }} @error('password') border-red-400 @enderror"
+                                   class="w-full {{ $pl }}-10 {{ $pr }}-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 {{ $textAlign }} @error('password') border-red-400 @enderror"
                                    placeholder="{{ __('Enter your password') }}"
                                    dir="ltr">
                         </div>
