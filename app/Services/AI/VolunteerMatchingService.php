@@ -244,6 +244,14 @@ SYSTEM;
             // Only create assignments for good matches (score >= 60)
             // Even if not explicitly recommended, assign if the score is good
             $matchScore = $match['match_score'] ?? 0;
+            if ($matchScore > 100) {
+                \Log::warning('Discarding out-of-range match score', [
+                    'task_id' => $task->id,
+                    'volunteer_id' => $match['volunteer_id'] ?? null,
+                    'match_score' => $matchScore,
+                ]);
+                continue;
+            }
             if ($matchScore < 60) {
                 \Log::info('Skipping low-score match', [
                     'task_id' => $task->id,

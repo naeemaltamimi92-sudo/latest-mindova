@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -10,7 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("ALTER TABLE challenges MODIFY COLUMN status ENUM('submitted', 'analyzing', 'active', 'in_progress', 'completed', 'archived', 'rejected', 'delivered', 'closed') DEFAULT 'submitted'");
+        // Switch from a DB-level enum to a plain string (the original MySQL-only
+        // "MODIFY COLUMN ... ENUM(...)" statement broke migrations on SQLite).
+        // Allowed values are enforced in application code.
+        Schema::table('challenges', function (Blueprint $table) {
+            $table->string('status')->default('submitted')->change();
+        });
     }
 
     /**
@@ -18,6 +25,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("ALTER TABLE challenges MODIFY COLUMN status ENUM('submitted', 'analyzing', 'active', 'in_progress', 'completed', 'archived', 'rejected', 'delivered') DEFAULT 'submitted'");
+        DB::table('challenges')->where('status', 'closed')->update(['status' => 'archived']);
+
+        Schema::table('challenges', function (Blueprint $table) {
+            $table->enum('status', ['submitted', 'analyzing', 'active', 'in_progress', 'completed', 'archived', 'rejected', 'delivered'])
+                ->default('submitted')
+                ->change();
+        });
     }
 };

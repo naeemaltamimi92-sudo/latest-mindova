@@ -60,6 +60,7 @@ SYSTEM;
             prompt: $prompt,
             options: [
                 'system_prompt' => $this->getSystemPrompt(),
+                'temperature' => 0.3,
             ],
             relatedType: Challenge::class,
             relatedId: $challenge->id
@@ -226,6 +227,12 @@ PROMPT;
         $createdTeams = collect();
 
         foreach ($teamFormationData['teams'] as $teamData) {
+            $teamMatchScore = $teamData['team_match_score'] ?? null;
+
+            if ($teamMatchScore !== null && ($teamMatchScore < 0 || $teamMatchScore > 100)) {
+                throw new \Exception("Invalid team_match_score: must be 0-100, got {$teamMatchScore}");
+            }
+
             // Create team
             $team = Team::create([
                 'challenge_id' => $challenge->id,
@@ -235,7 +242,7 @@ PROMPT;
                 'leader_id' => $teamData['leader_volunteer_id'],
                 'objectives' => $teamData['objectives'] ?? [],
                 'skills_coverage' => $teamData['skills_coverage'] ?? [],
-                'team_match_score' => $teamData['team_match_score'] ?? null,
+                'team_match_score' => $teamMatchScore,
                 'estimated_total_hours' => $teamData['estimated_total_hours'] ?? null,
             ]);
 

@@ -12,7 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("ALTER TABLE task_assignments MODIFY COLUMN invitation_status ENUM('invited', 'accepted', 'declined', 'auto_matched', 'in_progress', 'submitted', 'completed') DEFAULT 'invited'");
+        // Switch from a DB-level enum to a plain string (the original MySQL-only
+        // "MODIFY COLUMN ... ENUM(...)" statement broke migrations on SQLite).
+        // Allowed values are enforced in application code.
+        Schema::table('task_assignments', function (Blueprint $table) {
+            $table->string('invitation_status')->default('invited')->change();
+        });
     }
 
     /**
@@ -20,8 +25,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Clear any data that might have the new enum values before reverting
+        // Clear any data that might have the newer values before reverting
         DB::table('task_assignments')->whereIn('invitation_status', ['in_progress', 'submitted', 'completed'])->delete();
-        DB::statement("ALTER TABLE task_assignments MODIFY COLUMN invitation_status ENUM('invited', 'accepted', 'declined', 'auto_matched') DEFAULT 'invited'");
+
+        Schema::table('task_assignments', function (Blueprint $table) {
+            $table->enum('invitation_status', ['invited', 'accepted', 'declined', 'auto_matched'])
+                ->default('invited')
+                ->change();
+        });
     }
 };

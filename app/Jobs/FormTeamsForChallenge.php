@@ -68,6 +68,13 @@ class FormTeamsForChallenge implements ShouldQueue, ShouldBeUnique
             // Refresh the model
             $this->challenge->refresh();
 
+            // Skip if teams were already formed (duplicate dispatch / retry after
+            // a successful run that crashed before the lock was released)
+            if ($this->challenge->teams()->exists()) {
+                Log::info("Teams already exist for challenge, skipping team formation: {$this->challenge->id}");
+                return;
+            }
+
             // Get all volunteers who have been matched to tasks in this challenge
             $matchedVolunteerIds = TaskAssignment::whereHas('task', function ($query) {
                 $query->where('challenge_id', $this->challenge->id);
@@ -119,7 +126,7 @@ class FormTeamsForChallenge implements ShouldQueue, ShouldBeUnique
                                 message: $isLeader
                                     ? "You've been selected as the leader of {$team->name}!"
                                     : "You've been invited to join {$team->name} as a {$member->role}.",
-                                actionUrl: route('challenges.show', $this->challenge->id)
+                                actionUrl: "/challenges/{$this->challenge->id}"
                             );
                         } catch (\Exception $e) {
                             Log::error('Failed to send team invitation notification', [

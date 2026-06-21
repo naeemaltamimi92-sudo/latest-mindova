@@ -23,7 +23,7 @@ return [
     'access_token' => env('WHATSAPP_ACCESS_TOKEN'),
 
     // Webhook Configuration
-    'verify_token' => env('WHATSAPP_VERIFY_TOKEN', 'mindova_whatsapp_verify_2024'),
+    'verify_token' => env('WHATSAPP_VERIFY_TOKEN'),
     'webhook_url' => env('WHATSAPP_WEBHOOK_URL'),
 
     // API Configuration

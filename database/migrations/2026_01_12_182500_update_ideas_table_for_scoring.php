@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Modify status enum to add 'scored'
-        DB::statement("ALTER TABLE ideas MODIFY COLUMN status ENUM('pending_review', 'approved', 'implemented', 'rejected', 'scored') DEFAULT 'pending_review'");
+        // Switch status from a DB-level enum to a plain string so adding new
+        // statuses doesn't require driver-specific DDL (the old MySQL-only
+        // "MODIFY COLUMN ... ENUM(...)" statement broke migrations on SQLite).
+        // Allowed values are enforced in application code (validation/services).
+        Schema::table('ideas', function (Blueprint $table) {
+            $table->string('status')->default('pending_review')->change();
+        });
 
         Schema::table('ideas', function (Blueprint $table) {
             // Add new columns for scoring
@@ -31,7 +35,10 @@ return new class extends Migration
             $table->dropColumn(['ai_score', 'final_score']);
         });
 
-        // Revert status enum
-        DB::statement("ALTER TABLE ideas MODIFY COLUMN status ENUM('pending_review', 'approved', 'implemented', 'rejected') DEFAULT 'pending_review'");
+        Schema::table('ideas', function (Blueprint $table) {
+            $table->enum('status', ['pending_review', 'approved', 'implemented', 'rejected'])
+                ->default('pending_review')
+                ->change();
+        });
     }
 };

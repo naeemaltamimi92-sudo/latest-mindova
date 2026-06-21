@@ -37,8 +37,11 @@ return [
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-            'busy_timeout' => null,
-            'journal_mode' => null,
+            // Lets concurrent readers/writers retry instead of failing
+            // immediately with "database is locked" under any concurrent
+            // load (matters if this connection is ever used outside tests).
+            'busy_timeout' => env('DB_BUSY_TIMEOUT', 5000),
+            'journal_mode' => env('DB_JOURNAL_MODE', 'wal'),
             'synchronous' => null,
             'transaction_mode' => 'DEFERRED',
         ],

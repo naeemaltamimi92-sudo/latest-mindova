@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
 
 class ChallengeAttachment extends Model
 {
@@ -56,11 +55,15 @@ class ChallengeAttachment extends Model
     }
 
     /**
-     * Get the file URL
+     * Get the file URL. The file lives on the private "local" disk, so this
+     * points at the authorized download route rather than a direct disk URL.
      */
     public function getFileUrlAttribute(): string
     {
-        return Storage::url($this->file_path);
+        return route('challenges.attachments.download', [
+            'challenge' => $this->challenge_id,
+            'attachment' => $this->id,
+        ]);
     }
 
     /**

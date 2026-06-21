@@ -611,11 +611,11 @@
                 <div>
                     <h4 class="text-white font-semibold mb-4 text-sm">{{ __('Product') }}</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Features') }}</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Pricing') }}</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Security') }}</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Integrations') }}</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Changelog') }}</a></li>
+                        <li><a href="{{ route('features') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Features') }}</a></li>
+                        <li><a href="{{ route('pricing') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Pricing') }}</a></li>
+                        <li><a href="{{ route('security') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Security') }}</a></li>
+                        <li><a href="{{ route('integrations') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Integrations') }}</a></li>
+                        <li><a href="{{ route('changelog') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Changelog') }}</a></li>
                     </ul>
                 </div>
 
@@ -624,9 +624,9 @@
                     <h4 class="text-white font-semibold mb-4 text-sm">{{ __('Company') }}</h4>
                     <ul class="space-y-2">
                         <li><a href="{{ route('about') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('About') }}</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Careers') }}</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Press') }}</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Partners') }}</a></li>
+                        <li><a href="{{ route('careers') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Careers') }}</a></li>
+                        <li><a href="{{ route('press') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Press') }}</a></li>
+                        <li><a href="{{ route('partners') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Partners') }}</a></li>
                         <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Contact') }}</a></li>
                     </ul>
                 </div>
@@ -636,7 +636,7 @@
                     <h4 class="text-white font-semibold mb-4 text-sm">{{ __('Resources') }}</h4>
                     <ul class="space-y-2">
                         <li><a href="{{ route('blog') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Blog') }}</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Documentation') }}</a></li>
+                        <li><a href="{{ route('documentation') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Documentation') }}</a></li>
                         <li><a href="{{ route('help') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Help Center') }}</a></li>
                         <li><a href="{{ route('api-docs') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('API Reference') }}</a></li>
                         <li><a href="{{ route('community.index') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Community') }}</a></li>

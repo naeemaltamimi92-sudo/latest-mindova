@@ -336,30 +336,66 @@ abstract class AnthropicService
      * Sanitize JSON string by escaping control characters within string values.
      *
      * Claude sometimes returns JSON with unescaped control characters (newlines, tabs)
-     * inside string values, which causes json_decode() to fail.
+     * inside string values, which causes json_decode() to fail. A single-pass byte
+     * scanner is used instead of regex: a regex-based string-boundary matcher can
+     * miss control characters on large/complex payloads (backtracking limits, or
+     * mis-tracking string boundaries), silently leaving raw control bytes in place.
+     * Scanning byte-by-byte is also UTF-8 safe, since multi-byte continuation/lead
+     * bytes are always >= 0x80 and never collide with '"', '\\', or 0x00-0x1F.
      */
     protected function sanitizeJsonString(string $json): string
     {
-        return preg_replace_callback(
-            '/"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"/',
-            function ($matches) {
-                $str = $matches[1];
-                $str = preg_replace_callback(
-                    '/[\x00-\x1F]/',
-                    function ($m) {
-                        $char = ord($m[0]);
-                        return match ($char) {
-                            0x09 => '\\t',
-                            0x0A => '\\n',
-                            0x0D => '\\r',
-                            default => sprintf('\\u%04X', $char),
-                        };
-                    },
-                    $str
-                );
-                return '"' . $str . '"';
-            },
-            $json
-        );
+        $result = '';
+        $inString = false;
+        $escaped = false;
+        $length = strlen($json);
+
+        for ($i = 0; $i < $length; $i++) {
+            $char = $json[$i];
+
+            if (!$inString) {
+                if ($char === '"') {
+                    $inString = true;
+                }
+                $result .= $char;
+                continue;
+            }
+
+            if ($escaped) {
+                $result .= $char;
+                $escaped = false;
+                continue;
+            }
+
+            if ($char === '\\') {
+                $result .= $char;
+                $escaped = true;
+                continue;
+            }
+
+            if ($char === '"') {
+                $inString = false;
+                $result .= $char;
+                continue;
+            }
+
+            $ord = ord($char);
+
+            if ($ord <= 0x1F) {
+                $result .= match ($ord) {
+                    0x08 => '\\b',
+                    0x09 => '\\t',
+                    0x0A => '\\n',
+                    0x0C => '\\f',
+                    0x0D => '\\r',
+                    default => sprintf('\\u%04x', $ord),
+                };
+                continue;
+            }
+
+            $result .= $char;
+        }
+
+        return $result;
     }
 }

@@ -18,20 +18,35 @@ class TaskAssignmentController extends Controller
         protected NotificationService $notificationService
     ) {}
     /**
-     * Get all assignments for a task.
+     * Get all assignments visible to the authenticated user: a volunteer sees
+     * only their own assignments, a company sees only assignments for tasks
+     * under its own challenges.
      */
     public function index(Request $request)
     {
+        $user = $request->user();
+
         $query = TaskAssignment::with(['task', 'volunteer.user']);
+
+        if ($user->volunteer) {
+            $query->where('volunteer_id', $user->volunteer->id);
+        } elseif ($user->company) {
+            $query->whereHas('task.challenge', function ($q) use ($user) {
+                $q->where('company_id', $user->company->id);
+            });
+
+            // Companies may additionally narrow results to one volunteer
+            // within their own scoped data.
+            if ($request->has('volunteer_id')) {
+                $query->where('volunteer_id', $request->volunteer_id);
+            }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
         // Filter by task
         if ($request->has('task_id')) {
             $query->where('task_id', $request->task_id);
-        }
-
-        // Filter by volunteer
-        if ($request->has('volunteer_id')) {
-            $query->where('volunteer_id', $request->volunteer_id);
         }
 
         // Filter by status

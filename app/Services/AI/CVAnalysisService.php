@@ -37,6 +37,7 @@ class CVAnalysisService extends AnthropicService
                 filePath: $filePath,
                 options: [
                     'system_prompt' => $systemPrompt,
+                    'temperature' => 0.2,
                 ],
                 relatedType: Volunteer::class,
                 relatedId: $volunteer->id
@@ -48,6 +49,7 @@ class CVAnalysisService extends AnthropicService
                 prompt: $this->buildPrompt($cvText),
                 options: [
                     'system_prompt' => $systemPrompt,
+                    'temperature' => 0.2,
                 ],
                 relatedType: Volunteer::class,
                 relatedId: $volunteer->id
@@ -66,6 +68,10 @@ class CVAnalysisService extends AnthropicService
 
         if (!$this->validateResponse($response, $requiredFields)) {
             throw new \Exception('Invalid CV analysis response structure');
+        }
+
+        if ($response['confidence_score'] < 0 || $response['confidence_score'] > 100) {
+            throw new \Exception("Invalid confidence_score: must be 0-100, got {$response['confidence_score']}");
         }
 
         return $response;

@@ -53,6 +53,10 @@ class CommentScoringService extends AnthropicService
             throw new \Exception('Invalid comment analysis response structure');
         }
 
+        if ($response['score'] < 1 || $response['score'] > 10) {
+            throw new \Exception("Invalid score: must be 1-10, got {$response['score']}");
+        }
+
         return $response;
     }
 

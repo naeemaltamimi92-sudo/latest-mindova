@@ -184,6 +184,10 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
             ->first();
 
         if ($assignment) {
+            // Capture this before updating, so a job retry after a prior
+            // successful run doesn't double-increment volunteer stats.
+            $alreadyCompleted = $assignment->invitation_status === 'completed';
+
             $assignment->update([
                 'invitation_status' => 'completed',
                 'completed_at' => now(),
@@ -200,9 +204,9 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
                 Log::info('Task marked as completed', ['task_id' => $assignment->task_id]);
             }
 
-            // Update volunteer stats
+            // Update volunteer stats (skip if a previous attempt already did this)
             $volunteer = $this->submission->volunteer;
-            if ($volunteer) {
+            if ($volunteer && !$alreadyCompleted) {
                 $volunteer->increment('total_tasks_completed');
                 $volunteer->increment('total_hours_contributed', $this->submission->hours_worked ?? 0);
 
@@ -283,6 +287,18 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
         $volunteer = $this->submission->volunteer;
 
         if (!$volunteer) {
+            return;
+        }
+
+        // Guard against double-awarding on job retry/duplicate dispatch
+        $alreadyAwarded = ReputationHistory::where('related_type', WorkSubmission::class)
+            ->where('related_id', $this->submission->id)
+            ->exists();
+
+        if ($alreadyAwarded) {
+            Log::info('Reputation already awarded for this submission, skipping', [
+                'submission_id' => $this->submission->id,
+            ]);
             return;
         }
 

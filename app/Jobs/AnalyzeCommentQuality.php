@@ -150,6 +150,18 @@ class AnalyzeCommentQuality implements ShouldQueue, ShouldBeUnique
             return;
         }
 
+        // Guard against double-awarding on job retry/duplicate dispatch
+        $alreadyAwarded = ReputationHistory::where('related_type', ChallengeComment::class)
+            ->where('related_id', $this->comment->id)
+            ->exists();
+
+        if ($alreadyAwarded) {
+            Log::info('Reputation already awarded for this comment, skipping', [
+                'comment_id' => $this->comment->id,
+            ]);
+            return;
+        }
+
         // Determine points based on score
         $points = match (true) {
             $score >= 9 => 10,  // Excellent comment: 10 points

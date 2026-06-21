@@ -61,7 +61,10 @@ class ChallengeAttachmentController extends Controller
         try {
             // Generate unique filename
             $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('challenge_attachments/' . $challenge->id, $filename, 'public');
+            // Stored on the private "local" disk and served only via the
+            // authorized download() action below, so the NDA-gated access
+            // check can't be bypassed by guessing/leaking the file path.
+            $path = $file->storeAs('challenge_attachments/' . $challenge->id, $filename, 'local');
 
             // Create attachment record
             $attachment = ChallengeAttachment::create([
@@ -155,7 +158,7 @@ class ChallengeAttachmentController extends Controller
 
         try {
             // Delete file from storage
-            Storage::disk('public')->delete($attachment->file_path);
+            Storage::disk('local')->delete($attachment->file_path);
 
             // Delete attachment record
             $attachment->delete();
@@ -206,6 +209,6 @@ class ChallengeAttachmentController extends Controller
             abort(403, 'Unauthorized to access this attachment');
         }
 
-        return Storage::disk('public')->download($attachment->file_path, $attachment->file_name);
+        return Storage::disk('local')->download($attachment->file_path, $attachment->file_name);
     }
 }

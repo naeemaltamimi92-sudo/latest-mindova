@@ -35,6 +35,17 @@ Route::get('/contact', function () { return view('pages.contact'); })->name('con
 Route::get('/privacy', function () { return view('pages.privacy'); })->name('privacy');
 Route::get('/terms', function () { return view('pages.terms'); })->name('terms');
 
+// Static Pages - Footer (Product / Company / Resources)
+Route::get('/features', function () { return view('pages.features'); })->name('features');
+Route::get('/pricing', function () { return view('pages.pricing'); })->name('pricing');
+Route::get('/security', function () { return view('pages.security'); })->name('security');
+Route::get('/integrations', function () { return view('pages.integrations'); })->name('integrations');
+Route::get('/changelog', function () { return view('pages.changelog'); })->name('changelog');
+Route::get('/careers', function () { return view('pages.careers'); })->name('careers');
+Route::get('/press', function () { return view('pages.press'); })->name('press');
+Route::get('/partners', function () { return view('pages.partners'); })->name('partners');
+Route::get('/documentation', function () { return view('pages.documentation'); })->name('documentation');
+
 // Authentication
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.submit');
@@ -53,6 +64,11 @@ Route::post('/complete-profile/volunteer', [App\Http\Controllers\Web\ProfileCont
 Route::post('/complete-profile/company', [App\Http\Controllers\Web\ProfileController::class, 'completeCompanyProfile'])->name('complete-profile.company')->middleware('auth');
 
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Two-Factor Challenge (post-password, pre-verification)
+Route::get('/2fa/challenge', function () {
+    return view('auth.two-factor-challenge');
+})->name('two-factor.challenge')->middleware('auth');
 
 // Password Reset
 Route::get('/forgot-password', function () {

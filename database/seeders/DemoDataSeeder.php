@@ -24,7 +24,7 @@ class DemoDataSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->command->info('🌱 Starting Demo Data Seeding...');
+        $this->command->info('ًںŒ± Starting Demo Data Seeding...');
 
         // Create Companies
         $this->command->info('Creating companies...');
@@ -57,7 +57,7 @@ class DemoDataSeeder extends Seeder
         // Note: Challenge-specific NDA signings skipped for demo simplicity
         // Volunteers have general NDA signed which is sufficient
 
-        $this->command->info('✅ Demo Data Seeding Completed!');
+        $this->command->info('âœ… Demo Data Seeding Completed!');
     }
 
     private function createCompanies(): array
@@ -314,7 +314,6 @@ class DemoDataSeeder extends Seeder
             'complexity_level' => 8,
             'score' => 8,
             'requires_nda' => true,
-            'deadline' => now()->addDays(60)->format('Y-m-d'),
             'created_at' => now()->subDays(15),
         ]);
 
@@ -330,7 +329,6 @@ class DemoDataSeeder extends Seeder
             'complexity_level' => 7,
             'score' => 7,
             'requires_nda' => true,
-            'deadline' => now()->addDays(45)->format('Y-m-d'),
             'created_at' => now()->subDays(10),
         ]);
 
@@ -346,7 +344,6 @@ class DemoDataSeeder extends Seeder
             'complexity_level' => 9,
             'score' => 9,
             'requires_nda' => true,
-            'deadline' => now()->addDays(90)->format('Y-m-d'),
             'created_at' => now()->subDays(2),
         ]);
 
@@ -362,7 +359,6 @@ class DemoDataSeeder extends Seeder
             'complexity_level' => 2,
             'score' => 2,
             'requires_nda' => false,
-            'deadline' => now()->addDays(30)->format('Y-m-d'),
             'created_at' => now()->subDays(5),
         ]);
 
@@ -378,7 +374,6 @@ class DemoDataSeeder extends Seeder
             'complexity_level' => null,
             'score' => null,
             'requires_nda' => false,
-            'deadline' => now()->addDays(60)->format('Y-m-d'),
             'created_at' => now()->subHours(3),
         ]);
 

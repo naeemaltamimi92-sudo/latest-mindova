@@ -68,9 +68,17 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
+            // Force re-verification on every login, even if a stale flag
+            // survived session regeneration.
+            $request->session()->forget('2fa_verified');
+
             // Create API token for the user
             $token = Auth::user()->createToken('auth_token')->plainTextToken;
             session(['api_token' => $token]);
+
+            if (Auth::user()->two_factor_confirmed_at) {
+                return redirect()->route('two-factor.challenge');
+            }
 
             return redirect()->intended(route('dashboard'));
         }

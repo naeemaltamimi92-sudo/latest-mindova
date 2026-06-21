@@ -66,12 +66,12 @@ class WhatsAppWebhookController extends Controller
      */
     public function handle(Request $request): Response
     {
-        // Verify signature (optional but recommended)
+        // Verify signature (required - rejects unsigned/forged requests)
         $signature = $request->header('X-Hub-Signature-256');
         $payload = $request->getContent();
 
-        if ($signature && !$this->whatsAppService->verifyWebhookSignature($payload, $signature)) {
-            Log::channel('whatsapp')->warning('Invalid webhook signature');
+        if (!$signature || !$this->whatsAppService->verifyWebhookSignature($payload, $signature)) {
+            Log::channel('whatsapp')->warning('Missing or invalid webhook signature');
             return response('Invalid signature', 401);
         }
 

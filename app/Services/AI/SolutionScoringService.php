@@ -55,6 +55,14 @@ class SolutionScoringService extends AnthropicService
             throw new \Exception('Invalid solution analysis response structure');
         }
 
+        // Validate score ranges - this gates auto-approval/reputation, so an
+        // out-of-range hallucinated value must not silently get persisted.
+        foreach (['quality_score', 'relevance_score', 'completeness', 'correctness', 'code_quality'] as $field) {
+            if ($response[$field] < 0 || $response[$field] > 100) {
+                throw new \Exception("Invalid {$field}: must be 0-100, got {$response[$field]}");
+            }
+        }
+
         return $response;
     }
 
