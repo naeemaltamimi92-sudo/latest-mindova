@@ -298,7 +298,7 @@ class CertificateService
             ])
             ->timeout(config('ai.anthropic.timeout', 60))
             ->post(config('ai.anthropic.base_url', 'https://api.anthropic.com') . '/v1/messages', [
-                'model' => 'claude-sonnet-4-20250514',
+                'model' => 'claude-sonnet-4-6',
                 'max_tokens' => 150,
                 'system' => 'You are a professional certificate writer. Create concise, formal contribution summaries for professional certificates. Return only the summary text, no JSON or formatting.',
                 'messages' => [

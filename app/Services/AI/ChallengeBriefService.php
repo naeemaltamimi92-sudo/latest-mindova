@@ -10,7 +10,7 @@ class ChallengeBriefService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.challenge_analysis', 'claude-sonnet-4-20250514');
+        return config('ai.models.challenge_analysis', 'claude-sonnet-4-6');
     }
 
     protected function getRequestType(): string

@@ -57,7 +57,20 @@
       "Bash(ssh:*)",
       "Bash(brew install:*)",
       "Bash(git -C /Users/awni/Desktop/naeem/latest-mindova log --oneline)",
-      "Bash(rsync:*)"
+      "Bash(rsync:*)",
+      "Read(//c/laragon/bin/**)",
+      "Read(//c/xampp/mysql/**)",
+      "Bash(ls app/Policies)",
+      "Bash(cat app/Providers/AuthServiceProvider.php)",
+      "Bash(grep -E \"^QUEUE_CONNECTION|^CACHE\" .env)",
+      "Bash(grep -E \"^QUEUE_CONNECTION|^CACHE\" .env.example)",
+      "Bash(xargs -I{} echo {})",
+      "Bash(php artisan *)",
+      "Read(//tmp/**)",
+      "PowerShell(Get-CimInstance *)",
+      "Bash(wmic process *)",
+      "PowerShell(Stop-Process *)",
+      "Bash(git add *)"
     ]
   }
 }

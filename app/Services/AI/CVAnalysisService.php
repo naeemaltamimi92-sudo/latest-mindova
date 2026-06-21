@@ -4,12 +4,14 @@ namespace App\Services\AI;
 
 use App\Models\Volunteer;
 use App\Models\VolunteerSkill;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\IOFactory;
 
 class CVAnalysisService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.cv_analysis', 'claude-sonnet-4-20250514');
+        return config('ai.models.cv_analysis', 'claude-sonnet-4-6');
     }
 
     protected function getRequestType(): string
@@ -26,18 +28,31 @@ class CVAnalysisService extends AnthropicService
      */
     public function analyzeFromFile(string $filePath, Volunteer $volunteer): array
     {
-        $prompt = $this->buildPrompt();
         $systemPrompt = $this->getSystemPrompt();
+        $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
-        $response = $this->makeDocumentRequest(
-            prompt: $prompt,
-            filePath: $filePath,
-            options: [
-                'system_prompt' => $systemPrompt,
-            ],
-            relatedType: Volunteer::class,
-            relatedId: $volunteer->id
-        );
+        if ($extension === 'pdf') {
+            $response = $this->makeDocumentRequest(
+                prompt: $this->buildPrompt(),
+                filePath: $filePath,
+                options: [
+                    'system_prompt' => $systemPrompt,
+                ],
+                relatedType: Volunteer::class,
+                relatedId: $volunteer->id
+            );
+        } else {
+            $cvText = $this->extractTextFromOfficeDocument($filePath, $extension);
+
+            $response = $this->makeRequest(
+                prompt: $this->buildPrompt($cvText),
+                options: [
+                    'system_prompt' => $systemPrompt,
+                ],
+                relatedType: Volunteer::class,
+                relatedId: $volunteer->id
+            );
+        }
 
         $requiredFields = [
             'confidence_score',
@@ -59,10 +74,14 @@ class CVAnalysisService extends AnthropicService
     /**
      * Build the analysis prompt.
      */
-    protected function buildPrompt(): string
+    protected function buildPrompt(?string $cvText = null): string
     {
+        $cvContent = $cvText !== null
+            ? "CV/resume content:\n\n{$cvText}\n\n"
+            : '';
+
         return <<<PROMPT
-Analyze this CV/resume document and extract structured information. Be thorough and accurate.
+{$cvContent}Analyze this CV/resume document and extract structured information. Be thorough and accurate.
 
 Please provide a comprehensive analysis in JSON format with the following structure:
 
@@ -138,6 +157,82 @@ You must:
 
 Your analysis will be used to match volunteers with appropriate tasks, so accuracy is critical.
 SYSTEM;
+    }
+
+    /**
+     * Extract plain text from a .doc/.docx CV, since Anthropic's document API only accepts PDF.
+     */
+    protected function extractTextFromOfficeDocument(string $filePath, string $extension): string
+    {
+        $fullPath = Storage::path($filePath);
+
+        if (!file_exists($fullPath)) {
+            throw new \Exception("File not found: {$filePath}");
+        }
+
+        $readerType = $extension === 'doc' ? 'MsDoc' : 'Word2007';
+
+        try {
+            $document = IOFactory::load($fullPath, $readerType);
+        } catch (\Throwable $e) {
+            throw new \Exception("Unable to read {$extension} file for CV analysis: {$e->getMessage()}");
+        }
+
+        $text = '';
+
+        foreach ($document->getSections() as $section) {
+            foreach ($section->getElements() as $element) {
+                $text .= $this->extractElementText($element) . "\n";
+            }
+        }
+
+        $text = trim($text);
+
+        if ($text === '') {
+            throw new \Exception("No readable text found in {$extension} file: {$filePath}");
+        }
+
+        return $text;
+    }
+
+    /**
+     * Recursively extract text from a PhpWord document element.
+     */
+    protected function extractElementText(mixed $element): string
+    {
+        if (method_exists($element, 'getRows')) {
+            $text = '';
+
+            foreach ($element->getRows() as $row) {
+                foreach ($row->getCells() as $cell) {
+                    foreach ($cell->getElements() as $child) {
+                        $text .= $this->extractElementText($child) . ' ';
+                    }
+                }
+
+                $text .= "\n";
+            }
+
+            return $text;
+        }
+
+        if (method_exists($element, 'getElements')) {
+            $text = '';
+
+            foreach ($element->getElements() as $child) {
+                $text .= $this->extractElementText($child) . ' ';
+            }
+
+            return $text;
+        }
+
+        if (method_exists($element, 'getText')) {
+            $elementText = $element->getText();
+
+            return is_string($elementText) ? $elementText : '';
+        }
+
+        return '';
     }
 
     /**

@@ -190,7 +190,7 @@ class CertificateController extends Controller
     public function revoke(Request $request, Certificate $certificate)
     {
         // Only admins or company owners can revoke
-        if (!Auth::user()->is_admin &&
+        if (!Auth::user()->isAdmin() &&
             (!Auth::user()->company || $certificate->company_id !== Auth::user()->company->id)) {
             abort(403, __('Unauthorized'));
         }
@@ -212,7 +212,7 @@ class CertificateController extends Controller
     public function regenerate(Certificate $certificate)
     {
         // Only admins can regenerate
-        if (!Auth::user()->is_admin) {
+        if (!Auth::user()->isAdmin()) {
             abort(403, __('Unauthorized'));
         }
 

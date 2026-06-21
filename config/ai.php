@@ -29,8 +29,8 @@ return [
     'anthropic' => [
         'api_key' => env('ANTHROPIC_API_KEY'),
         'base_url' => env('ANTHROPIC_BASE_URL', 'https://api.anthropic.com'),
-        'timeout' => env('ANTHROPIC_TIMEOUT', 120),
-        'max_tokens' => env('ANTHROPIC_MAX_TOKENS', 4096),
+        'timeout' => env('ANTHROPIC_TIMEOUT', 180),
+        'max_tokens' => env('ANTHROPIC_MAX_TOKENS', 8192),
     ],
 
     /*
@@ -45,14 +45,14 @@ return [
     */
 
     'models' => [
-        'cv_analysis' => env('AI_MODEL_CV_ANALYSIS', 'claude-sonnet-4-20250514'),
-        'challenge_analysis' => env('AI_MODEL_CHALLENGE_ANALYSIS', 'claude-sonnet-4-20250514'),
-        'task_generation' => env('AI_MODEL_TASK_GENERATION', 'claude-sonnet-4-20250514'),
-        'volunteer_matching' => env('AI_MODEL_VOLUNTEER_MATCHING', 'claude-sonnet-4-20250514'),
-        'idea_scoring' => env('AI_MODEL_IDEA_SCORING', 'claude-sonnet-4-20250514'),
-        'team_formation' => env('AI_MODEL_TEAM_FORMATION', 'claude-sonnet-4-20250514'),
-        'comment_analysis' => env('AI_MODEL_COMMENT_ANALYSIS', 'claude-sonnet-4-20250514'),
-        'solution_analysis' => env('AI_MODEL_SOLUTION_ANALYSIS', 'claude-sonnet-4-20250514'),
+        'cv_analysis' => env('AI_MODEL_CV_ANALYSIS', 'claude-sonnet-4-6'),
+        'challenge_analysis' => env('AI_MODEL_CHALLENGE_ANALYSIS', 'claude-sonnet-4-6'),
+        'task_generation' => env('AI_MODEL_TASK_GENERATION', 'claude-sonnet-4-6'),
+        'volunteer_matching' => env('AI_MODEL_VOLUNTEER_MATCHING', 'claude-sonnet-4-6'),
+        'idea_scoring' => env('AI_MODEL_IDEA_SCORING', 'claude-sonnet-4-6'),
+        'team_formation' => env('AI_MODEL_TEAM_FORMATION', 'claude-sonnet-4-6'),
+        'comment_analysis' => env('AI_MODEL_COMMENT_ANALYSIS', 'claude-sonnet-4-6'),
+        'solution_analysis' => env('AI_MODEL_SOLUTION_ANALYSIS', 'claude-sonnet-4-6'),
     ],
 
     /*
@@ -93,11 +93,11 @@ return [
             'input' => 0.150,  // USD per 1M input tokens
             'output' => 0.600, // USD per 1M output tokens
         ],
-        'claude-sonnet-4-20250514' => [
+        'claude-sonnet-4-6' => [
             'input' => 3.00,  // USD per 1M input tokens
             'output' => 15.00, // USD per 1M output tokens
         ],
-        'claude-opus-4-20250514' => [
+        'claude-opus-4-8' => [
             'input' => 15.00,  // USD per 1M input tokens
             'output' => 75.00, // USD per 1M output tokens
         ],

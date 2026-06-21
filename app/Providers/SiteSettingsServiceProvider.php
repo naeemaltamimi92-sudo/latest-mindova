@@ -16,10 +16,15 @@ class SiteSettingsServiceProvider extends ServiceProvider
     {
         // Bind site settings to the container for easy access
         $this->app->singleton('site.settings', function () {
-            if (!Schema::hasTable('site_settings')) {
+            try {
+                if (!Schema::hasTable('site_settings')) {
+                    return [];
+                }
+                return SiteSetting::getAllSettings();
+            } catch (\Exception $e) {
+                // Silently fail if database is not ready
                 return [];
             }
-            return SiteSetting::getAllSettings();
         });
     }
 
@@ -29,7 +34,12 @@ class SiteSettingsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Only share settings if database is available
-        if (!Schema::hasTable('site_settings')) {
+        try {
+            if (!Schema::hasTable('site_settings')) {
+                return;
+            }
+        } catch (\Exception $e) {
+            // Silently fail if database is not ready
             return;
         }
 

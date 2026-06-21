@@ -298,6 +298,10 @@ class NdaController extends Controller
      */
     public function revokeNda(Request $request, ChallengeNdaSigning $signing)
     {
+        if (!Auth::user()->isAdmin()) {
+            abort(403, __('Unauthorized'));
+        }
+
         $request->validate([
             'reason' => 'required|string|max:1000',
         ]);
