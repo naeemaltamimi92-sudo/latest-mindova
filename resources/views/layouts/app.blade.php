@@ -13,18 +13,36 @@
     <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
 
     <!-- SEO Meta Tags -->
-    @if(!empty($seoMetaDescription ?? ''))
-    <meta name="description" content="{{ $seoMetaDescription }}">
-    @endif
-    @if(!empty($seoMetaKeywords ?? ''))
-    <meta name="keywords" content="{{ $seoMetaKeywords }}">
-    @endif
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="{{ !empty($seoMetaDescription ?? '') ? $seoMetaDescription : 'Mindova is the AI-powered innovation ecosystem where real challenges evolve into real solutions — built by a global community of entrepreneurs, researchers, and expert contributors.' }}">
+    <meta name="keywords" content="{{ !empty($seoMetaKeywords ?? '') ? $seoMetaKeywords : 'Mindova, AI innovation platform, verified talent marketplace, expert challenges, crowdsourced problem solving' }}">
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="{{ $seoMetaTitle ?? ($siteName ?? config('app.name', 'Mindova')) }}">
-    <meta property="og:description" content="{{ $seoMetaDescription ?? '' }}">
+    <meta property="og:site_name" content="Mindova">
+    <meta property="og:title" content="{{ !empty($seoMetaTitle ?? '') ? $seoMetaTitle : ($siteName ?? config('app.name', 'Mindova')) }}">
+    <meta property="og:description" content="{{ !empty($seoMetaDescription ?? '') ? $seoMetaDescription : 'Mindova is the AI-powered innovation ecosystem where real challenges evolve into real solutions.' }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('images/landing/hero-cover.webp') }}">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'ar' ? 'ar_AR' : 'en_US' }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ !empty($seoMetaTitle ?? '') ? $seoMetaTitle : ($siteName ?? config('app.name', 'Mindova')) }}">
+    <meta name="twitter:description" content="{{ !empty($seoMetaDescription ?? '') ? $seoMetaDescription : 'Mindova is the AI-powered innovation ecosystem where real challenges evolve into real solutions.' }}">
+    <meta name="twitter:image" content="{{ asset('images/landing/hero-cover.webp') }}">
+
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Mindova",
+        "url": "{{ url('/') }}",
+        "logo": "{{ asset('images/brand/logo.svg') }}"
+    }
+    </script>
 
     <!-- Favicon -->
     @if(!empty($brandFaviconUrl ?? ''))

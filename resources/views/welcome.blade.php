@@ -4,8 +4,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="robots" content="index, follow">
     <meta name="description" content="Mindova is the AI-powered innovation ecosystem where real challenges evolve into real solutions — built by a global community of entrepreneurs, researchers, and expert contributors.">
-    <title>{{ $siteName ?? config('app.name', 'Mindova') }} - {{ __('Where Ideas Evolve Into Real Solutions') }}</title>
+    <meta name="keywords" content="Mindova, AI innovation platform, verified talent marketplace, expert challenges, crowdsourced problem solving, AI-powered hiring">
+    <title>Mindova - {{ __('Where Ideas Evolve Into Real Solutions') }}</title>
+    <link rel="canonical" href="{{ url('/') }}">
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Mindova">
+    <meta property="og:title" content="Mindova - {{ __('Where Ideas Evolve Into Real Solutions') }}">
+    <meta property="og:description" content="Mindova is the AI-powered innovation ecosystem where real challenges evolve into real solutions — built by a global community of entrepreneurs, researchers, and expert contributors.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:image" content="{{ asset('images/landing/hero-cover.webp') }}">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'ar' ? 'ar_AR' : 'en_US' }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mindova - {{ __('Where Ideas Evolve Into Real Solutions') }}">
+    <meta name="twitter:description" content="Mindova is the AI-powered innovation ecosystem where real challenges evolve into real solutions.">
+    <meta name="twitter:image" content="{{ asset('images/landing/hero-cover.webp') }}">
+
+    <!-- Structured Data: Organization + WebSite -->
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Mindova",
+        "url": "{{ url('/') }}",
+        "logo": "{{ asset('images/brand/logo.svg') }}",
+        "description": "Mindova is the AI-powered innovation ecosystem where real challenges evolve into real solutions."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Mindova",
+        "url": "{{ url('/') }}"
+    }
+    </script>
 
     <link rel="icon" href="{{ asset('images/brand/favicon.svg') }}" type="image/svg+xml">
     @vite(['resources/css/app.css', 'resources/js/app.js'])

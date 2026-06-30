@@ -15,6 +15,9 @@ Route::get('/', function () {
     return auth()->check() ? redirect()->route('dashboard') : view('welcome');
 })->name('home');
 
+// SEO
+Route::get('/sitemap.xml', [App\Http\Controllers\Web\SitemapController::class, 'index'])->name('sitemap');
+
 // Maintenance Page (accessible during maintenance mode)
 Route::get('/maintenance', function () {
     if (!\App\Models\SiteSetting::isMaintenanceMode()) {

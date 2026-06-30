@@ -182,7 +182,7 @@ reload_nginx() {
 verify_deployment() {
     print_step "Verifying deployment..."
 
-    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://mindova.net)
+    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://mindova.online)
 
     if [ "$HTTP_STATUS" = "200" ]; then
         print_success "Site is live (HTTP $HTTP_STATUS)"
@@ -200,7 +200,7 @@ main() {
     echo -e "${GREEN}"
     echo "╔══════════════════════════════════════════╗"
     echo "║       Mindova Deployment Script          ║"
-    echo "║       Target: mindova.net                ║"
+    echo "║       Target: mindova.online             ║"
     echo "╚══════════════════════════════════════════╝"
     echo -e "${NC}"
 
@@ -224,7 +224,7 @@ main() {
     echo -e "${GREEN}╔══════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}║       Deployment Complete!               ║${NC}"
     echo -e "${GREEN}║       Duration: ${DURATION}s                        ║${NC}"
-    echo -e "${GREEN}║       URL: https://mindova.net           ║${NC}"
+    echo -e "${GREEN}║       URL: https://mindova.online        ║${NC}"
     echo -e "${GREEN}╚══════════════════════════════════════════╝${NC}"
 }
 
