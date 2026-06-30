@@ -52,11 +52,19 @@ $slideDirection = $position === 'left' ? '-translate-x-full' : 'translate-x-full
     {{-- Close Button --}}
     <div class="flex items-center justify-between px-4 py-4 border-b border-gray-200">
         <span class="text-base font-semibold text-gray-900">{{ __('Menu') }}</span>
-        <button @click="mobileMenuOpen = false" class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
+        <div class="flex items-center gap-1">
+            <button x-data="themeToggle()" @click="toggle()" type="button"
+                    class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-premium-fast"
+                    :aria-label="isDark ? '{{ __('Switch to light mode') }}' : '{{ __('Switch to dark mode') }}'">
+                <x-icon name="sun" class="w-5 h-5" x-show="isDark" x-cloak />
+                <x-icon name="moon" class="w-5 h-5" x-show="!isDark" x-cloak />
+            </button>
+            <button @click="mobileMenuOpen = false" class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
     </div>
 
     {{-- Menu Content --}}

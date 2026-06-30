@@ -48,9 +48,16 @@
         <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="fixed inset-y-0 left-0 z-50 sidebar-gradient text-white hidden lg:flex lg:flex-col">
             <!-- Logo -->
             <div class="flex items-center justify-between h-16 px-4 border-b border-white/10">
-                <a href="{{ route('mindova.dashboard') }}" class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg shadow-blue-500/30">M</div>
-                    <span x-show="sidebarOpen" class="font-bold text-lg text-white">Mindova</span>
+                <a href="{{ route('mindova.dashboard') }}" class="flex items-center gap-3 min-w-0">
+                    {{-- Mark always visible --}}
+                    <svg class="h-8 w-8 flex-shrink-0" viewBox="0 0 50 50" fill="none" aria-hidden="true">
+                        <path d="M 8,44 L 8,8 L 25,24 L 42,8 L 42,44" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="8"  cy="8"  r="6.5" fill="#ffffff"/>
+                        <circle cx="25" cy="24" r="5"   fill="rgba(255,255,255,0.75)"/>
+                        <circle cx="42" cy="8"  r="6.5" fill="#ffffff"/>
+                    </svg>
+                    {{-- Wordmark hidden when sidebar collapsed --}}
+                    <span x-show="sidebarOpen" class="font-bold text-lg text-white truncate">Mindova</span>
                 </a>
                 <button @click="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-white/10" title="Toggle Sidebar (Ctrl+B)">
                     <svg class="w-5 h-5" :class="sidebarOpen ? '' : 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,8 +196,7 @@
         <!-- Mobile Header -->
         <div class="lg:hidden fixed top-0 left-0 right-0 z-40 bg-slate-900 text-white h-16 flex items-center justify-between px-4 shadow-lg">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg">M</div>
-                <span class="font-bold text-lg">Mindova</span>
+                <x-brand.logo variant="white" />
             </div>
             <div class="flex items-center gap-2">
                 <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 rounded-lg hover:bg-white/10">
@@ -216,8 +222,7 @@
             <!-- Header -->
             <div class="flex items-center justify-between h-16 px-4 border-b border-white/10">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg">M</div>
-                    <span class="font-bold text-lg">Mindova</span>
+                    <x-brand.logo variant="white" />
                 </div>
                 <button @click="mobileMenuOpen = false" class="p-2 rounded-lg hover:bg-white/10">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

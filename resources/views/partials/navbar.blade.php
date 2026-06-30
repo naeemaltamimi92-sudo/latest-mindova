@@ -7,16 +7,11 @@
 <x-ui.navbar>
     {{-- Logo --}}
     <div class="flex-shrink-0 flex items-center">
-        <a href="{{ url('/') }}" class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
-                <span class="text-white font-bold text-sm">M</span>
-            </div>
-            <span class="text-lg font-bold text-gray-900">Mindova</span>
-        </a>
+        <x-brand.logo href="{{ url('/') }}" />
     </div>
 
     {{-- Desktop Navigation Links - Centered --}}
-    <div class="hidden sm:flex sm:items-center sm:justify-center sm:absolute sm:left-1/2 sm:-translate-x-1/2">
+    <div class="hidden sm:flex sm:items-center sm:justify-center">
         <div class="flex items-center space-x-1">
             @auth
                 @if(auth()->user()->isAdmin())
@@ -66,19 +61,19 @@
                 @endif
             @else
                 {{-- Guest Navigation --}}
-                <a href="{{ route('how-it-works') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                <a href="{{ route('how-it-works') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
                     {{ __('How it works') }}
                 </a>
-                <a href="{{ route('challenges.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                <a href="{{ route('challenges.index') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
                     {{ __('Challenges') }}
                 </a>
-                <a href="{{ route('community.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                <a href="{{ route('community.index') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
                     {{ __('Community') }}
                 </a>
-                <a href="{{ route('success-stories') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                <a href="{{ route('success-stories') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
                     {{ __('Success Stories') }}
                 </a>
-                <a href="{{ route('help') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                <a href="{{ route('help') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
                     {{ __('Help') }}
                 </a>
             @endauth
@@ -87,6 +82,14 @@
 
     {{-- Right side navigation --}}
     <div class="flex items-center gap-4">
+        {{-- Light/Dark Theme Toggle --}}
+        <button x-data="themeToggle()" @click="toggle()" type="button"
+                class="hidden sm:flex p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-premium-fast"
+                :aria-label="isDark ? '{{ __('Switch to light mode') }}' : '{{ __('Switch to dark mode') }}'">
+            <x-icon name="sun" class="w-5 h-5" x-show="isDark" x-cloak />
+            <x-icon name="moon" class="w-5 h-5" x-show="!isDark" x-cloak />
+        </button>
+
         @auth
         {{-- Notifications Dropdown --}}
         <div class="relative" x-data="notificationDropdown()">
@@ -168,7 +171,7 @@
         @else
         {{-- Guest Actions --}}
         <div class="hidden sm:flex items-center gap-3">
-            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+            <a href="{{ route('login') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#94a3b8;" onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">
                 {{ __('Sign In') }}
             </a>
             <a href="{{ route('register') }}" class="px-4 py-2 bg-primary-500 text-white text-sm font-medium rounded-lg hover:bg-primary-600">

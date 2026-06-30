@@ -58,68 +58,68 @@
      Now mapped to primary/secondary palette
      ═══════════════════════════════════════════════════════════ */
 
-  /* Success - Uses Primary (Purple) */
-  --color-success: #5A3DEB;
-  --color-success-50: #EDE9FD;
-  --color-success-100: #D4CBFA;
-  --color-success-200: #B5A6F6;
-  --color-success-300: #9681F2;
-  --color-success-400: #775FEE;
-  --color-success-500: #5A3DEB;
-  --color-success-600: #4B32C9;
-  --color-success-700: #3C28A7;
-  --color-success-800: #2D1E85;
-  --color-success-900: #1E1463;
-  --color-success-light: #775FEE;
-  --color-success-dark: #4B32C9;
-  --color-success-darker: #3C28A7;
+  /* Success — Emerald Green */
+  --color-success: #10B981;
+  --color-success-50: #ECFDF5;
+  --color-success-100: #D1FAE5;
+  --color-success-200: #A7F3D0;
+  --color-success-300: #6EE7B7;
+  --color-success-400: #34D399;
+  --color-success-500: #10B981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+  --color-success-800: #065F46;
+  --color-success-900: #064E3B;
+  --color-success-light: #34D399;
+  --color-success-dark: #059669;
+  --color-success-darker: #047857;
 
-  /* Warning - Uses Lighter Primary */
-  --color-warning: #9681F2;
-  --color-warning-50: #F5F3FE;
-  --color-warning-100: #EDE9FD;
-  --color-warning-200: #D4CBFA;
-  --color-warning-300: #B5A6F6;
-  --color-warning-400: #9681F2;
-  --color-warning-500: #9681F2;
-  --color-warning-600: #775FEE;
-  --color-warning-700: #5A3DEB;
-  --color-warning-800: #4B32C9;
-  --color-warning-900: #3C28A7;
-  --color-warning-light: #B5A6F6;
-  --color-warning-dark: #775FEE;
-  --color-warning-darker: #5A3DEB;
+  /* Warning — Amber */
+  --color-warning: #F59E0B;
+  --color-warning-50: #FFFBEB;
+  --color-warning-100: #FEF3C7;
+  --color-warning-200: #FDE68A;
+  --color-warning-300: #FCD34D;
+  --color-warning-400: #FBBF24;
+  --color-warning-500: #F59E0B;
+  --color-warning-600: #D97706;
+  --color-warning-700: #B45309;
+  --color-warning-800: #92400E;
+  --color-warning-900: #78350F;
+  --color-warning-light: #FCD34D;
+  --color-warning-dark: #D97706;
+  --color-warning-darker: #B45309;
 
-  /* Danger - Uses Darker Primary */
-  --color-danger: #3C28A7;
-  --color-danger-50: #EDE9FD;
-  --color-danger-100: #D4CBFA;
-  --color-danger-200: #B5A6F6;
-  --color-danger-300: #9681F2;
-  --color-danger-400: #4B32C9;
-  --color-danger-500: #3C28A7;
-  --color-danger-600: #2D1E85;
-  --color-danger-700: #1E1463;
-  --color-danger-800: #150E47;
-  --color-danger-900: #0C082B;
-  --color-danger-light: #4B32C9;
-  --color-danger-dark: #2D1E85;
-  --color-danger-darker: #1E1463;
+  /* Danger — Crimson Red */
+  --color-danger: #EF4444;
+  --color-danger-50: #FEF2F2;
+  --color-danger-100: #FEE2E2;
+  --color-danger-200: #FECACA;
+  --color-danger-300: #FCA5A5;
+  --color-danger-400: #F87171;
+  --color-danger-500: #EF4444;
+  --color-danger-600: #DC2626;
+  --color-danger-700: #B91C1C;
+  --color-danger-800: #991B1B;
+  --color-danger-900: #7F1D1D;
+  --color-danger-light: #F87171;
+  --color-danger-dark: #DC2626;
+  --color-danger-darker: #B91C1C;
 
-  /* Info - Uses Secondary (Gray) */
-  --color-info: #6B7280;
-  --color-info-50: #F9FAFB;
-  --color-info-100: #F3F4F6;
-  --color-info-200: #E5E7EB;
-  --color-info-300: #D1D5DB;
-  --color-info-400: #9CA3AF;
-  --color-info-500: #6B7280;
-  --color-info-600: #4B5563;
-  --color-info-700: #374151;
-  --color-info-800: #1F2937;
-  --color-info-900: #111827;
-  --color-info-light: #9CA3AF;
-  --color-info-dark: #4B5563;
+  /* Info — Electric Blue */
+  --color-info: #3B82F6;
+  --color-info-50: #EFF6FF;
+  --color-info-100: #DBEAFE;
+  --color-info-200: #BFDBFE;
+  --color-info-300: #93C5FD;
+  --color-info-400: #60A5FA;
+  --color-info-500: #3B82F6;
+  --color-info-600: #2563EB;
+  --color-info-700: #1D4ED8;
+  --color-info-800: #1E40AF;
+  --color-info-900: #1E3A8A;
+  --color-info-light: #60A5FA;
+  --color-info-dark: #2563EB;
 
   /* ═══════════════════════════════════════════════════════════
      NEUTRAL SCALE
@@ -136,39 +136,43 @@
      ACCENT COLORS
      Mapped to primary/secondary palette
      ═══════════════════════════════════════════════════════════ */
-  --color-pink: #5A3DEB;
-  --color-pink-light: #775FEE;
-  --color-pink-dark: #4B32C9;
+  /* Extended palette — each color has a real identity */
+  --color-pink: #EC4899;
+  --color-pink-light: #F472B6;
+  --color-pink-dark: #DB2777;
 
-  --color-teal: #6B7280;
-  --color-teal-light: #9CA3AF;
-  --color-teal-dark: #4B5563;
+  --color-teal: #14B8A6;
+  --color-teal-light: #2DD4BF;
+  --color-teal-dark: #0D9488;
 
-  --color-cyan: #6B7280;
-  --color-cyan-light: #9CA3AF;
-  --color-cyan-dark: #4B5563;
+  --color-cyan: #06B6D4;
+  --color-cyan-light: #22D3EE;
+  --color-cyan-dark: #0891B2;
 
-  --color-orange: #9681F2;
-  --color-orange-light: #B5A6F6;
-  --color-orange-dark: #775FEE;
+  --color-orange: #F97316;
+  --color-orange-light: #FB923C;
+  --color-orange-dark: #EA580C;
 
-  --color-amber: #9681F2;
-  --color-amber-light: #B5A6F6;
-  --color-amber-dark: #775FEE;
+  --color-amber: #F59E0B;
+  --color-amber-light: #FCD34D;
+  --color-amber-dark: #D97706;
 
-  --color-rose: #5A3DEB;
-  --color-rose-light: #775FEE;
-  --color-rose-dark: #4B32C9;
+  --color-rose: #F43F5E;
+  --color-rose-light: #FB7185;
+  --color-rose-dark: #E11D48;
 
-  /* Indigo (now maps to Primary Purple) */
-  --color-indigo: #5A3DEB;
-  --color-indigo-light: #775FEE;
-  --color-indigo-dark: #3C28A7;
+  /* AI Identity — Electric Blue + Deep Indigo */
+  --color-electric-blue: #4F80FF;
+  --color-electric-blue-light: #7BA3FF;
+  --color-electric-blue-dark: #2B5CE6;
 
-  /* Blue (now maps to Primary Purple) */
-  --color-blue: #5A3DEB;
-  --color-blue-light: #775FEE;
-  --color-blue-dark: #4B32C9;
+  --color-indigo: #6366F1;
+  --color-indigo-light: #818CF8;
+  --color-indigo-dark: #4F46E5;
+
+  --color-blue: #3B82F6;
+  --color-blue-light: #60A5FA;
+  --color-blue-dark: #2563EB;
 
   /* LinkedIn OAuth (keep original brand color) */
   --color-linkedin: #0077B5;
@@ -247,22 +251,22 @@
   --gradient-rainbow: #5A3DEB;
   --gradient-vibrant: #5A3DEB;
 
-  /* Semantic solid colors */
-  --gradient-success: #5A3DEB;
-  --gradient-success-horizontal: #5A3DEB;
-  --gradient-warning: #9681F2;
-  --gradient-warning-horizontal: #9681F2;
-  --gradient-danger: #3C28A7;
-  --gradient-danger-horizontal: #3C28A7;
-  --gradient-info: #6B7280;
+  /* Semantic solid colors — each is distinct */
+  --gradient-success: #10B981;
+  --gradient-success-horizontal: #059669;
+  --gradient-warning: #F59E0B;
+  --gradient-warning-horizontal: #D97706;
+  --gradient-danger: #EF4444;
+  --gradient-danger-horizontal: #DC2626;
+  --gradient-info: #3B82F6;
 
-  /* Status solid colors */
-  --gradient-invited: #9681F2;
-  --gradient-accepted: #5A3DEB;
-  --gradient-in-progress: #775FEE;
-  --gradient-completed: #5A3DEB;
-  --gradient-declined: #3C28A7;
-  --gradient-pending: #9681F2;
+  /* Status solid colors — semantic & distinct */
+  --gradient-invited: #F59E0B;
+  --gradient-accepted: #10B981;
+  --gradient-in-progress: #4F80FF;
+  --gradient-completed: #10B981;
+  --gradient-declined: #EF4444;
+  --gradient-pending: #F59E0B;
 
   /* Card backgrounds (solid colors) */
   --gradient-card-purple: #5A3DEB;
@@ -337,21 +341,68 @@
   --glass-indigo-shadow: rgba(90, 61, 235, 0.15);
 
   /* ═══════════════════════════════════════════════════════════
+     PREMIUM GRADIENT TOKENS (2026 redesign)
+     A small, deliberate set — not the old per-status sprawl
+     ═══════════════════════════════════════════════════════════ */
+  /* Aurora — violet → indigo sweep */
+  --gradient-aurora: linear-gradient(135deg, #775FEE 0%, #5A3DEB 50%, #4338CA 100%);
+  --gradient-aurora-soft: linear-gradient(135deg, #9681F2 0%, #775FEE 50%, #5A3DEB 100%);
+
+  /* Premium dark panel — the visual left half of auth pages */
+  --gradient-premium-dark:
+    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(79, 128, 255, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 60%, rgba(90, 61, 235, 0.20) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(20, 184, 166, 0.08) 0%, transparent 55%),
+    linear-gradient(180deg, #0b1020 0%, #070C15 100%);
+
+  /* Text gradient */
+  --gradient-text-aurora: linear-gradient(135deg, #93C5FD 0%, #818CF8 40%, #A78BFA 100%);
+
+  /* AI identity gradient */
+  --gradient-ai: linear-gradient(135deg, #4F80FF 0%, #6366F1 50%, #8B5CF6 100%);
+  --gradient-ai-soft: linear-gradient(135deg, rgba(79,128,255,0.15) 0%, rgba(99,102,241,0.15) 100%);
+
+  /* ═══════════════════════════════════════════════════════════
+     ELEVATION SCALE
+     Neutral shadows + brand-tinted glow variants
+     ═══════════════════════════════════════════════════════════ */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 17, 21, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(15, 17, 21, 0.06), 0 1px 2px -1px rgba(15, 17, 21, 0.06);
+  --shadow-md: 0 4px 8px -2px rgba(15, 17, 21, 0.06), 0 2px 4px -2px rgba(15, 17, 21, 0.04);
+  --shadow-lg: 0 12px 24px -6px rgba(15, 17, 21, 0.08), 0 4px 8px -4px rgba(15, 17, 21, 0.04);
+  --shadow-xl: 0 24px 48px -12px rgba(15, 17, 21, 0.12), 0 8px 16px -8px rgba(15, 17, 21, 0.06);
+  --shadow-2xl: 0 32px 64px -16px rgba(15, 17, 21, 0.18);
+
+  --shadow-glow-primary-sm: 0 4px 16px -2px rgba(90, 61, 235, 0.25);
+  --shadow-glow-primary-md: 0 8px 28px -4px rgba(90, 61, 235, 0.32);
+  --shadow-glow-primary-lg: 0 16px 40px -8px rgba(90, 61, 235, 0.38);
+
+  /* ═══════════════════════════════════════════════════════════
+     MOTION TOKENS
+     ═══════════════════════════════════════════════════════════ */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 450ms;
+
+  /* ═══════════════════════════════════════════════════════════
      CHART COLORS
      For Chart.js and other data visualizations
      ═══════════════════════════════════════════════════════════ */
-  --chart-primary: rgb(90, 61, 235);
-  --chart-secondary: rgb(107, 114, 128);
-  --chart-success: rgb(90, 61, 235);
-  --chart-warning: rgb(150, 129, 242);
-  --chart-danger: rgb(60, 40, 167);
-  --chart-info: rgb(107, 114, 128);
-  --chart-teal: rgb(107, 114, 128);
-  --chart-cyan: rgb(107, 114, 128);
-  --chart-gray: rgb(156, 163, 175);
-  --chart-blue: rgb(90, 61, 235);
-  --chart-amber: rgb(150, 129, 242);
-  --chart-green: rgb(90, 61, 235);
+  /* Chart colors — distinct & harmonious */
+  --chart-primary: rgb(90, 61, 235);    /* deep violet */
+  --chart-secondary: rgb(16, 185, 129); /* emerald */
+  --chart-success: rgb(16, 185, 129);   /* emerald */
+  --chart-warning: rgb(245, 158, 11);   /* amber */
+  --chart-danger: rgb(239, 68, 68);     /* crimson */
+  --chart-info: rgb(59, 130, 246);      /* electric blue */
+  --chart-teal: rgb(20, 184, 166);      /* teal */
+  --chart-cyan: rgb(6, 182, 212);       /* cyan */
+  --chart-gray: rgb(100, 116, 139);     /* slate */
+  --chart-blue: rgb(79, 128, 255);      /* electric blue */
+  --chart-amber: rgb(245, 158, 11);     /* amber */
+  --chart-green: rgb(16, 185, 129);     /* emerald */
 
   /* Progress bars */
   --progress-default: #5A3DEB;
@@ -395,55 +446,71 @@
    Automatically applied when .dark class is on html/body
    ═══════════════════════════════════════════════════════════ */
 .dark {
-  /* Text colors - inverted for dark backgrounds */
-  --color-text-primary: #F3F4F6;
-  --color-text-secondary: #D1D5DB;
-  --color-text-muted: #9CA3AF;
-  --color-text-light: #6B7280;
-  --color-text-dark: #F9FAFB;
+  /* ── Text ───────────────────────────────────────────────── */
+  --color-text-primary: #F0F4FF;       /* near-white, cool tint */
+  --color-text-secondary: #94A3B8;     /* slate-400 */
+  --color-text-muted: #64748B;         /* slate-500 */
+  --color-text-light: #475569;         /* slate-600 */
+  --color-text-dark: #F8FAFF;
 
-  /* Surface colors - dark backgrounds */
-  --color-surface: #1F2937;
-  --color-surface-secondary: #374151;
-  --color-surface-tertiary: #4B5563;
-  --color-background: #111827;
+  /* ── Surface hierarchy — layered depth ──────────────────── */
+  --color-background: #070C15;         /* deepest midnight navy */
+  --color-background-sunken: #04070F;  /* sunken / inset */
+  --color-surface: #0E1523;            /* panel / section bg */
+  --color-surface-secondary: #142033;  /* card surface */
+  --color-surface-tertiary: #1A2840;   /* elevated card / dialog */
+  --color-surface-elevated: #1F3050;   /* dropdowns / floating */
 
-  /* Border colors - darker variants */
-  --color-border: #374151;
-  --color-border-light: #1F2937;
-  --color-border-medium: #4B5563;
-  --color-border-dark: #6B7280;
+  /* ── Borders — hairlines only ───────────────────────────── */
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-light: rgba(255, 255, 255, 0.04);
+  --color-border-medium: rgba(255, 255, 255, 0.10);
+  --color-border-dark: rgba(255, 255, 255, 0.16);
 
-  /* Glass morphism - dark variant */
-  --glass-bg: rgba(31, 41, 55, 0.9);
-  --glass-bg-light: rgba(55, 65, 81, 0.95);
-  --glass-bg-strong: rgba(55, 65, 81, 0.98);
-  --glass-border: rgba(31, 41, 55, 0.3);
-  --glass-border-light: rgba(31, 41, 55, 0.5);
+  /* ── Glass ──────────────────────────────────────────────── */
+  --glass-bg: rgba(14, 21, 35, 0.88);
+  --glass-bg-light: rgba(20, 32, 51, 0.94);
+  --glass-bg-strong: rgba(26, 40, 64, 0.98);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-border-light: rgba(255, 255, 255, 0.04);
 
-  /* Overlay - lighter for dark mode */
-  --overlay-dark: rgba(0, 0, 0, 0.7);
-  --overlay-modal: rgba(0, 0, 0, 0.9);
+  /* ── Overlays ───────────────────────────────────────────── */
+  --overlay-dark: rgba(4, 7, 15, 0.75);
+  --overlay-modal: rgba(4, 7, 15, 0.92);
 
-  /* Skeleton loading - dark variant */
-  --skeleton-base: #374151;
-  --skeleton-shine: #4B5563;
+  /* ── Skeleton & scroll ──────────────────────────────────── */
+  --skeleton-base: #142033;
+  --skeleton-shine: #1A2840;
+  --scrollbar-track: #070C15;
+  --scrollbar-thumb: #1A2840;
+  --scrollbar-thumb-hover: #243660;
 
-  /* Scrollbar - dark variant */
-  --scrollbar-track: #1F2937;
-  --scrollbar-thumb: #4B5563;
-  --scrollbar-thumb-hover: #6B7280;
+  /* ── Code blocks ────────────────────────────────────────── */
+  --code-bg: #0E1523;
+  --code-text: #F0F4FF;
+  --code-border: rgba(255, 255, 255, 0.07);
 
-  /* Code blocks - darker */
-  --code-bg: #111827;
-  --code-text: #F3F4F6;
-  --code-border: #1F2937;
+  /* ── Semantic adjustments for dark ─────────────────────── */
+  --color-success-light: #34D399;
+  --color-warning-light: #FCD34D;
+  --color-danger-light: #F87171;
+  --color-info-light: #60A5FA;
 
-  /* Adjust some semantic colors for better contrast in dark mode */
-  --color-success-light: #775FEE;
-  --color-warning-light: #B5A6F6;
-  --color-danger-light: #4B32C9;
-  --color-info-light: #9CA3AF;
+  /* Progress bar empty */
+  --progress-empty: #1A2840;
+
+  /* ── Elevation — diffuse deep shadows ──────────────────── */
+  --shadow-xs: 0 1px 2px 0 rgba(4, 7, 15, 0.5);
+  --shadow-sm: 0 1px 3px 0 rgba(4, 7, 15, 0.55), 0 1px 2px -1px rgba(4, 7, 15, 0.4);
+  --shadow-md: 0 4px 8px -2px rgba(4, 7, 15, 0.55), 0 2px 4px -2px rgba(4, 7, 15, 0.4);
+  --shadow-lg: 0 12px 24px -6px rgba(4, 7, 15, 0.6), 0 4px 8px -4px rgba(4, 7, 15, 0.4);
+  --shadow-xl: 0 24px 48px -12px rgba(4, 7, 15, 0.65), 0 8px 16px -8px rgba(4, 7, 15, 0.45);
+  --shadow-2xl: 0 32px 64px -16px rgba(4, 7, 15, 0.7);
+
+  /* Primary glow — violet */
+  --shadow-glow-primary-sm: 0 4px 16px -2px rgba(90, 61, 235, 0.35);
+  --shadow-glow-primary-md: 0 8px 28px -4px rgba(90, 61, 235, 0.45);
+  --shadow-glow-primary-lg: 0 16px 40px -8px rgba(90, 61, 235, 0.52);
 }
 
 /* ═══════════════════════════════════════════════════════════

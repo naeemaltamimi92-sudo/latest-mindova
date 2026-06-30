@@ -4,12 +4,8 @@
 
 @section('content')
 <!-- Premium Hero Header -->
-<div class="relative overflow-hidden bg-primary-500 py-16 mb-12 rounded-3xl shadow-2xl">
+<div class="relative overflow-hidden bg-aurora py-16 mb-12 rounded-3xl elevation-2xl">
     <!-- Animated Background Effects -->
-    <div class="absolute inset-0 opacity-30">
-        <div class="absolute top-0 left-0 w-full h-full "></div>
-        <div class="absolute bottom-0 right-0 w-full h-full "></div>
-    </div>
     <div class="absolute inset-0 overflow-hidden">
         <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl"></div>
         <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
@@ -19,13 +15,13 @@
         <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8">
             <!-- Company Logo -->
             <div class="relative group">
-                <div class="absolute -inset-1 bg-primary-500 rounded-3xl blur opacity-40 group-hover:opacity-60duration-500"></div>
+                <div class="absolute -inset-1 bg-aurora rounded-3xl blur opacity-40 group-hover:opacity-60 transition-premium duration-500"></div>
                 @if($company->logo_path)
                 <img src="{{ asset('storage/' . $company->logo_path) }}"
                      alt="{{ $company->company_name }}"
-                     class="relative w-32 h-32 lg:w-40 lg:h-40 rounded-2xl object-cover shadow-2xl ring-4 ring-white/20">
+                     class="relative w-32 h-32 lg:w-40 lg:h-40 rounded-2xl object-cover elevation-2xl ring-4 ring-white/20">
                 @else
-                <div class="relative w-32 h-32 lg:w-40 lg:h-40 bg-primary-500 rounded-2xl flex items-center justify-center shadow-2xl ring-4 ring-white/20">
+                <div class="relative w-32 h-32 lg:w-40 lg:h-40 bg-aurora rounded-2xl flex items-center justify-center elevation-2xl ring-4 ring-white/20">
                     <span class="text-4xl lg:text-5xl font-black text-white">{{ substr($company->company_name, 0, 2) }}</span>
                 </div>
                 @endif
@@ -64,7 +60,7 @@
                 <!-- Quick Actions -->
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                     @if($company->website)
-                    <x-ui.button as="a" href="{{ $company->website }}" target="_blank" rel="noopener noreferrer" variant="secondary" class="bg-white text-indigo-600 hover:bg-gray-50">
+                    <x-ui.button as="a" href="{{ $company->website }}" target="_blank" rel="noopener noreferrer" variant="default">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
                         </svg>
@@ -86,58 +82,58 @@
 <div class="max-w-6xl mx-auto px-6 sm:px-8">
     <!-- Premium Stats Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 -mt-8 relative z-10">
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 elevation-md hover:elevation-lg transition-premium border border-gray-100 dark:border-gray-700">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-aurora rounded-xl flex items-center justify-center glow-primary-sm">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                     </svg>
                 </div>
                 <div>
-                    <div class="text-3xl font-black text-slate-900">{{ $stats['total_challenges'] }}</div>
-                    <div class="text-sm font-medium text-slate-500">{{ __('Total Challenges') }}</div>
+                    <div class="text-3xl font-black text-gray-900 dark:text-white">{{ $stats['total_challenges'] }}</div>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Total Challenges') }}</div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 elevation-md hover:elevation-lg transition-premium border border-gray-100 dark:border-gray-700">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-emerald-500 rounded-xl flex items-center justify-center elevation-sm">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
                 <div>
-                    <div class="text-3xl font-black text-emerald-600">{{ $stats['active_challenges'] }}</div>
-                    <div class="text-sm font-medium text-slate-500">{{ __('Active Now') }}</div>
+                    <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400">{{ $stats['active_challenges'] }}</div>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Active Now') }}</div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 elevation-md hover:elevation-lg transition-premium border border-gray-100 dark:border-gray-700">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-violet-500 rounded-xl flex items-center justify-center elevation-sm">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
                 <div>
-                    <div class="text-3xl font-black text-violet-600">{{ $stats['completed_challenges'] }}</div>
-                    <div class="text-sm font-medium text-slate-500">{{ __('Completed') }}</div>
+                    <div class="text-3xl font-black text-violet-600 dark:text-violet-400">{{ $stats['completed_challenges'] }}</div>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Completed') }}</div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 elevation-md hover:elevation-lg transition-premium border border-gray-100 dark:border-gray-700">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-secondary-300 rounded-xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-amber-500 rounded-xl flex items-center justify-center elevation-sm">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                     </svg>
                 </div>
                 <div>
-                    <div class="text-3xl font-black text-amber-600">{{ $stats['total_ideas'] }}</div>
-                    <div class="text-sm font-medium text-slate-500">{{ __('Community Ideas') }}</div>
+                    <div class="text-3xl font-black text-amber-600 dark:text-amber-400">{{ $stats['total_ideas'] }}</div>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Community Ideas') }}</div>
                 </div>
             </div>
         </div>
@@ -148,66 +144,66 @@
         <div class="lg:col-span-2 space-y-8">
             <!-- Active Challenges -->
             @if($activeChallenges->count() > 0)
-            <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
-                <div class="bg-gray-50 px-8 py-6 border-b border-slate-100">
+            <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-md border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div class="bg-gray-50 dark:bg-gray-900/40 px-8 py-6 border-b border-gray-100 dark:border-gray-700">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center elevation-sm">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-slate-900">{{ __('Active Challenges') }}</h2>
-                            <p class="text-sm text-slate-600">{{ __(':count challenges currently in progress', ['count' => $activeChallenges->count()]) }}</p>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Active Challenges') }}</h2>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ __(':count challenges currently in progress', ['count' => $activeChallenges->count()]) }}</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="divide-y divide-slate-100">
+                <div class="divide-y divide-gray-100 dark:divide-gray-700">
                     @foreach($activeChallenges as $challenge)
                     <a href="{{ route('challenges.show', $challenge->id) }}"
-                       class="block px-8 py-6 hover:bg-slate-50 group">
+                       class="block px-8 py-6 hover:bg-gray-50 dark:hover:bg-gray-700/40 group">
                         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                             <div class="flex-1">
                                 <div class="flex flex-wrap items-center gap-2 mb-3">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold
-                                        @if($challenge->status === 'active') bg-emerald-100 text-emerald-700 border border-emerald-200
-                                        @elseif($challenge->status === 'analyzing') bg-amber-100 text-amber-700 border border-amber-200
-                                        @else bg-slate-100 text-slate-700 border border-slate-200 @endif">
+                                        @if($challenge->status === 'active') bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30
+                                        @elseif($challenge->status === 'analyzing') bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30
+                                        @else bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 @endif">
                                         <div class="w-1.5 h-1.5 rounded-full
                                             @if($challenge->status === 'active') bg-emerald-500
                                             @elseif($challenge->status === 'analyzing') bg-amber-500
-                                            @else bg-slate-500 @endif"></div>
+                                            @else bg-gray-500 @endif"></div>
                                         {{ ucfirst($challenge->status) }}
                                     </span>
                                     @if($challenge->challenge_type === 'team_execution')
-                                    <span class="px-3 py-1 bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-bold">
+                                    <span class="px-3 py-1 bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 rounded-lg text-xs font-bold">
                                         {{ __('Team Execution') }}
                                     </span>
                                     @else
-                                    <span class="px-3 py-1 bg-violet-100 text-violet-700 border border-violet-200 rounded-lg text-xs font-bold">
+                                    <span class="px-3 py-1 bg-violet-50 dark:bg-violet-500/15 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-500/30 rounded-lg text-xs font-bold">
                                         {{ __('Community Ideas') }}
                                     </span>
                                     @endif
                                 </div>
 
-                                <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 mb-2">
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
                                     {{ $challenge->title }}
                                 </h3>
 
-                                <p class="text-slate-600 text-sm leading-relaxed line-clamp-2 mb-4">
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-2 mb-4">
                                     {{ Str::limit($challenge->refined_brief ?? $challenge->initial_brief, 180) }}
                                 </p>
 
-                                <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+                                <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                                     <span class="flex items-center gap-1.5">
-                                        <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
                                         </svg>
                                         <span class="font-semibold">{{ __('Level') }} {{ $challenge->complexity_level }}/4</span>
                                     </span>
                                     <span class="flex items-center gap-1.5">
-                                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                         </svg>
                                         {{ $challenge->created_at->format('M d, Y') }}
@@ -215,7 +211,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+                            <div class="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold text-sm">
                                 {{ __('View Details') }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -230,54 +226,54 @@
 
             <!-- Completed Challenges -->
             @if($completedChallenges->count() > 0)
-            <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
-                <div class="bg-gray-50 px-8 py-6 border-b border-slate-100">
+            <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-md border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div class="bg-gray-50 dark:bg-gray-900/40 px-8 py-6 border-b border-gray-100 dark:border-gray-700">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-violet-500 rounded-xl flex items-center justify-center elevation-sm">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-slate-900">{{ __('Completed Challenges') }}</h2>
-                            <p class="text-sm text-slate-600">{{ __(':count challenges successfully completed', ['count' => $completedChallenges->count()]) }}</p>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Completed Challenges') }}</h2>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ __(':count challenges successfully completed', ['count' => $completedChallenges->count()]) }}</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="divide-y divide-slate-100">
+                <div class="divide-y divide-gray-100 dark:divide-gray-700">
                     @foreach($completedChallenges as $challenge)
                     <a href="{{ route('challenges.show', $challenge->id) }}"
-                       class="block px-8 py-6 hover:bg-slate-50 group">
+                       class="block px-8 py-6 hover:bg-gray-50 dark:hover:bg-gray-700/40 group">
                         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                             <div class="flex-1">
                                 <div class="flex flex-wrap items-center gap-2 mb-3">
-                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-700 border border-slate-200 rounded-lg text-xs font-bold">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-lg text-xs font-bold">
                                         <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                         </svg>
                                         {{ __('Completed') }}
                                     </span>
                                 </div>
 
-                                <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 mb-2">
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 mb-2">
                                     {{ $challenge->title }}
                                 </h3>
 
-                                <p class="text-slate-600 text-sm leading-relaxed line-clamp-2 mb-4">
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-2 mb-4">
                                     {{ Str::limit($challenge->refined_brief ?? $challenge->initial_brief, 180) }}
                                 </p>
 
-                                <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+                                <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                                     @if($challenge->challenge_type === 'team_execution')
-                                    <span class="flex items-center gap-1.5 text-emerald-600 font-semibold">
+                                    <span class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold">
                                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                         </svg>
                                         {{ $challenge->workstreams->sum(function($ws) { return $ws->tasks->where('status', 'completed')->count(); }) }} {{ __('tasks completed') }}
                                     </span>
                                     @else
-                                    <span class="flex items-center gap-1.5 text-violet-600 font-semibold">
+                                    <span class="flex items-center gap-1.5 text-violet-600 dark:text-violet-400 font-semibold">
                                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                         </svg>
@@ -285,7 +281,7 @@
                                     </span>
                                     @endif
                                     <span class="flex items-center gap-1.5">
-                                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                         </svg>
                                         {{ $challenge->updated_at->format('M d, Y') }}
@@ -293,7 +289,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+                            <div class="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold text-sm">
                                 {{ __('View Details') }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -308,14 +304,14 @@
 
             <!-- No Challenges State -->
             @if($activeChallenges->count() === 0 && $completedChallenges->count() === 0)
-            <div class="bg-gray-50/50 rounded-3xl p-12 text-center border-2 border-dashed border-slate-200">
-                <div class="w-20 h-20 bg-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-gray-50 dark:bg-gray-800/50 rounded-3xl p-12 text-center border-2 border-dashed border-gray-200 dark:border-gray-700">
+                <div class="w-20 h-20 bg-gray-200 dark:bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">{{ __('No Challenges Yet') }}</h3>
-                <p class="text-slate-600">{{ __("This company hasn't submitted any challenges yet.") }}</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ __('No Challenges Yet') }}</h3>
+                <p class="text-gray-600 dark:text-gray-400">{{ __("This company hasn't submitted any challenges yet.") }}</p>
             </div>
             @endif
         </div>
@@ -323,48 +319,48 @@
         <!-- Sidebar -->
         <div class="space-y-6">
             <!-- Challenge Types Distribution -->
-            <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
-                <div class="bg-gray-50 px-6 py-4 border-b border-slate-100">
-                    <h3 class="font-bold text-slate-900 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-md border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div class="bg-gray-50 dark:bg-gray-900/40 px-6 py-4 border-b border-gray-100 dark:border-gray-700">
+                    <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                         </svg>
                         {{ __('Challenge Types') }}
                     </h3>
                 </div>
                 <div class="p-6 space-y-4">
-                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl border border-indigo-100 dark:border-indigo-500/20">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 bg-indigo-500 rounded-lg flex items-center justify-center">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                                 </svg>
                             </div>
-                            <span class="font-semibold text-slate-700">{{ __('Team Execution') }}</span>
+                            <span class="font-semibold text-gray-700 dark:text-gray-300">{{ __('Team Execution') }}</span>
                         </div>
-                        <span class="text-2xl font-black text-indigo-600">{{ $stats['team_challenges'] }}</span>
+                        <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400">{{ $stats['team_challenges'] }}</span>
                     </div>
 
-                    <div class="flex items-center justify-between p-4 bg-violet-50 rounded-xl border border-violet-100">
+                    <div class="flex items-center justify-between p-4 bg-violet-50 dark:bg-violet-500/10 rounded-xl border border-violet-100 dark:border-violet-500/20">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 bg-violet-500 rounded-lg flex items-center justify-center">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                                 </svg>
                             </div>
-                            <span class="font-semibold text-slate-700">{{ __('Community Ideas') }}</span>
+                            <span class="font-semibold text-gray-700 dark:text-gray-300">{{ __('Community Ideas') }}</span>
                         </div>
-                        <span class="text-2xl font-black text-violet-600">{{ $stats['community_challenges'] }}</span>
+                        <span class="text-2xl font-black text-violet-600 dark:text-violet-400">{{ $stats['community_challenges'] }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Complexity Distribution -->
             @if($stats['complexity_distribution']->count() > 0)
-            <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
-                <div class="bg-gray-50 px-6 py-4 border-b border-slate-100">
-                    <h3 class="font-bold text-slate-900 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-md border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div class="bg-gray-50 dark:bg-gray-900/40 px-6 py-4 border-b border-gray-100 dark:border-gray-700">
+                    <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
                         </svg>
                         {{ __('Complexity Levels') }}
@@ -375,17 +371,17 @@
                     @php
                         $percentage = $stats['total_challenges'] > 0 ? ($count / $stats['total_challenges']) * 100 : 0;
                         $colors = [
-                            1 => ['bg' => 'bg-emerald-500', 'light' => 'bg-emerald-100'],
-                            2 => ['bg' => 'bg-blue-500', 'light' => 'bg-blue-100'],
-                            3 => ['bg' => 'bg-amber-500', 'light' => 'bg-amber-100'],
-                            4 => ['bg' => 'bg-red-500', 'light' => 'bg-red-100'],
+                            1 => ['bg' => 'bg-emerald-500', 'light' => 'bg-emerald-100 dark:bg-emerald-500/15'],
+                            2 => ['bg' => 'bg-blue-500', 'light' => 'bg-blue-100 dark:bg-blue-500/15'],
+                            3 => ['bg' => 'bg-amber-500', 'light' => 'bg-amber-100 dark:bg-amber-500/15'],
+                            4 => ['bg' => 'bg-red-500', 'light' => 'bg-red-100 dark:bg-red-500/15'],
                         ];
-                        $color = $colors[$level] ?? ['bg' => 'bg-slate-500', 'light' => 'bg-slate-100'];
+                        $color = $colors[$level] ?? ['bg' => 'bg-gray-500', 'light' => 'bg-gray-100 dark:bg-gray-700'];
                     @endphp
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-sm font-semibold text-slate-700">{{ __('Level') }} {{ $level }}</span>
-                            <span class="text-sm font-bold text-slate-900">{{ $count }} <span class="text-slate-400 font-normal">({{ round($percentage) }}%)</span></span>
+                            <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('Level') }} {{ $level }}</span>
+                            <span class="text-sm font-bold text-gray-900 dark:text-white">{{ $count }} <span class="text-gray-400 dark:text-gray-500 font-normal">({{ round($percentage) }}%)</span></span>
                         </div>
                         <div class="h-3 {{ $color['light'] }} rounded-full overflow-hidden">
                             <div class="h-full {{ $color['bg'] }} rounded-full" style="width: {{ $percentage }}%"></div>
@@ -398,10 +394,10 @@
 
             <!-- Tasks Overview -->
             @if($stats['total_tasks'] > 0)
-            <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
-                <div class="bg-gray-50 px-6 py-4 border-b border-slate-100">
-                    <h3 class="font-bold text-slate-900 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-md border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div class="bg-gray-50 dark:bg-gray-900/40 px-6 py-4 border-b border-gray-100 dark:border-gray-700">
+                    <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                         </svg>
                         {{ __('Tasks Overview') }}
@@ -410,8 +406,8 @@
                 <div class="p-6">
                     <div class="flex items-center justify-center">
                         <div class="text-center">
-                            <div class="text-4xl font-black text-teal-600 mb-1">{{ $stats['total_tasks'] }}</div>
-                            <div class="text-sm text-slate-500 font-medium">{{ __('Total Tasks Created') }}</div>
+                            <div class="text-4xl font-black text-teal-600 dark:text-teal-400 mb-1">{{ $stats['total_tasks'] }}</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400 font-medium">{{ __('Total Tasks Created') }}</div>
                         </div>
                     </div>
                 </div>
@@ -419,7 +415,7 @@
             @endif
 
             <!-- Member Info -->
-            <div class="bg-primary-500 rounded-2xl p-6 text-white shadow-xl">
+            <div class="bg-aurora rounded-2xl p-6 text-white elevation-xl">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -428,10 +424,10 @@
                     </div>
                     <div>
                         <h3 class="font-bold">{{ __('Member Since') }}</h3>
-                        <p class="text-slate-300 text-sm">{{ $company->created_at->format('F Y') }}</p>
+                        <p class="text-white/70 text-sm">{{ $company->created_at->format('F Y') }}</p>
                     </div>
                 </div>
-                <div class="text-sm text-slate-400">
+                <div class="text-sm text-white/60">
                     {{ __('Active for :time', ['time' => $company->created_at->diffForHumans(['parts' => 2, 'join' => true, 'syntax' => \Carbon\CarbonInterface::DIFF_RELATIVE_TO_NOW])]) }}
                 </div>
             </div>

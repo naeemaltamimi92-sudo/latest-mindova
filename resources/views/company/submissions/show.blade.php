@@ -65,7 +65,7 @@
 
         {{-- Back Navigation --}}
         <a href="{{ route('company.submissions.index') }}"
-            class="inline-flex items-center gap-2 text-gray-600 hover:text-primary-600 mb-6 transition-colors">
+            class="inline-flex items-center gap-2 text-gray-600 hover:text-primary-600 mb-6 transition-premium">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
@@ -73,7 +73,7 @@
         </a>
 
         {{-- Header Card --}}
-        <div class="bg-white rounded-xl border border-gray-200 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm mb-6">
             <div class="p-6">
                 <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
                     {{-- Left: Title & Status --}}
@@ -87,9 +87,7 @@
                             </span>
                             @if($submission->ai_quality_score)
                             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-violet-50 text-violet-700 border border-violet-200">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                                </svg>
+                                <x-icon name="sparkles" class="w-4 h-4" />
                                 AI {{ $submission->ai_quality_score }}%
                             </span>
                             @endif
@@ -98,9 +96,7 @@
                             {{ $submission->task->title ?? 'Task Submission' }}
                         </h1>
                         <p class="text-gray-500 flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                            </svg>
+                            <x-icon name="building" class="w-4 h-4" />
                             {{ $submission->task->challenge->title ?? 'Challenge' }}
                         </p>
                     </div>
@@ -131,12 +127,10 @@
             <div class="lg:col-span-2 space-y-6">
 
                 {{-- Submission Description --}}
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden" x-data="{ expanded: false }">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm" x-data="{ expanded: false }">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h2 class="font-semibold text-gray-900 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
+                            <x-icon name="file-text" class="w-5 h-5 text-gray-400" />
                             {{ __('Submission Description') }}
                         </h2>
                     </div>
@@ -148,7 +142,7 @@
                         </div>
                         @if(strlen($submission->description ?? '') > 400)
                         <button @click="expanded = !expanded"
-                            class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors">
+                            class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-700 transition-premium">
                             <span x-text="expanded ? '{{ __('Show less') }}' : '{{ __('Read more') }}'"></span>
                             <svg class="w-4 h-4 transition-transform" :class="expanded ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -160,7 +154,7 @@
 
                 {{-- Deliverable --}}
                 @if($submission->deliverable_url)
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h2 class="font-semibold text-gray-900 flex items-center gap-2">
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -171,19 +165,19 @@
                     </div>
                     <div class="p-6">
                         <a href="{{ $submission->deliverable_url }}" target="_blank" rel="noopener noreferrer"
-                            class="group flex items-center gap-4 p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-primary-300 hover:bg-primary-50/30 transition-all">
-                            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="group flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-300 hover:bg-primary-50/30 transition-premium">
+                            <div class="w-12 h-12 bg-aurora rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-medium text-gray-900 group-hover:text-primary-700 transition-colors">
+                                <p class="font-medium text-gray-900 group-hover:text-primary-700 transition-premium">
                                     {{ __('View Deliverable') }}
                                 </p>
                                 <p class="text-sm text-gray-500 truncate">{{ $submission->deliverable_url }}</p>
                             </div>
-                            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-premium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                         </a>
@@ -195,12 +189,10 @@
                 @if($submission->ai_feedback)
                 @php $aiFeedback = is_string($submission->ai_feedback) ? json_decode($submission->ai_feedback, true) : $submission->ai_feedback; @endphp
                 @if($aiFeedback)
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm">
                     <div class="px-6 py-4 border-b border-gray-100 bg-violet-50/50">
                         <h2 class="font-semibold text-gray-900 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
+                            <x-icon name="sparkles" class="w-5 h-5 text-violet-500" />
                             {{ __('AI Quality Analysis') }}
                         </h2>
                     </div>
@@ -213,9 +205,7 @@
                             @if(isset($aiFeedback['strengths']) && count($aiFeedback['strengths']) > 0)
                             <div class="bg-emerald-50 rounded-lg p-4 border border-emerald-100">
                                 <h3 class="font-medium text-emerald-800 mb-3 flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
+                                    <x-icon name="check-circle" class="w-4 h-4" />
                                     {{ __('Strengths') }}
                                 </h3>
                                 <ul class="space-y-2">
@@ -255,7 +245,7 @@
 
                 {{-- Review History --}}
                 @if($submission->reviews && $submission->reviews->count() > 0)
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h2 class="font-semibold text-gray-900 flex items-center gap-2">
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -275,17 +265,13 @@
                                         @else bg-red-100 text-red-700
                                         @endif">
                                         @if($review->decision === 'approved')
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                        </svg>
+                                        <x-icon name="check-circle" class="w-3.5 h-3.5" />
                                         @elseif($review->decision === 'revision_requested')
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                                         </svg>
                                         @else
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                        </svg>
+                                        <x-icon name="x" class="w-3.5 h-3.5" />
                                         @endif
                                         {{ ucfirst(str_replace('_', ' ', $review->decision)) }}
                                     </span>
@@ -324,7 +310,7 @@
 
                 {{-- Review Form --}}
                 @if(in_array($submission->status, ['submitted', 'under_review', 'revision_requested']))
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h2 class="font-semibold text-gray-900 flex items-center gap-2">
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -345,9 +331,7 @@
                                         <input type="radio" name="decision" value="approved" class="peer sr-only" required x-model="decision">
                                         <div class="p-4 border-2 border-gray-200 rounded-lg peer-checked:border-emerald-500 peer-checked:bg-emerald-50 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all text-center">
                                             <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-2 peer-checked:bg-emerald-500 peer-checked:text-white">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                                </svg>
+                                                <x-icon name="check-circle" class="w-5 h-5" />
                                             </div>
                                             <p class="font-medium text-gray-900 text-sm">{{ __('Approve') }}</p>
                                         </div>
@@ -369,9 +353,7 @@
                                         <input type="radio" name="decision" value="rejected" class="peer sr-only" x-model="decision">
                                         <div class="p-4 border-2 border-gray-200 rounded-lg peer-checked:border-red-500 peer-checked:bg-red-50 hover:border-red-300 hover:bg-red-50/50 transition-all text-center">
                                             <div class="w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-2 peer-checked:bg-red-500 peer-checked:text-white">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                                </svg>
+                                                <x-icon name="x" class="w-5 h-5" />
                                             </div>
                                             <p class="font-medium text-gray-900 text-sm">{{ __('Reject') }}</p>
                                         </div>
@@ -441,15 +423,13 @@
 
                             {{-- Submit Buttons --}}
                             <div class="flex items-center justify-end gap-3 pt-2">
-                                <a href="{{ route('company.submissions.index') }}" 
-                                    class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors">
+                                <a href="{{ route('company.submissions.index') }}"
+                                    class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition-premium">
                                     {{ __('Cancel') }}
                                 </a>
-                                <button type="submit" 
-                                    class="px-6 py-2.5 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 focus:ring-4 focus:ring-primary-500/20 transition-all inline-flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
+                                <button type="submit"
+                                    class="px-6 py-2.5 bg-aurora text-white text-sm font-medium rounded-lg glow-primary-sm hover:glow-primary-md focus:ring-4 focus:ring-primary-500/20 transition-premium inline-flex items-center gap-2">
+                                    <x-icon name="check-circle" class="w-4 h-4" />
                                     {{ __('Submit Review') }}
                                 </button>
                             </div>
@@ -463,8 +443,8 @@
             <div class="space-y-6">
 
                 {{-- Contributor Profile --}}
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <div class="p-5 bg-primary-600">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm">
+                    <div class="p-5 bg-aurora">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-lg font-bold text-white">
                                 {{ strtoupper(substr($submission->volunteer->user->name ?? 'V', 0, 1)) }}
@@ -505,7 +485,7 @@
                 </div>
 
                 {{-- Task Details --}}
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm">
                     <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="font-semibold text-gray-900 flex items-center gap-2">
                             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -548,12 +528,10 @@
                 </div>
 
                 {{-- AI Score --}}
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm">
                     <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
+                            <x-icon name="sparkles" class="w-4 h-4 text-violet-500" />
                             {{ __('AI Analysis') }}
                         </h3>
                     </div>
@@ -589,9 +567,7 @@
                         </div>
                         @else
                         <div class="flex items-center gap-3 text-gray-400">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
+                            <x-icon name="sparkles" class="w-8 h-8" />
                             <span class="text-sm">{{ __('AI analysis pending') }}</span>
                         </div>
                         @endif
@@ -599,7 +575,7 @@
                 </div>
 
                 {{-- Quick Stats --}}
-                <div class="bg-primary-600 rounded-xl p-5 text-white">
+                <div class="bg-aurora rounded-2xl p-5 text-white elevation-sm">
                     <h3 class="font-semibold mb-4">{{ __('Quick Stats') }}</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-white/10 rounded-lg p-3 text-center">

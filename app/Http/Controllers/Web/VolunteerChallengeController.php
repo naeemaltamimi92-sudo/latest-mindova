@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Challenge;
 use App\Models\ChallengeAttachment;
 use App\Jobs\AnalyzeChallengeBrief;
+use App\Services\CreditsService;
 use App\Services\NotificationService;
+use App\Services\ReputationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -77,12 +79,22 @@ class VolunteerChallengeController extends Controller
      */
     public function store(Request $request)
     {
-        $volunteer = auth()->user()->volunteer;
+        $user = auth()->user();
+        $volunteer = $user->volunteer;
 
         if (!$volunteer) {
             return response()->json([
                 'success' => false,
                 'message' => 'Please complete your volunteer profile first.'
+            ], 422);
+        }
+
+        // Credit gate with star-based discount
+        $cost = app(ReputationService::class)->getPublishingCost($volunteer->stars);
+        if ($cost > 0 && !$user->canAfford($cost)) {
+            return response()->json([
+                'success' => false,
+                'message' => "You need {$cost} credits to submit a challenge. Your balance: {$user->credits} credits. Earn more stars to reduce this cost (currently at {$volunteer->stars} ⭐).",
             ], 422);
         }
 
@@ -116,6 +128,11 @@ class VolunteerChallengeController extends Controller
                     'file_size' => $file->getSize(),
                 ]);
             }
+        }
+
+        // Deduct credits (free for 1500+ star volunteers)
+        if ($cost > 0) {
+            app(CreditsService::class)->spend($user, $cost, 'Community challenge submitted: ' . $challenge->title, $challenge);
         }
 
         // Dispatch AI analysis job

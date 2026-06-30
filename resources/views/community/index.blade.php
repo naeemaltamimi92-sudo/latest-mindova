@@ -22,7 +22,7 @@
 
     <!-- Field Filter Banner -->
     @if(isset($userField) && $userField)
-    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl elevation-sm p-4 mb-6">
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,7 +44,7 @@
 
     {{-- Status Filter Tabs --}}
     <div class="mb-6">
-        <div class="bg-white rounded-xl border border-gray-200 p-1.5">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-sm border border-gray-200 dark:border-gray-700 p-1.5">
             <div class="flex flex-wrap gap-1">
                 {{-- Active Tab --}}
                 <a href="{{ route('community.index', ['filter' => 'active']) }}"
@@ -64,9 +64,7 @@
                           {{ ($filter ?? 'active') === 'completed'
                               ? 'bg-blue-50 text-blue-700 border border-blue-200'
                               : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-transparent' }}">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
+                    <x-icon name="check-circle" class="w-4 h-4" />
                     <span>{{ __('Completed') }}</span>
                 </a>
 
@@ -89,7 +87,7 @@
     <!-- Challenges Grid -->
     <div class="space-y-4">
         @foreach($challenges as $index => $challenge)
-        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium overflow-hidden">
             <div class="p-5">
                 <div class="flex flex-col xl:flex-row xl:items-start gap-4">
                     <!-- Main Content -->
@@ -185,7 +183,7 @@
 
                     <!-- Action Column -->
                     <div class="xl:w-44 flex flex-col gap-2">
-                        <a href="{{ route('community.challenge', $challenge) }}" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-primary-500 text-white text-sm font-semibold rounded-lg hover:bg-primary-600">
+                        <a href="{{ route('community.challenge', $challenge) }}" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-aurora glow-primary-sm hover:glow-primary-md transition-premium text-white text-sm font-semibold rounded-lg">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
                             </svg>
@@ -214,7 +212,7 @@
 
     @else
     <!-- Empty State -->
-    <div class="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
+    <div class="bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl elevation-sm p-12 text-center">
         <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
@@ -274,7 +272,7 @@
 
         <div class="grid md:grid-cols-3 gap-4">
             <!-- Step 1 -->
-            <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-5">
                 <div class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center mb-3">
                     <span class="text-sm font-bold text-primary-700">1</span>
                 </div>
@@ -285,7 +283,7 @@
             </div>
 
             <!-- Step 2 -->
-            <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-5">
                 <div class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center mb-3">
                     <span class="text-sm font-bold text-primary-700">2</span>
                 </div>
@@ -296,7 +294,7 @@
             </div>
 
             <!-- Step 3 -->
-            <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-5">
                 <div class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center mb-3">
                     <span class="text-sm font-bold text-primary-700">3</span>
                 </div>
@@ -318,11 +316,11 @@
     <!-- Modal container -->
     <div class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
         <!-- Modal panel -->
-        <div class="relative bg-white rounded-xl border border-gray-200 shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="relative bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-2xl animate-fade-in w-full max-w-2xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <form id="challengeForm" enctype="multipart/form-data">
                 @csrf
                 <!-- Header -->
-                <div class="bg-primary-500 px-6 py-4 border-b border-primary-400/30">
+                <div class="bg-aurora px-6 py-4 border-b border-primary-400/30">
                     <div class="flex items-center justify-between gap-4">
                         <div>
                             <h3 class="text-lg font-bold text-white" id="modal-title">

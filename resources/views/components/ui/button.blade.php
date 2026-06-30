@@ -24,12 +24,12 @@
 
 @php
 // Base classes - always applied
-$base = 'inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+$base = 'inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-premium focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]';
 
 // Variant styles
 $variants = [
-    'default' => 'bg-white text-primary-500 hover:bg-primary-50 focus:ring-primary-500 shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/30 border border-primary-200',
-    'primary' => 'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500 shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/30',
+    'default' => 'bg-white text-primary-500 hover:bg-primary-50 focus:ring-primary-500 elevation-sm hover:elevation-md border border-primary-200',
+    'primary' => 'bg-aurora text-white hover:brightness-105 focus:ring-primary-500 glow-primary-sm hover:glow-primary-md',
     'secondary' => 'bg-white text-gray-700 border-2 border-gray-200 hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-300',
     'destructive' => 'bg-danger-500 text-white hover:bg-danger-600 focus:ring-danger-500 shadow-lg shadow-danger-500/20 hover:shadow-xl hover:shadow-danger-500/30',
     'outline' => 'border-2 border-secondary-500 text-secondary-500 bg-transparent hover:bg-secondary-50 focus:ring-secondary-500',

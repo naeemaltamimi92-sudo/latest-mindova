@@ -32,13 +32,11 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-transparent">
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-secondary-500 py-12 mb-12 rounded-3xl max-w-5xl mx-auto shadow-2xl">
+    <div class="relative overflow-hidden bg-aurora py-12 mb-12 rounded-3xl max-w-5xl mx-auto elevation-xl">
         <!-- Animated Background Effects -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full "></div>
-            <div class="absolute bottom-0 right-0 w-full h-full "></div>
             <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-violet-400/20 rounded-full blur-3xl float"></div>
             <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl float"></div>
         </div>
@@ -57,7 +55,7 @@
 
         <div class="relative max-w-4xl mx-auto px-6 sm:px-8 text-center slide-up">
             <!-- Status Badge -->
-            <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-6 shadow-lg">
+            <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-6 elevation-md">
                 <div class="relative">
                     <div class="w-2.5 h-2.5 bg-amber-400 rounded-full"></div>
                     <div class="absolute inset-0 w-2.5 h-2.5 bg-amber-400 rounded-full"></div>
@@ -79,7 +77,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <!-- Breadcrumb -->
         <div class="mb-8 slide-up" style="animation-delay: 0.1s">
-            <a href="{{ route('challenges.show', $challenge->id) }}" class="inline-flex items-center gap-2 text-violet-600 hover:text-violet-700 font-semibold group">
+            <a href="{{ route('challenges.show', $challenge->id) }}" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold group">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
@@ -88,10 +86,10 @@
         </div>
 
         <!-- Challenge Context Card -->
-        <div class="bg-gray-50 border-2 border-violet-200 rounded-3xl p-8 mb-8 slide-up" style="animation-delay: 0.15s">
+        <div class="bg-white dark:bg-gray-800 border-2 border-primary-200 dark:border-primary-500/30 rounded-3xl p-8 mb-8 elevation-sm slide-up" style="animation-delay: 0.15s">
             <div class="flex items-start gap-5">
                 <div class="flex-shrink-0">
-                    <div class="w-14 h-14 bg-secondary-500 rounded-2xl flex items-center justify-center shadow-lg pulse-glow">
+                    <div class="w-14 h-14 bg-aurora rounded-2xl flex items-center justify-center glow-primary-sm pulse-glow">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                         </svg>
@@ -99,34 +97,34 @@
                 </div>
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-3">
-                        <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-lg text-xs font-bold border border-violet-200">
+                        <span class="px-3 py-1 bg-primary-50 dark:bg-primary-500/15 text-primary-700 dark:text-primary-300 rounded-lg text-xs font-bold border border-primary-200 dark:border-primary-500/30">
                             {{ __('Challenge') }}
                         </span>
                         @if($challenge->score)
-                        <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-lg text-xs font-bold border border-amber-200">
+                        <span class="px-3 py-1 bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300 rounded-lg text-xs font-bold border border-amber-200 dark:border-amber-500/30">
                             {{ __('Score') }}: {{ $challenge->score }}/10
                         </span>
                         @endif
                     </div>
-                    <h2 class="text-xl font-bold text-slate-900 mb-3">{{ $challenge->title }}</h2>
-                    <p class="text-slate-700 leading-relaxed">{{ Str::limit($challenge->refined_brief ?? $challenge->original_description, 250) }}</p>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{{ $challenge->title }}</h2>
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{ Str::limit($challenge->refined_brief ?? $challenge->original_description, 250) }}</p>
                 </div>
             </div>
         </div>
 
         <!-- Main Form Card -->
-        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden slide-up" style="animation-delay: 0.2s">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-lg border border-gray-100 dark:border-gray-700 overflow-hidden slide-up" style="animation-delay: 0.2s">
             <!-- Form Header -->
-            <div class="bg-secondary-500 px-8 py-6">
+            <div class="bg-aurora px-8 py-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg">
+                    <div class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center elevation-md">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
                     </div>
                     <div>
                         <h2 class="text-xl font-bold text-white">{{ __('Submit Your Idea') }}</h2>
-                        <p class="text-violet-200 text-sm">{{ __('Your idea will be evaluated by AI and the community') }}</p>
+                        <p class="text-white/80 text-sm">{{ __('Your idea will be evaluated by AI and the community') }}</p>
                     </div>
                 </div>
             </div>
@@ -137,18 +135,18 @@
                 <!-- Idea Title -->
                 <div class="space-y-4">
                     <label class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 bg-secondary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">1</span>
+                        <span class="flex-shrink-0 w-12 h-12 bg-aurora rounded-2xl flex items-center justify-center text-white text-lg font-bold glow-primary-sm">1</span>
                         <div>
-                            <span class="block text-lg font-black text-slate-900">{{ __('Idea Title') }}</span>
-                            <span class="text-sm text-slate-500">{{ __('Give your idea a clear, catchy name') }}</span>
+                            <span class="block text-lg font-black text-gray-900 dark:text-white">{{ __('Idea Title') }}</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">{{ __('Give your idea a clear, catchy name') }}</span>
                         </div>
                     </label>
                     <input type="text" name="title" required
                            x-model="title"
-                           class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-violet-500/20 focus:border-violet-500 text-lg text-slate-900 placeholder-slate-400 shadow-sm"
+                           class="w-full px-6 py-4 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-900/40 rounded-2xl focus:ring-4 focus:ring-primary-500/20 focus:border-primary-500 text-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 elevation-xs"
                            placeholder="{{ __('e.g., Smart Lighting with Motion Sensors') }}"
                            maxlength="255">
-                    <p class="text-sm text-slate-500 flex items-center gap-2">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -159,24 +157,24 @@
                 <!-- Divider -->
                 <div class="relative">
                     <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-slate-200"></div>
+                        <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
                     </div>
                 </div>
 
                 <!-- Idea Description -->
                 <div class="space-y-4">
                     <label class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 bg-secondary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">2</span>
+                        <span class="flex-shrink-0 w-12 h-12 bg-aurora rounded-2xl flex items-center justify-center text-white text-lg font-bold glow-primary-sm">2</span>
                         <div>
-                            <span class="block text-lg font-black text-slate-900">{{ __('Description') }}</span>
-                            <span class="text-sm text-slate-500">{{ __('Explain your idea in detail - the more context, the better') }}</span>
+                            <span class="block text-lg font-black text-gray-900 dark:text-white">{{ __('Description') }}</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">{{ __('Explain your idea in detail - the more context, the better') }}</span>
                         </div>
                     </label>
                     <div class="relative">
                         <textarea name="description" required rows="12"
                                   x-model="description"
                                   @input="updateCharCount"
-                                  class="textarea-glow w-full px-6 py-5 border-2 border-violet-200 bg-white rounded-2xl focus:border-violet-500 text-slate-900 placeholder-slate-400 resize-none shadow-sm leading-relaxed"
+                                  class="textarea-glow w-full px-6 py-5 border-2 border-primary-200 dark:border-primary-500/30 bg-white dark:bg-gray-900/40 rounded-2xl focus:border-primary-500 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 resize-none elevation-xs leading-relaxed"
                                   placeholder="{{ __('Describe your idea in detail...
 
 Include:
@@ -185,18 +183,18 @@ Include:
 - What makes it innovative or effective?
 - What are the potential benefits?') }}"
                                   minlength="100" maxlength="2000"></textarea>
-                        <div class="absolute bottom-4 right-4 text-sm font-bold bg-white/80 backdrop-blur-sm px-4 py-2 rounded-xl border border-slate-200">
+                        <div class="absolute bottom-4 right-4 text-sm font-bold bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700">
                             <span class="char-counter" :class="{ 'warning': charCount >= 50 && charCount < 100, 'valid': charCount >= 100, 'error': charCount < 50 }" x-text="charCount + ' / 2000'"></span>
                         </div>
                     </div>
                     <div class="flex items-center justify-between">
-                        <p class="text-sm text-slate-500 flex items-center gap-2">
+                        <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                             {{ __('Minimum 100 characters, maximum 2000 characters') }}
                         </p>
-                        <p class="text-sm font-semibold text-red-600" x-show="charCount < 100 && charCount > 0">
+                        <p class="text-sm font-semibold text-red-600 dark:text-red-400" x-show="charCount < 100 && charCount > 0">
                             {{ __('Need') }} <span x-text="100 - charCount"></span> {{ __('more characters') }}
                         </p>
                     </div>
@@ -205,65 +203,65 @@ Include:
                 <!-- Divider -->
                 <div class="relative">
                     <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-slate-200"></div>
+                        <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
                     </div>
                 </div>
 
                 <!-- How It Works Info Card -->
-                <div class="bg-gray-50 border-2 border-amber-200 rounded-2xl p-8">
+                <div class="bg-amber-50 dark:bg-amber-500/10 border-2 border-amber-200 dark:border-amber-500/30 rounded-2xl p-8">
                     <div class="flex items-start gap-4">
                         <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-secondary-300 rounded-xl flex items-center justify-center shadow-lg">
+                            <div class="w-12 h-12 bg-amber-400 dark:bg-amber-500 rounded-xl flex items-center justify-center elevation-sm">
                                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                 </svg>
                             </div>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-bold text-amber-900 mb-4">{{ __('What happens after you submit?') }}</h3>
+                            <h3 class="text-lg font-bold text-amber-900 dark:text-amber-200 mb-4">{{ __('What happens after you submit?') }}</h3>
                             <div class="grid md:grid-cols-2 gap-4">
-                                <div class="flex items-start gap-3 bg-white/60 rounded-xl p-4">
-                                    <div class="w-8 h-8 bg-secondary-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
+                                <div class="flex items-start gap-3 bg-white/60 dark:bg-white/5 rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-aurora rounded-lg flex items-center justify-center flex-shrink-0 glow-primary-sm">
                                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-amber-900 text-sm">{{ __('AI Evaluation') }}</h4>
-                                        <p class="text-xs text-amber-700">{{ __('Analyzed for feasibility, innovation & impact') }}</p>
+                                        <h4 class="font-bold text-amber-900 dark:text-amber-200 text-sm">{{ __('AI Evaluation') }}</h4>
+                                        <p class="text-xs text-amber-700 dark:text-amber-300/80">{{ __('Analyzed for feasibility, innovation & impact') }}</p>
                                     </div>
                                 </div>
-                                <div class="flex items-start gap-3 bg-white/60 rounded-xl p-4">
-                                    <div class="w-8 h-8 bg-secondary-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
+                                <div class="flex items-start gap-3 bg-white/60 dark:bg-white/5 rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-aurora rounded-lg flex items-center justify-center flex-shrink-0 glow-primary-sm">
                                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-amber-900 text-sm">{{ __('AI Score') }}</h4>
-                                        <p class="text-xs text-amber-700">{{ __('Receive a score from 0-100') }}</p>
+                                        <h4 class="font-bold text-amber-900 dark:text-amber-200 text-sm">{{ __('AI Score') }}</h4>
+                                        <p class="text-xs text-amber-700 dark:text-amber-300/80">{{ __('Receive a score from 0-100') }}</p>
                                     </div>
                                 </div>
-                                <div class="flex items-start gap-3 bg-white/60 rounded-xl p-4">
-                                    <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
+                                <div class="flex items-start gap-3 bg-white/60 dark:bg-white/5 rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0 glow-primary-sm">
                                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-amber-900 text-sm">{{ __('Community Votes') }}</h4>
-                                        <p class="text-xs text-amber-700">{{ __('Members can upvote your idea') }}</p>
+                                        <h4 class="font-bold text-amber-900 dark:text-amber-200 text-sm">{{ __('Community Votes') }}</h4>
+                                        <p class="text-xs text-amber-700 dark:text-amber-300/80">{{ __('Members can upvote your idea') }}</p>
                                     </div>
                                 </div>
-                                <div class="flex items-start gap-3 bg-white/60 rounded-xl p-4">
-                                    <div class="w-8 h-8 bg-secondary-300 rounded-lg flex items-center justify-center flex-shrink-0 shadow">
+                                <div class="flex items-start gap-3 bg-white/60 dark:bg-white/5 rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-amber-400 dark:bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0 elevation-sm">
                                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-amber-900 text-sm">{{ __('Final Score') }}</h4>
-                                        <p class="text-xs text-amber-700">{{ __('40% AI + 60% community votes') }}</p>
+                                        <h4 class="font-bold text-amber-900 dark:text-amber-200 text-sm">{{ __('Final Score') }}</h4>
+                                        <p class="text-xs text-amber-700 dark:text-amber-300/80">{{ __('40% AI + 60% community votes') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +270,7 @@ Include:
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row justify-end gap-4 pt-8 border-t border-slate-200">
+                <div class="flex flex-col sm:flex-row justify-end gap-4 pt-8 border-t border-gray-200 dark:border-gray-700">
                     <x-ui.button as="a" href="{{ route('challenges.show', $challenge->id) }}" variant="outline" size="lg">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -283,8 +281,7 @@ Include:
                             :disabled="charCount < 100"
                             variant="primary"
                             size="lg"
-                            class="shadow-xl"
-                            :class="charCount < 100 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl'">
+                            :class="charCount < 100 ? 'opacity-50 cursor-not-allowed' : ''">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                         </svg>

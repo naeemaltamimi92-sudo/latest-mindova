@@ -8,7 +8,9 @@ use App\Models\Challenge;
 use App\Models\WorkSubmission;
 use App\Models\ReputationHistory;
 use App\Jobs\AggregateChallengeCompletion;
+use App\Services\CreditsService;
 use App\Services\NotificationService;
+use App\Services\ReputationService;
 use Illuminate\Support\Facades\Log;
 
 class CompanyWebController extends Controller
@@ -251,7 +253,7 @@ class CompanyWebController extends Controller
     }
 
     /**
-     * Award reputation points based on the review decision.
+     * Award stars and credits based on the review decision.
      */
     protected function awardReputationPoints(WorkSubmission $submission, string $decision, int $qualityScore): void
     {
@@ -260,54 +262,38 @@ class CompanyWebController extends Controller
             return;
         }
 
-        $points = 0;
-        $reason = '';
+        $reputation = app(ReputationService::class);
+        $credits    = app(CreditsService::class);
+
+        $complexityScore = $submission->task?->challenge?->score;
 
         if ($decision === 'approved') {
-            // Award points based on quality score
-            if ($qualityScore >= 90) {
-                $points = 20;
-                $reason = 'Excellent submission approved (90%+ quality)';
-            } elseif ($qualityScore >= 80) {
-                $points = 15;
-                $reason = 'Great submission approved (80%+ quality)';
-            } elseif ($qualityScore >= 70) {
-                $points = 10;
-                $reason = 'Good submission approved (70%+ quality)';
-            } else {
-                $points = 5;
-                $reason = 'Submission approved';
+            // Prevent double-awarding if re-reviewed
+            if (!$reputation->hasAlreadyEarned($volunteer, 'task_completed', WorkSubmission::class, $submission->id)) {
+                $reputation->award($volunteer, 'task_completed', [
+                    'related_type'    => WorkSubmission::class,
+                    'related_id'      => $submission->id,
+                    'complexity_score' => $complexityScore,
+                ]);
+
+                // Excellent rating bonus (quality >= 90)
+                if ($qualityScore >= 90) {
+                    $reputation->award($volunteer, 'excellent_company_rating', [
+                        'related_type'    => WorkSubmission::class,
+                        'related_id'      => $submission->id,
+                        'complexity_score' => $complexityScore,
+                    ]);
+                    $reputation->adjustTrust($volunteer, 'excellent_delivery');
+                }
+
+                // Earn credits for approved work
+                $earnedCredits = match (true) {
+                    $qualityScore >= 90 => 10,
+                    $qualityScore >= 70 => 5,
+                    default             => 3,
+                };
+                $credits->award($volunteer->user, $earnedCredits, 'Work submission approved', $submission);
             }
-        } elseif ($decision === 'revision_requested') {
-            // Small points for effort
-            $points = 2;
-            $reason = 'Submission effort (revision requested)';
-        }
-        // No points for rejection
-
-        if ($points > 0) {
-            $newTotal = ($volunteer->reputation_score ?? 50) + $points;
-
-            // Update volunteer's reputation score
-            $volunteer->update(['reputation_score' => $newTotal]);
-
-            // Record reputation history
-            ReputationHistory::create([
-                'volunteer_id' => $volunteer->id,
-                'change_amount' => $points,
-                'new_total' => $newTotal,
-                'reason' => $reason,
-                'related_type' => WorkSubmission::class,
-                'related_id' => $submission->id,
-                'created_at' => now(),
-            ]);
-
-            Log::info('Reputation points awarded', [
-                'volunteer_id' => $volunteer->id,
-                'points' => $points,
-                'new_total' => $newTotal,
-                'reason' => $reason,
-            ]);
         }
     }
 

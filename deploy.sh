@@ -9,7 +9,7 @@ set -e
 SERVER_IP="116.203.245.50"
 SERVER_USER="root"
 REMOTE_PATH="/var/www/mindova"
-LOCAL_PATH="/Users/awni/Desktop/naeem/latest-mindova"
+LOCAL_PATH="/c/Users/n3eem/Desktop/latest-mindova"
 
 # Colors for output
 RED='\033[0;31m'

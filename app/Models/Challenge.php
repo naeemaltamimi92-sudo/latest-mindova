@@ -27,26 +27,16 @@ class Challenge extends Model
         'aggregated_solutions',
         'average_solution_quality',
         'completed_at',
-        // Admin management fields
-        'admin_notes',
-        'reviewed_by',
-        'reviewed_at',
-        'is_featured',
-        'is_pinned',
-        'priority',
         'visibility',
-        'view_count',
-        'application_count',
-        'last_activity_at',
+        'tags',
         'estimated_budget',
         'actual_budget',
         'currency',
-        'tags',
         'external_reference',
-        'internal_notes',
         // Correct answer fields
         'correct_idea_id',
         'closed_at',
+        'is_demo',
     ];
 
     protected function casts(): array
@@ -70,7 +60,30 @@ class Challenge extends Model
             'tags' => 'array',
             // Correct answer casts
             'closed_at' => 'datetime',
+            'expert_mode' => 'boolean',
+            'expert_assigned_at' => 'datetime',
         ];
+    }
+
+    public function expertAssignments()
+    {
+        return $this->hasMany(ExpertChallengeAssignment::class);
+    }
+
+    public function activeExperts()
+    {
+        return $this->expertAssignments()
+            ->whereIn('status', ['accepted', 'active'])
+            ->with('volunteer.user');
+    }
+
+    public function leadExpert()
+    {
+        return $this->expertAssignments()
+            ->where('role', 'lead_expert')
+            ->whereIn('status', ['accepted', 'active', 'completed'])
+            ->with('volunteer.user')
+            ->first();
     }
 
     /**

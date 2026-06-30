@@ -6,6 +6,7 @@ use App\Models\ChallengeNdaSigning;
 use App\Models\NdaAgreement;
 use App\Models\Challenge;
 use App\Models\Volunteer;
+use App\Services\ReputationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -78,6 +79,9 @@ class NdaController extends Controller
             'general_nda_signed_at' => now(),
             'general_nda_version' => $nda->version,
         ]);
+
+        // Award stars for signing the NDA (one-time)
+        app(ReputationService::class)->award($volunteer, 'nda_signed');
 
         Log::info('General NDA signed', [
             'user_id' => $user->id,

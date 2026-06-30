@@ -28,6 +28,12 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
+    .dark .number-gradient {
+        background: var(--gradient-aurora);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 </style>
 @endpush
 
@@ -35,16 +41,16 @@
 <div class="min-h-[calc(100vh-10rem)] flex items-center justify-center bg-gray-50 relative overflow-hidden">
     <!-- Animated Background Elements -->
     <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-400/10 rounded-full blur-3xl error-float"></div>
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-violet-400/10 rounded-full blur-3xl error-float"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-purple-400/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-400/10 dark:bg-primary-500/10 rounded-full blur-3xl error-float"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-violet-400/10 dark:bg-primary-400/10 rounded-full blur-3xl error-float"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-purple-400/5 dark:bg-primary-500/5 rounded-full blur-3xl"></div>
     </div>
 
     <!-- Grid Pattern -->
-    <div class="absolute inset-0 opacity-[0.02]">
+    <div class="absolute inset-0 opacity-[0.02] dark:opacity-[0.04]">
         <svg class="w-full h-full">
             <pattern id="error-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1" class="text-slate-900"/>
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1" class="text-slate-900 dark:text-white"/>
             </pattern>
             <rect width="100%" height="100%" fill="url(#error-grid)"/>
         </svg>
@@ -58,10 +64,8 @@
 
         <!-- Icon -->
         <div class="slide-up slide-up-delay-1 mb-8">
-            <div class="inline-flex items-center justify-center w-24 h-24 bg-primary-500 rounded-3xl shadow-2xl shadow-indigo-500/30 pulse-glow">
-                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
+            <div class="inline-flex items-center justify-center w-24 h-24 bg-aurora rounded-3xl shadow-2xl shadow-indigo-500/30 pulse-glow">
+                <x-icon name="alert-circle" class="w-12 h-12 text-white" />
             </div>
         </div>
 
@@ -81,7 +85,7 @@
                 </svg>
                 {{ __('Go to Dashboard') }}
             </x-ui.button>
-            <x-ui.button as="a" href="{{ url()->previous() }}" variant="secondary" size="lg">
+            <x-ui.button as="a" href="{{ url()->previous() }}" variant="outline" size="lg">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
@@ -91,49 +95,49 @@
 
         <!-- Quick Links -->
         <div class="slide-up slide-up-delay-3">
-            <div class="bg-white/80 backdrop-blur-xl rounded-3xl border border-slate-200/60 shadow-xl p-8">
+            <div class="bg-white/80 dark:bg-white/5 backdrop-blur-xl rounded-3xl border border-slate-200/60 dark:border-white/[0.08] shadow-xl p-8">
                 <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-indigo-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                     {{ __('Try these instead') }}
                 </h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <a href="{{ route('challenges.index') }}" class="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50 border border-slate-100 hover:border-indigo-200">
+                    <a href="{{ route('challenges.index') }}" class="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 hover:bg-indigo-50 dark:hover:bg-primary-500/10 border border-slate-100 dark:border-white/[0.08] hover:border-indigo-200 dark:hover:border-primary-400/30">
                         <div class="w-12 h-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                             </svg>
                         </div>
-                        <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-700">{{ __('Challenges') }}</span>
+                        <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-700 dark:group-hover:text-primary-300">{{ __('Challenges') }}</span>
                     </a>
                     @auth
                     @if(auth()->user()->isVolunteer())
-                    <a href="{{ route('tasks.available') }}" class="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 border border-slate-100 hover:border-emerald-200">
+                    <a href="{{ route('tasks.available') }}" class="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 border border-slate-100 dark:border-white/[0.08] hover:border-emerald-200 dark:hover:border-emerald-400/30">
                         <div class="w-12 h-12 rounded-xl bg-secondary-500 flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                             </svg>
                         </div>
-                        <span class="text-sm font-bold text-slate-700 group-hover:text-emerald-700">{{ __('Tasks') }}</span>
+                        <span class="text-sm font-bold text-slate-700 group-hover:text-emerald-700 dark:group-hover:text-emerald-300">{{ __('Tasks') }}</span>
                     </a>
                     @endif
-                    <a href="{{ route('profile.edit') }}" class="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 hover:bg-violet-50 border border-slate-100 hover:border-violet-200">
+                    <a href="{{ route('profile.edit') }}" class="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 hover:bg-violet-50 dark:hover:bg-violet-500/10 border border-slate-100 dark:border-white/[0.08] hover:border-violet-200 dark:hover:border-violet-400/30">
                         <div class="w-12 h-12 rounded-xl bg-secondary-500 flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                             </svg>
                         </div>
-                        <span class="text-sm font-bold text-slate-700 group-hover:text-violet-700">{{ __('Profile') }}</span>
+                        <span class="text-sm font-bold text-slate-700 group-hover:text-violet-700 dark:group-hover:text-violet-300">{{ __('Profile') }}</span>
                     </a>
                     @endauth
-                    <a href="{{ route('help') }}" class="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 hover:bg-amber-50 border border-slate-100 hover:border-amber-200">
+                    <a href="{{ route('help') }}" class="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 hover:bg-amber-50 dark:hover:bg-amber-500/10 border border-slate-100 dark:border-white/[0.08] hover:border-amber-200 dark:hover:border-amber-400/30">
                         <div class="w-12 h-12 rounded-xl bg-secondary-300 flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
-                        <span class="text-sm font-bold text-slate-700 group-hover:text-amber-700">{{ __('Help') }}</span>
+                        <span class="text-sm font-bold text-slate-700 group-hover:text-amber-700 dark:group-hover:text-amber-300">{{ __('Help') }}</span>
                     </a>
                 </div>
             </div>

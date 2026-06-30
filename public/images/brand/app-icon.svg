@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background with iOS-compatible corner radius (22.5% of 512 = 115) -->
+  <rect width="512" height="512" rx="115" fill="#5A3DEB"/>
+  <!-- Subtle inner glow for depth -->
+  <rect width="512" height="512" rx="115"
+        fill="url(#glow)" opacity="0.3"/>
+  <defs>
+    <radialGradient id="glow" cx="35%" cy="25%" r="65%">
+      <stop offset="0%" stop-color="#9681F2"/>
+      <stop offset="100%" stop-color="#3C28A7"/>
+    </radialGradient>
+  </defs>
+  <!-- Mark scaled from 50×50 to 512×512 (factor 10.24), centered with 76px padding -->
+  <!-- Effective area: 76 to 436, 360px. Scale from 50: 360/50=7.2 -->
+  <!-- Positions: 8→76+(8*7.2)=76+57.6=134, 25→76+180=256, 42→76+302=378, 24→76+173=249, 44→76+317=393, 8→76+57.6=134 -->
+  <path d="M 134,393 L 134,134 L 256,249 L 378,134 L 378,393"
+        stroke="#ffffff" stroke-width="40"
+        stroke-linecap="round" stroke-linejoin="round"
+        fill="none"/>
+  <!-- Outer peak nodes -->
+  <circle cx="134" cy="134" r="47" fill="#ffffff"/>
+  <circle cx="378" cy="134" r="47" fill="#ffffff"/>
+  <!-- Center connector node (slightly translucent) -->
+  <circle cx="256" cy="249" r="36" fill="rgba(255,255,255,0.82)"/>
+</svg>

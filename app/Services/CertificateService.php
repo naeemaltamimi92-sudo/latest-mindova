@@ -78,21 +78,35 @@ class CertificateService
         // Determine contribution types
         $contributionTypes = $this->determineContributionTypes($volunteer, $challenge);
 
+        // Resolve project timeline from challenge
+        $projectStart = $challenge->start_date ?? $challenge->created_at;
+        $projectEnd   = $challenge->end_date ?? $challenge->completed_at ?? now();
+
         // Create certificate record
         $certificate = Certificate::create([
-            'user_id' => $volunteer->id,
-            'challenge_id' => $challenge->id,
-            'company_id' => $challenge->company_id,
-            'certificate_type' => $certificateType,
-            'role' => $role,
+            'user_id'              => $volunteer->id,
+            'challenge_id'         => $challenge->id,
+            'company_id'           => $challenge->company_id,
+            'certificate_type'     => $certificateType,
+            'role'                 => $role,
             'contribution_summary' => $contributionSummary,
-            'contribution_types' => $contributionTypes,
-            'total_hours' => $timeData['total_hours'],
-            'time_breakdown' => $timeData['breakdown'],
-            'company_confirmed' => true,
-            'confirmed_at' => now(),
-            'company_logo_path' => $companyLogoPath,
-            'issued_at' => now(),
+            'contribution_types'   => $contributionTypes,
+            'technologies'         => $contributionTypes,
+            'industry'             => $challenge->field ?? $challenge->domain ?? null,
+            'total_hours'          => $timeData['total_hours'],
+            'time_breakdown'       => $timeData['breakdown'],
+            'company_confirmed'    => true,
+            'confirmed_at'         => now(),
+            'company_logo_path'    => $companyLogoPath,
+            'issued_at'            => now(),
+            'project_start_date'   => $projectStart,
+            'project_end_date'     => $projectEnd,
+            'show_company_name'    => true,
+        ]);
+
+        // Stamp the tamper-proof verification hash immediately
+        $certificate->update([
+            'verification_hash' => Certificate::makeVerificationHash($certificate),
         ]);
 
         // Generate PDF

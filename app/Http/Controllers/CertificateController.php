@@ -25,7 +25,7 @@ class CertificateController extends Controller
     public function showConfirmationForm(Challenge $challenge)
     {
         // Only company that owns the challenge can confirm
-        if ($challenge->company_id !== Auth::user()->company->id) {
+        if (!Auth::user()->company || $challenge->company_id !== Auth::user()->company->id) {
             abort(403, __('Unauthorized to confirm this challenge'));
         }
 
@@ -59,7 +59,7 @@ class CertificateController extends Controller
         ]);
 
         // Only company that owns the challenge can submit
-        if ($challenge->company_id !== Auth::user()->company->id) {
+        if (!Auth::user()->company || $challenge->company_id !== Auth::user()->company->id) {
             abort(403, __('Unauthorized'));
         }
 

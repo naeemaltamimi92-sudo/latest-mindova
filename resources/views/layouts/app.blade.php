@@ -29,10 +29,14 @@
     <!-- Favicon -->
     @if(!empty($brandFaviconUrl ?? ''))
     <link rel="icon" href="{{ $brandFaviconUrl }}" type="image/x-icon">
+    @else
+    <link rel="icon" href="{{ asset('images/brand/favicon.svg') }}" type="image/svg+xml">
     @endif
 
     <title>{{ $siteName ?? config('app.name', 'Mindova') }} - @yield('title')</title>
 
+    <!-- Light mode FOUC prevention: light is the platform default; only an explicit saved 'dark' overrides it -->
+    <script>(function(){try{var t=localStorage.getItem('mindova-theme');document.documentElement.classList.toggle('dark',t==='dark');}catch(e){}})();</script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Dynamic Brand Colors -->
@@ -450,9 +454,7 @@
                 <!-- Brand Section -->
                 <div class="lg:col-span-1">
                     <div class="flex items-center space-x-3 mb-4">
-                        <!-- Mindova Logo -->
-                        <img src="{{ asset('images/mindova-logo.svg') }}" alt="Mindova Logo" class="h-10 w-10">
-                        <span class="text-xl font-black" style="color: white !important;">Mindova</span>
+                        <x-brand.logo variant="white" size="lg" />
                     </div>
                     <p class="text-white/90 text-sm leading-relaxed mb-4" style="color: rgba(255, 255, 255, 0.9) !important;">
                         {{ __('AI-powered platform connecting talented contributors with real-world challenges') }}
@@ -649,9 +651,9 @@
     {!! $customBodyScripts !!}
     @endif
 
-    <!-- Custom JavaScript from Settings -->
+    <!-- Custom JavaScript from Settings (admin-set; raw output is intentional) -->
     @if(!empty($customJs ?? ''))
-    <script>{{ $customJs }}</script>
+    <script>{!! $customJs !!}</script>
     @endif
 </body>
 </html>

@@ -47,13 +47,14 @@ abstract class AnthropicService
                 'content-type' => 'application/json',
             ])
             ->timeout(config('ai.anthropic.timeout', 120))
+            ->withOptions(['curl' => [CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4]])
             ->post("{$this->baseUrl}/v1/messages", [
-                'model' => $model,
-                'max_tokens' => (int) config('ai.anthropic.max_tokens', 4096),
-                'system' => $options['system_prompt'] ?? 'You are a helpful assistant that provides structured JSON responses.',
-                'messages' => [
+                'model'      => $model,
+                'max_tokens' => (int) ($options['max_tokens'] ?? config('ai.anthropic.max_tokens', 8192)),
+                'system'     => $options['system_prompt'] ?? 'You are a helpful assistant that provides structured JSON responses.',
+                'messages'   => [
                     [
-                        'role' => 'user',
+                        'role'    => 'user',
                         'content' => $prompt,
                     ],
                 ],
@@ -65,7 +66,6 @@ abstract class AnthropicService
 
             $duration = (microtime(true) - $startTime) * 1000;
             $responseData = $response->json();
-
             $content = $responseData['content'][0]['text'] ?? '';
 
             // Strip markdown code blocks if present
@@ -77,6 +77,16 @@ abstract class AnthropicService
             $content = $this->sanitizeJsonString($content);
 
             $parsedResponse = json_decode($content, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                // Fallback: extract the outermost JSON object/array and retry
+                $extracted = $this->extractJsonPayload($content);
+                if ($extracted !== null) {
+                    $extracted = $this->sanitizeJsonString($extracted);
+                    $parsedResponse = json_decode($extracted, true);
+                    $content = $extracted;
+                }
+            }
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new \Exception('Failed to parse JSON response: ' . json_last_error_msg());
@@ -166,6 +176,7 @@ abstract class AnthropicService
                 'content-type' => 'application/json',
             ])
             ->timeout(config('ai.anthropic.timeout', 120))
+            ->withOptions(['curl' => [CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4]])
             ->post("{$this->baseUrl}/v1/messages", [
                 'model' => $model,
                 'max_tokens' => (int) config('ai.anthropic.max_tokens', 4096),
@@ -196,6 +207,15 @@ abstract class AnthropicService
             $responseContent = $this->sanitizeJsonString($responseContent);
 
             $parsedResponse = json_decode($responseContent, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $extracted = $this->extractJsonPayload($responseContent);
+                if ($extracted !== null) {
+                    $extracted = $this->sanitizeJsonString($extracted);
+                    $parsedResponse = json_decode($extracted, true);
+                    $responseContent = $extracted;
+                }
+            }
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new \Exception('Failed to parse JSON response: ' . json_last_error_msg());
@@ -342,6 +362,12 @@ abstract class AnthropicService
      * mis-tracking string boundaries), silently leaving raw control bytes in place.
      * Scanning byte-by-byte is also UTF-8 safe, since multi-byte continuation/lead
      * bytes are always >= 0x80 and never collide with '"', '\\', or 0x00-0x1F.
+     *
+     * Bug fixed: when $escaped=true and the following byte is itself a control char
+     * (e.g. '\\' + raw LF from a model that emits literal line-continuations), the
+     * old code would append the raw control byte, leaving invalid JSON. The fix
+     * removes the pre-appended backslash and replaces the pair with the correct
+     * JSON escape sequence.
      */
     protected function sanitizeJsonString(string $json): string
     {
@@ -352,18 +378,40 @@ abstract class AnthropicService
 
         for ($i = 0; $i < $length; $i++) {
             $char = $json[$i];
+            $ord  = ord($char);
 
             if (!$inString) {
                 if ($char === '"') {
                     $inString = true;
                 }
+                // Strip non-whitespace control chars that are invalid outside strings
+                if ($ord <= 0x1F && $ord !== 0x09 && $ord !== 0x0A && $ord !== 0x0D) {
+                    continue;
+                }
                 $result .= $char;
                 continue;
             }
 
+            // ── inside a JSON string value ─────────────────────────────────
+
             if ($escaped) {
-                $result .= $char;
                 $escaped = false;
+                if ($ord <= 0x1F) {
+                    // Backslash followed by a raw control char is invalid JSON.
+                    // Remove the backslash we already buffered and emit the
+                    // correct escape sequence for the control character.
+                    $result = substr($result, 0, -1);
+                    $result .= match ($ord) {
+                        0x08 => '\\b',
+                        0x09 => '\\t',
+                        0x0A => '\\n',
+                        0x0C => '\\f',
+                        0x0D => '\\r',
+                        default => sprintf('\\u%04x', $ord),
+                    };
+                } else {
+                    $result .= $char;
+                }
                 continue;
             }
 
@@ -378,8 +426,6 @@ abstract class AnthropicService
                 $result .= $char;
                 continue;
             }
-
-            $ord = ord($char);
 
             if ($ord <= 0x1F) {
                 $result .= match ($ord) {
@@ -397,5 +443,25 @@ abstract class AnthropicService
         }
 
         return $result;
+    }
+
+    /**
+     * Extract the outermost JSON object or array from a string.
+     *
+     * Last-resort fallback when the model wraps its JSON in unexpected prose
+     * or when minor prefix/suffix debris survives the markdown-strip pass.
+     */
+    protected function extractJsonPayload(string $text): ?string
+    {
+        // Try object first, then array
+        foreach (['{', '['] as $open) {
+            $close = $open === '{' ? '}' : ']';
+            $start = strpos($text, $open);
+            $end   = strrpos($text, $close);
+            if ($start !== false && $end !== false && $end > $start) {
+                return substr($text, $start, $end - $start + 1);
+            }
+        }
+        return null;
     }
 }

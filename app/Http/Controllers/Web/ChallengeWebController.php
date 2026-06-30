@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Challenge;
 use App\Models\ChallengeAttachment;
 use App\Jobs\AnalyzeChallengeBrief;
+use App\Services\CreditsService;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ChallengeWebController extends Controller
 {
@@ -46,7 +48,13 @@ class ChallengeWebController extends Controller
         }
 
         $query = Challenge::where('company_id', $company->id)
-            ->with(['tasks', 'workstreams']);
+            ->with(['tasks', 'workstreams'])
+            ->withCount([
+                'tasks',
+                'tasks as completed_tasks_count' => fn ($q) => $q->where('status', 'completed'),
+                'tasks as in_progress_tasks_count' => fn ($q) => $q->where('status', 'in_progress'),
+            ])
+            ->withSum('tasks', 'estimated_hours');
 
         // Status filter
         if ($request->has('status') && $request->status && $request->status !== 'all') {
@@ -86,27 +94,55 @@ class ChallengeWebController extends Controller
 
         $challenges = $query->paginate(12)->withQueryString();
 
-        // Calculate stats for each challenge
+        // Collect task IDs for the current page in one shot to avoid N+1
+        $taskIdsByChallenge = [];
         foreach ($challenges as $challenge) {
-            $totalTasks = $challenge->tasks()->count();
+            $taskIdsByChallenge[$challenge->id] = $challenge->tasks->pluck('id')->toArray();
+        }
+        $allTaskIds = array_merge(...array_values($taskIdsByChallenge));
+
+        $activeVolunteers = [];
+        $submissionCounts = [];
+        $approvedCounts   = [];
+
+        if (!empty($allTaskIds)) {
+            $activeVolunteers = \App\Models\TaskAssignment::whereIn('task_id', $allTaskIds)
+                ->whereIn('invitation_status', ['accepted', 'in_progress'])
+                ->selectRaw('task_id, COUNT(DISTINCT volunteer_id) as cnt')
+                ->groupBy('task_id')
+                ->pluck('cnt', 'task_id')
+                ->toArray();
+
+            $submissionCounts = \App\Models\WorkSubmission::whereIn('task_id', $allTaskIds)
+                ->selectRaw('task_id, COUNT(*) as cnt')
+                ->groupBy('task_id')
+                ->pluck('cnt', 'task_id')
+                ->toArray();
+
+            $approvedCounts = \App\Models\WorkSubmission::whereIn('task_id', $allTaskIds)
+                ->where('solves_task', true)
+                ->selectRaw('task_id, COUNT(*) as cnt')
+                ->groupBy('task_id')
+                ->pluck('cnt', 'task_id')
+                ->toArray();
+        }
+
+        // Calculate stats for each challenge using already-loaded data
+        foreach ($challenges as $challenge) {
+            $totalTasks = $challenge->tasks_count ?? 0;
 
             if ($totalTasks > 0) {
-                $completedTasks = $challenge->tasks()->where('status', 'completed')->count();
+                $completedTasks = $challenge->completed_tasks_count ?? 0;
                 $challenge->progress_percentage = round(($completedTasks / $totalTasks) * 100);
                 $challenge->total_tasks = $totalTasks;
                 $challenge->completed_tasks = $completedTasks;
-                $challenge->in_progress_tasks = $challenge->tasks()->where('status', 'in_progress')->count();
-                $challenge->total_estimated_hours = $challenge->tasks()->sum('estimated_hours');
+                $challenge->in_progress_tasks = $challenge->in_progress_tasks_count ?? 0;
+                $challenge->total_estimated_hours = $challenge->tasks_sum_estimated_hours ?? 0;
 
-                // Solution stats
-                $taskIds = $challenge->tasks()->pluck('id');
-                $challenge->active_volunteers = \App\Models\TaskAssignment::whereIn('task_id', $taskIds)
-                    ->whereIn('invitation_status', ['accepted', 'in_progress'])
-                    ->distinct('volunteer_id')
-                    ->count('volunteer_id');
-                $challenge->submissions_count = \App\Models\WorkSubmission::whereIn('task_id', $taskIds)->count();
-                $challenge->approved_count = \App\Models\WorkSubmission::whereIn('task_id', $taskIds)
-                    ->where('solves_task', true)->count();
+                $ids = $taskIdsByChallenge[$challenge->id] ?? [];
+                $challenge->active_volunteers = array_sum(array_intersect_key($activeVolunteers, array_flip($ids)));
+                $challenge->submissions_count  = array_sum(array_intersect_key($submissionCounts,  array_flip($ids)));
+                $challenge->approved_count     = array_sum(array_intersect_key($approvedCounts,    array_flip($ids)));
             } else {
                 $challenge->progress_percentage = 0;
                 $challenge->total_tasks = 0;
@@ -141,8 +177,17 @@ class ChallengeWebController extends Controller
 
     public function store(Request $request)
     {
-        if (!auth()->user()->isCompany()) {
+        $user = auth()->user();
+
+        if (!$user->isCompany()) {
             return redirect()->route('dashboard')->with('error', 'Only companies can submit challenges');
+        }
+
+        // Credit gate: publishing a Discovery Challenge costs 20 credits
+        $cost = 20;
+        if (!$user->canAfford($cost)) {
+            return redirect()->route('challenges.create')
+                ->with('error', "You need {$cost} credits to publish a challenge. Your balance: {$user->credits} credits. Purchase credits to continue.");
         }
 
         $validated = $request->validate([
@@ -152,15 +197,18 @@ class ChallengeWebController extends Controller
 
         // Create the challenge
         $challenge = Challenge::create([
-            'company_id' => auth()->user()->company->id,
+            'company_id' => $user->company->id,
             'title' => $validated['title'],
             'description' => $validated['description'],
             'original_description' => $validated['description'],
             'status' => 'submitted',
         ]);
 
+        // Deduct credits after successful creation
+        app(CreditsService::class)->spend($user, $cost, 'Challenge published: ' . $challenge->title, $challenge);
+
         // Update company's total challenges count
-        auth()->user()->company->increment('total_challenges_submitted');
+        $user->company->increment('total_challenges_submitted');
 
         // Dispatch AI analysis job
         AnalyzeChallengeBrief::dispatch($challenge);
@@ -418,7 +466,7 @@ class ChallengeWebController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|min:100|max:5000',
-            'attachments.*' => 'nullable|file|max:10240',
+            'attachments.*' => 'nullable|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,png,jpg,jpeg,gif,zip,txt,csv',
             'remove_attachments' => 'nullable|string',
         ]);
 
@@ -430,23 +478,26 @@ class ChallengeWebController extends Controller
                     ->where('challenge_id', $challenge->id)
                     ->first();
                 if ($attachment) {
-                    Storage::disk('public')->delete($attachment->file_path);
+                    Storage::disk('local')->delete($attachment->file_path);
                     $attachment->delete();
                 }
             }
         }
 
-        // Handle new attachments
+        // Handle new attachments — stored on private local disk, served only via download()
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
-                $path = $file->store('challenge-attachments/' . $challenge->id, 'public');
+                $filename = \Illuminate\Support\Str::uuid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('challenge_attachments/' . $challenge->id, $filename, 'local');
 
                 ChallengeAttachment::create([
                     'challenge_id' => $challenge->id,
-                    'file_name' => $file->getClientOriginalName(),
-                    'file_path' => $path,
-                    'file_type' => $file->getClientMimeType(),
-                    'file_size' => $file->getSize(),
+                    'file_name'    => $file->getClientOriginalName(),
+                    'file_path'    => $path,
+                    'file_type'    => $file->getMimeType(),
+                    'mime_type'    => $file->getMimeType(),
+                    'file_size'    => $file->getSize(),
+                    'uploaded_by'  => auth()->id(),
                 ]);
             }
         }
@@ -513,9 +564,9 @@ class ChallengeWebController extends Controller
                 ->with('error', 'This challenge cannot be deleted because it has active or completed tasks.');
         }
 
-        // Delete attachments from storage
+        // Delete attachments from private storage
         foreach ($challenge->attachments as $attachment) {
-            Storage::disk('public')->delete($attachment->file_path);
+            Storage::disk('local')->delete($attachment->file_path);
         }
 
         // Delete related records

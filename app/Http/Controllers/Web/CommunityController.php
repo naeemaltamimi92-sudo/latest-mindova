@@ -11,7 +11,9 @@ use App\Models\IdeaVote;
 use App\Jobs\AnalyzeCommentQuality;
 use App\Jobs\ScoreIdea;
 use App\Models\ReputationHistory;
+use App\Services\CreditsService;
 use App\Services\NotificationService;
+use App\Services\ReputationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -209,6 +211,13 @@ class CommunityController extends Controller
         // Dispatch AI scoring job
         ScoreIdea::dispatch($idea);
 
+        // Award stars for idea submission (once per idea)
+        app(ReputationService::class)->award($volunteer, 'idea_submitted', [
+            'related_type' => Idea::class,
+            'related_id'   => $idea->id,
+            'complexity_score' => $challenge->score,
+        ]);
+
         return redirect()->route('community.challenge', $challenge)
             ->with('success', 'Idea submitted successfully! AI is analyzing its quality...');
     }
@@ -387,54 +396,48 @@ class CommunityController extends Controller
             ->with('success', __('Correct answer marked successfully! The challenge is now completed.'));
     }
 
-    /**
-     * Award reputation points for having an idea marked as correct.
-     */
     protected function awardCorrectAnswerPoints(Idea $idea): void
     {
         $volunteer = $idea->volunteer;
-
         if (!$volunteer) {
             return;
         }
 
-        // Get points from config (default 50)
-        $points = config('gamification.correct_answer_points', 50);
+        $reputation = app(ReputationService::class);
 
-        // Update volunteer's reputation score
-        $oldScore = $volunteer->reputation_score ?? 50;
-        $newScore = $oldScore + $points;
+        // Prevent duplicate awards if this idea was already rewarded
+        if ($reputation->hasAlreadyEarned($volunteer, 'idea_accepted', Idea::class, $idea->id)) {
+            return;
+        }
 
-        $volunteer->update(['reputation_score' => $newScore]);
-
-        // Record in reputation history
-        ReputationHistory::create([
-            'volunteer_id' => $volunteer->id,
-            'change_amount' => $points,
-            'new_total' => $newScore,
-            'reason' => __('Idea marked as correct answer'),
-            'related_type' => Idea::class,
-            'related_id' => $idea->id,
-            'created_at' => now(),
+        $stars = $reputation->award($volunteer, 'idea_accepted', [
+            'related_type'    => Idea::class,
+            'related_id'      => $idea->id,
+            'complexity_score' => $idea->challenge->score,
         ]);
 
-        Log::info('Awarded correct answer points', [
+        // Also earn credits for a correct answer
+        app(CreditsService::class)->award(
+            $volunteer->user,
+            10,
+            'Idea marked as correct answer',
+            $idea
+        );
+
+        Log::info('Awarded correct-answer stars', [
             'volunteer_id' => $volunteer->id,
-            'idea_id' => $idea->id,
-            'points' => $points,
-            'new_total' => $newScore,
+            'idea_id'      => $idea->id,
+            'stars'        => $stars,
         ]);
 
-        // Send notification to the contributor
         if ($volunteer->user) {
-            $notificationService = app(NotificationService::class);
-            $notificationService->send(
+            app(NotificationService::class)->send(
                 user: $volunteer->user,
                 type: 'idea_marked_correct',
                 title: __('Your Idea Was Marked as Correct!'),
-                message: __('Congratulations! Your idea for ":challenge" was marked as the correct answer. You earned :points reputation points!', [
+                message: __('Congratulations! Your idea for ":challenge" was marked as the correct answer. You earned :stars Stars!', [
                     'challenge' => $idea->challenge->title,
-                    'points' => $points,
+                    'stars'     => $stars,
                 ]),
                 actionUrl: route('community.challenge', $idea->challenge_id)
             );

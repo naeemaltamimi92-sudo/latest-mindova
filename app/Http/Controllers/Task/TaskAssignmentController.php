@@ -8,6 +8,7 @@ use App\Models\TaskAssignment;
 use App\Models\WorkSubmission;
 use App\Models\ChallengeNdaSigning;
 use App\Services\NotificationService;
+use App\Services\TalentRankingService;
 use App\Jobs\AnalyzeSolutionQuality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Storage;
 class TaskAssignmentController extends Controller
 {
     public function __construct(
-        protected NotificationService $notificationService
+        protected NotificationService $notificationService,
+        protected TalentRankingService $talentRanking,
     ) {}
     /**
      * Get all assignments visible to the authenticated user: a volunteer sees
@@ -327,6 +329,11 @@ class TaskAssignmentController extends Controller
 
         // Notify company
         $this->notificationService->notifyTaskCompleted($assignment);
+
+        // Bust the cached talent score — completion changes success rate & recency
+        if ($assignment->volunteer) {
+            $this->talentRanking->invalidate($assignment->volunteer);
+        }
 
         return response()->json([
             'message' => 'Task completed successfully',

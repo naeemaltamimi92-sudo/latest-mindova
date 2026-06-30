@@ -110,7 +110,7 @@
 @section('content')
 <div class="min-h-screen bg-gray-50">
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-primary-500">
+    <div class="relative overflow-hidden bg-aurora">
         <!-- Animated Background Elements -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="animate-float absolute -top-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
@@ -243,7 +243,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 -mt-16 mb-10 relative z-10">
             <!-- Total Ideas -->
             <div class="group">
-                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-2xl">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-lg p-6 border border-slate-100 dark:border-gray-700 hover:border-blue-200 hover:elevation-xl transition-premium">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 bg-primary-400 rounded-2xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -260,7 +260,7 @@
 
             <!-- High Quality -->
             <div class="group">
-                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-emerald-200 hover:shadow-2xl">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-lg p-6 border border-slate-100 dark:border-gray-700 hover:border-emerald-200 hover:elevation-xl transition-premium">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 bg-secondary-500 rounded-2xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -277,7 +277,7 @@
 
             <!-- Contributors -->
             <div class="group">
-                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-violet-200 hover:shadow-2xl">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-lg p-6 border border-slate-100 dark:border-gray-700 hover:border-violet-200 hover:elevation-xl transition-premium">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 bg-secondary-500 rounded-2xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -294,7 +294,7 @@
 
             <!-- Time Status -->
             <div class="group">
-                <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100 hover:border-amber-200 hover:shadow-2xl">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-lg p-6 border border-slate-100 dark:border-gray-700 hover:border-amber-200 hover:elevation-xl transition-premium">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 bg-secondary-300 rounded-2xl flex items-center justify-center shadow-lg">
                             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -324,8 +324,8 @@
             <!-- Left Column - Main Content -->
             <div class="lg:col-span-2 space-y-8">
                 <!-- Challenge Description Card -->
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="bg-primary-500 px-6 py-5">
+                <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-sm border border-slate-200 dark:border-gray-700 overflow-hidden">
+                    <div class="bg-aurora px-6 py-5">
                         <h2 class="text-lg font-bold !text-white flex items-center gap-3">
                             <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -345,7 +345,7 @@
                             <div class="absolute -inset-1 bg-secondary-500 rounded-2xl blur opacity-20"></div>
                             <div class="relative bg-gray-50 border border-indigo-200 rounded-2xl p-6">
                                 <div class="flex items-start gap-4">
-                                    <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                                    <div class="w-12 h-12 bg-aurora glow-primary-sm rounded-xl flex items-center justify-center flex-shrink-0">
                                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M13 7H7v6h6V7z"/>
                                             <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/>
@@ -366,8 +366,8 @@
                 </div>
 
                 <!-- Community Ideas Section -->
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="bg-white px-6 py-5 border-b border-primary-100">
+                <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-sm border border-slate-200 dark:border-gray-700 overflow-hidden">
+                    <div class="bg-white dark:bg-gray-800 px-6 py-5 border-b border-primary-100 dark:border-gray-700">
                         <div class="flex items-center justify-between">
                             <h2 class="text-lg font-bold text-primary-500 flex items-center gap-3">
                                 <div class="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
@@ -647,8 +647,8 @@
                                 <p class="text-sm text-slate-500">{{ __('This challenge has been closed and is no longer accepting new ideas.') }}</p>
                             </div>
                             @else
-                        <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden">
-                            <div class="bg-white px-6 py-5 border-b border-primary-100">
+                        <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-lg border border-slate-200 dark:border-gray-700 overflow-hidden">
+                            <div class="bg-white dark:bg-gray-800 px-6 py-5 border-b border-primary-100 dark:border-gray-700">
                                 <h3 class="text-lg font-bold text-primary-500 flex items-center gap-3">
                                     <div class="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
                                         <svg class="w-5 h-5 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
@@ -692,9 +692,7 @@
 
                                     <x-ui.button as="submit" variant="secondary" fullWidth size="lg">
                                         {{ __('Submit Idea') }}
-                                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                                        </svg>
+                                        <x-icon name="arrow-right" class="w-5 h-5 ml-2" />
                                     </x-ui.button>
                                 </form>
                             </div>
@@ -702,7 +700,7 @@
                             @endif
                         @else
                         <!-- Company View -->
-                        <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-6">
+                        <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-lg border border-slate-200 dark:border-gray-700 p-6">
                             <div class="text-center">
                                 <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                                     <svg class="w-8 h-8 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
@@ -716,7 +714,7 @@
                         @endif
                     @else
                     <!-- Guest CTA -->
-                    <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 text-center">
+                    <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-lg border border-slate-200 dark:border-gray-700 p-8 text-center">
                         <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
@@ -734,7 +732,7 @@
                     @endauth
 
                     <!-- Challenge Owner Info -->
-                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-sm border border-slate-200 dark:border-gray-700 p-6">
                         <h4 class="font-bold text-slate-900 mb-5 flex items-center gap-2">
                             <svg class="w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4z" clip-rule="evenodd"/>
@@ -742,7 +740,7 @@
                             {{ __('Posted By') }}
                         </h4>
                         <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 bg-primary-500 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                            <div class="w-14 h-14 bg-aurora glow-primary-sm rounded-2xl flex items-center justify-center text-white font-bold text-xl">
                                 {{ strtoupper(substr($challenge->company?->company_name ?? ($challenge->volunteer?->user?->name ?? 'C'), 0, 1)) }}
                             </div>
                             <div>
@@ -768,7 +766,7 @@
 
                     <!-- Top Contributors -->
                     @if($challenge->ideas->count() > 0)
-                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-sm border border-slate-200 dark:border-gray-700 p-6">
                         <h4 class="font-bold text-slate-900 mb-5 flex items-center gap-2">
                             <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/>
@@ -813,7 +811,7 @@
                     @endif
 
                     <!-- Participation Stats -->
-                    <div class="bg-primary-500 rounded-3xl shadow-lg p-6 !text-white" style="color: white !important;">
+                    <div class="bg-aurora rounded-3xl elevation-lg p-6 !text-white" style="color: white !important;">
                         <h4 class="font-bold mb-4 flex items-center gap-2 !text-white" style="color: white !important;">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>

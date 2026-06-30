@@ -1,11 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', __('Challenges Management'))
+@section('title', __('Challenges'))
+@section('page-title', __('Challenges Management'))
+@section('page-subtitle', __('View and manage all platform challenges'))
 
 @section('content')
-<div class="min-h-screen bg-gray-50" x-data="challengesManager()">
-    <!-- Premium Hero Header -->
-    <div class="relative overflow-hidden bg-primary-500 py-10 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+<div x-data="challengesManager()">
+    <!-- Header banner -->
+    <div class="relative overflow-hidden rounded-2xl mb-6" style="background: linear-gradient(135deg, #775FEE 0%, #5A3DEB 50%, #4338CA 100%)">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full "></div>
@@ -117,11 +119,11 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4">
+    <div class="-mt-4">
         <!-- Additional Stats Cards -->
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
             <!-- Total -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-primary-500 flex items-center justify-center">
                         <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +138,7 @@
             </div>
 
             <!-- Pending Review -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-yellow-100 flex items-center justify-center">
                         <svg class="h-5 w-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,7 +153,7 @@
             </div>
 
             <!-- Active -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-green-100 flex items-center justify-center">
                         <svg class="h-5 w-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +168,7 @@
             </div>
 
             <!-- Completed -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-emerald-100 flex items-center justify-center">
                         <svg class="h-5 w-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,7 +183,7 @@
             </div>
 
             <!-- This Month -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl bg-blue-100 flex items-center justify-center">
                         <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,7 +198,7 @@
             </div>
 
             <!-- Growth -->
-            <div class="bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="h-11 w-11 rounded-xl {{ $stats['growth_rate'] >= 0 ? 'bg-teal-100' : 'bg-red-100' }} flex items-center justify-center">
                         <svg class="h-5 w-5 {{ $stats['growth_rate'] >= 0 ? 'text-teal-600' : 'text-red-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -212,7 +214,7 @@
         </div>
 
         <!-- Filters Card -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
             <form method="GET" action="{{ route('admin.challenges.index') }}" id="filterForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                     <!-- Search -->
@@ -295,7 +297,7 @@
                 </div>
 
                 <!-- Sort & Buttons -->
-                <div class="flex flex-wrap items-end gap-4 mt-4 pt-4 border-t border-slate-100">
+                <div class="flex flex-wrap items-end gap-4 mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <div class="flex items-center gap-2">
                         <select name="sort_by" class="py-2.5 rounded-xl border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50 text-sm">
                             <option value="created_at" {{ request('sort_by') === 'created_at' ? 'selected' : '' }}>{{ __('Date Created') }}</option>
@@ -343,7 +345,7 @@
         <!-- Challenges List -->
         <div class="space-y-4">
             @forelse($challenges as $challenge)
-            <div class="group bg-white rounded-2xl shadow-sm border border-slate-200/60 hover:shadow-xl hover:border-indigo-200 overflow-hidden">
+            <div class="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:border-indigo-200 dark:hover:border-indigo-500/50 overflow-hidden">
                 <div class="p-6">
                     <div class="flex items-start gap-4">
                         <!-- Checkbox -->
@@ -463,7 +465,7 @@
                 @endif
             </div>
             @empty
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-12 text-center">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
                 <div class="h-20 w-20 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
                     <svg class="h-10 w-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>

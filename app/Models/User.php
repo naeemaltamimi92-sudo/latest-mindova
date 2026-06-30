@@ -31,6 +31,7 @@ class User extends Authenticatable
         'whatsapp_opted_in_at',
         'whatsapp_opted_out_at',
         'locale',
+        'is_demo',
         'two_factor_secret',
         'two_factor_recovery_codes',
         'two_factor_confirmed_at',
@@ -65,8 +66,32 @@ class User extends Authenticatable
             'whatsapp_opted_out_at' => 'datetime',
             'two_factor_confirmed_at' => 'datetime',
             'password_changed_at' => 'datetime',
+            'credits_balance' => 'integer',
         ];
     }
+
+    // -------------------------------------------------------------------------
+    // Credits helpers
+    // -------------------------------------------------------------------------
+
+    public function creditTransactions()
+    {
+        return $this->hasMany(CreditTransaction::class)->latest('created_at');
+    }
+
+    public function getCreditsAttribute(): int
+    {
+        return (int) $this->credits_balance;
+    }
+
+    public function canAfford(int $amount): bool
+    {
+        return $this->credits_balance >= $amount;
+    }
+
+    // -------------------------------------------------------------------------
+    // Relationships
+    // -------------------------------------------------------------------------
 
     /**
      * Get the volunteer profile if user is a volunteer.
@@ -187,6 +212,23 @@ class User extends Authenticatable
         } catch (\Exception $e) {
             return 0;
         }
+    }
+
+    /**
+     * Unified profile photo URL for the authenticated user.
+     * Resolves from volunteer->profile_picture or company->logo_path depending on user type.
+     */
+    public function getProfilePictureUrlAttribute(): ?string
+    {
+        if ($this->isVolunteer() && $this->volunteer?->profile_picture) {
+            return asset('storage/' . $this->volunteer->profile_picture);
+        }
+
+        if ($this->isCompany() && $this->company?->logo_path) {
+            return asset('storage/' . $this->company->logo_path);
+        }
+
+        return null;
     }
 
     /**

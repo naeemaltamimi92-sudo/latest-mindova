@@ -18,14 +18,12 @@
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
 
         {{-- Header --}}
-        <div class="bg-white rounded-xl border border-gray-200 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm mb-6">
             <div class="p-6">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
+                        <div class="w-12 h-12 bg-aurora rounded-lg flex items-center justify-center flex-shrink-0">
+                            <x-icon name="file-text" class="w-6 h-6 text-white" />
                         </div>
                         <div>
                             <h1 class="text-2xl font-bold text-gray-900">{{ __('Work Submissions') }}</h1>
@@ -63,7 +61,7 @@
                     @foreach($statItems as $stat)
                     <button
                         @click="activeFilter = '{{ $stat['key'] }}'"
-                        class="px-4 py-4 text-center border-b-2 transition-colors hover:bg-gray-50"
+                        class="px-4 py-4 text-center border-b-2 transition-premium hover:bg-gray-50 dark:hover:bg-gray-700/50"
                         :class="activeFilter === '{{ $stat['key'] }}' ? 'border-{{ $stat['color'] }}-500 bg-{{ $stat['color'] }}-50/30' : 'border-transparent'"
                     >
                         <div class="text-xl font-bold transition-colors"
@@ -95,9 +93,7 @@
                     <span class="font-medium">{{ session('success') }}</span>
                 </div>
                 <button @click="show = false" class="text-emerald-600 hover:text-emerald-800">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
+                    <x-icon name="x" class="w-5 h-5" />
                 </button>
             </div>
         </div>
@@ -149,7 +145,7 @@
 
             <div
                 x-show="activeFilter === 'all' || activeFilter === '{{ $submission->status }}'"
-                class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-gray-300 transition-colors"
+                class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm hover:elevation-md hover:border-gray-300 dark:hover:border-gray-600 transition-premium"
             >
                 <div class="p-5">
                     <div class="flex flex-col lg:flex-row lg:items-start gap-5">
@@ -180,9 +176,7 @@
 
                             {{-- Challenge --}}
                             <p class="text-sm text-gray-500 flex items-center gap-2 mb-4">
-                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                                </svg>
+                                <x-icon name="building" class="w-4 h-4 text-gray-400" />
                                 <span class="truncate">{{ $submission->task->challenge->title ?? 'Challenge' }}</span>
                             </p>
 
@@ -230,9 +224,7 @@
                                 @php $aiFeedback = is_string($submission->ai_feedback) ? json_decode($submission->ai_feedback, true) : $submission->ai_feedback; @endphp
                                 @if($aiFeedback && isset($aiFeedback['strengths']))
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-violet-50 text-violet-700 rounded-lg text-xs font-medium">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                                    </svg>
+                                    <x-icon name="sparkles" class="w-3.5 h-3.5" />
                                     {{ count($aiFeedback['strengths']) }} {{ __('strengths') }}
                                 </span>
                                 @endif
@@ -240,9 +232,7 @@
 
                                 @if($submission->reviewed_at)
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg text-xs font-medium">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                    </svg>
+                                    <x-icon name="check-circle" class="w-3.5 h-3.5" />
                                     {{ __('Reviewed') }}
                                 </span>
                                 @else
@@ -289,8 +279,8 @@
                             @endif
 
                             {{-- Review Button --}}
-                            <a href="{{ route('company.submissions.show', $submission->id) }}" 
-                                class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+                            <a href="{{ route('company.submissions.show', $submission->id) }}"
+                                class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-aurora text-white text-sm font-medium rounded-lg glow-primary-sm hover:glow-primary-md transition-premium">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -303,18 +293,14 @@
             </div>
             @empty
             {{-- Empty State --}}
-            <div class="bg-white rounded-xl border border-gray-200 p-12 text-center">
-                <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                    </svg>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-12 text-center">
+                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <x-icon name="file-text" class="w-8 h-8 text-gray-400" />
                 </div>
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('No Submissions Yet') }}</h3>
                 <p class="text-gray-500 mb-6 max-w-md mx-auto">{{ __('Work submissions from volunteers will appear here once they submit their deliverables for your challenges.') }}</p>
-                <a href="{{ route('challenges.index') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                    </svg>
+                <a href="{{ route('challenges.index') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-aurora text-white text-sm font-medium rounded-lg glow-primary-sm hover:glow-primary-md transition-premium">
+                    <x-icon name="building" class="w-4 h-4" />
                     {{ __('View Your Challenges') }}
                 </a>
             </div>

@@ -45,16 +45,16 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-8">
         <!-- Premium Filters Card -->
-        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 mb-8" style="animation-delay: 0.1s" x-data="{ complexity: '{{ request('complexity_max', 10) }}', showFilters: true }">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-md border border-slate-100 dark:border-gray-700 p-6 mb-8" style="animation-delay: 0.1s" x-data="{ complexity: '{{ request('complexity_max', 10) }}', showFilters: true }">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
-                    <div class="h-12 w-12 rounded-2xl bg-primary-500 flex items-center justify-center shadow-lg">
+                    <div class="h-12 w-12 rounded-2xl bg-aurora flex items-center justify-center glow-primary-sm">
                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold text-slate-900">{{ __('Filter Tasks') }}</h2>
+                        <h2 class="text-lg font-bold text-slate-900 dark:text-white">{{ __('Filter Tasks') }}</h2>
                         <p class="text-sm text-slate-500">{{ __('Find the perfect task for you') }}</p>
                     </div>
                 </div>
@@ -72,15 +72,15 @@
                         <svg class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
-                        <input type="text" name="skill" class="w-full pl-12 pr-4 py-3.5 rounded-xl border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50" placeholder="{{ __('Filter by skill...') }}" value="{{ request('skill') }}">
+                        <input type="text" name="skill" class="w-full pl-12 pr-4 py-3.5 rounded-xl border-slate-200 dark:border-gray-700 focus:border-primary-500 focus:ring-primary-500 bg-slate-50/50 dark:bg-gray-900/50" placeholder="{{ __('Filter by skill...') }}" value="{{ request('skill') }}">
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">
-                        {{ __('Max Complexity:') }} <span class="text-indigo-600 font-bold" x-text="complexity"></span>/10
+                        {{ __('Max Complexity:') }} <span class="text-primary-600 dark:text-primary-400 font-bold" x-text="complexity"></span>/10
                     </label>
                     <div class="pt-3">
-                        <input type="range" name="complexity_max" min="1" max="10" x-model="complexity" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <input type="range" name="complexity_max" min="1" max="10" x-model="complexity" class="w-full h-3 bg-slate-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary-600">
                         <div class="flex justify-between text-xs text-slate-400 mt-2">
                             <span>{{ __('Easy') }}</span>
                             <span>{{ __('Hard') }}</span>
@@ -101,18 +101,18 @@
         <!-- Tasks Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             @forelse($tasks as $index => $task)
-            <div class="task-card bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden" style="animation-delay: {{ 0.15 + ($index * 0.05) }}s">
+            <div class="task-card bg-white dark:bg-gray-800 rounded-3xl elevation-md border border-slate-100 dark:border-gray-700 overflow-hidden" style="animation-delay: {{ 0.15 + ($index * 0.05) }}s">
                 <!-- Top Accent Bar -->
-                <div class="h-1.5 bg-primary-500"></div>
+                <div class="h-1.5 bg-aurora"></div>
 
                 <div class="p-6">
                     <!-- Header -->
                     <div class="flex items-start justify-between mb-4">
                         <div class="flex-1">
-                            <h2 class="text-xl font-bold text-slate-900 mb-2 line-clamp-2 hover:text-indigo-600">
+                            <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 hover:text-primary-600 dark:hover:text-primary-400">
                                 {{ $task->title }}
                             </h2>
-                            <a href="{{ route('challenges.show', $task->challenge) }}" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-indigo-600">
+                            <a href="{{ route('challenges.show', $task->challenge) }}" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 dark:hover:text-primary-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                 </svg>
@@ -122,7 +122,7 @@
                         @if($task->complexity_score)
                         <div class="flex flex-col items-center">
                             <div class="w-14 h-14 rounded-2xl flex items-center justify-center font-black text-lg
-                                {{ $task->complexity_score <= 3 ? 'bg-emerald-100 text-emerald-600' : ($task->complexity_score <= 6 ? 'bg-amber-100 text-amber-600' : 'bg-red-100 text-red-600') }}">
+                                {{ $task->complexity_score <= 3 ? 'bg-emerald-50 text-emerald-600 border border-emerald-200' : ($task->complexity_score <= 6 ? 'bg-amber-50 text-amber-600 border border-amber-200' : 'bg-red-50 text-red-600 border border-red-200') }}">
                                 {{ $task->complexity_score }}
                             </div>
                             <span class="text-xs text-slate-400 mt-1">{{ __('Level') }}</span>
@@ -131,7 +131,7 @@
                     </div>
 
                     <!-- Description -->
-                    <p class="text-slate-600 text-sm leading-relaxed mb-5 line-clamp-3">
+                    <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-5 line-clamp-3">
                         {{ Str::limit($task->description, 180) }}
                     </p>
 
@@ -140,12 +140,12 @@
                     <div class="mb-5">
                         <div class="flex flex-wrap gap-2">
                             @foreach(array_slice($task->required_skills, 0, 4) as $skill)
-                            <span class="skill-badge px-3 py-1.5 bg-gray-50 text-indigo-700 rounded-lg text-xs font-semibold border border-indigo-100">
+                            <span class="skill-badge px-3 py-1.5 bg-primary-50 text-primary-700 rounded-lg text-xs font-semibold border border-primary-200">
                                 {{ $skill }}
                             </span>
                             @endforeach
                             @if(count($task->required_skills) > 4)
-                            <span class="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-semibold">
+                            <span class="px-3 py-1.5 bg-slate-100 dark:bg-gray-700 text-slate-600 dark:text-gray-300 rounded-lg text-xs font-semibold">
                                 +{{ count($task->required_skills) - 4 }}
                             </span>
                             @endif
@@ -156,7 +156,7 @@
                     <!-- Meta Info -->
                     <div class="flex flex-wrap items-center gap-4 mb-5 text-sm">
                         <div class="flex items-center gap-2 text-slate-500">
-                            <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                            <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center">
                                 <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -165,7 +165,7 @@
                         </div>
                         @if($task->deadline)
                         <div class="flex items-center gap-2 text-slate-500">
-                            <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center">
+                            <div class="w-8 h-8 rounded-lg bg-orange-50 border border-orange-200 flex items-center justify-center">
                                 <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
@@ -176,9 +176,9 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                        <span class="px-3 py-1.5 rounded-lg text-xs font-bold
-                            {{ $task->status === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700' }}">
+                    <div class="pt-4 border-t border-slate-100 dark:border-gray-700 flex items-center justify-between">
+                        <span class="px-3 py-1.5 rounded-lg text-xs font-bold border
+                            {{ $task->status === 'pending' ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-blue-50 text-blue-700 border-blue-200' }}">
                             {{ ucfirst($task->status) }}
                         </span>
                         <x-ui.button as="a" href="{{ route('tasks.show', $task->id) }}" variant="primary">
@@ -192,14 +192,14 @@
             </div>
             @empty
             <!-- Empty State -->
-            <div class="col-span-full bg-white rounded-3xl shadow-lg border border-slate-100 p-16 text-center">
+            <div class="col-span-full bg-white dark:bg-gray-800 rounded-3xl elevation-md border border-slate-100 dark:border-gray-700 p-16 text-center">
                 <div class="max-w-md mx-auto">
-                    <div class="w-24 h-24 bg-gray-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                    <div class="w-24 h-24 bg-gray-100 dark:bg-gray-700 rounded-3xl flex items-center justify-center mx-auto mb-6">
                         <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">{{ __('No Tasks Available') }}</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">{{ __('No Tasks Available') }}</h3>
                     <p class="text-slate-500 mb-6">{{ __('No available tasks matching your profile at the moment. Upload your CV to improve task matching!') }}</p>
                     <x-ui.button as="a" href="{{ route('profile.edit') }}" variant="primary" size="lg">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

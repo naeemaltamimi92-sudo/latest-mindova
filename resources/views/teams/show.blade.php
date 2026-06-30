@@ -57,10 +57,10 @@
 
             <!-- Challenge Link Card -->
             <div class="lg:w-72">
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl elevation-sm p-4">
                     <div class="flex items-center gap-2 mb-3">
-                        <div class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-8 h-8 bg-aurora rounded-lg flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                             </svg>
                         </div>
@@ -90,13 +90,13 @@
 
     <!-- Team Objectives -->
     @if($team->objectives && count($team->objectives) > 0)
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 elevation-sm p-6 mb-6">
         <h2 class="text-lg font-bold text-gray-900 mb-4">{{ __('Team Objectives') }}</h2>
         <ul class="space-y-3">
             @foreach($team->objectives as $objective)
             <li class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-5 h-5 bg-primary-100 rounded-lg flex items-center justify-center mt-0.5">
-                    <svg class="w-3 h-3 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex-shrink-0 w-5 h-5 bg-aurora rounded-lg flex items-center justify-center mt-0.5">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                     </svg>
                 </div>
@@ -109,7 +109,7 @@
 
     <!-- Skills Coverage -->
     @if($team->skills_coverage)
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 elevation-sm p-6 mb-6">
         <h2 class="text-lg font-bold text-gray-900 mb-4">{{ __('Skills Coverage') }}</h2>
 
         <!-- Coverage Progress -->
@@ -119,7 +119,7 @@
                 <span class="text-lg font-bold text-primary-600">{{ $team->skills_coverage['coverage_percentage'] ?? 0 }}%</span>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-primary-500 h-2 rounded-full" style="width: {{ $team->skills_coverage['coverage_percentage'] ?? 0 }}%"></div>
+                <div class="bg-aurora h-2 rounded-full transition-premium" style="width: {{ $team->skills_coverage['coverage_percentage'] ?? 0 }}%"></div>
             </div>
         </div>
 
@@ -148,11 +148,11 @@
     @endif
 
     <!-- Team Members -->
-    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 elevation-sm p-6 mb-8">
         <h2 class="text-lg font-bold text-gray-900 mb-4">{{ __('Team Members') }}</h2>
         <div class="space-y-3">
             @foreach($team->members as $member)
-            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200 {{ $member->status === 'invited' && $member->volunteer_id === auth()->user()->volunteer?->id ? 'bg-amber-50 border-amber-200' : '' }}">
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200 transition-premium {{ $member->status === 'invited' && $member->volunteer_id === auth()->user()->volunteer?->id ? 'bg-amber-50 border-amber-200' : '' }}">
                 <div class="flex items-start justify-between">
                     <div class="flex items-start gap-3 flex-1">
                         <!-- Avatar -->
@@ -332,12 +332,12 @@
     @endphp
 
     @if($isAcceptedMember)
-    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden" x-data="teamChat({{ $team->id }})">
+    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl elevation-sm overflow-hidden" x-data="teamChat({{ $team->id }})">
         <!-- Header -->
         <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-gray-50">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg bg-primary-100 flex items-center justify-center">
-                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-9 h-9 rounded-lg bg-aurora flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                     </svg>
                 </div>
@@ -388,8 +388,8 @@
                                 </div>
                                 
                                 <div class="px-4 py-2.5 text-sm leading-relaxed"
-                                     :class="message.user_id === {{ auth()->id() }} 
-                                        ? 'bg-primary-500 text-white rounded-2xl rounded-tr-sm' 
+                                     :class="message.user_id === {{ auth()->id() }}
+                                        ? 'bg-aurora text-white rounded-2xl rounded-tr-sm'
                                         : 'bg-white text-gray-800 border border-gray-200 rounded-2xl rounded-tl-sm'">
                                     <p x-text="message.message" class="whitespace-pre-wrap"></p>
                                 </div>
@@ -428,10 +428,10 @@
                         ></textarea>
                         
                         <div class="flex-shrink-0">
-                            <button 
-                                type="submit" 
+                            <button
+                                type="submit"
                                 :disabled="sending || !newMessage.trim()"
-                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-primary-500 text-white hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-aurora text-white glow-primary-sm hover:glow-primary-md disabled:opacity-50 disabled:cursor-not-allowed transition-premium"
                             >
                                 <svg x-show="!sending" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>

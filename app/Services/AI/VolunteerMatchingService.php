@@ -46,54 +46,57 @@ class VolunteerMatchingService extends AnthropicService
      */
     protected function getEligibleVolunteers(Task $task): Collection
     {
-        // Load the challenge to get the field
         $task->load('challenge');
         $challengeField = $task->challenge->field ?? null;
+        $taskHours = (float) ($task->estimated_hours ?? 8);
 
-        $query = Volunteer::with('skills', 'user')
-            ->where('ai_analysis_status', 'completed')
-            ->where('validation_status', 'passed')
-            ->where('availability_hours_per_week', '>=', 5); // Minimum availability
+        // Pre-fetch volunteer IDs already assigned to this specific task in one query
+        $alreadyAssignedIds = TaskAssignment::where('task_id', $task->id)
+            ->pluck('volunteer_id');
 
-        // Filter by field if challenge has a field specified
+        $query = Volunteer::with([
+            'skills',
+            'user',
+            // Eager-load active assignments WITH their task hours so we can
+            // do capacity math in PHP without N×2 extra queries
+            'taskAssignments' => function ($q) {
+                $q->whereIn('invitation_status', ['invited', 'accepted', 'in_progress', 'submitted'])
+                  ->with('task:id,estimated_hours');
+            },
+        ])
+        ->where('ai_analysis_status', 'completed')
+        ->where('validation_status', 'passed')
+        ->where('availability_hours_per_week', '>=', $taskHours);
+
         if ($challengeField) {
             $query->where('field', $challengeField);
         }
 
+        if ($alreadyAssignedIds->isNotEmpty()) {
+            $query->whereNotIn('id', $alreadyAssignedIds);
+        }
+
         $volunteers = $query->get();
 
-        \Log::info('Found volunteers before filtering', [
-            'task_id' => $task->id,
-            'count' => $volunteers->count(),
-            'volunteer_ids' => $volunteers->pluck('id')->toArray(),
+        \Log::info('Volunteers fetched before capacity filter', [
+            'task_id'   => $task->id,
+            'task_hours' => $taskHours,
+            'count'     => $volunteers->count(),
         ]);
 
-        $filtered = $volunteers->filter(function ($volunteer) use ($task) {
-                // Filter out volunteers who have ANY active assignment
-                // (only one task at a time until completion)
-                $hasActiveAssignment = TaskAssignment::where('volunteer_id', $volunteer->id)
-                    ->whereIn('invitation_status', ['invited', 'accepted', 'in_progress', 'submitted'])
-                    ->exists();
+        // Capacity-based filter: a contributor may hold multiple tasks as long
+        // as their committed hours don't exceed their stated weekly availability.
+        $filtered = $volunteers->filter(function (Volunteer $volunteer) use ($taskHours) {
+            $committedHours = $volunteer->taskAssignments->sum(
+                fn ($assignment) => (float) ($assignment->task->estimated_hours ?? 8)
+            );
+            $remainingCapacity = (float) $volunteer->availability_hours_per_week - $committedHours;
+            return $remainingCapacity >= $taskHours;
+        });
 
-                if ($hasActiveAssignment) {
-                    \Log::info('Volunteer has active assignment, skipping', [
-                        'volunteer_id' => $volunteer->id,
-                        'task_id' => $task->id,
-                    ]);
-                    return false;
-                }
-
-                // Also filter out volunteers already assigned to this specific task
-                $isAssignedToThisTask = TaskAssignment::where('task_id', $task->id)
-                    ->where('volunteer_id', $volunteer->id)
-                    ->exists();
-
-                return !$isAssignedToThisTask;
-            });
-
-        \Log::info('Volunteers after assignment filtering', [
+        \Log::info('Volunteers after capacity filter', [
             'task_id' => $task->id,
-            'count' => $filtered->count(),
+            'count'   => $filtered->count(),
         ]);
 
         return $filtered;

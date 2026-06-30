@@ -2,368 +2,349 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate {{ $certificate->certificate_number }}</title>
+    <title>{{ $certificate->certificate_number }}</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        @page {
-            size: A4 landscape;
-            margin: 0;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @page { size: A4 landscape; margin: 0; }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 40px;
-            color: #333;
+            font-family: 'DejaVu Serif', Georgia, serif;
+            background: #0f172a;
+            padding: 28px;
+            color: #1e293b;
         }
 
-        .certificate {
-            background: white;
-            border: 20px solid #2c3e50;
-            border-image: linear-gradient(45deg, #3498db, #2c3e50) 1;
-            padding: 60px;
-            max-width: 1000px;
+        .cert {
+            background: #ffffff;
+            max-width: 970px;
             margin: 0 auto;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             position: relative;
+            overflow: hidden;
         }
 
-        .certificate::before {
-            content: '';
-            position: absolute;
-            top: 30px;
-            left: 30px;
-            right: 30px;
-            bottom: 30px;
-            border: 2px solid #3498db;
-            pointer-events: none;
+        /* Decorative top bar */
+        .cert-topbar {
+            height: 8px;
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 40%, #0ea5e9 100%);
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
+        /* Side accent */
+        .cert-body {
+            display: flex;
+            min-height: 560px;
         }
 
-        .logos {
+        .cert-sidebar {
+            width: 8px;
+            background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 50%, #0ea5e9 100%);
+            flex-shrink: 0;
+        }
+
+        .cert-main {
+            flex: 1;
+            padding: 40px 48px 36px 40px;
+        }
+
+        /* Header row */
+        .header-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+            align-items: flex-start;
+            margin-bottom: 28px;
         }
 
-        .logo {
-            max-width: 120px;
-            max-height: 80px;
-        }
-
-        .logo-placeholder {
-            width: 120px;
-            height: 80px;
-            background: #ecf0f1;
-            border-radius: 8px;
+        .brand {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #7f8c8d;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        .title {
-            font-size: 42px;
-            font-weight: bold;
-            color: #2c3e50;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin: 20px 0;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 15px;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: #7f8c8d;
-            margin-bottom: 30px;
-        }
-
-        .volunteer-name {
-            font-size: 36px;
-            font-weight: bold;
-            color: #3498db;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .intro-text {
-            font-size: 16px;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        .role {
-            font-size: 24px;
-            color: #2c3e50;
-            text-align: center;
-            margin: 20px 0;
-            font-style: italic;
-        }
-
-        .challenge-info {
-            background: #ecf0f1;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 30px 0;
-        }
-
-        .challenge-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .challenge-domain {
-            font-size: 16px;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-        }
-
-        .section {
-            margin: 25px 0;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #3498db;
-        }
-
-        .contribution-summary {
-            font-size: 15px;
-            line-height: 1.8;
-            color: #555;
-            text-align: justify;
-        }
-
-        .time-info {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-        }
-
-        .time-box {
-            text-align: center;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            min-width: 120px;
-        }
-
-        .time-label {
-            font-size: 12px;
-            color: #7f8c8d;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .time-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        .contribution-types {
-            display: flex;
-            flex-wrap: wrap;
             gap: 10px;
-            margin: 15px 0;
+        }
+        .brand-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold; font-size: 16px;
+        }
+        .brand-name { font-size: 18px; font-weight: bold; color: #1e293b; letter-spacing: 0.5px; }
+        .brand-sub  { font-size: 10px; color: #64748b; letter-spacing: 1px; text-transform: uppercase; }
+
+        .cert-type-badge {
+            text-align: right;
+        }
+        .cert-type-badge .label {
+            font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #6366f1; font-weight: bold;
+        }
+        .cert-type-badge .type {
+            font-size: 22px; font-weight: bold; color: #1e293b; line-height: 1.2;
         }
 
-        .contribution-tag {
-            background: #3498db;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
+        /* Divider */
+        .divider { height: 1px; background: #e2e8f0; margin: 0 0 24px 0; }
+
+        /* Recipient */
+        .recipient-section { margin-bottom: 20px; }
+        .recipient-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #64748b; margin-bottom: 4px; }
+        .recipient-name  { font-size: 32px; font-weight: bold; color: #0f172a; line-height: 1.1; }
+        .recipient-role  { font-size: 13px; color: #6366f1; font-weight: 600; margin-top: 4px; }
+
+        /* Details grid */
+        .details-grid {
+            display: table;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .details-row { display: table-row; }
+        .detail-cell {
+            display: table-cell;
+            vertical-align: top;
+            padding: 4px 16px 4px 0;
+            width: 33%;
+        }
+        .detail-key   { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: #94a3b8; margin-bottom: 2px; }
+        .detail-value { font-size: 12px; color: #1e293b; font-weight: 600; }
+
+        /* Contribution summary */
+        .summary-box {
+            background: #f8fafc;
+            border-left: 3px solid #6366f1;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 0 6px 6px 0;
+        }
+        .summary-box .label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: #94a3b8; margin-bottom: 4px; }
+        .summary-box p { font-size: 11.5px; color: #334155; line-height: 1.6; }
+
+        /* Technologies */
+        .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; }
+        .tag {
+            background: #ede9fe; color: #5b21b6;
+            font-size: 10px; font-weight: 600;
+            padding: 3px 10px; border-radius: 20px;
         }
 
-        .footer {
-            margin-top: 40px;
+        /* Footer: signatures + QR */
+        .footer-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
         }
 
-        .footer-column {
-            text-align: center;
-            flex: 1;
-        }
+        .sig-block { text-align: center; min-width: 130px; }
+        .sig-line  { border-bottom: 1px solid #1e293b; height: 28px; margin-bottom: 4px; }
+        .sig-name  { font-size: 11px; font-weight: 700; color: #0f172a; }
+        .sig-title { font-size: 9px; color: #64748b; letter-spacing: 0.5px; }
 
-        .signature-line {
-            border-top: 2px solid #2c3e50;
-            margin: 40px 20px 10px 20px;
-            padding-top: 10px;
-            font-size: 14px;
-            color: #555;
-        }
+        .qr-block { text-align: center; }
+        .qr-block img { width: 72px; height: 72px; display: block; margin: 0 auto 4px; }
+        .qr-label { font-size: 8px; color: #94a3b8; letter-spacing: 0.5px; }
 
-        .company-name {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .certificate-meta {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #7f8c8d;
-        }
-
-        .certificate-number {
-            font-weight: bold;
-            color: #3498db;
-            letter-spacing: 1px;
-        }
-
-        .seal {
+        /* Expert seal */
+        .expert-seal {
             position: absolute;
-            bottom: 80px;
-            right: 80px;
-            width: 100px;
-            height: 100px;
-            border: 3px solid #3498db;
+            top: 36px; right: 40px;
+            width: 80px; height: 80px;
+            border: 3px solid #10b981;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background: white;
-            transform: rotate(-15deg);
-        }
-
-        .seal-text {
-            font-size: 10px;
-            font-weight: bold;
-            color: #3498db;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             text-align: center;
+            padding: 8px;
+        }
+        .expert-seal .seal-text { font-size: 7.5px; font-weight: bold; color: #10b981; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.3; }
+
+        /* Cert number footer */
+        .cert-footer-bar {
+            background: #f1f5f9;
+            padding: 8px 48px 8px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cert-footer-bar .cert-num  { font-size: 10px; font-family: 'DejaVu Sans Mono', monospace; color: #475569; }
+        .cert-footer-bar .cert-hash { font-size: 8px; font-family: 'DejaVu Sans Mono', monospace; color: #94a3b8; }
+
+        /* Bottom bar */
+        .cert-bottombar {
+            height: 6px;
+            background: linear-gradient(90deg, #0ea5e9 0%, #8b5cf6 60%, #6366f1 100%);
         }
     </style>
 </head>
 <body>
-    <div class="certificate">
-        <div class="header">
-            <div class="logos">
-                <div>
-                    @if($certificate->company_logo_path)
-                        <img src="{{ storage_path('app/public/' . $certificate->company_logo_path) }}" alt="Company Logo" class="logo">
-                    @else
-                        <div class="logo-placeholder">Company<br>Logo</div>
-                    @endif
+<div class="cert">
+    <div class="cert-topbar"></div>
+    <div class="cert-body">
+        <div class="cert-sidebar"></div>
+        <div class="cert-main">
+
+            {{-- Header --}}
+            <div class="header-row">
+                <div class="brand">
+                    <div class="brand-icon">M</div>
+                    <div>
+                        <div class="brand-name">Mindova</div>
+                        <div class="brand-sub">Verified Professional Credential</div>
+                    </div>
                 </div>
-                <div>
-                    <div class="logo-placeholder">MINDOVA<br>Platform</div>
+                <div class="cert-type-badge">
+                    <div class="label">Certificate of</div>
+                    <div class="type">{{ ucfirst($certificate->certificate_type) }}</div>
                 </div>
             </div>
 
-            <div class="title">Certificate of {{ ucfirst($certificate->certificate_type) }}</div>
-            <div class="subtitle">This is to certify that</div>
-        </div>
-
-        <div class="volunteer-name">{{ $certificate->volunteer->name }}</div>
-
-        <div class="intro-text">
-            Has successfully participated in and contributed to the following challenge<br>
-            through the MINDOVA Platform
-        </div>
-
-        <div class="role">{{ $certificate->role }}</div>
-
-        <div class="challenge-info">
-            <div class="challenge-title">{{ $certificate->challenge->title }}</div>
-            <div class="challenge-domain">Domain: {{ $certificate->challenge->domain ?? 'General' }}</div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Contribution Summary</div>
-            <div class="contribution-summary">
-                {{ $certificate->contribution_summary }}
+            {{-- Expert seal (only when expert-approved) --}}
+            @if($certificate->isExpertApproved())
+            <div class="expert-seal" style="position: absolute; top: 44px; left: 50%; transform: translateX(-50%);">
+                <div class="seal-text">Expert<br>Approved<br>✓</div>
             </div>
-        </div>
+            @endif
 
-        @if(!empty($certificate->contribution_types))
-        <div class="section">
-            <div class="section-title">Areas of Contribution</div>
-            <div class="contribution-types">
-                @foreach($certificate->contribution_types as $type)
-                    <div class="contribution-tag">{{ $type }}</div>
-                @endforeach
+            <div class="divider"></div>
+
+            {{-- Recipient --}}
+            <div class="recipient-section">
+                <div class="recipient-label">This certifies that</div>
+                <div class="recipient-name">{{ $certificate->user->name ?? 'Contributor' }}</div>
+                <div class="recipient-role">{{ $certificate->role }}</div>
             </div>
-        </div>
-        @endif
 
-        <div class="section">
-            <div class="section-title">Time Investment</div>
-            <div class="time-info">
-                <div class="time-box">
-                    <div class="time-label">Total Hours</div>
-                    <div class="time-value">{{ number_format($certificate->total_hours, 1) }}h</div>
+            {{-- Challenge + Company --}}
+            <div class="details-grid">
+                <div class="details-row">
+                    <div class="detail-cell">
+                        <div class="detail-key">Challenge</div>
+                        <div class="detail-value">{{ Str::limit($certificate->challenge->title ?? '—', 45) }}</div>
+                    </div>
+                    <div class="detail-cell">
+                        <div class="detail-key">
+                            @if($certificate->show_company_name) Company @else Industry @endif
+                        </div>
+                        <div class="detail-value">
+                            @if($certificate->show_company_name)
+                                {{ $certificate->company?->company?->company_name ?? $certificate->company?->name ?? '—' }}
+                            @else
+                                {{ $certificate->industry ?? $certificate->challenge?->field ?? '—' }}
+                            @endif
+                        </div>
+                    </div>
+                    <div class="detail-cell">
+                        <div class="detail-key">Industry Sector</div>
+                        <div class="detail-value">{{ $certificate->industry ?? $certificate->challenge?->field ?? '—' }}</div>
+                    </div>
                 </div>
-                @if($certificate->time_breakdown)
-                    <div class="time-box">
-                        <div class="time-label">Analysis</div>
-                        <div class="time-value">{{ number_format($certificate->time_breakdown['analysis'], 1) }}h</div>
+                <div class="details-row">
+                    <div class="detail-cell">
+                        <div class="detail-key">Verified Hours</div>
+                        <div class="detail-value">{{ number_format($certificate->total_hours, 1) }} hours</div>
                     </div>
-                    <div class="time-box">
-                        <div class="time-label">Execution</div>
-                        <div class="time-value">{{ number_format($certificate->time_breakdown['execution'], 1) }}h</div>
+                    <div class="detail-cell">
+                        <div class="detail-key">Project Duration</div>
+                        <div class="detail-value">{{ $certificate->project_duration ?? '—' }}</div>
                     </div>
-                    <div class="time-box">
-                        <div class="time-label">Review</div>
-                        <div class="time-value">{{ number_format($certificate->time_breakdown['review'], 1) }}h</div>
+                    <div class="detail-cell">
+                        <div class="detail-key">Completion Date</div>
+                        <div class="detail-value">{{ $certificate->issued_at?->format('d M Y') ?? now()->format('d M Y') }}</div>
                     </div>
+                </div>
+                @if($certificate->isExpertApproved())
+                <div class="details-row">
+                    <div class="detail-cell">
+                        <div class="detail-key">Expert Approval</div>
+                        <div class="detail-value" style="color:#10b981;">{{ $certificate->expertVolunteer?->user?->name ?? 'Verified Expert' }}</div>
+                    </div>
+                    <div class="detail-cell">
+                        <div class="detail-key">Approved On</div>
+                        <div class="detail-value">{{ $certificate->expert_approved_at?->format('d M Y') ?? '—' }}</div>
+                    </div>
+                    <div class="detail-cell"></div>
+                </div>
                 @endif
             </div>
-        </div>
 
-        <div class="footer">
-            <div class="footer-column">
-                <div class="signature-line">
-                    <span class="company-name">{{ $certificate->company->name ?? 'Company Representative' }}</span><br>
-                    Company Representative
-                </div>
+            {{-- Contribution Summary --}}
+            <div class="summary-box">
+                <div class="label">Nature of Contribution</div>
+                <p>{{ $certificate->contribution_summary }}</p>
             </div>
-            <div class="footer-column">
-                <div class="signature-line">
-                    MINDOVA Platform<br>
-                    Platform Authority
-                </div>
-            </div>
-        </div>
 
-        <div class="certificate-meta">
-            Certificate Number: <span class="certificate-number">{{ $certificate->certificate_number }}</span><br>
-            Issued on: {{ $certificate->issued_at?->format('F d, Y') ?? $certificate->created_at->format('F d, Y') }}
-            @if($certificate->is_revoked)
-                <br><strong style="color: #e74c3c;">REVOKED</strong> on {{ $certificate->revoked_at?->format('F d, Y') ?? __('Unknown date') }}
-                <br>Reason: {{ $certificate->revocation_reason }}
+            {{-- Technologies / Disciplines --}}
+            @if(!empty($certificate->technologies) || !empty($certificate->contribution_types))
+            <div class="tags">
+                @foreach(array_merge($certificate->technologies ?? [], $certificate->contribution_types ?? []) as $tag)
+                <span class="tag">{{ $tag }}</span>
+                @endforeach
+            </div>
             @endif
-        </div>
 
-        @if(!$certificate->is_revoked)
-        <div class="seal">
-            <div class="seal-text">VERIFIED<br>MINDOVA</div>
+            {{-- Footer: Signatures + QR --}}
+            <div class="footer-row">
+                <div class="sig-block">
+                    <div class="sig-line"></div>
+                    <div class="sig-name">
+                        @if($certificate->show_company_name)
+                            {{ $certificate->company?->company?->company_name ?? 'Company Representative' }}
+                        @else
+                            Company Representative
+                        @endif
+                    </div>
+                    <div class="sig-title">Company Digital Stamp</div>
+                </div>
+
+                @if($certificate->isExpertApproved())
+                <div class="sig-block">
+                    <div class="sig-line"></div>
+                    <div class="sig-name">{{ $certificate->expertVolunteer?->user?->name ?? 'Expert' }}</div>
+                    <div class="sig-title">Verified Expert</div>
+                </div>
+                @endif
+
+                <div class="sig-block">
+                    <div class="sig-line"></div>
+                    <div class="sig-name">Mindova Platform</div>
+                    <div class="sig-title">Platform Authority</div>
+                </div>
+
+                {{-- QR Code --}}
+                <div class="qr-block">
+                    @php
+                        try {
+                            $renderer = new \BaconQrCode\Renderer\ImageRenderer(
+                                new \BaconQrCode\Renderer\RendererStyle\RendererStyle(72),
+                                new \BaconQrCode\Renderer\Image\SvgImageBackEnd()
+                            );
+                            $writer = new \BaconQrCode\Writer($renderer);
+                            $qrSvg = $writer->writeString(url('/certificates/verify?id=' . $certificate->certificate_number));
+                            $qrBase64 = 'data:image/svg+xml;base64,' . base64_encode($qrSvg);
+                        } catch (\Exception $e) {
+                            $qrBase64 = null;
+                        }
+                    @endphp
+                    @if($qrBase64)
+                    <img src="{{ $qrBase64 }}" alt="Verify Certificate">
+                    @endif
+                    <div class="qr-label">SCAN TO VERIFY</div>
+                </div>
+            </div>
+
         </div>
-        @endif
     </div>
+
+    {{-- Certificate Number + Hash Bar --}}
+    <div class="cert-footer-bar">
+        <span class="cert-num">
+            {{ $certificate->certificate_number }}
+            @if($certificate->is_revoked)
+                — <strong style="color:#ef4444;">REVOKED</strong>
+            @endif
+        </span>
+        <span class="cert-hash">
+            SHA-256: {{ $certificate->verification_hash ? substr($certificate->verification_hash, 0, 32) . '…' : 'PENDING' }}
+        </span>
+    </div>
+    <div class="cert-bottombar"></div>
+</div>
 </body>
 </html>

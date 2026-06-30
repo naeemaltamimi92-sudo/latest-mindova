@@ -67,4 +67,26 @@ Alpine.data('progressChart', (percentage, label = '', color = null) => ({
     }
 }));
 
+// Dark / night mode toggle — used by navbar-mobile and landing page buttons
+Alpine.data('themeToggle', () => ({
+    isDark: false,
+
+    init() {
+        // Platform default is light; only an explicit 'dark' choice overrides it
+        const stored = localStorage.getItem('mindova-theme');
+        this.isDark = stored === 'dark';
+        this._apply();
+    },
+
+    toggle() {
+        this.isDark = !this.isDark;
+        localStorage.setItem('mindova-theme', this.isDark ? 'dark' : 'light');
+        this._apply();
+    },
+
+    _apply() {
+        document.documentElement.classList.toggle('dark', this.isDark);
+    }
+}));
+
 Alpine.start();

@@ -1,11 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', __('Contributors Management'))
+@section('title', __('Contributors'))
+@section('page-title', __('Contributors Management'))
+@section('page-subtitle', __('View and manage all contributors on the platform'))
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
-    <!-- Premium Header -->
-    <div class="relative overflow-hidden bg-primary-500 py-10 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+<div>
+    <!-- Header banner -->
+    <div class="relative overflow-hidden rounded-2xl mb-6" style="background: linear-gradient(135deg, #10B981 0%, #059669 50%, #0D9488 100%)">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full "></div>
@@ -103,7 +105,7 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4">
+    <div class="-mt-4">
         <!-- Premium Filters Card -->
         <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 mb-8 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-50 rounded-full -translate-y-1/2 translate-x-1/2"></div>

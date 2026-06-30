@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Mobile\MobileAuthController;
+use App\Http\Controllers\Api\Mobile\MobileDashboardController;
+use App\Http\Controllers\Api\Mobile\MobileChallengeController;
+use App\Http\Controllers\Api\Mobile\MobileProfileController;
 use App\Http\Controllers\Auth\LinkedInAuthController;
 use App\Http\Controllers\Volunteer\VolunteerController;
 use App\Http\Controllers\Company\CompanyController;
@@ -21,6 +25,41 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// ─── Mobile Auth Routes ────────────────────────────────────────────────────
+Route::prefix('mobile/auth')->group(function () {
+    Route::post('login',           [MobileAuthController::class, 'login']);
+    Route::post('register',        [MobileAuthController::class, 'register']);
+    Route::post('forgot-password', [MobileAuthController::class, 'forgotPassword']);
+    Route::post('reset-password',  [MobileAuthController::class, 'resetPassword']);
+    Route::post('logout',          [MobileAuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::get('me',               [MobileAuthController::class, 'me'])->middleware('auth:sanctum');
+});
+
+// ─── Mobile Protected Routes ───────────────────────────────────────────────
+Route::prefix('mobile')->middleware('auth:sanctum')->group(function () {
+    // Dashboard
+    Route::get('dashboard',                       [MobileDashboardController::class, 'index']);
+    Route::get('notifications',                   [MobileDashboardController::class, 'notifications']);
+    Route::post('notifications/{id}/read',        [MobileDashboardController::class, 'markNotificationRead']);
+    Route::post('notifications/read-all',         [MobileDashboardController::class, 'markAllNotificationsRead']);
+
+    // Challenges
+    Route::get('challenges',                      [MobileChallengeController::class, 'index']);
+    Route::post('challenges',                     [MobileChallengeController::class, 'store']);
+    Route::get('challenges/my',                   [MobileChallengeController::class, 'myChallenges']);
+    Route::get('challenges/community',            [MobileChallengeController::class, 'community']);
+    Route::get('challenges/{challenge}',          [MobileChallengeController::class, 'show']);
+    Route::post('challenges/{challenge}/ideas',   [MobileChallengeController::class, 'postIdea']);
+
+    // Profile
+    Route::get('profile',                         [MobileProfileController::class, 'show']);
+    Route::put('profile/volunteer',               [MobileProfileController::class, 'updateVolunteer']);
+    Route::put('profile/company',                 [MobileProfileController::class, 'updateCompany']);
+    Route::post('profile/picture',                [MobileProfileController::class, 'uploadProfilePicture']);
+    Route::get('profile/certificates',            [MobileProfileController::class, 'certificates']);
+    Route::post('profile/change-password',        [MobileProfileController::class, 'changePassword']);
+});
 
 // Authentication Routes
 Route::prefix('auth')->group(function () {

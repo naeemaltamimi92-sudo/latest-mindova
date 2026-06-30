@@ -25,8 +25,8 @@ class ReputationHistory extends Model
     protected function casts(): array
     {
         return [
-            'change_amount' => 'decimal:2',
-            'new_total' => 'decimal:2',
+            'change_amount' => 'integer',
+            'new_total' => 'integer',
             'created_at' => 'datetime',
         ];
     }

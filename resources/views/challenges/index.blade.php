@@ -30,7 +30,7 @@
                 <p class="text-gray-500 mt-1">{{ __('Browse and manage your challenges') }}</p>
             </div>
             @if(auth()->user()->isCompany())
-            <a href="{{ route('challenges.create') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+            <a href="{{ route('challenges.create') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-aurora glow-primary-sm hover:glow-primary-md text-white text-sm font-medium rounded-lg transition-premium">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                 </svg>
@@ -48,8 +48,8 @@
             
             {{-- Filter Toggle & Active Filters --}}
             <div class="flex flex-wrap items-center gap-3 mb-4">
-                <button @click="showFilters = !showFilters" 
-                    class="inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-colors">
+                <button @click="showFilters = !showFilters"
+                    class="inline-flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-premium">
                     <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                     </svg>
@@ -88,7 +88,7 @@
             </div>
 
             {{-- Filter Panel --}}
-            <div x-show="showFilters" x-cloak class="bg-white rounded-xl border border-gray-200 p-5">
+            <div x-show="showFilters" x-cloak class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-5">
                 <form method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {{-- Status Filter --}}
                     <div>
@@ -162,7 +162,7 @@
 
                     {{-- Apply Button --}}
                     <div class="flex items-end">
-                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-aurora glow-primary-sm hover:glow-primary-md text-white text-sm font-medium rounded-lg transition-premium">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
@@ -177,11 +177,11 @@
         @if($challenges->count() > 0)
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             @foreach($challenges as $challenge)
-            <a href="{{ route('challenges.show', $challenge->id) }}" 
-                class="group bg-white rounded-xl border border-gray-200 p-5 hover:border-gray-300 transition-colors">
-                
+            <a href="{{ route('challenges.show', $challenge->id) }}"
+                class="group relative bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 elevation-sm hover:elevation-md hover:border-gray-300 transition-premium">
+
                 {{-- Status Bar --}}
-                <div class="absolute top-0 left-0 right-0 h-1 rounded-t-xl
+                <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl
                     @if($challenge->status === 'active') bg-emerald-500
                     @elseif($challenge->status === 'analyzing') bg-amber-500
                     @elseif($challenge->status === 'submitted') bg-violet-500
@@ -207,7 +207,7 @@
                 </div>
 
                 {{-- Title --}}
-                <h2 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                <h2 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-premium">
                     {{ $challenge->title }}
                 </h2>
 
@@ -241,8 +241,8 @@
                 </div>
 
                 {{-- Footer --}}
-                <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
-                    <span class="text-sm font-medium text-primary-600 group-hover:text-primary-700 inline-flex items-center gap-1">
+                <div class="pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                    <span class="text-sm font-medium text-primary-600 group-hover:text-primary-700 inline-flex items-center gap-1 transition-premium">
                         {{ __('View Details') }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -263,20 +263,18 @@
 
         @else
         {{-- Empty State --}}
-        <div class="bg-white rounded-xl border border-gray-200 p-12 text-center">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-12 text-center">
             <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                </svg>
+                <x-icon name="file-text" class="w-8 h-8 text-gray-400" />
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('No Challenges Found') }}</h3>
             <p class="text-gray-500 mb-6 max-w-md mx-auto">{{ __('Try adjusting your filters or check back later for new challenges.') }}</p>
             <div class="flex flex-col sm:flex-row justify-center gap-3">
-                <a href="{{ route('challenges.index') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+                <a href="{{ route('challenges.index') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-aurora glow-primary-sm hover:glow-primary-md text-white text-sm font-medium rounded-lg transition-premium">
                     {{ __('Clear Filters') }}
                 </a>
                 @if(auth()->user()->isCompany())
-                <a href="{{ route('challenges.create') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-colors">
+                <a href="{{ route('challenges.create') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-premium">
                     {{ __('Create Challenge') }}
                 </a>
                 @endif

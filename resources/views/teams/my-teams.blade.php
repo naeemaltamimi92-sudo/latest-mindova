@@ -29,7 +29,7 @@
 
     <!-- Tab Navigation -->
     <div x-data="{ activeTab: '{{ $pendingTeams->count() > 0 ? 'pending' : 'active' }}' }" class="mb-6">
-        <div class="bg-white border border-gray-200 rounded-xl p-1.5 flex flex-wrap gap-1">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl elevation-sm p-1.5 flex flex-wrap gap-1">
             <button @click="activeTab = 'pending'"
                     :class="activeTab === 'pending' ? 'bg-amber-100 text-amber-700 border-amber-200' : 'text-gray-600 hover:bg-gray-50 border-transparent'"
                     class="flex-1 sm:flex-none whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm border flex items-center justify-center gap-2">
@@ -92,7 +92,7 @@
                     @php
                         $myMembership = $team->members->where('volunteer_id', auth()->user()->volunteer->id)->first();
                     @endphp
-                    <div class="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden">
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl elevation-sm hover:elevation-md transition-premium overflow-hidden">
                         <div class="p-5">
                             <div class="flex flex-col lg:flex-row lg:items-start gap-4">
                                 <!-- Team Info -->
@@ -263,7 +263,7 @@
                         $totalCount = $team->members->count();
                         $acceptanceRate = $totalCount > 0 ? ($acceptedCount / $totalCount) * 100 : 0;
                     @endphp
-                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl elevation-sm hover:elevation-md transition-premium overflow-hidden">
                         <!-- Card Header -->
                         <div class="px-4 py-4 border-b border-gray-100
                             {{ $team->status === 'active' ? 'bg-emerald-50' : ($team->status === 'forming' ? 'bg-amber-50' : 'bg-blue-50') }}">
@@ -388,9 +388,7 @@
                 <!-- Empty Active State -->
                 <div class="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
                     <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
+                        <x-icon name="users" class="w-8 h-8 text-emerald-600" />
                     </div>
                     <h2 class="text-lg font-bold text-gray-900 mb-1">{{ __('No Active Teams') }}</h2>
                     <p class="text-gray-500 text-sm max-w-md mx-auto mb-4">
@@ -416,7 +414,7 @@
                     @php
                         $myMembership = $team->members->where('volunteer_id', auth()->user()->volunteer->id)->first();
                     @endphp
-                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 opacity-75">
+                    <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 opacity-75">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                             <div class="flex-1">
                                 <div class="flex items-center gap-2 mb-1">
@@ -449,9 +447,7 @@
                 <!-- Empty Declined State -->
                 <div class="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
                     <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
+                        <x-icon name="check-circle" class="w-8 h-8 text-gray-400" />
                     </div>
                     <h2 class="text-lg font-bold text-gray-900 mb-1">{{ __('No Declined Invitations') }}</h2>
                     <p class="text-gray-500 text-sm max-w-md mx-auto">
@@ -464,9 +460,9 @@
 
     @else
     <!-- No Teams Empty State -->
-    <div class="bg-white border border-gray-200 rounded-xl p-12 text-center">
-        <div class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl elevation-sm p-12 text-center">
+        <div class="w-16 h-16 bg-aurora rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
         </div>

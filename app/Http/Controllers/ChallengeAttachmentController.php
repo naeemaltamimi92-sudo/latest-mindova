@@ -23,7 +23,7 @@ class ChallengeAttachmentController extends Controller
     public function upload(Request $request, Challenge $challenge): JsonResponse
     {
         // Check if user owns the challenge
-        if ($challenge->company_id !== auth()->user()->company->id) {
+        if (!auth()->user()->company || $challenge->company_id !== auth()->user()->company->id) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized to upload attachments for this challenge'
@@ -141,7 +141,7 @@ class ChallengeAttachmentController extends Controller
     public function destroy(Challenge $challenge, ChallengeAttachment $attachment): JsonResponse
     {
         // Check if user owns the challenge
-        if ($challenge->company_id !== auth()->user()->company->id) {
+        if (!auth()->user()->company || $challenge->company_id !== auth()->user()->company->id) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized to delete attachments for this challenge'

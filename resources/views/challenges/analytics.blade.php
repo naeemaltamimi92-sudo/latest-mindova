@@ -32,7 +32,7 @@
         {{-- Key Metrics Cards --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {{-- Completion Rate --}}
-            <div class="bg-white rounded-xl border border-gray-200 p-5">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium p-5">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-9 h-9 bg-emerald-100 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
@@ -50,7 +50,7 @@
             </div>
 
             {{-- Active Contributors --}}
-            <div class="bg-white rounded-xl border border-gray-200 p-5">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium p-5">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-9 h-9 bg-primary-100 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
@@ -66,7 +66,7 @@
             </div>
 
             {{-- Total Hours --}}
-            <div class="bg-white rounded-xl border border-gray-200 p-5">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium p-5">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-9 h-9 bg-amber-100 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
@@ -82,7 +82,7 @@
             </div>
 
             {{-- Response Time --}}
-            <div class="bg-white rounded-xl border border-gray-200 p-5">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium p-5">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
@@ -100,7 +100,7 @@
 
         @if($challenge->challenge_type === 'team_execution')
         {{-- Task Progress Section --}}
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium overflow-hidden mb-6">
             <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h2 class="text-base font-semibold text-gray-900 flex items-center gap-2">
                     <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -189,7 +189,7 @@
         {{-- Contributor & Status Grid --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {{-- Top Contributors --}}
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium overflow-hidden">
                 <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h2 class="text-base font-semibold text-gray-900 flex items-center gap-2">
                         <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -238,7 +238,7 @@
             </div>
 
             {{-- Task Status Distribution --}}
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium overflow-hidden">
                 <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h2 class="text-base font-semibold text-gray-900 flex items-center gap-2">
                         <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -287,7 +287,7 @@
         {{-- Community Ideas Analytics --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {{-- Top Ideas --}}
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium overflow-hidden">
                 <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h2 class="text-base font-semibold text-gray-900 flex items-center gap-2">
                         <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -343,7 +343,7 @@
             </div>
 
             {{-- Idea Statistics --}}
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium overflow-hidden">
                 <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h2 class="text-base font-semibold text-gray-900 flex items-center gap-2">
                         <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -392,7 +392,7 @@
         @endif
 
         {{-- Timeline Section --}}
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md transition-premium overflow-hidden">
             <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h2 class="text-base font-semibold text-gray-900 flex items-center gap-2">
                     <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">

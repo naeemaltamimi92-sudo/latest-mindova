@@ -9,22 +9,21 @@ use Illuminate\Support\Facades\Storage;
 
 class VolunteerService
 {
-    /**
-     * Update volunteer profile with optional CV upload.
-     */
+    public function __construct(
+        private readonly ReputationService $reputation,
+        private readonly CreditsService $credits,
+    ) {}
+
     public function updateProfile(User $user, array $data): Volunteer
     {
-        // Check if user is self-identifying as student
         $isStudent = $data['is_student'] ?? false;
+        $isNewProfile = !$user->volunteer;
 
-        // Create volunteer profile if it doesn't exist
-        if (!$user->volunteer) {
-            // Update user type to volunteer if not already
+        if ($isNewProfile) {
             if (!$user->isVolunteer()) {
                 $user->update(['user_type' => 'volunteer']);
             }
 
-            // Get profile picture from session if available
             $profilePicture = session('volunteer_profile_picture');
 
             $volunteerData = [
@@ -33,11 +32,11 @@ class VolunteerService
                 'availability_hours_per_week' => $data['availability_hours_per_week'] ?? 0,
                 'bio' => $data['bio'] ?? null,
                 'profile_picture' => $profilePicture,
-                'reputation_score' => 50.00,
+                'reputation_score' => 0,
+                'trust_score' => 100.0,
                 'skills_normalized' => false,
             ];
 
-            // If student, set experience_level and skip analysis
             if ($isStudent) {
                 $volunteerData['experience_level'] = 'Student';
                 $volunteerData['ai_analysis_status'] = 'completed';
@@ -49,9 +48,13 @@ class VolunteerService
             }
 
             $volunteer = Volunteer::create($volunteerData);
-
-            // Clear the profile picture from session after using it
             session()->forget('volunteer_profile_picture');
+
+            // Grant profile completion stars (one-time)
+            $this->reputation->award($volunteer, 'profile_completed');
+
+            // Grant 20 starter credits so the volunteer can publish one challenge immediately
+            $this->credits->gift($user->fresh(), 20, 'Welcome bonus: starter credits');
         } else {
             $volunteer = $user->volunteer;
 
@@ -61,7 +64,6 @@ class VolunteerService
                 'bio' => $data['bio'] ?? $volunteer->bio,
             ];
 
-            // If switching to student status
             if ($isStudent && $volunteer->experience_level !== 'Student') {
                 $updateData['experience_level'] = 'Student';
                 $updateData['ai_analysis_status'] = 'completed';
@@ -72,42 +74,35 @@ class VolunteerService
             $volunteer->update($updateData);
         }
 
-        // Handle CV upload if provided - ONLY if NOT a student
+        // CV upload: award stars once per volunteer (first upload only)
         if (!$isStudent && isset($data['cv']) && $data['cv']) {
-            // Delete old CV if exists
             if ($volunteer->cv_file_path) {
                 Storage::delete($volunteer->cv_file_path);
             }
 
-            // Store new CV
             $path = $data['cv']->store('cvs', 'local');
-
-            // Update volunteer record
             $volunteer->update([
                 'cv_file_path' => $path,
                 'ai_analysis_status' => 'pending',
             ]);
 
-            // Dispatch CV analysis job
             AnalyzeVolunteerCV::dispatch($volunteer);
+
+            // Stars only for the first CV upload
+            if (!$this->reputation->hasAlreadyEarned($volunteer, 'cv_uploaded')) {
+                $this->reputation->award($volunteer, 'cv_uploaded');
+            }
         }
 
-        // Handle profile picture upload if provided
         if (isset($data['profile_picture']) && $data['profile_picture']) {
-            // Delete old profile picture if exists
             if ($volunteer->profile_picture) {
                 Storage::disk('public')->delete($volunteer->profile_picture);
             }
 
-            // Store new profile picture
             $file = $data['profile_picture'];
             $filename = 'profile_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('profile_pictures', $filename, 'public');
-
-            // Update volunteer record
-            $volunteer->update([
-                'profile_picture' => $path,
-            ]);
+            $volunteer->update(['profile_picture' => $path]);
         }
 
         return $volunteer->fresh();

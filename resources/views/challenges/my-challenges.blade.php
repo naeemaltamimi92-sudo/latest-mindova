@@ -23,7 +23,7 @@
                 <h1 class="text-2xl font-bold text-gray-900">{{ __('My Challenges') }}</h1>
                 <p class="text-gray-500 mt-1">{{ __('Manage all your submitted challenges, track progress, and monitor volunteer activity.') }}</p>
             </div>
-            <a href="{{ route('challenges.create') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+            <a href="{{ route('challenges.create') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-aurora glow-primary-sm hover:glow-primary-md text-white text-sm font-medium rounded-lg transition-premium">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                 </svg>
@@ -33,7 +33,7 @@
 
         {{-- Stats Overview --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div class="bg-white rounded-xl border border-gray-200 p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-4">
                 <div class="flex items-start justify-between mb-2">
                     <div class="w-9 h-9 bg-primary-100 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,23 +41,21 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['total'] }}</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-total">{{ $stats['total'] }}</p>
                 <p class="text-xs text-gray-500 mt-1">{{ __('Total Challenges') }}</p>
             </div>
 
-            <div class="bg-white rounded-xl border border-gray-200 p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-4">
                 <div class="flex items-start justify-between mb-2">
                     <div class="w-9 h-9 bg-emerald-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
+                        <x-icon name="zap" class="w-4 h-4 text-emerald-600" />
                     </div>
                 </div>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['active'] }}</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-active">{{ $stats['active'] }}</p>
                 <p class="text-xs text-gray-500 mt-1">{{ __('Active') }}</p>
             </div>
 
-            <div class="bg-white rounded-xl border border-gray-200 p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-4">
                 <div class="flex items-start justify-between mb-2">
                     <div class="w-9 h-9 bg-amber-100 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24">
@@ -66,11 +64,11 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['analyzing'] }}</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-analyzing">{{ $stats['analyzing'] }}</p>
                 <p class="text-xs text-gray-500 mt-1">{{ __('Analyzing') }}</p>
             </div>
 
-            <div class="bg-white rounded-xl border border-gray-200 p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-4">
                 <div class="flex items-start justify-between mb-2">
                     <div class="w-9 h-9 bg-violet-100 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-violet-600" fill="currentColor" viewBox="0 0 20 20">
@@ -78,13 +76,13 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-2xl font-bold text-gray-900">{{ $stats['completed'] }}</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-completed">{{ $stats['completed'] }}</p>
                 <p class="text-xs text-gray-500 mt-1">{{ __('Completed') }}</p>
             </div>
         </div>
 
         {{-- Filters Section --}}
-        <div class="bg-white rounded-xl border border-gray-200 p-5 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-5 mb-6">
             <form method="GET" action="{{ route('challenges.index') }}" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     {{-- Search --}}
@@ -137,7 +135,7 @@
 
                 {{-- Filter Actions --}}
                 <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+                    <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 bg-aurora glow-primary-sm hover:glow-primary-md text-white text-sm font-medium rounded-lg transition-premium">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                         </svg>
@@ -166,7 +164,7 @@
         @if($challenges->count() > 0)
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
             @foreach($challenges as $challenge)
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-gray-300 transition-colors" data-challenge-id="{{ $challenge->id }}">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm hover:elevation-md overflow-hidden hover:border-gray-300 transition-premium" data-challenge-id="{{ $challenge->id }}" data-challenge-status="{{ $challenge->status }}">
                 {{-- Status Ribbon --}}
                 <div class="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
                     <div class="flex items-center gap-2">
@@ -197,7 +195,7 @@
                 {{-- Card Content --}}
                 <div class="p-5">
                     {{-- Title --}}
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-primary-600 transition-colors">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-primary-600 transition-premium">
                         <a href="{{ route('challenges.show', $challenge) }}">{{ $challenge->title }}</a>
                     </h3>
 
@@ -267,7 +265,7 @@
 
                     {{-- Actions --}}
                     <div class="flex items-center flex-wrap gap-2">
-                        <a href="{{ route('challenges.show', $challenge) }}" class="inline-flex items-center gap-1.5 px-3 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+                        <a href="{{ route('challenges.show', $challenge) }}" class="inline-flex items-center gap-1.5 px-3 py-2 bg-aurora glow-primary-sm hover:glow-primary-md text-white text-sm font-medium rounded-lg transition-premium">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -276,19 +274,31 @@
                         </a>
 
                         @if(!in_array($challenge->status, ['completed', 'delivered']))
-                        <a href="{{ route('challenges.edit', $challenge) }}" class="inline-flex items-center gap-1.5 px-3 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-colors">
+                        <a href="{{ route('challenges.edit', $challenge) }}" class="inline-flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-premium">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                             </svg>
                             {{ __('Edit') }}
                         </a>
 
-                        <button type="button" onclick="confirmDelete({{ $challenge->id }}, '{{ addslashes($challenge->title) }}')" class="inline-flex items-center gap-1.5 px-3 py-2 bg-white border border-red-200 text-red-600 text-sm font-medium rounded-lg hover:border-red-300 hover:bg-red-50 transition-colors">
+                        @php
+                            $hasActiveTasks = $challenge->tasks->whereIn('status', ['in_progress', 'completed'])->count() > 0;
+                        @endphp
+                        @if($hasActiveTasks)
+                        <button type="button" title="{{ __('Cannot delete: this challenge has active tasks in progress.') }}" class="inline-flex items-center gap-1.5 px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-400 text-sm font-medium rounded-lg cursor-not-allowed" onclick="showToast('{{ __('This challenge has volunteers actively working on tasks and cannot be deleted.') }}', 'error')">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                             </svg>
                             {{ __('Delete') }}
                         </button>
+                        @else
+                        <button type="button" onclick="confirmDelete({{ $challenge->id }}, '{{ addslashes($challenge->title) }}')" class="inline-flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-gray-800 border border-red-200 dark:border-red-900/50 text-red-600 text-sm font-medium rounded-lg hover:border-red-300 hover:bg-red-50 transition-premium">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                            {{ __('Delete') }}
+                        </button>
+                        @endif
                         @endif
 
                         @if($challenge->status === 'active' || $challenge->status === 'in_progress')
@@ -314,7 +324,7 @@
 
         @else
         {{-- Empty State --}}
-        <div class="bg-white rounded-xl border border-gray-200 p-12 text-center">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-sm p-12 text-center">
             <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -324,13 +334,13 @@
             @if(request()->hasAny(['search', 'status', 'type']))
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('No Challenges Found') }}</h3>
                 <p class="text-gray-500 mb-6 max-w-md mx-auto">{{ __('No challenges match your current filters. Try adjusting your search criteria.') }}</p>
-                <a href="{{ route('challenges.index') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-colors">
+                <a href="{{ route('challenges.index') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-premium">
                     {{ __('Clear Filters') }}
                 </a>
             @else
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('No Challenges Yet') }}</h3>
                 <p class="text-gray-500 mb-6 max-w-md mx-auto">{{ __('Start your innovation journey by submitting your first challenge to the community.') }}</p>
-                <a href="{{ route('challenges.create') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+                <a href="{{ route('challenges.create') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-aurora glow-primary-sm hover:glow-primary-md text-white text-sm font-medium rounded-lg transition-premium">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -443,11 +453,29 @@
             const data = await response.json();
 
             if (response.ok && data.success) {
+                const deletedId = deleteTargetId;
                 closeDeleteModal();
                 showToast('{{ __("Challenge deleted successfully.") }}', 'success');
 
-                const challengeCard = document.querySelector(`[data-challenge-id="${deleteTargetId}"]`);
+                const challengeCard = document.querySelector(`[data-challenge-id="${deletedId}"]`);
                 if (challengeCard) {
+                    const deletedStatus = challengeCard.dataset.challengeStatus;
+
+                    // Decrement stats counters immediately
+                    const statTotal = document.getElementById('stat-total');
+                    if (statTotal) statTotal.textContent = Math.max(0, parseInt(statTotal.textContent) - 1);
+
+                    if (deletedStatus === 'active' || deletedStatus === 'in_progress') {
+                        const statActive = document.getElementById('stat-active');
+                        if (statActive) statActive.textContent = Math.max(0, parseInt(statActive.textContent) - 1);
+                    } else if (deletedStatus === 'submitted' || deletedStatus === 'analyzing') {
+                        const statAnalyzing = document.getElementById('stat-analyzing');
+                        if (statAnalyzing) statAnalyzing.textContent = Math.max(0, parseInt(statAnalyzing.textContent) - 1);
+                    } else if (deletedStatus === 'completed' || deletedStatus === 'delivered') {
+                        const statCompleted = document.getElementById('stat-completed');
+                        if (statCompleted) statCompleted.textContent = Math.max(0, parseInt(statCompleted.textContent) - 1);
+                    }
+
                     challengeCard.style.transition = 'all 0.3s';
                     challengeCard.style.opacity = '0';
                     challengeCard.style.transform = 'scale(0.95)';

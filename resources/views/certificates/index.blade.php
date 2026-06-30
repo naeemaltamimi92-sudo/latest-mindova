@@ -48,7 +48,7 @@
 @section('content')
 <div class="min-h-screen bg-gray-50">
     <!-- Premium Hero Section -->
-    <div class="relative overflow-hidden bg-secondary-300 py-12 mb-10 mx-4 sm:mx-6 lg:mx-8 rounded-3xl shadow-2xl">
+    <div class="relative overflow-hidden bg-aurora py-12 mb-10 mx-4 sm:mx-6 lg:mx-8 rounded-3xl elevation-2xl glow-primary-md">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full "></div>
@@ -89,9 +89,9 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <!-- Certificates Grid -->
         @forelse($certificates as $index => $certificate)
-        <div class="certificate-card bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden mb-6" style="animation-delay: {{ 0.1 + ($index * 0.1) }}s">
+        <div class="certificate-card bg-white dark:bg-gray-800 rounded-3xl elevation-xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-6" style="animation-delay: {{ 0.1 + ($index * 0.1) }}s">
             <!-- Top Accent -->
-            <div class="h-1.5 bg-secondary-400"></div>
+            <div class="h-1.5 bg-aurora"></div>
 
             <div class="p-8">
                 <div class="flex flex-col lg:flex-row lg:items-start gap-6">
@@ -99,16 +99,16 @@
                         <!-- Certificate Header -->
                         <div class="flex items-start gap-5 mb-6">
                             <div class="relative group">
-                                <div class="absolute -inset-1 bg-secondary-400 rounded-2xl blur opacity-40 group-hover:opacity-60 transition"></div>
-                                <div class="relative w-16 h-16 bg-secondary-300 rounded-2xl flex items-center justify-center shadow-xl">
+                                <div class="absolute -inset-1 bg-aurora rounded-2xl blur opacity-40 group-hover:opacity-60 transition"></div>
+                                <div class="relative w-16 h-16 bg-aurora rounded-2xl flex items-center justify-center elevation-lg">
                                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                                     </svg>
                                 </div>
                             </div>
                             <div class="flex-1">
-                                <h2 class="text-2xl font-bold text-slate-900 mb-1">{{ $certificate->challenge->title }}</h2>
-                                <p class="text-slate-500 flex items-center gap-2">
+                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ $certificate->challenge->title }}</h2>
+                                <p class="text-gray-500 dark:text-gray-400 flex items-center gap-2">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                     </svg>
@@ -119,30 +119,30 @@
 
                         <!-- Certificate Stats -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                            <div class="bg-gray-50 rounded-2xl p-4 border border-amber-100">
-                                <p class="text-xs font-bold text-amber-600 uppercase tracking-wide mb-1">{{ __('Certificate Type') }}</p>
-                                <p class="text-lg font-bold text-slate-900">{{ ucfirst($certificate->certificate_type) }}</p>
+                            <div class="bg-gray-50 dark:bg-gray-900/40 rounded-2xl p-4 border border-amber-100 dark:border-amber-900/40">
+                                <p class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wide mb-1">{{ __('Certificate Type') }}</p>
+                                <p class="text-lg font-bold text-gray-900 dark:text-white">{{ ucfirst($certificate->certificate_type) }}</p>
                             </div>
-                            <div class="bg-gray-50 rounded-2xl p-4 border border-indigo-100">
-                                <p class="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-1">{{ __('Role') }}</p>
-                                <p class="text-lg font-bold text-slate-900">{{ $certificate->role }}</p>
+                            <div class="bg-gray-50 dark:bg-gray-900/40 rounded-2xl p-4 border border-indigo-100 dark:border-indigo-900/40">
+                                <p class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide mb-1">{{ __('Role') }}</p>
+                                <p class="text-lg font-bold text-gray-900 dark:text-white">{{ $certificate->role }}</p>
                             </div>
-                            <div class="bg-gray-50 rounded-2xl p-4 border border-emerald-100">
-                                <p class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-1">{{ __('Total Hours') }}</p>
-                                <p class="text-lg font-bold text-slate-900">{{ number_format($certificate->total_hours, 1) }} hrs</p>
+                            <div class="bg-gray-50 dark:bg-gray-900/40 rounded-2xl p-4 border border-emerald-100 dark:border-emerald-900/40">
+                                <p class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-1">{{ __('Total Hours') }}</p>
+                                <p class="text-lg font-bold text-gray-900 dark:text-white">{{ number_format($certificate->total_hours, 1) }} hrs</p>
                             </div>
                         </div>
 
                         <!-- Contribution Summary -->
-                        <div class="bg-gray-50 border-l-4 border-amber-500 rounded-r-xl p-5 mb-5">
-                            <p class="text-slate-700 leading-relaxed">{{ $certificate->contribution_summary }}</p>
+                        <div class="bg-gray-50 dark:bg-gray-900/40 border-l-4 border-amber-500 rounded-r-xl p-5 mb-5">
+                            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{ $certificate->contribution_summary }}</p>
                         </div>
 
                         <!-- Contribution Types -->
                         @if(!empty($certificate->contribution_types))
                         <div class="flex flex-wrap gap-2 mb-5">
                             @foreach($certificate->contribution_types as $type)
-                            <span class="px-4 py-2 bg-secondary-100 text-amber-800 text-sm font-semibold rounded-xl border border-amber-200">
+                            <span class="px-4 py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 text-sm font-semibold rounded-xl border border-amber-200 dark:border-amber-800/50">
                                 {{ $type }}
                             </span>
                             @endforeach
@@ -151,7 +151,7 @@
 
                         <!-- Status Badge -->
                         @if($certificate->is_revoked)
-                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 text-sm font-bold rounded-xl mb-4">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-sm font-bold rounded-xl mb-4">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                             </svg>
@@ -160,12 +160,12 @@
                         @endif
 
                         <!-- Meta Info -->
-                        <div class="flex flex-wrap items-center gap-4 text-sm text-slate-500 pt-4 border-t border-slate-100">
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400 pt-4 border-t border-gray-100 dark:border-gray-700">
                             <div class="flex items-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
                                 </svg>
-                                <span class="font-mono font-semibold text-slate-700">{{ $certificate->certificate_number }}</span>
+                                <span class="font-mono font-semibold text-gray-700 dark:text-gray-300">{{ $certificate->certificate_number }}</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,18 +199,18 @@
         </div>
         @empty
         <!-- Premium Empty State -->
-        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-16 text-center">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-xl border border-gray-100 dark:border-gray-700 p-16 text-center">
             <div class="max-w-md mx-auto">
                 <div class="relative group inline-block mb-8">
-                    <div class="absolute -inset-2 bg-secondary-400 rounded-3xl blur opacity-30"></div>
-                    <div class="relative w-28 h-28 bg-secondary-300 rounded-3xl flex items-center justify-center shadow-2xl">
+                    <div class="absolute -inset-2 bg-aurora rounded-3xl blur opacity-30"></div>
+                    <div class="relative w-28 h-28 bg-aurora rounded-3xl flex items-center justify-center elevation-2xl">
                         <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-3xl font-black text-slate-900 mb-3">{{ __('No Certificates Yet') }}</h3>
-                <p class="text-slate-500 text-lg mb-8">{{ __('Complete challenges to earn professional certificates that showcase your contributions.') }}</p>
+                <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-3">{{ __('No Certificates Yet') }}</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-lg mb-8">{{ __('Complete challenges to earn professional certificates that showcase your contributions.') }}</p>
                 <x-ui.button as="a" href="{{ route('tasks.available') }}" variant="secondary" size="lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>

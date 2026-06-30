@@ -3,9 +3,9 @@
 @section('title', __('Complete Your Profile'))
 
 @section('content')
-<div class="min-h-screen bg-gray-50 py-8">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
     <!-- Clean Hero Section -->
-    <div class="bg-secondary-500 py-10 mb-8 mx-4 sm:mx-8 lg:mx-auto lg:max-w-6xl rounded-2xl">
+    <div class="bg-aurora py-10 mb-8 mx-4 sm:mx-8 lg:mx-auto lg:max-w-6xl rounded-2xl elevation-lg animate-fade-in">
         <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
             <div class="text-center">
                 <!-- Welcome Badge -->
@@ -16,7 +16,7 @@
 
                 <!-- Main Title -->
                 <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">
-                    {{ __('Complete Your') }} <span class="text-secondary-200">{{ __('Profile') }}</span>
+                    {{ __('Complete Your') }} <span class="text-white/80">{{ __('Profile') }}</span>
                 </h1>
 
                 <p class="text-base text-white/90 max-w-2xl mx-auto leading-relaxed">
@@ -54,14 +54,12 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         @if(request()->get('type') === 'volunteer' || auth()->user()->isVolunteer())
         <!-- Volunteer Profile Form -->
-        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div class="bg-white border border-gray-200 rounded-2xl elevation-lg overflow-hidden">
             <!-- Form Header -->
             <div class="bg-gray-50 px-6 sm:px-8 py-6 border-b border-gray-200">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
+                    <div class="w-12 h-12 bg-aurora rounded-xl flex items-center justify-center glow-primary-sm">
+                        <x-icon name="user" class="w-6 h-6 text-white" />
                     </div>
                     <div>
                         <h2 class="text-xl font-bold text-gray-900">{{ __('Volunteer Profile Setup') }}</h2>
@@ -212,9 +210,7 @@
                             <h3 class="text-base font-semibold text-gray-900 mb-1">{{ __('Drop your CV here') }}</h3>
                             <p class="text-sm text-gray-500 mb-3">{{ __('or click to browse files') }}</p>
                             <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 border border-gray-200">
-                                <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                </svg>
+                                <x-icon name="check-circle" class="w-3.5 h-3.5 text-emerald-500" />
                                 {{ __('PDF, DOC, DOCX (Max 10MB)') }}
                             </span>
                         </div>
@@ -253,9 +249,7 @@
                     <div id="aiAnalysisInfo" class="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4">
                         <div class="flex items-start gap-3">
                             <div class="w-9 h-9 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
+                                <x-icon name="zap" class="w-5 h-5 text-amber-600" />
                             </div>
                             <div>
                                 <h4 class="font-semibold text-amber-800 text-sm">{{ __('AI-Powered Analysis') }}</h4>
@@ -273,10 +267,8 @@
                 <!-- NDA Notice -->
                 <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
                     <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
+                        <div class="w-10 h-10 bg-aurora rounded-lg flex items-center justify-center flex-shrink-0 glow-primary-sm">
+                            <x-icon name="shield" class="w-5 h-5 text-white" />
                         </div>
                         <div>
                             <h3 class="font-semibold text-gray-900 mb-1">{{ __('Next Step: NDA Signature') }}</h3>
@@ -285,11 +277,11 @@
                             </p>
                             <div class="flex items-center gap-4 mt-3">
                                 <div class="flex items-center gap-1.5 text-xs text-gray-500">
-                                    <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                    <x-icon name="check-circle" class="w-4 h-4 text-emerald-500" />
                                     <span class="font-medium">{{ __('Secure Digital Signature') }}</span>
                                 </div>
                                 <div class="flex items-center gap-1.5 text-xs text-gray-500">
-                                    <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                    <x-icon name="check-circle" class="w-4 h-4 text-emerald-500" />
                                     <span class="font-medium">{{ __('Takes 2 minutes') }}</span>
                                 </div>
                             </div>
@@ -318,14 +310,12 @@
 
         @else
         <!-- Company Profile Form -->
-        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div class="bg-white border border-gray-200 rounded-2xl elevation-lg overflow-hidden">
             <!-- Form Header -->
             <div class="bg-gray-50 px-6 sm:px-8 py-6 border-b border-gray-200">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
+                    <div class="w-12 h-12 bg-aurora rounded-xl flex items-center justify-center glow-primary-sm">
+                        <x-icon name="building" class="w-6 h-6 text-white" />
                     </div>
                     <div>
                         <h2 class="text-xl font-bold text-gray-900">{{ __('Company Profile Setup') }}</h2>
@@ -362,9 +352,7 @@
                 <div>
                     <label class="flex items-center gap-2 text-sm font-semibold text-gray-900 mb-4">
                         <span class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                            </svg>
+                            <x-icon name="building" class="w-4 h-4 text-primary-600" />
                         </span>
                         {{ __('Industry') }}
                     </label>

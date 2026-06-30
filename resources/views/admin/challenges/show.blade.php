@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', $challenge->title . ' - ' . __('Challenge Details'))
 
@@ -170,7 +170,7 @@
     <!-- Quick Stats Bar -->
     <div class="bg-white border-b border-slate-200 shadow-sm -mt-4 relative z-10 mx-4 lg:mx-8 rounded-2xl">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 divide-x divide-slate-100">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 divide-x divide-gray-100 dark:divide-gray-700">
                 <!-- Status -->
                 @php
                     $statusInfo = $statuses[$challenge->status] ?? ['label' => ucfirst($challenge->status), 'color' => 'gray'];
@@ -326,7 +326,7 @@
             <div class="lg:col-span-2 space-y-8">
 
                 <!-- Progress Visualization -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift">
                     <div class="p-6 bg-primary-500">
                         <h2 class="text-lg font-bold text-white flex items-center gap-2">
                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -390,7 +390,7 @@
 
                         <!-- Task Status Breakdown -->
                         @if($totalTasks > 0)
-                        <div class="pt-6 border-t border-slate-100">
+                        <div class="pt-6 border-t border-gray-100 dark:border-gray-700">
                             <h3 class="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
                                 <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
@@ -435,8 +435,8 @@
 
                 <!-- AI Analysis Details with Tabs -->
                 @if($challenge->challengeAnalyses->count() > 0)
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift" x-data="{ activeTab: 'overview' }">
-                    <div class="p-6 border-b border-slate-100 bg-gray-50">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift" x-data="{ activeTab: 'overview' }">
+                    <div class="p-6 border-b border-gray-100 dark:border-gray-700 bg-gray-50">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <div class="flex items-center gap-3">
                                 <div class="h-12 w-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
@@ -741,7 +741,7 @@
                 </div>
                 @else
                 <!-- No Analysis Yet -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-8 text-center hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center hover-lift">
                     <div class="h-20 w-20 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
                         <svg class="h-10 w-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -760,7 +760,7 @@
                 @endif
 
                 <!-- Challenge Description -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift">
                     <div class="p-6 bg-gray-50 border-b border-slate-200">
                         <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                             <svg class="h-5 w-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -790,7 +790,7 @@
 
                 <!-- Workstreams & Tasks -->
                 @if($challenge->workstreams->count() > 0)
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift">
                     <div class="p-6 bg-secondary-500">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <h2 class="text-lg font-bold text-white flex items-center gap-2">
@@ -805,7 +805,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="divide-y divide-slate-100">
+                    <div class="divide-y divide-gray-100 dark:divide-gray-700">
                         @foreach($challenge->workstreams as $workstream)
                         @php
                             $wsTasks = $workstream->tasks;
@@ -928,7 +928,7 @@
 
                 <!-- Admin Activity Log -->
                 @if($adminLogs->count() > 0)
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift">
                     <div class="p-6 bg-gray-50 border-b border-slate-200">
                         <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                             <svg class="h-5 w-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -965,7 +965,7 @@
             <!-- Sidebar -->
             <div class="space-y-6">
                 <!-- Submitter Info -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift">
                     <div class="p-4 bg-gray-50 border-b border-slate-200">
                         <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide">{{ __('Submitter') }}</h3>
                     </div>
@@ -1025,32 +1025,32 @@
                 </div>
 
                 <!-- Challenge Details -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift">
                     <div class="p-4 bg-gray-50 border-b border-slate-200">
                         <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide">{{ __('Details') }}</h3>
                     </div>
                     <div class="p-6">
                         <dl class="space-y-4">
-                            <div class="flex justify-between items-center py-2 border-b border-slate-100">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
                                 <dt class="text-sm text-slate-500">{{ __('Type') }}</dt>
                                 <dd class="text-sm font-semibold text-slate-900">{{ __(ucfirst(str_replace('_', ' ', $challenge->challenge_type ?? 'N/A'))) }}</dd>
                             </div>
-                            <div class="flex justify-between items-center py-2 border-b border-slate-100">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
                                 <dt class="text-sm text-slate-500">{{ __('Field') }}</dt>
                                 <dd class="text-sm font-semibold text-slate-900">{{ $challenge->field ?? 'N/A' }}</dd>
                             </div>
-                            <div class="flex justify-between items-center py-2 border-b border-slate-100">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
                                 <dt class="text-sm text-slate-500">{{ __('AI Status') }}</dt>
                                 <dd class="text-sm font-semibold {{ $challenge->ai_analysis_status === 'completed' ? 'text-green-600' : 'text-yellow-600' }}">
                                     {{ __(ucfirst(str_replace('_', ' ', $challenge->ai_analysis_status ?? 'pending'))) }}
                                 </dd>
                             </div>
-                            <div class="flex justify-between items-center py-2 border-b border-slate-100">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
                                 <dt class="text-sm text-slate-500">{{ __('Views') }}</dt>
                                 <dd class="text-sm font-semibold text-slate-900">{{ number_format($challenge->view_count ?? 0) }}</dd>
                             </div>
                             @if($challenge->deadline)
-                            <div class="flex justify-between items-center py-2 border-b border-slate-100">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
                                 <dt class="text-sm text-slate-500">{{ __('Deadline') }}</dt>
                                 <dd class="text-sm font-semibold text-slate-900">{{ $challenge->deadline->format('M d, Y') }}</dd>
                             </div>
@@ -1067,7 +1067,7 @@
 
                 <!-- Teams -->
                 @if($challenge->teams && $challenge->teams->count() > 0)
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift">
                     <div class="p-4 bg-gray-50 border-b border-purple-100">
                         <h3 class="text-sm font-bold text-purple-700 uppercase tracking-wide flex items-center gap-2">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1103,7 +1103,7 @@
 
                 <!-- Attachments -->
                 @if($challenge->attachments && $challenge->attachments->count() > 0)
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden hover-lift">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover-lift">
                     <div class="p-4 bg-gray-50 border-b border-slate-200">
                         <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide flex items-center gap-2">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

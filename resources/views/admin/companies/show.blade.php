@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', ($company->company_name ?? $company->user->name) . ' - Company Details')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Premium Header -->
-    <div class="relative overflow-hidden bg-primary-500 py-12 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+    <div class="relative overflow-hidden bg-aurora py-12 mb-8 rounded-b-[3rem] elevation-2xl mx-4 sm:mx-6 lg:mx-8">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full "></div>
@@ -95,7 +95,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Stats Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 -mt-4 relative z-10">
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl group">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 elevation-md border border-slate-100 dark:border-gray-700 hover:elevation-lg transition-premium group">
                 <div class="flex items-center gap-4">
                     <div class="h-14 w-14 rounded-2xl bg-primary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,13 +103,13 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-3xl font-black text-slate-900">{{ $stats['total_challenges'] }}</p>
-                        <p class="text-sm text-slate-500">Total Challenges</p>
+                        <p class="text-3xl font-black text-slate-900 dark:text-gray-100">{{ $stats['total_challenges'] }}</p>
+                        <p class="text-sm text-slate-500 dark:text-gray-400">Total Challenges</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl group">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 elevation-md border border-slate-100 dark:border-gray-700 hover:elevation-lg transition-premium group">
                 <div class="flex items-center gap-4">
                     <div class="h-14 w-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,13 +117,13 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-3xl font-black text-emerald-600">{{ $stats['active_challenges'] }}</p>
-                        <p class="text-sm text-slate-500">Active Now</p>
+                        <p class="text-3xl font-black text-emerald-600 dark:text-emerald-400">{{ $stats['active_challenges'] }}</p>
+                        <p class="text-sm text-slate-500 dark:text-gray-400">Active Now</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl group">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 elevation-md border border-slate-100 dark:border-gray-700 hover:elevation-lg transition-premium group">
                 <div class="flex items-center gap-4">
                     <div class="h-14 w-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,13 +131,13 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-3xl font-black text-violet-600">{{ $stats['completed_challenges'] }}</p>
-                        <p class="text-sm text-slate-500">Completed</p>
+                        <p class="text-3xl font-black text-violet-600 dark:text-violet-400">{{ $stats['completed_challenges'] }}</p>
+                        <p class="text-sm text-slate-500 dark:text-gray-400">Completed</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl group">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 elevation-md border border-slate-100 dark:border-gray-700 hover:elevation-lg transition-premium group">
                 <div class="flex items-center gap-4">
                     <div class="h-14 w-14 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg">
                         <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,8 +145,8 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-3xl font-black text-amber-600">{{ $stats['certificates_issued'] }}</p>
-                        <p class="text-sm text-slate-500">Certificates</p>
+                        <p class="text-3xl font-black text-amber-600 dark:text-amber-400">{{ $stats['certificates_issued'] }}</p>
+                        <p class="text-sm text-slate-500 dark:text-gray-400">Certificates</p>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@
         <div class="grid lg:grid-cols-3 gap-8">
             <!-- Company Information Card -->
             <div class="lg:col-span-1 space-y-6">
-                <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-md border border-slate-100 dark:border-gray-700 overflow-hidden">
                     <div class="bg-primary-500 px-6 py-5">
                         <h2 class="text-lg font-bold text-white flex items-center gap-3">
                             <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
@@ -168,16 +168,16 @@
                     </div>
                     <div class="p-6 space-y-5">
                         <div class="group">
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Company Name</p>
-                            <p class="text-base font-semibold text-slate-900">{{ $company->company_name ?? 'Not set' }}</p>
+                            <p class="text-xs font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Company Name</p>
+                            <p class="text-base font-semibold text-slate-900 dark:text-gray-100">{{ $company->company_name ?? 'Not set' }}</p>
                         </div>
                         <div class="group">
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Contact Person</p>
-                            <p class="text-base font-semibold text-slate-900">{{ $company->user->name }}</p>
+                            <p class="text-xs font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Contact Person</p>
+                            <p class="text-base font-semibold text-slate-900 dark:text-gray-100">{{ $company->user->name }}</p>
                         </div>
                         <div class="group">
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Email Address</p>
-                            <a href="mailto:{{ $company->user->email }}" class="text-base font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-2">
+                            <p class="text-xs font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Email Address</p>
+                            <a href="mailto:{{ $company->user->email }}" class="text-base font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 flex items-center gap-2">
                                 {{ $company->user->email }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
@@ -186,8 +186,8 @@
                         </div>
                         @if($company->website)
                         <div class="group">
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Website</p>
-                            <a href="{{ $company->website }}" target="_blank" class="text-base font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-2">
+                            <p class="text-xs font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Website</p>
+                            <a href="{{ $company->website }}" target="_blank" class="text-base font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 flex items-center gap-2">
                                 {{ $company->website }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
@@ -197,21 +197,21 @@
                         @endif
                         @if($company->phone)
                         <div class="group">
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Phone Number</p>
-                            <p class="text-base font-semibold text-slate-900">{{ $company->phone }}</p>
+                            <p class="text-xs font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Phone Number</p>
+                            <p class="text-base font-semibold text-slate-900 dark:text-gray-100">{{ $company->phone }}</p>
                         </div>
                         @endif
                         @if($company->address)
                         <div class="group">
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Address</p>
-                            <p class="text-base font-semibold text-slate-900">{{ $company->address }}</p>
+                            <p class="text-xs font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Address</p>
+                            <p class="text-base font-semibold text-slate-900 dark:text-gray-100">{{ $company->address }}</p>
                         </div>
                         @endif
                     </div>
                 </div>
 
                 <!-- Member Info Card -->
-                <div class="bg-primary-500 rounded-2xl p-6 text-white shadow-xl">
+                <div class="bg-aurora rounded-2xl p-6 text-white elevation-xl">
                     <div class="flex items-center gap-4 mb-4">
                         <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,45 +220,45 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-lg">Member Since</h3>
-                            <p class="text-slate-300">{{ $company->created_at->format('F d, Y') }}</p>
+                            <p class="text-white/70">{{ $company->created_at->format('F d, Y') }}</p>
                         </div>
                     </div>
                     <div class="bg-white/10 rounded-xl p-4 mt-4">
-                        <p class="text-sm text-slate-300">
+                        <p class="text-sm text-white/70">
                             Active for <span class="font-bold text-white">{{ $company->created_at->diffForHumans(['parts' => 2, 'join' => ', ']) }}</span>
                         </p>
                     </div>
                 </div>
 
                 <!-- Quick Links Card -->
-                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
-                    <div class="px-6 py-4 bg-gray-50 border-b border-slate-100">
-                        <h3 class="font-bold text-slate-900">Quick Links</h3>
+                <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-md border border-slate-100 dark:border-gray-700 overflow-hidden">
+                    <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 border-b border-slate-100 dark:border-gray-700">
+                        <h3 class="font-bold text-slate-900 dark:text-gray-100">Quick Links</h3>
                     </div>
                     <div class="p-4 space-y-2">
-                        <a href="{{ route('admin.companies.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 group">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200">
-                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ route('admin.companies.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-700/50 group">
+                            <div class="w-10 h-10 bg-blue-100 dark:bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-500/30">
+                                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                 </svg>
                             </div>
-                            <span class="font-medium text-slate-700 group-hover:text-slate-900">All Companies</span>
+                            <span class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-gray-100">All Companies</span>
                         </a>
-                        <a href="{{ route('admin.challenges.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 group">
-                            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200">
-                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ route('admin.challenges.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-700/50 group">
+                            <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-500/20 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 dark:group-hover:bg-indigo-500/30">
+                                <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                 </svg>
                             </div>
-                            <span class="font-medium text-slate-700 group-hover:text-slate-900">All Challenges</span>
+                            <span class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-gray-100">All Challenges</span>
                         </a>
-                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 group">
-                            <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200">
-                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-700/50 group">
+                            <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-500/20 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 dark:group-hover:bg-emerald-500/30">
+                                <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                                 </svg>
                             </div>
-                            <span class="font-medium text-slate-700 group-hover:text-slate-900">Admin Dashboard</span>
+                            <span class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-gray-100">Admin Dashboard</span>
                         </a>
                     </div>
                 </div>
@@ -266,7 +266,7 @@
 
             <!-- Challenges List -->
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-md border border-slate-100 dark:border-gray-700 overflow-hidden">
                     <div class="bg-primary-500 px-6 py-5 flex items-center justify-between">
                         <h2 class="text-lg font-bold text-white flex items-center gap-3">
                             <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
@@ -281,52 +281,52 @@
                         </span>
                     </div>
 
-                    <div class="divide-y divide-slate-100">
+                    <div class="divide-y divide-slate-100 dark:divide-gray-700">
                         @forelse($company->challenges as $index => $challenge)
-                        <a href="{{ route('admin.challenges.show', $challenge) }}" class="block p-6 hover:bg-slate-50 group" style="animation-delay: {{ $index * 0.05 }}s;">
+                        <a href="{{ route('admin.challenges.show', $challenge) }}" class="block p-6 hover:bg-slate-50 dark:hover:bg-gray-700/40 group" style="animation-delay: {{ $index * 0.05 }}s;">
                             <div class="flex items-start justify-between gap-6">
                                 <div class="flex-1 min-w-0">
                                     <div class="flex flex-wrap items-center gap-2 mb-3">
                                         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold
-                                            @if($challenge->status === 'active') bg-emerald-100 text-emerald-700 border border-emerald-200
-                                            @elseif($challenge->status === 'completed') bg-blue-100 text-blue-700 border border-blue-200
-                                            @elseif($challenge->status === 'pending') bg-amber-100 text-amber-700 border border-amber-200
-                                            @elseif($challenge->status === 'analyzing') bg-violet-100 text-violet-700 border border-violet-200
-                                            @else bg-slate-100 text-slate-700 border border-slate-200 @endif">
+                                            @if($challenge->status === 'active') bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30
+                                            @elseif($challenge->status === 'completed') bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30
+                                            @elseif($challenge->status === 'pending') bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30
+                                            @elseif($challenge->status === 'analyzing') bg-violet-100 dark:bg-violet-500/20 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-500/30
+                                            @else bg-slate-100 dark:bg-gray-700 text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-gray-600 @endif">
                                             @if($challenge->status === 'active')
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                             @endif
                                             {{ ucfirst($challenge->status) }}
                                         </span>
                                         @if($challenge->challenge_type === 'team_execution')
-                                        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-bold">
+                                        <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30 rounded-lg text-xs font-bold">
                                             Team Execution
                                         </span>
                                         @else
-                                        <span class="px-3 py-1 bg-violet-100 text-violet-700 border border-violet-200 rounded-lg text-xs font-bold">
+                                        <span class="px-3 py-1 bg-violet-100 dark:bg-violet-500/20 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-500/30 rounded-lg text-xs font-bold">
                                             Community
                                         </span>
                                         @endif
                                     </div>
 
-                                    <h3 class="font-bold text-lg text-slate-900 group-hover:text-indigo-600 mb-2">
+                                    <h3 class="font-bold text-lg text-slate-900 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 mb-2">
                                         {{ $challenge->title }}
                                     </h3>
 
-                                    <p class="text-sm text-slate-600 line-clamp-2 leading-relaxed mb-4">
+                                    <p class="text-sm text-slate-600 dark:text-gray-400 line-clamp-2 leading-relaxed mb-4">
                                         {{ Str::limit($challenge->description ?? $challenge->refined_brief, 150) }}
                                     </p>
 
-                                    <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+                                    <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-gray-400">
                                         <span class="flex items-center gap-1.5">
-                                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-4 h-4 text-slate-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                             </svg>
                                             {{ $challenge->created_at->diffForHumans() }}
                                         </span>
                                         @if($challenge->complexity_level)
                                         <span class="flex items-center gap-1.5">
-                                            <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <svg class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
                                             </svg>
                                             Level {{ $challenge->complexity_level }}
@@ -336,17 +336,17 @@
                                 </div>
 
                                 <div class="flex flex-col items-end gap-3">
-                                    <div class="bg-gray-50 px-4 py-3 rounded-xl border border-slate-200 text-center min-w-[80px]">
+                                    <div class="bg-gray-50 dark:bg-gray-900/50 px-4 py-3 rounded-xl border border-slate-200 dark:border-gray-700 text-center min-w-[80px]">
                                         <div class="flex items-center justify-center gap-2">
-                                            <svg class="h-4 w-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="h-4 w-4 text-slate-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                                             </svg>
-                                            <span class="text-lg font-bold text-slate-700">{{ $challenge->workstreams->sum(fn($ws) => $ws->tasks->count()) }}</span>
+                                            <span class="text-lg font-bold text-slate-700 dark:text-gray-300">{{ $challenge->workstreams->sum(fn($ws) => $ws->tasks->count()) }}</span>
                                         </div>
-                                        <p class="text-xs text-slate-500 mt-0.5">Tasks</p>
+                                        <p class="text-xs text-slate-500 dark:text-gray-400 mt-0.5">Tasks</p>
                                     </div>
 
-                                    <div class="flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+                                    <div class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
                                         View
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -357,13 +357,13 @@
                         </a>
                         @empty
                         <div class="p-16 text-center">
-                            <div class="w-20 h-20 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-6">
-                                <svg class="h-10 w-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-20 h-20 rounded-2xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center mx-auto mb-6">
+                                <svg class="h-10 w-10 text-slate-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                 </svg>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">No Challenges Yet</h3>
-                            <p class="text-slate-500">This company hasn't submitted any challenges.</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-gray-100 mb-2">No Challenges Yet</h3>
+                            <p class="text-slate-500 dark:text-gray-400">This company hasn't submitted any challenges.</p>
                         </div>
                         @endforelse
                     </div>

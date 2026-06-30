@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', __('Platform Settings'))
+@section('page-title', __('Platform Settings'))
+@section('page-subtitle', __('Configure platform behaviour and appearance'))
 
 @push('styles')
 <style>

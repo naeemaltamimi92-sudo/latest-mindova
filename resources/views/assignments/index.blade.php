@@ -27,12 +27,10 @@
         <!-- Stats Cards -->
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
             <!-- Invitations -->
-            <div class="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-amber-300" onclick="switchTab('invited')">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-4 cursor-pointer hover:border-amber-300" onclick="switchTab('invited')">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 bg-amber-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
+                        <x-icon name="mail" class="w-4 h-4 text-amber-600" />
                     </div>
                     @if($counts['invited'] > 0)
                     <span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-[10px] font-bold">{{ __('New') }}</span>
@@ -43,12 +41,10 @@
             </div>
 
             <!-- Accepted -->
-            <div class="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-blue-300" onclick="switchTab('accepted')">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-4 cursor-pointer hover:border-blue-300" onclick="switchTab('accepted')">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
+                        <x-icon name="check-circle" class="w-4 h-4 text-blue-600" />
                     </div>
                 </div>
                 <div class="text-2xl font-bold {{ $counts['accepted'] > 0 ? 'text-blue-600' : 'text-gray-300' }}">{{ $counts['accepted'] }}</div>
@@ -56,7 +52,7 @@
             </div>
 
             <!-- In Progress -->
-            <div class="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-violet-300" onclick="switchTab('in_progress')">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-4 cursor-pointer hover:border-violet-300" onclick="switchTab('in_progress')">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 bg-violet-100 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,12 +68,10 @@
             </div>
 
             <!-- Completed -->
-            <div class="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-emerald-300" onclick="switchTab('completed')">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-4 cursor-pointer hover:border-emerald-300" onclick="switchTab('completed')">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 bg-emerald-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
+                        <x-icon name="check-circle" class="w-4 h-4 text-emerald-600" />
                     </div>
                 </div>
                 <div class="text-2xl font-bold {{ $counts['completed'] > 0 ? 'text-emerald-600' : 'text-gray-300' }}">{{ $counts['completed'] }}</div>
@@ -85,12 +79,10 @@
             </div>
 
             <!-- Declined -->
-            <div class="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-red-300" onclick="switchTab('declined')">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-4 cursor-pointer hover:border-red-300" onclick="switchTab('declined')">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-9 h-9 bg-red-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
+                        <x-icon name="x" class="w-4 h-4 text-red-500" />
                     </div>
                 </div>
                 <div class="text-2xl font-bold {{ $counts['declined'] > 0 ? 'text-red-500' : 'text-gray-300' }}">{{ $counts['declined'] }}</div>
@@ -101,15 +93,13 @@
         <!-- Tabs Section -->
         <div x-data="{ activeTab: '{{ $counts['invited'] > 0 ? 'invited' : ($counts['in_progress'] > 0 ? 'in_progress' : 'invited') }}' }">
             <!-- Tab Navigation -->
-            <div class="bg-white border border-gray-200 rounded-xl p-2 mb-6">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-sm hover:elevation-md transition-premium p-2 mb-6">
                 <nav class="flex flex-wrap gap-1">
                     <button @click="activeTab = 'invited'" id="tab-invited"
                         :class="activeTab === 'invited' ? 'bg-amber-100 text-amber-700 border-amber-200' : 'text-gray-600 hover:bg-gray-50 border-transparent'"
                         class="flex-1 sm:flex-none whitespace-nowrap px-4 py-2.5 rounded-lg font-medium text-sm border">
                         <span class="flex items-center justify-center gap-1.5">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
+                            <x-icon name="mail" class="w-4 h-4" />
                             {{ __('Invitations') }}
                             @if($counts['invited'] > 0)
                             <span class="px-1.5 py-0.5 bg-white rounded text-[10px] font-bold">{{ $counts['invited'] }}</span>
@@ -120,9 +110,7 @@
                         :class="activeTab === 'accepted' ? 'bg-blue-100 text-blue-700 border-blue-200' : 'text-gray-600 hover:bg-gray-50 border-transparent'"
                         class="flex-1 sm:flex-none whitespace-nowrap px-4 py-2.5 rounded-lg font-medium text-sm border">
                         <span class="flex items-center justify-center gap-1.5">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
+                            <x-icon name="check-circle" class="w-4 h-4" />
                             {{ __('Accepted') }}
                             @if($counts['accepted'] > 0)
                             <span class="px-1.5 py-0.5 bg-white rounded text-[10px] font-bold">{{ $counts['accepted'] }}</span>
@@ -146,9 +134,7 @@
                         :class="activeTab === 'completed' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'text-gray-600 hover:bg-gray-50 border-transparent'"
                         class="flex-1 sm:flex-none whitespace-nowrap px-4 py-2.5 rounded-lg font-medium text-sm border">
                         <span class="flex items-center justify-center gap-1.5">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
+                            <x-icon name="check-circle" class="w-4 h-4" />
                             {{ __('Completed') }}
                             @if($counts['completed'] > 0)
                             <span class="px-1.5 py-0.5 bg-white rounded text-[10px] font-bold">{{ $counts['completed'] }}</span>
@@ -159,9 +145,7 @@
                         :class="activeTab === 'declined' ? 'bg-red-100 text-red-700 border-red-200' : 'text-gray-600 hover:bg-gray-50 border-transparent'"
                         class="flex-1 sm:flex-none whitespace-nowrap px-4 py-2.5 rounded-lg font-medium text-sm border">
                         <span class="flex items-center justify-center gap-1.5">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
+                            <x-icon name="x" class="w-4 h-4" />
                             {{ __('Declined') }}
                             @if($counts['declined'] > 0)
                             <span class="px-1.5 py-0.5 bg-white rounded text-[10px] font-bold">{{ $counts['declined'] }}</span>
@@ -174,7 +158,7 @@
             <!-- INVITED TAB -->
             <div x-show="activeTab === 'invited'" class="space-y-4">
                 @forelse($assignments->get('invited', collect()) as $assignment)
-                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden elevation-sm hover:elevation-md transition-premium">
                     <!-- Top Accent Bar -->
                     <div class="h-1 bg-amber-400"></div>
 
@@ -229,9 +213,7 @@
                             <!-- Task Description -->
                             <div class="lg:col-span-2 bg-gray-50 rounded-lg p-4 border border-gray-200">
                                 <h4 class="font-semibold text-gray-900 mb-2 flex items-center gap-2 text-sm">
-                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                    </svg>
+                                    <x-icon name="file-text" class="w-4 h-4 text-gray-400" />
                                     {{ __('Task Description') }}
                                 </h4>
                                 <p class="text-gray-600 text-sm leading-relaxed">{{ Str::limit($assignment->task->description, 200) }}</p>
@@ -293,9 +275,7 @@
                         <div class="bg-emerald-50 rounded-lg p-4 mb-4 border border-emerald-200">
                             <h4 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2 text-sm">
                                 <div class="w-6 h-6 bg-emerald-100 rounded-lg flex items-center justify-center">
-                                    <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                                    </svg>
+                                    <x-icon name="sparkles" class="w-3.5 h-3.5 text-emerald-600" />
                                 </div>
                                 {{ __('Why You Were Matched') }}
                             </h4>
@@ -368,11 +348,9 @@
                 </div>
                 @empty
                 <!-- Empty State -->
-                <div class="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
+                <div class="bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-12 text-center">
                     <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
+                        <x-icon name="mail" class="w-8 h-8 text-gray-400" strokeWidth="1.5" />
                     </div>
                     <h3 class="text-lg font-bold text-gray-900 mb-1">{{ __('No Pending Invitations') }}</h3>
                     <p class="text-gray-500 text-sm max-w-md mx-auto">{{ __('When you\'re matched with tasks based on your skills and expertise, new invitations will appear here.') }}</p>
@@ -383,7 +361,7 @@
             <!-- ACCEPTED TAB -->
             <div x-show="activeTab === 'accepted'" class="space-y-4">
                 @forelse($assignments->get('accepted', collect()) as $assignment)
-                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden elevation-sm hover:elevation-md transition-premium">
                     <div class="h-1 bg-blue-500"></div>
                     <div class="p-5">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -417,11 +395,9 @@
                     </div>
                 </div>
                 @empty
-                <div class="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
+                <div class="bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-12 text-center">
                     <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
+                        <x-icon name="check-circle" class="w-8 h-8 text-gray-400" strokeWidth="1.5" />
                     </div>
                     <h3 class="text-lg font-bold text-gray-900 mb-1">{{ __('No Accepted Tasks') }}</h3>
                     <p class="text-gray-500 text-sm max-w-md mx-auto">{{ __('Accept task invitations to see them here and start working on them.') }}</p>
@@ -432,7 +408,7 @@
             <!-- IN PROGRESS TAB -->
             <div x-show="activeTab === 'in_progress'" class="space-y-4">
                 @forelse($assignments->get('in_progress', collect()) as $assignment)
-                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden elevation-sm hover:elevation-md transition-premium">
                     <div class="h-1 bg-violet-500"></div>
                     <div class="p-5">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -484,7 +460,7 @@
                     </div>
                 </div>
                 @empty
-                <div class="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
+                <div class="bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-12 text-center">
                     <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -499,7 +475,7 @@
             <!-- COMPLETED TAB -->
             <div x-show="activeTab === 'completed'" class="space-y-4">
                 @forelse($assignments->get('completed', collect()) as $assignment)
-                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden elevation-sm hover:elevation-md transition-premium">
                     <div class="h-1 bg-emerald-500"></div>
                     <div class="p-5">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -535,11 +511,9 @@
                     </div>
                 </div>
                 @empty
-                <div class="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
+                <div class="bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-12 text-center">
                     <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>
-                        </svg>
+                        <x-icon name="check-circle" class="w-8 h-8 text-gray-400" strokeWidth="1.5" />
                     </div>
                     <h3 class="text-lg font-bold text-gray-900 mb-1">{{ __('No Completed Tasks Yet') }}</h3>
                     <p class="text-gray-500 text-sm max-w-md mx-auto">{{ __('Complete your first task to see your accomplishments here!') }}</p>
@@ -550,7 +524,7 @@
             <!-- DECLINED TAB -->
             <div x-show="activeTab === 'declined'" class="space-y-4">
                 @forelse($assignments->get('declined', collect()) as $assignment)
-                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden opacity-75">
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden elevation-sm hover:elevation-md transition-premium opacity-75">
                     <div class="h-1 bg-gray-400"></div>
                     <div class="p-4">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
@@ -570,11 +544,9 @@
                     </div>
                 </div>
                 @empty
-                <div class="bg-white border border-dashed border-gray-300 rounded-xl p-12 text-center">
+                <div class="bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-12 text-center">
                     <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
+                        <x-icon name="x" class="w-8 h-8 text-gray-400" strokeWidth="1.5" />
                     </div>
                     <h3 class="text-lg font-bold text-gray-900 mb-1">{{ __('No Declined Tasks') }}</h3>
                     <p class="text-gray-500 text-sm max-w-md mx-auto">{{ __('You haven\'t declined any task invitations.') }}</p>

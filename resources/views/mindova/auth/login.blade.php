@@ -14,8 +14,13 @@
     <div class="w-full max-w-md">
         <!-- Logo -->
         <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl mb-4">
-                <span class="text-2xl font-bold text-white">M</span>
+            <div class="inline-flex items-center justify-center mb-4">
+                <svg width="56" height="56" viewBox="0 0 50 50" fill="none" aria-hidden="true">
+                    <path d="M 8,44 L 8,8 L 25,24 L 42,8 L 42,44" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="8"  cy="8"  r="6.5" fill="#ffffff"/>
+                    <circle cx="25" cy="24" r="5"   fill="rgba(255,255,255,0.75)"/>
+                    <circle cx="42" cy="8"  r="6.5" fill="#ffffff"/>
+                </svg>
             </div>
             <h1 class="text-2xl font-bold text-white">Mindova Admin</h1>
             <p class="text-slate-400 mt-1">{{ __('Internal Team Portal') }}</p>

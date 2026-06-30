@@ -25,7 +25,8 @@ Route::get('/maintenance', function () {
 
 // Static Pages
 Route::get('/how-it-works', function () { return view('pages.how-it-works'); })->name('how-it-works');
-Route::get('/success-stories', function () { return view('pages.success-stories'); })->name('success-stories');
+Route::get('/success-stories', [App\Http\Controllers\Web\SuccessStoryController::class, 'index'])->name('success-stories');
+Route::get('/success-stories/{slug}', [App\Http\Controllers\Web\SuccessStoryController::class, 'show'])->name('success-stories.show');
 Route::get('/help', function () { return view('pages.help'); })->name('help');
 Route::get('/guidelines', function () { return view('pages.guidelines'); })->name('guidelines');
 Route::get('/api-docs', function () { return view('pages.api-docs'); })->name('api-docs');
@@ -130,6 +131,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/volunteer/update', [App\Http\Controllers\Web\ProfileController::class, 'updateVolunteerProfile'])->name('profile.volunteer.update');
     Route::post('/profile/company/update', [App\Http\Controllers\Web\ProfileController::class, 'updateCompanyProfile'])->name('profile.company.update');
 
+    // LinkedIn account management (authenticated users)
+    Route::get('/profile/linkedin/connect', [App\Http\Controllers\Auth\LinkedInAuthController::class, 'connect'])->name('linkedin.connect');
+    Route::post('/profile/linkedin/disconnect', [App\Http\Controllers\Auth\LinkedInAuthController::class, 'disconnect'])->name('linkedin.disconnect');
+    Route::post('/profile/linkedin/url', [App\Http\Controllers\Auth\LinkedInAuthController::class, 'updateLinkedInUrl'])->name('linkedin.url.update');
+
     // Security Settings
     Route::prefix('security')->name('security.')->group(function () {
         Route::post('/password/change', [App\Http\Controllers\Web\SecurityController::class, 'changePassword'])->name('password.change');
@@ -208,6 +214,42 @@ Route::middleware('auth')->group(function () {
     // Leaderboard
     Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
 
+
+    // Expert System (500+ Stars required)
+    Route::prefix('expert')->name('expert.')->middleware('auth')->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\Web\ExpertController::class, 'dashboard'])->name('dashboard');
+        Route::get('/challenges/{challenge}', [App\Http\Controllers\Web\ExpertController::class, 'showChallenge'])->name('challenge');
+        Route::post('/assignments/{assignment}/accept', [App\Http\Controllers\Web\ExpertController::class, 'acceptInvitation'])->name('accept');
+        Route::post('/assignments/{assignment}/decline', [App\Http\Controllers\Web\ExpertController::class, 'declineInvitation'])->name('decline');
+        Route::post('/certificates/{certificate}/approve', [App\Http\Controllers\Web\ExpertController::class, 'approveCertificate'])->name('certificate.approve');
+    });
+
+
+    // =========================================================================
+    // Verified Talent Marketplace
+    // =========================================================================
+    Route::prefix('talent')->name('talent.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Web\TalentMarketplaceController::class, 'index'])->name('index');
+        Route::get('/verify-hire', [App\Http\Controllers\Web\TalentMarketplaceController::class, 'verifyHire'])->name('verify-hire');
+        Route::get('/{volunteer}', [App\Http\Controllers\Web\TalentMarketplaceController::class, 'profile'])->name('profile');
+        Route::get('/{volunteer}/hire', [App\Http\Controllers\Web\HireRequestController::class, 'create'])->name('hire');
+        Route::post('/{volunteer}/hire', [App\Http\Controllers\Web\HireRequestController::class, 'store'])->name('hire.store');
+    });
+
+    // Hire Requests (manage inbox)
+    Route::prefix('hire-requests')->name('hire-requests.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Web\HireRequestController::class, 'index'])->name('index');
+        Route::post('/{hireRequest}/accept', [App\Http\Controllers\Web\HireRequestController::class, 'accept'])->name('accept');
+        Route::post('/{hireRequest}/decline', [App\Http\Controllers\Web\HireRequestController::class, 'decline'])->name('decline');
+    });
+
+    // Recruitment Agency White-Label Portal
+    Route::prefix('agency')->name('agency.')->group(function () {
+        Route::get('/setup', [App\Http\Controllers\Web\AgencyPortalController::class, 'setup'])->name('setup');
+        Route::post('/setup', [App\Http\Controllers\Web\AgencyPortalController::class, 'store'])->name('store');
+        Route::get('/dashboard', [App\Http\Controllers\Web\AgencyPortalController::class, 'dashboard'])->name('dashboard');
+    });
+
     // Settings
     Route::get('/settings/notifications', function () {
         return view('settings.notifications');
@@ -250,6 +292,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/challenges/{challenge}', [App\Http\Controllers\Admin\AdminChallengeController::class, 'destroy'])
         ->name('challenges.destroy');
 
+    // Trigger expert assignment for a challenge (admin action)
+    Route::post('/challenges/{challenge}/assign-experts', [App\Http\Controllers\Web\ExpertController::class, 'assignExperts'])
+        ->name('challenges.assign-experts');
+
     // Companies Management
     Route::get('/companies', [App\Http\Controllers\Admin\AdminCompanyController::class, 'index'])
         ->name('companies.index');
@@ -288,6 +334,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/settings/bulk-update', [App\Http\Controllers\Admin\AdminSettingsController::class, 'bulkUpdate'])
         ->name('settings.bulkUpdate');
 });
+
+// Public Agency White-Label Portal — intentionally no auth; external visitors browse company talent portals
+Route::get('/agency/portal/{slug}', [App\Http\Controllers\Web\AgencyPortalController::class, 'publicPortal'])->name('agency.portal');
 
 // ============================================================================
 // MINDOVA INTERNAL ORGANIZATION ROUTES

@@ -1,11 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', __('Companies Management'))
+@section('title', __('Companies'))
+@section('page-title', __('Companies Management'))
+@section('page-subtitle', __('View and manage all companies on the platform'))
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
-    <!-- Premium Header -->
-    <div class="relative overflow-hidden bg-primary-500 py-10 mb-8 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
+<div>
+    <!-- Header banner -->
+    <div class="relative overflow-hidden rounded-2xl mb-6" style="background: linear-gradient(135deg, #0EA5E9 0%, #3B82F6 50%, #4338CA 100%)">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full "></div>
@@ -103,10 +105,10 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4">
+    <div class="-mt-4">
         <!-- Premium Filters Card -->
-        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 mb-8 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-primary-50 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-xl border border-slate-100 dark:border-gray-700 p-6 mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary-50 dark:bg-primary-500/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
             <div class="relative">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="h-10 w-10 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg">
@@ -115,31 +117,31 @@
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold text-slate-900">Search & Filter</h2>
-                        <p class="text-sm text-slate-500">Find companies quickly</p>
+                        <h2 class="text-lg font-bold text-slate-900 dark:text-gray-100">Search & Filter</h2>
+                        <p class="text-sm text-slate-500 dark:text-gray-400">Find companies quickly</p>
                     </div>
                 </div>
 
                 <form method="GET" action="{{ route('admin.companies.index') }}" class="flex flex-wrap items-end gap-4">
                     <div class="flex-1 min-w-[280px]">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Search Companies</label>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-gray-300 mb-2">Search Companies</label>
                         <div class="relative">
-                            <svg class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Company name, email, or industry..." class="w-full pl-12 pr-4 py-3.5 rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 bg-slate-50/50">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Company name, email, or industry..." class="w-full pl-12 pr-4 py-3.5 rounded-xl border-slate-200 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500 bg-slate-50/50 dark:bg-gray-900/50 text-slate-900 dark:text-gray-100">
                         </div>
                     </div>
                     <div class="min-w-[180px]">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Sort By</label>
-                        <select name="sort_by" class="w-full py-3.5 rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 bg-slate-50/50">
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-gray-300 mb-2">Sort By</label>
+                        <select name="sort_by" class="w-full py-3.5 rounded-xl border-slate-200 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500 bg-slate-50/50 dark:bg-gray-900/50 text-slate-900 dark:text-gray-100">
                             <option value="created_at" {{ request('sort_by') === 'created_at' ? 'selected' : '' }}>Registration Date</option>
                             <option value="challenges_count" {{ request('sort_by') === 'challenges_count' ? 'selected' : '' }}>Challenge Count</option>
                         </select>
                     </div>
                     <div class="min-w-[150px]">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Order</label>
-                        <select name="sort_order" class="w-full py-3.5 rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 bg-slate-50/50">
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-gray-300 mb-2">Order</label>
+                        <select name="sort_order" class="w-full py-3.5 rounded-xl border-slate-200 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500 bg-slate-50/50 dark:bg-gray-900/50 text-slate-900 dark:text-gray-100">
                             <option value="desc" {{ request('sort_order') === 'desc' ? 'selected' : '' }}>Newest First</option>
                             <option value="asc" {{ request('sort_order') === 'asc' ? 'selected' : '' }}>Oldest First</option>
                         </select>
@@ -162,7 +164,7 @@
         <!-- Companies Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
             @forelse($companies as $index => $company)
-            <a href="{{ route('admin.companies.show', $company) }}" class="group bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-2xl hover:border-blue-200 overflow-hidden" style="animation-delay: {{ $index * 0.05 }}s;">
+            <a href="{{ route('admin.companies.show', $company) }}" class="group bg-white dark:bg-gray-800 rounded-2xl elevation-sm border border-slate-100 dark:border-gray-700 hover:elevation-xl hover:border-blue-200 dark:hover:border-blue-500/40 overflow-hidden transition-premium" style="animation-delay: {{ $index * 0.05 }}s;">
                 <!-- Top Accent -->
                 <div class="h-1 bg-primary-500"></div>
 
@@ -170,14 +172,14 @@
                     <div class="flex items-start gap-4">
                         <div class="relative">
                             @if($company->logo_path)
-                            <img src="{{ asset('storage/' . $company->logo_path) }}" alt="{{ $company->company_name }}" class="h-16 w-16 rounded-2xl object-cover shadow-lg ring-2 ring-slate-100">
+                            <img src="{{ asset('storage/' . $company->logo_path) }}" alt="{{ $company->company_name }}" class="h-16 w-16 rounded-2xl object-cover shadow-lg ring-2 ring-slate-100 dark:ring-gray-700">
                             @else
                             <div class="h-16 w-16 rounded-2xl bg-primary-500 flex items-center justify-center shadow-lg">
                                 <span class="text-white font-bold text-xl">{{ substr($company->company_name ?? $company->user->name, 0, 2) }}</span>
                             </div>
                             @endif
                             @if($company->challenges->where('status', 'active')->count() > 0)
-                            <div class="absolute -bottom-1 -right-1 h-5 w-5 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center">
+                            <div class="absolute -bottom-1 -right-1 h-5 w-5 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center">
                                 <svg class="h-3 w-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
@@ -185,12 +187,12 @@
                             @endif
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600 truncate">
+                            <h3 class="font-bold text-lg text-slate-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 truncate">
                                 {{ $company->company_name ?? $company->user->name }}
                             </h3>
-                            <p class="text-sm text-slate-500 truncate">{{ $company->user->email }}</p>
+                            <p class="text-sm text-slate-500 dark:text-gray-400 truncate">{{ $company->user->email }}</p>
                             @if($company->industry)
-                            <span class="inline-flex items-center mt-2 text-xs font-semibold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg">
+                            <span class="inline-flex items-center mt-2 text-xs font-semibold text-slate-600 dark:text-gray-300 bg-slate-100 dark:bg-gray-700 px-2.5 py-1 rounded-lg">
                                 {{ $company->industry }}
                             </span>
                             @endif
@@ -199,30 +201,30 @@
 
                     <!-- Stats Row -->
                     <div class="mt-6 grid grid-cols-3 gap-3">
-                        <div class="bg-gray-50 rounded-xl p-3 text-center border border-blue-100/50">
-                            <p class="text-xl font-black text-blue-600">{{ $company->challenges_count }}</p>
-                            <p class="text-xs text-slate-500 font-medium">Challenges</p>
+                        <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-3 text-center border border-blue-100/50 dark:border-blue-500/20">
+                            <p class="text-xl font-black text-blue-600 dark:text-blue-400">{{ $company->challenges_count }}</p>
+                            <p class="text-xs text-slate-500 dark:text-gray-400 font-medium">Challenges</p>
                         </div>
-                        <div class="bg-gray-50 rounded-xl p-3 text-center border border-emerald-100/50">
-                            <p class="text-xl font-black text-emerald-600">{{ $company->challenges->where('status', 'active')->count() }}</p>
-                            <p class="text-xs text-slate-500 font-medium">Active</p>
+                        <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-3 text-center border border-emerald-100/50 dark:border-emerald-500/20">
+                            <p class="text-xl font-black text-emerald-600 dark:text-emerald-400">{{ $company->challenges->where('status', 'active')->count() }}</p>
+                            <p class="text-xs text-slate-500 dark:text-gray-400 font-medium">Active</p>
                         </div>
-                        <div class="bg-secondary-50 rounded-xl p-3 text-center border border-violet-100/50">
-                            <p class="text-xl font-black text-violet-600">{{ $company->challenges->where('status', 'completed')->count() }}</p>
-                            <p class="text-xs text-slate-500 font-medium">Completed</p>
+                        <div class="bg-secondary-50 dark:bg-violet-500/10 rounded-xl p-3 text-center border border-violet-100/50 dark:border-violet-500/20">
+                            <p class="text-xl font-black text-violet-600 dark:text-violet-400">{{ $company->challenges->where('status', 'completed')->count() }}</p>
+                            <p class="text-xs text-slate-500 dark:text-gray-400 font-medium">Completed</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Footer -->
-                <div class="px-6 py-4 bg-slate-50/50 group-hover:bg-blue-50/50 border-t border-slate-100 flex items-center justify-between">
-                    <div class="flex items-center gap-2 text-sm text-slate-500">
+                <div class="px-6 py-4 bg-slate-50/50 dark:bg-gray-900/30 group-hover:bg-blue-50/50 dark:group-hover:bg-blue-500/10 border-t border-slate-100 dark:border-gray-700 flex items-center justify-between">
+                    <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-gray-400">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                         <span>{{ $company->created_at->format('M d, Y') }}</span>
                     </div>
-                    <div class="flex items-center gap-2 text-blue-600 font-semibold text-sm">
+                    <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold text-sm">
                         View Details
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -231,14 +233,14 @@
                 </div>
             </a>
             @empty
-            <div class="col-span-full bg-white rounded-3xl shadow-sm border border-slate-100 p-16 text-center">
-                <div class="w-24 h-24 rounded-3xl bg-gray-100 flex items-center justify-center mx-auto mb-6">
-                    <svg class="h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="col-span-full bg-white dark:bg-gray-800 rounded-3xl elevation-sm border border-slate-100 dark:border-gray-700 p-16 text-center">
+                <div class="w-24 h-24 rounded-3xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center mx-auto mb-6">
+                    <svg class="h-12 w-12 text-slate-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-2">No Companies Found</h3>
-                <p class="text-slate-500 mb-6">Try adjusting your search filters or check back later.</p>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-gray-100 mb-2">No Companies Found</h3>
+                <p class="text-slate-500 dark:text-gray-400 mb-6">Try adjusting your search filters or check back later.</p>
                 <x-ui.button as="a" href="{{ route('admin.companies.index') }}" variant="primary">
                     Clear Filters
                 </x-ui.button>

@@ -19,16 +19,16 @@
         </div>
 
         {{-- Form Card --}}
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden elevation-sm">
             {{-- Progress Steps --}}
             <div class="bg-gray-50 px-6 py-4 border-b border-gray-100">
                 <div class="flex items-center justify-between max-w-2xl mx-auto">
                     <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">1</div>
+                        <div class="w-8 h-8 bg-aurora rounded-lg flex items-center justify-center text-white text-sm font-bold glow-primary-sm">1</div>
                         <span class="text-sm font-medium text-gray-700 hidden sm:block">{{ __('Details') }}</span>
                     </div>
                     <div class="flex-1 h-0.5 bg-gray-200 mx-3">
-                        <div class="h-full w-1/4 bg-primary-600 rounded-full"></div>
+                        <div class="h-full w-1/4 bg-aurora rounded-full"></div>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-sm font-bold">2</div>
@@ -55,7 +55,7 @@
                         </div>
                     </label>
                     <input type="text" name="title" required
-                           class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 text-gray-900 placeholder-gray-400"
+                           class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 text-gray-900 placeholder-gray-400 transition-premium-fast"
                            value="{{ old('title') }}"
                            placeholder="{{ __('e.g., Reduce office energy consumption by 30%') }}">
                     @error('title')
@@ -79,7 +79,7 @@
                     </label>
                     <div class="relative">
                         <textarea name="description" rows="8" required
-                                  class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 text-gray-900 placeholder-gray-400 resize-none leading-relaxed"
+                                  class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 text-gray-900 placeholder-gray-400 resize-none leading-relaxed transition-premium-fast"
                                   placeholder="{{ __('Describe your challenge in detail...\n\nInclude:\n- What problem are you trying to solve?\n- What are the current challenges?\n- What outcomes do you expect?\n- Any specific requirements or constraints?') }}">{{ old('description') }}</textarea>
                         <div class="absolute bottom-3 right-3 text-xs text-gray-400 bg-white px-2 py-1 rounded">
                             {{ __('Min 100 characters') }}
@@ -109,7 +109,7 @@
                     </label>
 
                     {{-- Upload Zone --}}
-                    <div id="upload-zone" class="relative border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50 hover:border-primary-400 hover:bg-primary-50/50 cursor-pointer transition-colors">
+                    <div id="upload-zone" class="relative border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50 hover:border-primary-400 hover:bg-primary-50/50 cursor-pointer transition-premium">
                         <input type="file" id="attachment-upload" accept=".pdf" class="hidden">
 
                         <div class="space-y-4">
@@ -120,7 +120,7 @@
                             </div>
 
                             <div>
-                                <button type="button" onclick="document.getElementById('attachment-upload').click()" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
+                                <button type="button" onclick="document.getElementById('attachment-upload').click()" class="inline-flex items-center gap-2 px-4 py-2 bg-aurora text-white text-sm font-medium rounded-lg glow-primary-sm hover:glow-primary-md transition-premium">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                                     </svg>
@@ -158,7 +158,7 @@
                     <div id="attachments-list" class="space-y-2"></div>
 
                     {{-- PDF Benefits --}}
-                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                    <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-5">
                         <div class="flex gap-3">
                             <div class="flex-shrink-0">
                                 <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
@@ -197,7 +197,7 @@
                 {{-- Info Cards --}}
                 <div class="grid md:grid-cols-2 gap-4">
                     {{-- NDA Protection --}}
-                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 elevation-xs">
                         <div class="flex gap-3">
                             <div class="flex-shrink-0">
                                 <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
@@ -216,7 +216,7 @@
                     </div>
 
                     {{-- AI Analysis --}}
-                    <div class="bg-violet-50 border border-violet-200 rounded-xl p-5">
+                    <div class="bg-violet-50 border border-violet-200 rounded-2xl p-5 elevation-xs">
                         <div class="flex gap-3">
                             <div class="flex-shrink-0">
                                 <div class="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center">
@@ -236,11 +236,9 @@
                 </div>
 
                 {{-- What Happens Next --}}
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-5">
                     <h3 class="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
+                        <x-icon name="zap" class="w-4 h-4 text-primary-600" />
                         {{ __('What happens next?') }}
                     </h3>
 
@@ -251,7 +249,7 @@
                             ['icon' => 'M4 6h16M4 10h16M4 14h16M4 18h16', 'title' => __('Task Breakdown'), 'desc' => __('Decomposed into manageable tasks')],
                             ['icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', 'title' => __('Volunteer Matching'), 'desc' => __('Qualified volunteers assigned')]
                         ] as $step)
-                        <div class="flex items-start gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                        <div class="flex items-start gap-3 bg-white dark:bg-gray-700 rounded-lg p-3 border border-gray-100 dark:border-gray-600">
                             <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
                                 <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $step['icon'] }}"/>
@@ -268,16 +266,14 @@
 
                 {{-- Action Buttons --}}
                 <div class="flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t border-gray-100">
-                    <a href="{{ route('dashboard') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-colors">
+                    <a href="{{ route('dashboard') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:border-gray-300 transition-premium">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         {{ __('Cancel') }}
                     </a>
-                    <button type="submit" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
+                    <button type="submit" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-aurora text-white text-sm font-medium rounded-lg glow-primary-sm hover:glow-primary-md transition-premium">
+                        <x-icon name="zap" class="w-4 h-4" />
                         {{ __('Submit Challenge') }}
                     </button>
                 </div>

@@ -41,6 +41,7 @@ class TaskDecompositionService extends AnthropicService
             options: [
                 'system_prompt' => $systemPrompt,
                 'temperature' => 0.4,
+                'max_tokens'   => 16000,
             ],
             relatedType: Challenge::class,
             relatedId: $challenge->id

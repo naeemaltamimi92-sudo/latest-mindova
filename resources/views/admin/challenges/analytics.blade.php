@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', __('Challenges Analytics'))
+@section('page-title', __('Challenges Analytics'))
+@section('page-subtitle', __('Platform-wide challenge insights'))
 
 @push('styles')
 <style>
@@ -385,7 +387,7 @@
                 </div>
                 <div class="space-y-3">
                     @forelse($topCompanies as $index => $company)
-                    <div class="group flex items-center justify-between p-4 bg-white rounded-2xl border border-slate-100 hover:border-amber-200 hover:shadow-lg">
+                    <div class="group flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-amber-200 hover:shadow-lg">
                         <div class="flex items-center gap-4">
                             <!-- Rank Badge -->
                             <div class="rank-badge relative h-10 w-10 rounded-xl flex items-center justify-center font-black text-lg shadow-lg
@@ -472,7 +474,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 @php $fieldColors = ['bg-primary-500', 'bg-secondary-500', 'bg-secondary-300', 'bg-secondary-400', 'bg-primary-400']; @endphp
                 @foreach($scoresByField as $index => $field)
-                <div class="group text-center p-6 bg-white rounded-2xl border border-slate-100 hover:border-indigo-200 hover:shadow-xl">
+                <div class="group text-center p-6 bg-white rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-indigo-200 hover:shadow-xl">
                     <!-- Circular Progress -->
                     <div class="circular-progress mx-auto mb-4 relative">
                         <svg class="w-full h-full" viewBox="0 0 120 120">

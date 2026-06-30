@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,17 @@
     <title>{{ config('app.name', 'Mindova') }} - {{ __('Under Maintenance') }}</title>
 
     @vite(['resources/css/app.css'])
+
+    {{-- Theme flash-prevention: dark is the platform default; only an explicit
+         saved 'light' choice overrides it. Runs before CSS/paint. --}}
+    <script>
+        (function() {
+            try {
+                var stored = localStorage.getItem('mindova-theme');
+                document.documentElement.classList.toggle('dark', stored !== 'light');
+            } catch (e) {}
+        })();
+    </script>
 
     @if(app()->getLocale() === 'ar')
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -67,9 +78,8 @@
         </div>
 
         <!-- Logo -->
-        <div class="flex items-center justify-center gap-3 mb-8">
-            <img src="{{ asset('images/mindova-logo.svg') }}" alt="Mindova Logo" class="h-10 w-10">
-            <span class="text-3xl font-black text-white">Mindova</span>
+        <div class="flex items-center justify-center mb-8">
+            <x-brand.logo variant="white" size="lg" />
         </div>
 
         <!-- Title -->
@@ -93,7 +103,7 @@
         <!-- Admin login link -->
         <div class="mt-16 pt-8 border-t border-white/10">
             <p class="text-white/40 text-sm mb-4">{{ __('Mindova Administrator?') }}</p>
-            <x-ui.button as="a" href="{{ route('login') }}" variant="secondary">
+            <x-ui.button as="a" href="{{ route('login') }}" variant="default">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
                 </svg>

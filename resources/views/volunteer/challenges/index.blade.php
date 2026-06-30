@@ -16,7 +16,7 @@
                 </svg>
             </div>
             <div>
-                <h1 class="text-xl font-bold text-gray-900">{{ __('My Challenges') }}</h1>
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('My Challenges') }}</h1>
                 <p class="text-gray-500 text-sm">{{ __('Track and manage challenges you\'ve submitted') }}</p>
             </div>
         </div>
@@ -37,23 +37,23 @@
         $highQualitySolutions = $challenges->sum(fn($c) => $c->comments->where('ai_score', '>=', 7)->count());
     @endphp
     <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
-        <div class="bg-white border border-gray-200 rounded-lg p-4 text-center cursor-pointer hover:bg-gray-50" onclick="filterByStatus('all')">
-            <div class="text-xl font-bold text-gray-900">{{ $totalChallenges }}</div>
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/60" onclick="filterByStatus('all')">
+            <div class="text-xl font-bold text-gray-900 dark:text-white">{{ $totalChallenges }}</div>
             <div class="text-xs text-gray-500 font-medium">{{ __('Total') }}</div>
         </div>
-        <div class="bg-white border border-gray-200 rounded-lg p-4 text-center cursor-pointer hover:bg-emerald-50" onclick="filterByStatus('active')">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-center cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-950/30" onclick="filterByStatus('active')">
             <div class="text-xl font-bold text-emerald-600">{{ $activeChallenges }}</div>
             <div class="text-xs text-gray-500 font-medium">{{ __('Active') }}</div>
         </div>
-        <div class="bg-white border border-gray-200 rounded-lg p-4 text-center cursor-pointer hover:bg-violet-50" onclick="filterByStatus('analyzing')">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-center cursor-pointer hover:bg-violet-50 dark:hover:bg-violet-950/30" onclick="filterByStatus('analyzing')">
             <div class="text-xl font-bold text-violet-600">{{ $analyzingChallenges }}</div>
             <div class="text-xs text-gray-500 font-medium">{{ __('Analyzing') }}</div>
         </div>
-        <div class="bg-white border border-gray-200 rounded-lg p-4 text-center cursor-pointer hover:bg-blue-50" onclick="filterByStatus('completed')">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-center cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-950/30" onclick="filterByStatus('completed')">
             <div class="text-xl font-bold text-blue-600">{{ $completedChallenges }}</div>
             <div class="text-xs text-gray-500 font-medium">{{ __('Completed') }}</div>
         </div>
-        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-center">
+        <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 rounded-lg p-4 text-center">
             <div class="text-xl font-bold text-amber-600">{{ $highQualitySolutions }}</div>
             <div class="text-xs text-gray-500 font-medium">{{ __('Quality Solutions') }}</div>
         </div>
@@ -66,22 +66,22 @@
             <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-primary-50 text-primary-700 border border-primary-200" data-filter="all">
                 {{ __('All') }}
             </button>
-            <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-50 text-gray-600 border border-transparent hover:bg-gray-100" data-filter="active">
+            <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-transparent hover:bg-gray-100 dark:hover:bg-gray-700" data-filter="active">
                 {{ __('Active') }}
             </button>
-            <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-50 text-gray-600 border border-transparent hover:bg-gray-100" data-filter="analyzing">
+            <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-transparent hover:bg-gray-100 dark:hover:bg-gray-700" data-filter="analyzing">
                 {{ __('Analyzing') }}
             </button>
-            <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-50 text-gray-600 border border-transparent hover:bg-gray-100" data-filter="completed">
+            <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-transparent hover:bg-gray-100 dark:hover:bg-gray-700" data-filter="completed">
                 {{ __('Completed') }}
             </button>
-            <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-50 text-gray-600 border border-transparent hover:bg-gray-100" data-filter="rejected">
+            <button type="button" class="filter-chip px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-transparent hover:bg-gray-100 dark:hover:bg-gray-700" data-filter="rejected">
                 {{ __('Rejected') }}
             </button>
         </div>
         <div class="flex items-center gap-2">
             <label class="text-sm text-gray-500">{{ __('Sort:') }}</label>
-            <select id="sortSelect" class="text-sm border-gray-200 rounded-lg">
+            <select id="sortSelect" class="text-sm border-gray-200 dark:border-gray-700 rounded-lg">
                 <option value="newest">{{ __('Newest First') }}</option>
                 <option value="oldest">{{ __('Oldest First') }}</option>
                 <option value="score">{{ __('Highest Score') }}</option>

@@ -29,9 +29,17 @@ $initials = collect(explode(' ', $name))
     ->map(fn($word) => strtoupper(substr($word, 0, 1)))
     ->take(2)
     ->join('');
+
+// Deterministic per-person color from a curated palette (matches each
+// person getting a distinct, consistent avatar color across the app).
+$palette = [
+    '#6D5BD0', '#4C8BF5', '#34B27B', '#F0A93B',
+    '#E8567A', '#3FBFC4', '#B968E0', '#F0773F',
+];
+$avatarColor = $name !== '' ? $palette[crc32($name) % count($palette)] : null;
 @endphp
 
-<div {{ $attributes->class(["relative inline-flex items-center justify-center rounded-full bg-primary-500 text-white font-semibold overflow-hidden", $sizeClass]) }}>
+<div {{ $attributes->class(["relative inline-flex items-center justify-center rounded-full text-white font-semibold overflow-hidden", $avatarColor ? '' : 'bg-primary-500', $sizeClass]) }} @if($avatarColor) style="background-color: {{ $avatarColor }}" @endif>
     @if($src)
         <img src="{{ $src }}" alt="{{ $alt ?: $name }}" class="w-full h-full object-cover">
     @else

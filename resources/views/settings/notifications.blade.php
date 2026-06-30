@@ -22,14 +22,10 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gray-50 pb-12">
-    <!-- Premium Hero Header -->
-    <div class="relative overflow-hidden bg-primary-500 py-12 mb-8 mx-4 sm:mx-6 lg:mx-8 rounded-3xl shadow-2xl max-w-5xl lg:mx-auto slide-up">
+<div class="min-h-screen bg-gray-50 dark:bg-transparent pb-12">
+    <!-- Hero Header -->
+    <div class="relative overflow-hidden bg-aurora py-12 mb-8 mx-4 sm:mx-6 lg:mx-8 rounded-3xl elevation-lg max-w-5xl lg:mx-auto slide-up">
         <!-- Animated Background Effects -->
-        <div class="absolute inset-0 opacity-30">
-            <div class="absolute top-0 left-0 w-full h-full "></div>
-            <div class="absolute bottom-0 right-0 w-full h-full "></div>
-        </div>
         <div class="absolute inset-0 overflow-hidden">
             <div class="floating-element absolute top-10 -left-20 w-60 h-60 bg-indigo-500/20 rounded-full blur-3xl float-anim"></div>
             <div class="floating-element absolute bottom-10 right-10 w-72 h-72 bg-violet-500/20 rounded-full blur-3xl float-anim"></div>
@@ -66,17 +62,17 @@
             @method('PUT')
 
             <!-- Email Notifications -->
-            <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden slide-up" style="animation-delay: 0.1s">
-                <div class="bg-gray-50 px-8 py-6 border-b border-slate-200">
+            <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-lg border border-slate-200 dark:border-gray-700 overflow-hidden slide-up" style="animation-delay: 0.1s">
+                <div class="bg-gray-50 dark:bg-gray-900/40 px-8 py-6 border-b border-slate-200 dark:border-gray-700">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-aurora rounded-xl flex items-center justify-center glow-primary-sm">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-slate-900">{{ __('Email Notifications') }}</h2>
-                            <p class="text-sm text-slate-600">{{ __("Choose what email notifications you'd like to receive") }}</p>
+                            <h2 class="text-xl font-bold text-slate-900 dark:text-white">{{ __('Email Notifications') }}</h2>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">{{ __("Choose what email notifications you'd like to receive") }}</p>
                         </div>
                     </div>
                 </div>

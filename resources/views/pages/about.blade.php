@@ -3,19 +3,22 @@
 @section('title', __('About Us'))
 
 @section('content')
-<!-- Clean Hero Section -->
-<div class="bg-gray-50 pt-24 pb-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Hero Section -->
+<div class="relative overflow-hidden pt-24 pb-20">
+    <div class="absolute inset-0 bg-aurora-soft opacity-40 pointer-events-none"></div>
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-            <div class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 mb-6">
-                <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
-                <span class="text-sm font-medium text-gray-700">{{ __('About Mindova') }}</span>
+            <div class="inline-flex items-center gap-2 bg-white/[0.06] dark:bg-white/[0.06] border border-white/10 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm">
+                <x-icon name="sparkles" class="w-3.5 h-3.5 text-primary-400" />
+                <span class="text-sm font-medium text-gray-300 dark:text-gray-300">{{ __('About Mindova') }}</span>
             </div>
 
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {{ __('Transforming Challenges Into') }} <span class="text-primary-600">{{ __('Innovation') }}</span>
+            <h1 class="text-display text-gray-900 dark:text-white mb-5">
+                {{ __('Transforming Challenges Into') }} <span class="text-gradient-aurora">{{ __('Innovation') }}</span>
             </h1>
-            <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            <p class="text-lg text-gray-600 dark:text-white/60 leading-relaxed max-w-2xl mx-auto">
                 {{ __('Empowering collaboration between talented contributors and forward-thinking companies') }}
             </p>
         </div>
@@ -23,16 +26,16 @@
 </div>
 
 <!-- Mission Section -->
-<section class="py-16 bg-white">
+<section class="py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-white border border-gray-200 rounded-xl p-8 text-center">
-            <div class="w-14 h-14 bg-primary-500 rounded-xl flex items-center justify-center mx-auto mb-5">
+        <div class="bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-2xl p-8 sm:p-10 text-center elevation-sm transition-premium hover:elevation-md">
+            <div class="w-14 h-14 bg-aurora rounded-xl flex items-center justify-center mx-auto mb-5 glow-primary-sm">
                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
             </div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ __('Our Mission') }}</h2>
-            <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ __('Our Mission') }}</h2>
+            <p class="text-lg text-gray-600 dark:text-white/60 leading-relaxed max-w-2xl mx-auto">
                 {{ __('To democratize access to talent and meaningful work by connecting skilled volunteers with companies facing real-world challenges, powered by intelligent AI matching.') }}
             </p>
         </div>
@@ -40,160 +43,160 @@
 </section>
 
 <!-- What We Do Section -->
-<section class="py-16 bg-gray-50">
+<section class="py-16 bg-gray-50 dark:bg-transparent">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-                {{ __('What') }} <span class="text-primary-600">{{ __('We Do') }}</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                {{ __('What') }} <span class="text-primary-600 dark:text-primary-400">{{ __('We Do') }}</span>
             </h2>
-            <p class="text-base text-gray-600 max-w-2xl mx-auto">
+            <p class="text-base text-gray-600 dark:text-white/60 max-w-2xl mx-auto">
                 {{ __('Mindova is an AI-powered collaboration platform that transforms how organizations solve complex challenges') }}
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            <div class="bg-white border border-gray-200 rounded-xl p-6">
-                <div class="w-12 h-12 bg-primary-500 rounded-lg flex items-center justify-center mb-4">
+            <div class="bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6 transition-premium hover:elevation-sm dark:hover:bg-white/[0.05]">
+                <div class="w-12 h-12 bg-aurora rounded-lg flex items-center justify-center mb-4 glow-primary-sm">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Analyze & Decompose Challenges') }}</h3>
-                <p class="text-gray-600 text-sm">{{ __('Break down complex problems into manageable tasks using advanced AI analysis and strategic planning.') }}</p>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ __('Analyze & Decompose Challenges') }}</h3>
+                <p class="text-gray-600 dark:text-white/60 text-sm">{{ __('Break down complex problems into manageable tasks using advanced AI analysis and strategic planning.') }}</p>
             </div>
 
-            <div class="bg-white border border-gray-200 rounded-xl p-6">
-                <div class="w-12 h-12 bg-secondary-500 rounded-lg flex items-center justify-center mb-4">
+            <div class="bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6 transition-premium hover:elevation-sm dark:hover:bg-white/[0.05]">
+                <div class="w-12 h-12 bg-aurora rounded-lg flex items-center justify-center mb-4 glow-primary-sm">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Match Talent with Opportunities') }}</h3>
-                <p class="text-gray-600 text-sm">{{ __('Connect skilled volunteers with projects that align perfectly with their expertise and career goals.') }}</p>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ __('Match Talent with Opportunities') }}</h3>
+                <p class="text-gray-600 dark:text-white/60 text-sm">{{ __('Connect skilled volunteers with projects that align perfectly with their expertise and career goals.') }}</p>
             </div>
 
-            <div class="bg-white border border-gray-200 rounded-xl p-6">
-                <div class="w-12 h-12 bg-primary-400 rounded-lg flex items-center justify-center mb-4">
+            <div class="bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6 transition-premium hover:elevation-sm dark:hover:bg-white/[0.05]">
+                <div class="w-12 h-12 bg-aurora rounded-lg flex items-center justify-center mb-4 glow-primary-sm">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Form Optimal Teams') }}</h3>
-                <p class="text-gray-600 text-sm">{{ __('Create balanced "micro companies" with complementary skills for collaborative problem-solving.') }}</p>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ __('Form Optimal Teams') }}</h3>
+                <p class="text-gray-600 dark:text-white/60 text-sm">{{ __('Create balanced "micro companies" with complementary skills for collaborative problem-solving.') }}</p>
             </div>
 
-            <div class="bg-white border border-gray-200 rounded-xl p-6">
-                <div class="w-12 h-12 bg-secondary-300 rounded-lg flex items-center justify-center mb-4">
+            <div class="bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6 transition-premium hover:elevation-sm dark:hover:bg-white/[0.05]">
+                <div class="w-12 h-12 bg-aurora rounded-lg flex items-center justify-center mb-4 glow-primary-sm">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Facilitate Meaningful Work') }}</h3>
-                <p class="text-gray-600 text-sm">{{ __('Enable volunteers to build portfolios while solving real problems that make a difference.') }}</p>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ __('Facilitate Meaningful Work') }}</h3>
+                <p class="text-gray-600 dark:text-white/60 text-sm">{{ __('Enable volunteers to build portfolios while solving real problems that make a difference.') }}</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Technology Section -->
-<section class="py-16 bg-white">
+<section class="py-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <div class="inline-flex items-center gap-2 bg-violet-50 border border-violet-200 rounded-full px-4 py-1.5 mb-4">
-                <span class="text-sm font-medium text-violet-700">{{ __('Our Technology') }}</span>
+            <div class="inline-flex items-center gap-2 bg-primary-500/10 border border-primary-500/20 rounded-full px-4 py-1.5 mb-4">
+                <span class="text-sm font-medium text-primary-400">{{ __('Our Technology') }}</span>
             </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-                {{ __('Built on') }} <span class="text-primary-600">{{ __('Cutting-Edge AI') }}</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                {{ __('Built on') }} <span class="text-primary-600 dark:text-primary-400">{{ __('Cutting-Edge AI') }}</span>
             </h2>
-            <p class="text-base text-gray-600 max-w-2xl mx-auto">
+            <p class="text-base text-gray-600 dark:text-white/60 max-w-2xl mx-auto">
                 {{ __('Powered by GPT-4o and advanced algorithms for intelligent collaboration') }}
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+            <div class="bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6">
                 <div class="flex items-center mb-3">
-                    <div class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center mr-3">
+                    <div class="w-10 h-10 bg-aurora rounded-lg flex items-center justify-center mr-3 glow-primary-sm">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                         </svg>
                     </div>
-                    <h4 class="text-lg font-semibold text-gray-900">{{ __('Intelligent Analysis') }}</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Intelligent Analysis') }}</h4>
                 </div>
-                <p class="text-gray-600 text-sm">{{ __('AI-powered challenge analysis and task decomposition using natural language processing') }}</p>
+                <p class="text-gray-600 dark:text-white/60 text-sm">{{ __('AI-powered challenge analysis and task decomposition using natural language processing') }}</p>
             </div>
 
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+            <div class="bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6">
                 <div class="flex items-center mb-3">
-                    <div class="w-10 h-10 bg-secondary-500 rounded-lg flex items-center justify-center mr-3">
+                    <div class="w-10 h-10 bg-aurora rounded-lg flex items-center justify-center mr-3 glow-primary-sm">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h4 class="text-lg font-semibold text-gray-900">{{ __('Smart Matching') }}</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Smart Matching') }}</h4>
                 </div>
-                <p class="text-gray-600 text-sm">{{ __('Advanced algorithms for optimal volunteer-task pairing with 80%+ accuracy') }}</p>
+                <p class="text-gray-600 dark:text-white/60 text-sm">{{ __('Advanced algorithms for optimal volunteer-task pairing with 80%+ accuracy') }}</p>
             </div>
 
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+            <div class="bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6">
                 <div class="flex items-center mb-3">
-                    <div class="w-10 h-10 bg-primary-400 rounded-lg flex items-center justify-center mr-3">
+                    <div class="w-10 h-10 bg-aurora rounded-lg flex items-center justify-center mr-3 glow-primary-sm">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
                     </div>
-                    <h4 class="text-lg font-semibold text-gray-900">{{ __('Team Formation') }}</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Team Formation') }}</h4>
                 </div>
-                <p class="text-gray-600 text-sm">{{ __('Automated creation of balanced, high-performing teams with complementary skills') }}</p>
+                <p class="text-gray-600 dark:text-white/60 text-sm">{{ __('Automated creation of balanced, high-performing teams with complementary skills') }}</p>
             </div>
 
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+            <div class="bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6">
                 <div class="flex items-center mb-3">
-                    <div class="w-10 h-10 bg-secondary-300 rounded-lg flex items-center justify-center mr-3">
+                    <div class="w-10 h-10 bg-aurora rounded-lg flex items-center justify-center mr-3 glow-primary-sm">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
                     </div>
-                    <h4 class="text-lg font-semibold text-gray-900">{{ __('Progress Tracking') }}</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Progress Tracking') }}</h4>
                 </div>
-                <p class="text-gray-600 text-sm">{{ __('Real-time analytics and performance monitoring with comprehensive dashboards') }}</p>
+                <p class="text-gray-600 dark:text-white/60 text-sm">{{ __('Real-time analytics and performance monitoring with comprehensive dashboards') }}</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Why Mindova Section -->
-<section class="py-16 bg-gray-50">
+<section class="py-16 bg-gray-50 dark:bg-transparent">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-3">{{ __('Why') }} <span class="text-primary-600">{{ __('Mindova') }}</span>?</h2>
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-3">{{ __('Why') }} <span class="text-primary-600 dark:text-primary-400">{{ __('Mindova') }}</span>?</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white border border-gray-200 rounded-xl p-6">
+            <div class="bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6">
                 <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div class="w-12 h-12 bg-aurora rounded-lg flex items-center justify-center flex-shrink-0 glow-primary-sm">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('For Contributors') }}</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">{{ __('Build your portfolio, gain real-world experience, and make a meaningful impact while working on challenges that match your skills and interests. Grow your reputation and network with professionals.') }}</p>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ __('For Contributors') }}</h3>
+                        <p class="text-gray-600 dark:text-white/60 text-sm leading-relaxed">{{ __('Build your portfolio, gain real-world experience, and make a meaningful impact while working on challenges that match your skills and interests. Grow your reputation and network with professionals.') }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white border border-gray-200 rounded-xl p-6">
+            <div class="bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl p-6">
                 <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-secondary-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div class="w-12 h-12 bg-aurora rounded-lg flex items-center justify-center flex-shrink-0 glow-primary-sm">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ __('For Companies') }}</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">{{ __('Access diverse talent, solve complex problems cost-effectively, and benefit from AI-optimized team formation and project management. Get results faster with perfectly matched volunteers.') }}</p>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ __('For Companies') }}</h3>
+                        <p class="text-gray-600 dark:text-white/60 text-sm leading-relaxed">{{ __('Access diverse talent, solve complex problems cost-effectively, and benefit from AI-optimized team formation and project management. Get results faster with perfectly matched volunteers.') }}</p>
                     </div>
                 </div>
             </div>
@@ -202,11 +205,21 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-16 bg-primary-500">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<section class="relative py-16 overflow-hidden bg-aurora">
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="about-cta-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#about-cta-grid)" />
+        </svg>
+    </div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ __('Ready to Make a Difference?') }}</h3>
         <p class="text-lg text-white/90 mb-8">{{ __('Join our community and start transforming challenges into innovation') }}</p>
-        <x-ui.button as="a" href="{{ route('contact') }}" variant="secondary" size="lg">
+        <x-ui.button as="a" href="{{ route('contact') }}" variant="default" size="lg">
             {{ __('Get in Touch') }}
             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>

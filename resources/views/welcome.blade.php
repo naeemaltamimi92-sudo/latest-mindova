@@ -4,50 +4,72 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Mindova - Where human expertise meets AI innovation. Join a global community of problem-solvers.">
-    <title>{{ config('app.name', 'Mindova') }} - {{ __('AI-Powered Challenge Platform') }}</title>
-    
+    <meta name="description" content="Mindova is the AI-powered innovation ecosystem where real challenges evolve into real solutions — built by a global community of entrepreneurs, researchers, and expert contributors.">
+    <title>{{ $siteName ?? config('app.name', 'Mindova') }} - {{ __('Where Ideas Evolve Into Real Solutions') }}</title>
+
+    <link rel="icon" href="{{ asset('images/brand/favicon.svg') }}" type="image/svg+xml">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/landing.css') }}?v={{ filemtime(public_path('css/landing.css')) }}">
+    @if(app()->getLocale() === 'ar')
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    @endif
+
+    {{-- Landing page is light by default; only an explicit 'dark' preference applies. --}}
+    <script>
+        (function() {
+            try {
+                if (localStorage.getItem('mindova-theme') === 'dark') {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
-<body class="antialiased bg-gray-50">
+<body class="antialiased landing-page">
 
     <!-- ===================================
          NAVIGATION
          =================================== -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 border-b border-gray-100" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
+    <nav class="landing-navbar" id="navbar">
+        <div class="navbar-pill liquid-glass max-w-5xl mx-auto px-6 py-3 rounded-full">
+            <div class="flex items-center justify-between">
                 <!-- Logo -->
-                <div class="flex items-center gap-2">
-                    <a href="{{ url('/') }}" class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">M</span>
-                        </div>
-                        <span class="text-lg font-bold text-gray-900">Mindova</span>
-                    </a>
-                </div>
+                <x-brand.logo href="{{ url('/') }}" class="navbar-logo" />
 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-6">
-                    <a href="{{ route('how-it-works') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900">{{ __('How it works') }}</a>
-                    <a href="{{ route('challenges.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900">{{ __('Challenges') }}</a>
-                    <a href="{{ route('community.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900">{{ __('Community') }}</a>
-                    <a href="{{ route('success-stories') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900">{{ __('Success Stories') }}</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="{{ route('how-it-works') }}" class="nav-link text-sm font-medium">{{ __('How it works') }}</a>
+                    <a href="{{ route('challenges.index') }}" class="nav-link text-sm font-medium">{{ __('Challenges') }}</a>
+                    <a href="{{ route('community.index') }}" class="nav-link text-sm font-medium">{{ __('Community') }}</a>
+                    <a href="{{ route('success-stories') }}" class="nav-link text-sm font-medium">{{ __('Success Stories') }}</a>
                 </div>
 
                 <!-- Auth Buttons -->
                 <div class="hidden md:flex items-center gap-3">
-                    <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2">
+                    <button x-data="{
+                                isDark: localStorage.getItem('mindova-theme') === 'dark',
+                                init() { document.documentElement.classList.toggle('dark', this.isDark); },
+                                toggle() {
+                                    this.isDark = !this.isDark;
+                                    localStorage.setItem('mindova-theme', this.isDark ? 'dark' : 'light');
+                                    document.documentElement.classList.toggle('dark', this.isDark);
+                                }
+                            }" @click="toggle()" type="button"
+                            class="p-2 text-ink-70 hover-ink hover-tint rounded-full transition-premium-fast"
+                            :aria-label="isDark ? '{{ __('Switch to light mode') }}' : '{{ __('Switch to dark mode') }}'">
+                        <x-icon name="sun" class="w-5 h-5" x-show="isDark" x-cloak />
+                        <x-icon name="moon" class="w-5 h-5" x-show="!isDark" x-cloak />
+                    </button>
+                    <a href="{{ route('login') }}" class="text-sm font-medium text-ink-80 hover-ink px-3 py-2">
                         {{ __('Sign In') }}
                     </a>
-                    <a href="{{ route('register') }}" class="px-4 py-2 bg-primary-500 text-white rounded-lg text-sm font-medium hover:bg-primary-600">
+                    <a href="{{ route('register') }}" class="btn-glow inline-flex items-center px-5 py-2.5 text-white rounded-full text-sm font-semibold">
                         {{ __('Get Started') }}
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100" id="mobile-menu-btn">
+                <button class="md:hidden p-2 rounded-full text-ink-80 hover-tint" id="mobile-menu-btn">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -56,62 +78,30 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-white border-t border-gray-100" id="mobile-menu">
+        <div class="md:hidden hidden liquid-glass max-w-5xl mx-auto mt-3 rounded-3xl" id="mobile-menu">
             <div class="px-4 py-4 space-y-2">
-                <a href="{{ route('how-it-works') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('How it works') }}</a>
-                <a href="{{ route('challenges.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Challenges') }}</a>
-                <a href="{{ route('community.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Community') }}</a>
-                <a href="{{ route('success-stories') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Success Stories') }}</a>
-                <div class="pt-3 border-t border-gray-100 space-y-2">
-                    <a href="{{ route('login') }}" class="block w-full px-4 py-2 text-center text-gray-700 border border-gray-200 rounded-lg">{{ __('Sign In') }}</a>
-                    <a href="{{ route('register') }}" class="block w-full px-4 py-2 text-center text-white bg-primary-500 rounded-lg">{{ __('Get Started') }}</a>
+                <a href="{{ route('how-it-works') }}" class="block px-4 py-2 text-ink-80 hover-tint hover-ink rounded-lg">{{ __('How it works') }}</a>
+                <a href="{{ route('challenges.index') }}" class="block px-4 py-2 text-ink-80 hover-tint hover-ink rounded-lg">{{ __('Challenges') }}</a>
+                <a href="{{ route('community.index') }}" class="block px-4 py-2 text-ink-80 hover-tint hover-ink rounded-lg">{{ __('Community') }}</a>
+                <a href="{{ route('success-stories') }}" class="block px-4 py-2 text-ink-80 hover-tint hover-ink rounded-lg">{{ __('Success Stories') }}</a>
+                <div class="pt-3 border-t border-tint-10 space-y-2">
+                    <a href="{{ route('login') }}" class="block w-full px-4 py-2 text-center text-ink-80 border border-tint-15 rounded-lg">{{ __('Sign In') }}</a>
+                    <a href="{{ route('register') }}" class="block w-full px-4 py-2 text-center text-ink bg-aurora rounded-lg">{{ __('Get Started') }}</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- ===================================
-         HERO SECTION
+         HERO — IDEA EVOLUTION
          =================================== -->
-    <section class="relative bg-slate-900 min-h-screen flex items-center pt-16">
-        <!-- Base Gradient Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-primary-950"></div>
-        
-        <!-- Animated World Map Background -->
-        <div class="hero-map-background">
-            <svg viewBox="0 0 950 620" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <!-- World Map Paths from Wikimedia -->
-                <g fill="none" stroke="#5A3DEB" stroke-width="0.7" opacity="0.3">
-                    <!-- North America -->
-                    <path d="M137.49,225.43l4.83,15.21l-2.25,1.26l0.25,3.02l4.25,3.27v6.05l5.25,5.04l-2.25-14.86l-3-9.83l0.75-6.8l2.5,0.25l1,2.27l-1,5.79l13,25.44v9.07l10.5,12.34l11.5,5.29l4.75-2.77l6.75,5.54l4-4.03l-1.75-4.54l5.75-1.76l1.75,1.01l1.75-1.76h2.75l5-8.82l-2.5-2.27l-9.75,2.27l-2.25,6.55l-5.75,1.01l-6.75-2.77l-3-9.57l2.27-12.07l-4.64-2.89l-2.21-11.59l-1.85-0.79l-3.38,3.43l-3.88-2.07l-1.52-7.73l-15.37-1.61l-7.94-5.97L137.49,225.43z"/>
-                    <path d="M93.11,44.89l-8.39,1.99l1.73,9.45l9.13,2.49l0.49,1.99L82.5,65.04l-7.65,12.68l2.71,13.43L82,94.13l3.46-3.23l0.99,1.99l-4.2,4.97l-16.29,7.46l-10.37,2.49l-0.25,3.73l23.94-6.96l9.87-2.74l9.13-11.19l10.12-6.71l-5.18,8.7l5.68,0.75l9.63-4.23l1.73,6.96l6.66,1.49l6.91,6.71l0.49,4.97l-0.99,1.24l1.23,4.72h1.73l0.25-7.96h1.97l0.49,19.64l4.94-4.23l-3.46-20.39h-5.18l-5.68-7.21l27.89-47.25l-27.64-21.63l-30.85,5.97l-1.23,9.45l6.66,3.98l-2.47,6.47L93.11,44.89z"/>
-                    <!-- South America -->
-                    <path d="M253.73,299.78l-2.06-0.21l-13.62,11.23l-1.44,3.95l-1.86,0.21l0.83,8.73l-4.75,11.65l5.16,4.37l6.61,0.42l4.54,6.66l6.6,0.21l-0.21,4.99H256l2.68-9.15l-2.48-3.12l0.62-5.82l5.16-0.42l-0.62-13.52l-11.56-3.74l-2.68-7.28L253.73,299.78z"/>
-                    <path d="M280,420l3.17,4.4l4.91,0.3l1.74,0.96l5.14,0.06l4.43-6.21l12.38-5.54l1.08-4.88l-1.44-6.99l-6.46-3.68l-4.31,0.3l-2.15,4.76l0.06,2.17l5.08,2.47l0.3,5.37l-4.37,0.24l-1.08-1.81l-12.14-5.18l-0.36,3.98l-5.74,0.18L280,420z"/>
-                    <!-- Europe -->
-                    <path d="M473.88,227.49l-4.08-1.37l-16.98,3.19l-3.7,2.81l2.26,11.67l-6.75,0.27l-4.06,6.53l-9.67,2.32l0.03,4.75l31.85,24.35l5.43,0.46l18.11-14.15l-1.81-2.28l-3.4-0.46l-2.04-3.42v-14.15l-1.36-1.37l0.23-3.65l-3.62-3.65l-0.45-3.88l1.58-1.14l-0.68-4.11L473.88,227.49z"/>
-                    <path d="M517.77,143.66l-5.6-0.2l-3.55,2.17l-0.05,1.61l2.3,2.17l7.15,1.21L517.77,143.66z"/>
-                    <path d="M480.05,248.03l1.56-0.26l0.46-3.6h0.78l3.19-5.24l7.87,2.29l2.15,3.34l7.74,3.54l4.03-1.7l-0.39-1.7l-1.76-1.7l0.2-1.18l2.86-2.42h5.66l2.15,2.88l4.55,0.66l0.59,36.89l-3.38-0.13l-20.42-10.62l-2.21,1.25l-8.39-2.1l-2.28-3.01l-3.32-0.46l-1.69-3.01L480.05,248.03z"/>
-                    <!-- Africa -->
-                    <path d="M473.88,227.49l-4.08-1.37l-16.98,3.19l-3.7,2.81l2.26,11.67l-6.75,0.27l-4.06,6.53l-9.67,2.32l0.03,4.75l31.85,24.35l5.43,0.46l18.11-14.15l-1.81-2.28l-3.4-0.46l-2.04-3.42v-14.15l-1.36-1.37l0.23-3.65l-3.62-3.65l-0.45-3.88l1.58-1.14l-0.68-4.11L473.88,227.49z"/>
-                    <path d="M492.79,296l0.13-2.95l4.74-4.61l1.27-11.32l-3.16-6.04l2.21-1.13l21.4,11.15l-0.13,10.94l-3.77,3.21v5.64l2.47,4.78h-4.36l-7.22,7.14l-0.19,2.16l-5.33-0.07l-0.07,0.98l-3.04-0.4l-2.08-3.93l-1.56-0.77l0.2-1.2l1.96-1.5v-7.02l-2.71-0.42l-3.27-2.43L492.79,296z"/>
-                    <path d="M534.16,403.63l-7.9,7.3l-1.88,4.51l-6.26-0.78l-5.21,4.63l-3.46-0.34l0.28-6.4l-1.23-0.43l-0.86,13.09l-6.14-0.06l-1.85-2.18l-2.71-0.03l2.47,7.09l4.41,4.17l-3.15,3.67l2.04,4.6l4.72,1.8l3.76-3.2l10.77,0.06l0.77-0.96l4.78-0.84l16.17-16.1l-0.06-5.07l-1.73,2.24h-2.59l-3.15-2.64l1.6-3.98l2.75-0.56l-0.25-8.18L534.16,403.63z"/>
-                    <!-- Asia -->
-                    <path d="M521.93,243.06l2.67,0.07l5.2,1.44l2.47,0.07l3.06-2.56h1.43l2.6,1.44h3.29l0.59-0.04l2.08,5.98l0.59,1.93l0.55,2.89l-0.98,0.72l-1.69-0.85l-1.95-6.36l-1.76-0.13l-0.13,2.16l1.17,3.74l9.37,11.6l0.2,4.98l-2.73,3.15L522.32,273L521.93,243.06z"/>
-                    <path d="M549.49,311.76l7.28-16.2l7.23,0.04l6.41,5.57l-0.45,4.59h4.97l0.51,2.76l8.04,4.81l4.96,0.25l-9.43,10.13l-12.95,3.99h-3.21l-5.72-4.88l-2.26-0.95l-4.38-6.45l-2.89,0.04l-0.34-2.96L549.49,311.76z"/>
-                    <path d="M591.97,304.05l4.37-1.68l1.55,0.93l-0.17,3.88l-4.03,11.48l-21.81,23.36l-2.53-1.74l-0.17-9.86l3.28-3.77l6.96-2.15l10.21-10.78l2.67-2.38l0.75-3.48L591.97,304.05z"/>
-                    <path d="M808.2,206.98l-4.88,5.59l0.86,1.35l2.39,0.29l4.49-3.47l3.16-0.58l2.87,3.37l2.2-0.77l0.86-3.28l4.11-0.1l4.02-4.82l-2.1-8l-0.96-4.24l2.1-1.73l-4.78-7.22l-1.24,0.1l-2.58,2.89v2.41l1.15,1.35l0.38,6.36l-2.96,3.66l-1.72-1.06l-1.34,2.99l-0.29,2.79l1.05,1.64l-0.67,1.25l-2.2-1.83h-1.53l-1.34,0.77L808.2,206.98z"/>
-                    <path d="M852.76,348.29l-0.37,24.44l3.52-0.19l4.63-5.41l3.89,0.19l2.5,2.24l0.83,6.9l7.96,4.2l2.04-0.75v-2.52l-6.39-5.32l-3.15-7.28l2.5-1.21l-1.85-4.01l-3.7-0.09l-0.93-4.29l-9.81-6.62L852.76,348.29z"/>
-                    <!-- Australia -->
-                    <path d="M761.17,427.98l-0.35,25.38l-3.9,2.86l-0.35,2.5l5.32,3.57l13.13-2.5h6.74l2.48-3.58l14.9-2.86l10.64,3.22l-0.71,4.29l1.42,4.29l8.16-1.43l0.35,2.14l-5.32,3.93l1.77,1.43l3.9-1.43l-1.06,11.8l7.45,5.72l4.26-1.43l2.13,2.14l12.42-1.79l11.71-18.95l4.26-1.07l8.51-15.73l2.13-13.58l-5.32-6.79l2.13-1.43l-4.26-13.23l-4.61-3.22l0.71-17.87l-4.26-3.22l-1.06-10.01h-2.13l-7.1,23.59l-3.9,0.36l-8.87-8.94l4.97-13.23l-9.22-1.79l-10.29,2.86l-2.84,8.22l-4.61,1.07l-0.35-5.72l-18.8,11.44l0.35,4.29l-2.84,3.93h-7.1l-15.26,6.43L761.17,427.98z"/>
-                    <!-- Greenland -->
-                    <path d="M321.13,50.07l-1.36,2.17l2.45,2.45l-1.09,2.45l3.54,4.62l4.35-1.36l5.71-0.54l6.53,7.07l4.35,11.69l-3.53,7.34l4.89-0.82l2.72,1.63l0.27,3.54l-5.98,0.27l3.26,3.26l4.08,0.82l-8.97,11.96l-1.09,7.34l1.9,5.98l-1.36,3.54l2.45,7.61l4.62,5.17l1.36-0.27l2.99-0.82l0.27,4.35l1.9,2.72l3.53-0.27l2.72-10.06l8.16-10.06l12.24-4.89l7.61-9.52l3.53,1.63h7.34l5.98-5.98l7.34-2.99l0.82-4.62l-4.62-4.08l-4.08-1.36l-2.18-5.71l5.17-2.99l8.16,4.35l2.72-2.99l-4.35-2.45l9.25-12.51l-1.63-5.44l-4.35-0.27l1.63-4.89l5.44-2.45l11.15-9.79l-3.26-3.53l-12.51,1.09l-6.53,6.53l3.81-8.43l-4.35-1.09l-2.45,4.35l-3.53-2.99l-9.79,1.09l2.72-4.35l16.04-0.54l-4.08-5.44l-17.4-3.26l-7.07,1.09l0.27,3.54l-7.34-2.45l0.27-2.45l-5.17,1.09l-1.09,2.72l5.44,1.9l-5.71,4.08l-4.08-4.62l-5.71-1.63l-0.82,4.35h-5.71l-2.18-4.62l-8.97-1.36l-4.89,2.45l-0.27,3.26l-6.25-0.82l-3.81,1.63l0.27,3.81v1.9l-7.07,1.36l-3.26-2.17l-2.18,3.53l3.26,3.54l6.8-0.82l0.54,2.18l-5.17,2.45L321.13,50.07z"/>
-                </g>
-            </svg>
-        </div>
-        
-        <!-- Subtle Grid Pattern Overlay -->
-        <div class="absolute inset-0 opacity-5 z-[2]">
+    <section class="hero-section pt-16">
+
+        <!-- Dark overlay: readability tint + seamless bottom page-blend -->
+        <div class="hero-cover-overlay" aria-hidden="true"></div>
+
+        <!-- Subtle grid texture on top of video -->
+        <div class="absolute inset-0 opacity-[0.035] z-[2]" aria-hidden="true">
             <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -122,158 +112,267 @@
             </svg>
         </div>
 
-        <!-- Hero Content -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="max-w-3xl">
-                <!-- Headline -->
-                <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                    {{ __('Where Human Expertise') }}<br>
-                    <span class="hero-title-accent">{{ __('Meets AI Innovation') }}</span>
+        <!-- Hero Content — centred, full-width -->
+        <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-36 w-full">
+            <div class="max-w-4xl mx-auto text-center">
+
+                <div class="inline-flex items-center gap-2 bg-tint-10 border border-tint-20 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm">
+                    <x-icon name="sparkles" class="w-3.5 h-3.5 text-primary-500" />
+                    <span class="text-sm font-medium text-ink">{{ __('An AI-Powered Innovation Ecosystem') }}</span>
+                </div>
+
+                <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-6 text-balance">
+                    <span class="headline-word text-ink">{{ __('Turn') }}</span>
+                    <span class="headline-word text-ink">{{ __('Bold') }}</span>
+                    <span class="headline-word text-ink">{{ __('Ideas') }}</span><br>
+                    <span class="headline-word text-gradient">{{ __('Into') }}</span>
+                    <span class="headline-word text-gradient" style="font-style: italic;">{{ __('Real') }}</span>
+                    <span class="headline-word text-gradient">{{ __('Solutions') }}</span>
                 </h1>
 
-                <!-- Subheadline -->
-                <p class="text-lg md:text-xl text-gray-100 mb-10 max-w-2xl leading-relaxed drop-shadow-lg">
-                    {{ __('Join a global community of problem-solvers. Submit challenges, collaborate with top talent, and build solutions that matter.') }}
+                <p class="hero-subheadline text-lg md:text-xl text-ink-80 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    {{ __('Mindova is where ambitious challenges meet the global talent, AI-driven structure, and momentum to become real, validated outcomes — not just ideas left on a whiteboard.') }}
                 </p>
 
                 <!-- CTA Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary-600 rounded-lg font-semibold hover:bg-gray-50">
-                        {{ __('Start Solving') }}
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
+                <div class="flex flex-col sm:flex-row gap-4 mb-16 justify-center">
+                    <a href="{{ route('register') }}" class="hero-cta btn-magnetic inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold">
+                        {{ __('Get Started Free') }}
+                        <x-icon name="arrow-right" class="w-5 h-5" />
                     </a>
-                    <a href="{{ route('challenges.index') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 text-white border border-white/20 rounded-lg font-semibold hover:bg-white/20">
-                        {{ __('Explore Challenges') }}
+                    <a href="#journey" class="hero-cta-secondary btn-outline-white inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold">
+                        {{ __('See How It Evolves') }}
                     </a>
                 </div>
 
-                <!-- Stats -->
-                <div class="flex flex-wrap gap-8 md:gap-12">
-                    <div>
-                        <div class="text-3xl md:text-4xl font-bold text-white drop-shadow-md">2,486</div>
-                        <div class="text-gray-200 text-sm drop-shadow">{{ __('Active Projects') }}</div>
+                <!-- Idea Evolution Stepper -->
+                <div class="flex items-center gap-2 sm:gap-4 flex-wrap justify-center">
+                    <div class="stat-item flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-tint-10 border border-tint-20 flex items-center justify-center animate-glow">
+                            <x-icon name="lightbulb" class="w-5 h-5 text-primary-500" />
+                        </div>
+                        <span class="text-sm font-medium text-ink-80">{{ __('Idea') }}</span>
                     </div>
-                    <div>
-                        <div class="text-3xl md:text-4xl font-bold text-white drop-shadow-md">4,953</div>
-                        <div class="text-gray-200 text-sm drop-shadow">{{ __('Expert Solvers') }}</div>
+                    <x-icon name="arrow-right" class="w-4 h-4 text-ink-30 flex-shrink-0" />
+                    <div class="stat-item flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-tint-10 border border-tint-20 flex items-center justify-center animate-glow" style="animation-delay: 0.6s;">
+                            <x-icon name="layers" class="w-5 h-5 text-primary-500" />
+                        </div>
+                        <span class="text-sm font-medium text-ink-80">{{ __('AI Analysis') }}</span>
                     </div>
-                    <div>
-                        <div class="text-3xl md:text-4xl font-bold text-white drop-shadow-md">86</div>
-                        <div class="text-gray-200 text-sm drop-shadow">{{ __('Countries') }}</div>
+                    <x-icon name="arrow-right" class="w-4 h-4 text-ink-30 flex-shrink-0" />
+                    <div class="stat-item flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-tint-10 border border-tint-20 flex items-center justify-center animate-glow" style="animation-delay: 1.2s;">
+                            <x-icon name="users" class="w-5 h-5 text-primary-500" />
+                        </div>
+                        <span class="text-sm font-medium text-ink-80">{{ __('Collaboration') }}</span>
+                    </div>
+                    <x-icon name="arrow-right" class="w-4 h-4 text-ink-30 flex-shrink-0" />
+                    <div class="stat-item flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-tint-10 border border-tint-20 flex items-center justify-center animate-glow" style="animation-delay: 1.8s;">
+                            <x-icon name="rocket" class="w-5 h-5 text-primary-500" />
+                        </div>
+                        <span class="text-sm font-medium text-ink-80">{{ __('Real Solution') }}</span>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- ===================================
-         LOGO ECOSYSTEM SECTION
+         LIVE ACTIVITY TICKER
          =================================== -->
-    <section class="py-16 bg-white border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-            <p class="text-center text-gray-500 text-sm font-medium uppercase tracking-wider">
-                {{ __('Trusted by innovative teams worldwide') }}
-            </p>
-        </div>
-        
-        <div class="relative">
-            <div class="flex items-center justify-center gap-12 flex-wrap max-w-5xl mx-auto px-4">
-                <!-- Logo placeholders using SVG -->
-                <div class="flex items-center justify-center h-8 px-4 opacity-50 hover:opacity-100 transition-opacity">
-                    <svg class="h-6 w-auto text-gray-600" viewBox="0 0 120 30" fill="currentColor">
-                        <rect x="0" y="10" width="20" height="10" rx="2"/>
-                        <text x="28" y="20" font-size="12" font-weight="600">Acme Corp</text>
-                    </svg>
-                </div>
-                <div class="flex items-center justify-center h-8 px-4 opacity-50 hover:opacity-100 transition-opacity">
-                    <svg class="h-6 w-auto text-gray-600" viewBox="0 0 140 30" fill="currentColor">
-                        <circle cx="10" cy="15" r="8"/>
-                        <text x="28" y="20" font-size="12" font-weight="600">GlobalTech</text>
-                    </svg>
-                </div>
-                <div class="flex items-center justify-center h-8 px-4 opacity-50 hover:opacity-100 transition-opacity">
-                    <svg class="h-6 w-auto text-gray-600" viewBox="0 0 140 30" fill="currentColor">
-                        <polygon points="10,5 20,25 0,25"/>
-                        <text x="28" y="20" font-size="12" font-weight="600">InnovateLabs</text>
-                    </svg>
-                </div>
-                <div class="flex items-center justify-center h-8 px-4 opacity-50 hover:opacity-100 transition-opacity">
-                    <svg class="h-6 w-auto text-gray-600" viewBox="0 0 160 30" fill="currentColor">
-                        <rect x="0" y="8" width="14" height="14" rx="7"/>
-                        <text x="22" y="20" font-size="12" font-weight="600">FutureSystems</text>
-                    </svg>
-                </div>
-                <div class="flex items-center justify-center h-8 px-4 opacity-50 hover:opacity-100 transition-opacity">
-                    <svg class="h-6 w-auto text-gray-600" viewBox="0 0 150 30" fill="currentColor">
-                        <path d="M0 15 L10 5 L20 15 L10 25 Z"/>
-                        <text x="28" y="20" font-size="12" font-weight="600">TechVentures</text>
-                    </svg>
+    <div class="activity-ticker-section">
+        <div class="activity-ticker-wrap">
+            <span class="ticker-label">
+                <span class="ticker-live-dot"></span>
+                {{ __('Live') }}
+            </span>
+            <div class="ticker-scroll-area">
+                <div class="ticker-inner">
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Ahmed from Saudi Arabia just matched with a fintech startup') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('New challenge posted: AI-powered supply chain optimization') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Maria from Brazil earned a verified contribution certificate') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('University of Cairo submitted 3 research challenges this week') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Challenge solved: Healthcare data privacy framework — 14 days') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('James from Kenya matched to a renewable energy challenge') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Startup from Berlin posted a UX research challenge') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Lena from Germany completed her 5th verified contribution') }}</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Ahmed from Saudi Arabia just matched with a fintech startup') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('New challenge posted: AI-powered supply chain optimization') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Maria from Brazil earned a verified contribution certificate') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('University of Cairo submitted 3 research challenges this week') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Challenge solved: Healthcare data privacy framework — 14 days') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('James from Kenya matched to a renewable energy challenge') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Startup from Berlin posted a UX research challenge') }}</span>
+                    <span class="ticker-item"><span class="ticker-dot"></span>{{ __('Lena from Germany completed her 5th verified contribution') }}</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- ===================================
-         HOW IT WORKS SECTION
+         INNOVATION SOURCES — where challenges come from
          =================================== -->
-    <section class="py-20 bg-gray-50" id="how-it-works">
+    <section class="py-24" id="sources">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="inline-block px-4 py-1.5 bg-primary-50 text-primary-600 rounded-full text-sm font-semibold mb-4">
-                    {{ __('The Process') }}
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="inline-block px-4 py-1.5 bg-tint-10 text-primary-500 rounded-full text-sm font-semibold mb-4">
+                    {{ __('Where It Begins') }}
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {{ __('How Mindova Works') }}
+                <h2 class="font-display text-4xl md:text-5xl text-ink mb-4">
+                    {{ __('Real Innovation Has') }} <em>{{ __('Many Sources') }}</em>
                 </h2>
-                <p class="text-lg text-gray-600">
-                    {{ __('Three simple steps to transform your challenges into solutions') }}
+                <p class="text-lg text-ink-60">
+                    {{ __('From classrooms to construction sites to packed conference halls — every breakthrough challenge on Mindova starts somewhere real.') }}
                 </p>
             </div>
 
-            <!-- Steps Grid -->
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Step 1 -->
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                    <span class="text-5xl font-bold text-primary-200 block mb-4">01</span>
-                    <div class="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
+            <div class="grid md:grid-cols-3 gap-6 stagger-children">
+                <a href="{{ route('community.index') }}" class="source-card reveal">
+                    <img src="{{ asset('images/landing/source-universities.jpg') }}" alt="{{ __('Universities') }}" loading="lazy">
+                    <div class="source-card-overlay"></div>
+                    <div class="source-card-icon">
+                        <x-icon name="building" class="w-5 h-5" />
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Submit Your Challenge') }}</h3>
-                    <p class="text-gray-600 leading-relaxed text-sm">
-                        {{ __('Define the problem you\'re facing. Our AI analyzes your requirements and categorizes the challenge for optimal matching.') }}
+                    <div class="source-card-content">
+                        <h3>{{ __('Universities') }}</h3>
+                        <p>{{ __('Collaborative research fuels innovation and discovery.') }}</p>
+                    </div>
+                </a>
+
+                <a href="{{ route('community.index') }}" class="source-card reveal">
+                    <img src="{{ asset('images/landing/source-engineers.jpg') }}" alt="{{ __('Engineers') }}" loading="lazy">
+                    <div class="source-card-overlay"></div>
+                    <div class="source-card-icon">
+                        <x-icon name="zap" class="w-5 h-5" />
+                    </div>
+                    <div class="source-card-content">
+                        <h3>{{ __('Engineers') }}</h3>
+                        <p>{{ __('Practical solutions are born from real-world challenges.') }}</p>
+                    </div>
+                </a>
+
+                <a href="{{ route('community.index') }}" class="source-card reveal">
+                    <img src="{{ asset('images/landing/source-conferences.jpg') }}" alt="{{ __('Conferences') }}" loading="lazy">
+                    <div class="source-card-overlay"></div>
+                    <div class="source-card-icon">
+                        <x-icon name="users" class="w-5 h-5" />
+                    </div>
+                    <div class="source-card-content">
+                        <h3>{{ __('Conferences') }}</h3>
+                        <p>{{ __('Networks grow through shared ideas and collaboration.') }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         AUDIENCE STRIP — who Mindova is for
+         =================================== -->
+    <section class="py-16 border-b border-tint-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-ink-40 text-sm font-semibold uppercase tracking-wider mb-10 reveal">
+                {{ __('Built for the people shaping what\'s next') }}
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger-children">
+                <div class="liquid-glass text-center p-5 rounded-2xl">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-tint-10 flex items-center justify-center">
+                        <x-icon name="building" class="w-6 h-6 text-primary-500" />
+                    </div>
+                    <p class="font-semibold text-ink text-sm">{{ __('Companies & Founders') }}</p>
+                </div>
+                <div class="liquid-glass text-center p-5 rounded-2xl">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-tint-10 flex items-center justify-center">
+                        <x-icon name="lightbulb" class="w-6 h-6 text-primary-500" />
+                    </div>
+                    <p class="font-semibold text-ink text-sm">{{ __('Researchers & Innovators') }}</p>
+                </div>
+                <div class="liquid-glass text-center p-5 rounded-2xl">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-tint-10 flex items-center justify-center">
+                        <x-icon name="users" class="w-6 h-6 text-primary-500" />
+                    </div>
+                    <p class="font-semibold text-ink text-sm">{{ __('Skilled Contributors') }}</p>
+                </div>
+                <div class="liquid-glass text-center p-5 rounded-2xl">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-tint-10 flex items-center justify-center">
+                        <x-icon name="target" class="w-6 h-6 text-primary-500" />
+                    </div>
+                    <p class="font-semibold text-ink text-sm">{{ __('Opportunity Seekers') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         THE IDEA EVOLUTION JOURNEY
+         =================================== -->
+    <section class="py-24" id="journey">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="inline-block px-4 py-1.5 bg-tint-10 text-primary-500 rounded-full text-sm font-semibold mb-4">
+                    {{ __('The Process') }}
+                </span>
+                <h2 class="font-display text-4xl md:text-5xl text-ink mb-4">
+                    {{ __('The Idea Evolution') }} <em>{{ __('Journey') }}</em>
+                </h2>
+                <p class="text-lg text-ink-60">
+                    {{ __('From a rough challenge to a validated, real-world solution — here\'s what happens inside Mindova.') }}
+                </p>
+            </div>
+
+            <!-- Journey Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Stage 1 -->
+                <div class="step-card liquid-glass reveal">
+                    <span class="step-number">01</span>
+                    <div class="step-icon">
+                        <x-icon name="lightbulb" class="w-7 h-7 text-primary-500" />
+                    </div>
+                    <h3 class="text-lg font-semibold text-ink mb-3">{{ __('Submit Your Challenge') }}</h3>
+                    <p class="text-ink-60 leading-relaxed text-sm">
+                        {{ __('Define the problem that matters. Our AI reads it instantly and frames it for real progress, not guesswork.') }}
                     </p>
                 </div>
 
-                <!-- Step 2 -->
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                    <span class="text-5xl font-bold text-primary-200 block mb-4">02</span>
-                    <div class="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
+                <!-- Stage 2 -->
+                <div class="step-card liquid-glass reveal">
+                    <span class="step-number">02</span>
+                    <div class="step-icon">
+                        <x-icon name="layers" class="w-7 h-7 text-primary-500" />
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('AI Matches Experts') }}</h3>
-                    <p class="text-gray-600 leading-relaxed text-sm">
-                        {{ __('Our intelligent system identifies the perfect mix of skills from our global network of verified problem-solvers.') }}
+                    <h3 class="text-lg font-semibold text-ink mb-3">{{ __('AI Refines & Scores It') }}</h3>
+                    <p class="text-ink-60 leading-relaxed text-sm">
+                        {{ __('Mindova\'s AI evaluates complexity and decomposes the challenge into clear, achievable tasks.') }}
                     </p>
                 </div>
 
-                <!-- Step 3 -->
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                    <span class="text-5xl font-bold text-primary-200 block mb-4">03</span>
-                    <div class="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
+                <!-- Stage 3 -->
+                <div class="step-card liquid-glass reveal">
+                    <span class="step-number">03</span>
+                    <div class="step-icon">
+                        <x-icon name="target" class="w-7 h-7 text-primary-500" />
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ __('Collaborate & Solve') }}</h3>
-                    <p class="text-gray-600 leading-relaxed text-sm">
-                        {{ __('Work together in a secure environment with built-in tools, NDAs, and progress tracking until your solution is ready.') }}
+                    <h3 class="text-lg font-semibold text-ink mb-3">{{ __('Matched With Global Talent') }}</h3>
+                    <p class="text-ink-60 leading-relaxed text-sm">
+                        {{ __('Verified contributors are matched to each task by fit and skill — not by who happened to apply first.') }}
+                    </p>
+                </div>
+
+                <!-- Stage 4 -->
+                <div class="step-card liquid-glass reveal">
+                    <span class="step-number">04</span>
+                    <div class="step-icon">
+                        <x-icon name="rocket" class="w-7 h-7 text-primary-500" />
+                    </div>
+                    <h3 class="text-lg font-semibold text-ink mb-3">{{ __('Tracked to a Real Solution') }}</h3>
+                    <p class="text-ink-60 leading-relaxed text-sm">
+                        {{ __('Work happens in a secure, NDA-protected space with progress tracking until a verified solution ships.') }}
                     </p>
                 </div>
             </div>
@@ -283,95 +382,77 @@
     <!-- ===================================
          FEATURES SECTION
          =================================== -->
-    <section class="py-20 bg-white">
+    <section class="py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="inline-block px-4 py-1.5 bg-primary-50 text-primary-600 rounded-full text-sm font-semibold mb-4">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="inline-block px-4 py-1.5 bg-tint-10 text-primary-500 rounded-full text-sm font-semibold mb-4">
                     {{ __('Platform') }}
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {{ __('Everything You Need to Innovate') }}
+                <h2 class="font-display text-4xl md:text-5xl text-ink mb-4">
+                    {{ __('Everything an Idea Needs to Become') }} <em>{{ __('Real') }}</em>
                 </h2>
             </div>
 
             <!-- Features Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="features-grid">
-                <!-- Feature 1 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:border-primary-200 transition-colors">
-                    <div class="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+                <div class="feature-card liquid-glass featured-card">
+                    <div class="feature-icon-wrapper">
+                        <x-icon name="zap" class="w-6 h-6 text-primary-500" />
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('AI-Powered Matching') }}</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        {{ __('Intelligent algorithms connect your challenge with the perfect experts in seconds, not weeks.') }}
+                    <h3 class="text-lg font-semibold text-ink mb-2">{{ __('AI-Powered Matching') }}</h3>
+                    <p class="text-ink-60 text-sm leading-relaxed">
+                        {{ __('Intelligent algorithms connect your challenge with the right expertise in minutes, not weeks of searching.') }}
                     </p>
                 </div>
 
-                <!-- Feature 2 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:border-primary-200 transition-colors">
-                    <div class="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                <div class="feature-card liquid-glass">
+                    <div class="feature-icon-wrapper">
+                        <x-icon name="globe" class="w-6 h-6 text-primary-500" />
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Global Talent Pool') }}</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        {{ __('Access verified professionals from 86+ countries across every discipline imaginable.') }}
+                    <h3 class="text-lg font-semibold text-ink mb-2">{{ __('Global Talent Network') }}</h3>
+                    <p class="text-ink-60 text-sm leading-relaxed">
+                        {{ __('A growing, borderless community of contributors across disciplines — opportunity isn\'t limited by geography.') }}
                     </p>
                 </div>
 
-                <!-- Feature 3 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:border-primary-200 transition-colors">
-                    <div class="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
+                <div class="feature-card liquid-glass">
+                    <div class="feature-icon-wrapper">
+                        <x-icon name="shield" class="w-6 h-6 text-primary-500" />
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Secure Collaboration') }}</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        {{ __('Enterprise-grade security with built-in NDAs, encrypted communications, and IP protection.') }}
+                    <h3 class="text-lg font-semibold text-ink mb-2">{{ __('NDA-Protected Collaboration') }}</h3>
+                    <p class="text-ink-60 text-sm leading-relaxed">
+                        {{ __('Every collaboration is protected by digital NDAs by default, so sensitive ideas stay confidential.') }}
                     </p>
                 </div>
 
-                <!-- Feature 4 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:border-primary-200 transition-colors">
-                    <div class="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
+                <div class="feature-card liquid-glass">
+                    <div class="feature-icon-wrapper">
+                        <x-icon name="trending-up" class="w-6 h-6 text-primary-500" />
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Real-time Analytics') }}</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        {{ __('Track progress, measure impact, and gain insights with comprehensive dashboards.') }}
+                    <h3 class="text-lg font-semibold text-ink mb-2">{{ __('Real-Time Progress Tracking') }}</h3>
+                    <p class="text-ink-60 text-sm leading-relaxed">
+                        {{ __('Clear dashboards show exactly where every challenge stands, from analysis to a finished solution.') }}
                     </p>
                 </div>
 
-                <!-- Feature 5 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:border-primary-200 transition-colors">
-                    <div class="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                        </svg>
+                <div class="feature-card liquid-glass">
+                    <div class="feature-icon-wrapper">
+                        <x-icon name="layers" class="w-6 h-6 text-primary-500" />
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Smart Workflows') }}</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        {{ __('Automated task assignment, deadline management, and milestone tracking.') }}
+                    <h3 class="text-lg font-semibold text-ink mb-2">{{ __('Structured Task Decomposition') }}</h3>
+                    <p class="text-ink-60 text-sm leading-relaxed">
+                        {{ __('Big, vague challenges become specific, ownable tasks — so progress is always concrete, never stalled.') }}
                     </p>
                 </div>
 
-                <!-- Feature 6 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:border-primary-200 transition-colors">
-                    <div class="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                        </svg>
+                <div class="feature-card liquid-glass">
+                    <div class="feature-icon-wrapper">
+                        <x-icon name="star" class="w-6 h-6 text-primary-500" />
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ __('Verified Results') }}</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        {{ __('Blockchain-backed certificates and reputation scoring you can trust.') }}
+                    <h3 class="text-lg font-semibold text-ink mb-2">{{ __('Verified Certificates & Reputation') }}</h3>
+                    <p class="text-ink-60 text-sm leading-relaxed">
+                        {{ __('Completed work earns verifiable certificates and reputation that contributors can carry forward.') }}
                     </p>
                 </div>
             </div>
@@ -379,94 +460,70 @@
     </section>
 
     <!-- ===================================
-         TESTIMONIALS SECTION
+         TESTIMONIALS
          =================================== -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="inline-block px-4 py-1.5 bg-primary-50 text-primary-600 rounded-full text-sm font-semibold mb-4">
-                    {{ __('Success Stories') }}
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="inline-block px-4 py-1.5 bg-tint-10 text-primary-500 rounded-full text-sm font-semibold mb-4">
+                    {{ __('Real Stories') }}
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {{ __('Loved by Teams Worldwide') }}
+                <h2 class="font-display text-4xl md:text-5xl text-ink mb-4">
+                    {{ __('Trusted by') }} <em>{{ __('Builders Worldwide') }}</em>
                 </h2>
+                <p class="text-lg text-ink-60">
+                    {{ __('From first-time founders to research institutions — here\'s what they\'re saying.') }}
+                </p>
             </div>
 
-            <!-- Testimonials Grid -->
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid md:grid-cols-3 gap-6 stagger-children">
                 <!-- Testimonial 1 -->
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                    <svg class="w-8 h-8 text-primary-200 mb-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                    </svg>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        {{ __('Mindova reduced our time-to-solution by 70%. The quality of experts and the AI matching is simply incredible. It\'s transformed how we approach R&D challenges.') }}
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold text-sm">
-                            SC
-                        </div>
+                <div class="testimonial-card liquid-glass reveal">
+                    <div class="testimonial-stars">
+                        @for($i = 0; $i < 5; $i++)
+                        <svg viewBox="0 0 20 20" fill="#f59e0b"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        @endfor
+                    </div>
+                    <p class="testimonial-quote">"{{ __('Mindova matched our logistics challenge with 3 verified contributors in under 48 hours. The AI structuring turned a vague problem into a clear, actionable roadmap. We shipped in 3 weeks instead of 6 months.') }}"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #0d9488, #7c3aed);">S</div>
                         <div>
-                            <div class="font-semibold text-gray-900">Sarah Chen</div>
-                            <div class="text-sm text-primary-600">VP of Engineering, TechCorp</div>
+                            <div class="testimonial-name">Sarah Chen</div>
+                            <div class="testimonial-role">{{ __('CTO, Logify Labs') }}</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 2 -->
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                    <svg class="w-8 h-8 text-primary-200 mb-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                    </svg>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        {{ __('We\'ve solved challenges that were stalled for months. The collaborative environment drives real innovation. Our team is now more agile than ever.') }}
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold text-sm">
-                            MJ
-                        </div>
+                <div class="testimonial-card liquid-glass reveal">
+                    <div class="testimonial-stars">
+                        @for($i = 0; $i < 5; $i++)
+                        <svg viewBox="0 0 20 20" fill="#f59e0b"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        @endfor
+                    </div>
+                    <p class="testimonial-quote">"{{ __('I\'ve contributed to four challenges on Mindova and the quality of problems is unlike anything else. Each one was real, structured, and matched my exact skill set. The certificate I earned opened doors at two companies.') }}"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #4f46e5, #0ea5e9);">O</div>
                         <div>
-                            <div class="font-semibold text-gray-900">Marcus Johnson</div>
-                            <div class="text-sm text-primary-600">CTO, InnovateLabs</div>
+                            <div class="testimonial-name">Omar Al-Rashid</div>
+                            <div class="testimonial-role">{{ __('ML Engineer, Dubai') }}</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 3 -->
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                    <svg class="w-8 h-8 text-primary-200 mb-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                    </svg>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        {{ __('The security features give us confidence to share sensitive challenges. It\'s enterprise-ready from day one with all the compliance we need.') }}
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center text-white font-semibold text-sm">
-                            ER
-                        </div>
-                        <div>
-                            <div class="font-semibold text-gray-900">Elena Rodriguez</div>
-                            <div class="text-sm text-primary-600">Head of R&D, FutureSystems</div>
-                        </div>
+                <div class="testimonial-card liquid-glass reveal">
+                    <div class="testimonial-stars">
+                        @for($i = 0; $i < 5; $i++)
+                        <svg viewBox="0 0 20 20" fill="#f59e0b"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        @endfor
                     </div>
-                </div>
-
-                <!-- Testimonial 4 -->
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                    <svg class="w-8 h-8 text-primary-200 mb-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                    </svg>
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        {{ __('As a startup, we get access to talent we could never afford otherwise. Mindova levels the playing field and helps us compete with the big players.') }}
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white font-semibold text-sm">
-                            DP
-                        </div>
+                    <p class="testimonial-quote">"{{ __('We posted a research challenge on sustainable materials and had global experts engaging within hours — something that would have taken a year of conference networking. Mindova is what academic-industry collaboration should look like.') }}"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #db2777, #ea580c);">E</div>
                         <div>
-                            <div class="font-semibold text-gray-900">David Park</div>
-                            <div class="text-sm text-primary-600">Founder, StartupX</div>
+                            <div class="testimonial-name">Dr. Elena Vasquez</div>
+                            <div class="testimonial-role">{{ __('Research Lead, TU Berlin') }}</div>
                         </div>
                     </div>
                 </div>
@@ -475,44 +532,88 @@
     </section>
 
     <!-- ===================================
-         STATS SECTION
+         VISION SECTION
          =================================== -->
-    <section class="py-20 bg-white">
+    <section class="py-24">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16 reveal">
+            <span class="inline-block px-4 py-1.5 bg-tint-10 text-primary-500 rounded-full text-sm font-semibold mb-4">
+                {{ __('Our Vision') }}
+            </span>
+            <h2 class="font-display text-4xl md:text-5xl text-ink mb-6 text-balance">
+                {{ __('Great Ideas Shouldn\'t Wait for') }} <em>{{ __('Permission') }}</em>
+            </h2>
+            <p class="text-lg text-ink-60 max-w-3xl mx-auto leading-relaxed">
+                {{ __('Too many real problems stall for lack of the right people, structure, or momentum. Mindova exists to close that gap — pairing AI-driven structure with a global community so good ideas get the chance to become real solutions.') }}
+            </p>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-6">
+            <div class="liquid-glass rounded-2xl p-8 reveal-left">
+                <div class="w-12 h-12 rounded-xl bg-aurora flex items-center justify-center mb-5 glow-primary-sm">
+                    <x-icon name="building" class="w-6 h-6 text-ink" />
+                </div>
+                <h3 class="text-xl font-bold text-ink mb-3">{{ __('For Companies & Founders') }}</h3>
+                <ul class="space-y-2.5 mb-6 text-sm text-ink-60">
+                    <li class="flex items-start gap-2"><x-icon name="check-circle" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" /> {{ __('Turn a vague problem into a structured, solvable challenge') }}</li>
+                    <li class="flex items-start gap-2"><x-icon name="check-circle" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" /> {{ __('Get matched with verified talent, not a pile of applications') }}</li>
+                    <li class="flex items-start gap-2"><x-icon name="check-circle" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" /> {{ __('Track real progress with NDA protection built in') }}</li>
+                </ul>
+                <a href="{{ route('register') }}?type=company" class="inline-flex items-center gap-2 text-primary-500 font-semibold text-sm hover:gap-3 transition-all">
+                    {{ __('Submit a Challenge') }} <x-icon name="arrow-right" class="w-4 h-4" />
+                </a>
+            </div>
+
+            <div class="liquid-glass rounded-2xl p-8 reveal-right">
+                <div class="w-12 h-12 rounded-xl bg-aurora flex items-center justify-center mb-5 glow-primary-sm">
+                    <x-icon name="users" class="w-6 h-6 text-ink" />
+                </div>
+                <h3 class="text-xl font-bold text-ink mb-3">{{ __('For Contributors & Experts') }}</h3>
+                <ul class="space-y-2.5 mb-6 text-sm text-ink-60">
+                    <li class="flex items-start gap-2"><x-icon name="check-circle" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" /> {{ __('Get matched to tasks that genuinely fit your skills') }}</li>
+                    <li class="flex items-start gap-2"><x-icon name="check-circle" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" /> {{ __('Work on real challenges from real companies, not busywork') }}</li>
+                    <li class="flex items-start gap-2"><x-icon name="check-circle" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" /> {{ __('Build a verified reputation and certificates that travel with you') }}</li>
+                </ul>
+                <a href="{{ route('register') }}?type=volunteer" class="inline-flex items-center gap-2 text-primary-500 font-semibold text-sm hover:gap-3 transition-all">
+                    {{ __('Start Contributing') }} <x-icon name="arrow-right" class="w-4 h-4" />
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         WHY MINDOVA
+         =================================== -->
+    <section class="py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="inline-block px-4 py-1.5 bg-primary-50 text-primary-600 rounded-full text-sm font-semibold mb-4">
-                    {{ __('Our Impact') }}
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <span class="inline-block px-4 py-1.5 bg-tint-10 text-primary-500 rounded-full text-sm font-semibold mb-4">
+                    {{ __('Why Mindova') }}
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {{ __('Numbers That Speak') }}
+                <h2 class="font-display text-4xl md:text-5xl text-ink mb-4">
+                    {{ __('Built Differently, On') }} <em>{{ __('Purpose') }}</em>
                 </h2>
             </div>
 
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Stat 1 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center">
-                    <div class="text-4xl font-bold text-primary-600 mb-2">50K+</div>
-                    <div class="text-gray-600 text-sm">{{ __('Challenges Solved') }}</div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+                <div class="counter-card liquid-glass">
+                    <span class="counter-value" data-target="2400" data-suffix="+">0</span>
+                    <div class="counter-label">{{ __('Challenges Posted') }}</div>
+                    <div class="counter-sublabel">{{ __('and growing every week') }}</div>
                 </div>
-
-                <!-- Stat 2 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center">
-                    <div class="text-4xl font-bold text-primary-600 mb-2">98%</div>
-                    <div class="text-gray-600 text-sm">{{ __('Success Rate') }}</div>
+                <div class="counter-card liquid-glass">
+                    <span class="counter-value" data-target="180" data-suffix="+">0</span>
+                    <div class="counter-label">{{ __('Countries Represented') }}</div>
+                    <div class="counter-sublabel">{{ __('truly borderless talent') }}</div>
                 </div>
-
-                <!-- Stat 3 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center">
-                    <div class="text-4xl font-bold text-primary-600 mb-2">$2.4B</div>
-                    <div class="text-gray-600 text-sm">{{ __('Value Generated') }}</div>
+                <div class="counter-card liquid-glass">
+                    <span class="counter-value" data-target="94" data-suffix="%">0</span>
+                    <div class="counter-label">{{ __('Match Success Rate') }}</div>
+                    <div class="counter-sublabel">{{ __('AI-matched, not left to chance') }}</div>
                 </div>
-
-                <!-- Stat 4 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center">
-                    <div class="text-4xl font-bold text-primary-600 mb-2">12K+</div>
-                    <div class="text-gray-600 text-sm">{{ __('Active Experts') }}</div>
+                <div class="counter-card liquid-glass">
+                    <span class="counter-value" data-target="48" data-suffix="h">0</span>
+                    <div class="counter-label">{{ __('Avg. Time to First Match') }}</div>
+                    <div class="counter-sublabel">{{ __('from submission to team') }}</div>
                 </div>
             </div>
         </div>
@@ -521,46 +622,46 @@
     <!-- ===================================
          CTA SECTION
          =================================== -->
-    <section class="relative bg-primary-500 py-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                {{ __('Ready to Transform How You Solve Problems?') }}
+    <section class="cta-section">
+        <div class="cta-gradient-bg"></div>
+        <div class="rising-particle" style="left: 8%; animation-delay: 0s;"></div>
+        <div class="rising-particle" style="left: 22%; animation-delay: 2s;"></div>
+        <div class="rising-particle" style="left: 38%; animation-delay: 4s;"></div>
+        <div class="rising-particle" style="left: 55%; animation-delay: 1s;"></div>
+        <div class="rising-particle" style="left: 71%; animation-delay: 3s;"></div>
+        <div class="rising-particle" style="left: 88%; animation-delay: 5s;"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-display text-4xl md:text-5xl text-ink mb-4 text-balance">
+                {{ __('Your Next Breakthrough Starts') }} <em>{{ __('Here') }}</em>
             </h2>
-            <p class="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-                {{ __('Join thousands of companies and experts building the future together. Start your journey today.') }}
+            <p class="text-lg text-ink-90 mb-8 max-w-2xl mx-auto">
+                {{ __('Join a growing community of companies and contributors turning real challenges into real solutions.') }}
             </p>
-            
+
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary-600 rounded-lg font-semibold hover:bg-gray-50">
+                <a href="{{ route('register') }}" class="btn-magnetic inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold">
                     {{ __('Get Started Free') }}
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
+                    <x-icon name="arrow-right" class="w-5 h-5" />
                 </a>
-                <a href="{{ route('contact') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-white border border-white/50 rounded-lg font-semibold hover:bg-white/10">
-                    {{ __('Talk to Sales') }}
+                <a href="{{ route('contact') }}" class="btn-outline-white inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold">
+                    {{ __('Talk to Us') }}
                 </a>
             </div>
 
             <!-- Trust Indicators -->
-            <div class="flex flex-wrap justify-center gap-6 text-white/70 text-sm">
+            <div class="flex flex-wrap justify-center gap-6 text-ink-70 text-sm">
                 <span class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {{ __('No credit card required') }}
+                    <x-icon name="check-circle" class="w-5 h-5" />
+                    {{ __('Free to join') }}
                 </span>
                 <span class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {{ __('Free 14-day trial') }}
+                    <x-icon name="check-circle" class="w-5 h-5" />
+                    {{ __('NDA-protected by default') }}
                 </span>
                 <span class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {{ __('Setup in under 5 minutes') }}
+                    <x-icon name="check-circle" class="w-5 h-5" />
+                    {{ __('AI-matched in minutes') }}
                 </span>
             </div>
         </div>
@@ -569,37 +670,27 @@
     <!-- ===================================
          FOOTER
          =================================== -->
-    <footer class="bg-slate-900 pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer class="landing-footer pt-16 pb-8">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
                 <!-- Brand Column -->
                 <div class="col-span-2">
-                    <a href="{{ url('/') }}" class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">M</span>
-                        </div>
-                        <span class="text-lg font-bold text-white">Mindova</span>
-                    </a>
-                    <p class="text-gray-400 mb-6 max-w-xs text-sm">
-                        {{ __('Where human expertise meets AI innovation. A global ecosystem for collaborative problem-solving.') }}
+                    <x-brand.logo href="{{ url('/') }}" variant="white" class="mb-4" />
+                    <p class="text-ink-50 mb-6 max-w-xs text-sm">
+                        {{ __('The AI-powered ecosystem where real challenges evolve into real solutions — built by a global community of innovators.') }}
                     </p>
                     <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-gray-400 hover:bg-primary-500 hover:text-white transition-colors">
+                        <a href="{{ $socialFacebookUrl ?: '#' }}" class="social-icon">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                             </svg>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-gray-400 hover:bg-primary-500 hover:text-white transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-gray-400 hover:bg-primary-500 hover:text-white transition-colors">
+                        <a href="{{ $socialTwitterUrl ?: '#' }}" class="social-icon">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                             </svg>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-gray-400 hover:bg-primary-500 hover:text-white transition-colors">
+                        <a href="{{ $socialLinkedinUrl ?: '#' }}" class="social-icon">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                             </svg>
@@ -609,49 +700,49 @@
 
                 <!-- Product Links -->
                 <div>
-                    <h4 class="text-white font-semibold mb-4 text-sm">{{ __('Product') }}</h4>
+                    <h4 class="text-ink font-semibold mb-4 text-sm">{{ __('Product') }}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('features') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Features') }}</a></li>
-                        <li><a href="{{ route('pricing') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Pricing') }}</a></li>
-                        <li><a href="{{ route('security') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Security') }}</a></li>
-                        <li><a href="{{ route('integrations') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Integrations') }}</a></li>
-                        <li><a href="{{ route('changelog') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Changelog') }}</a></li>
+                        <li><a href="{{ route('features') }}" class="footer-link text-sm">{{ __('Features') }}</a></li>
+                        <li><a href="{{ route('pricing') }}" class="footer-link text-sm">{{ __('Pricing') }}</a></li>
+                        <li><a href="{{ route('security') }}" class="footer-link text-sm">{{ __('Security') }}</a></li>
+                        <li><a href="{{ route('integrations') }}" class="footer-link text-sm">{{ __('Integrations') }}</a></li>
+                        <li><a href="{{ route('changelog') }}" class="footer-link text-sm">{{ __('Changelog') }}</a></li>
                     </ul>
                 </div>
 
                 <!-- Company Links -->
                 <div>
-                    <h4 class="text-white font-semibold mb-4 text-sm">{{ __('Company') }}</h4>
+                    <h4 class="text-ink font-semibold mb-4 text-sm">{{ __('Company') }}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('about') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('About') }}</a></li>
-                        <li><a href="{{ route('careers') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Careers') }}</a></li>
-                        <li><a href="{{ route('press') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Press') }}</a></li>
-                        <li><a href="{{ route('partners') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Partners') }}</a></li>
-                        <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Contact') }}</a></li>
+                        <li><a href="{{ route('about') }}" class="footer-link text-sm">{{ __('About') }}</a></li>
+                        <li><a href="{{ route('careers') }}" class="footer-link text-sm">{{ __('Careers') }}</a></li>
+                        <li><a href="{{ route('press') }}" class="footer-link text-sm">{{ __('Press') }}</a></li>
+                        <li><a href="{{ route('partners') }}" class="footer-link text-sm">{{ __('Partners') }}</a></li>
+                        <li><a href="{{ route('contact') }}" class="footer-link text-sm">{{ __('Contact') }}</a></li>
                     </ul>
                 </div>
 
                 <!-- Resources Links -->
                 <div>
-                    <h4 class="text-white font-semibold mb-4 text-sm">{{ __('Resources') }}</h4>
+                    <h4 class="text-ink font-semibold mb-4 text-sm">{{ __('Resources') }}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('blog') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Blog') }}</a></li>
-                        <li><a href="{{ route('documentation') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Documentation') }}</a></li>
-                        <li><a href="{{ route('help') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Help Center') }}</a></li>
-                        <li><a href="{{ route('api-docs') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('API Reference') }}</a></li>
-                        <li><a href="{{ route('community.index') }}" class="text-gray-400 hover:text-white text-sm transition-colors">{{ __('Community') }}</a></li>
+                        <li><a href="{{ route('blog') }}" class="footer-link text-sm">{{ __('Blog') }}</a></li>
+                        <li><a href="{{ route('documentation') }}" class="footer-link text-sm">{{ __('Documentation') }}</a></li>
+                        <li><a href="{{ route('help') }}" class="footer-link text-sm">{{ __('Help Center') }}</a></li>
+                        <li><a href="{{ route('api-docs') }}" class="footer-link text-sm">{{ __('API Reference') }}</a></li>
+                        <li><a href="{{ route('community.index') }}" class="footer-link text-sm">{{ __('Community') }}</a></li>
                     </ul>
                 </div>
             </div>
 
             <!-- Newsletter -->
-            <div class="border-t border-slate-800 pt-8 mb-8">
+            <div class="border-t border-tint-10 pt-8 mb-8">
                 <div class="max-w-md mx-auto text-center">
-                    <h4 class="text-white font-semibold mb-2">{{ __('Stay Updated') }}</h4>
-                    <p class="text-gray-400 text-sm mb-4">{{ __('Get the latest on AI-powered innovation') }}</p>
+                    <h4 class="text-ink font-semibold mb-2">{{ __('Stay Updated') }}</h4>
+                    <p class="text-ink-50 text-sm mb-4">{{ __('Get the latest on AI-powered innovation') }}</p>
                     <form class="flex gap-2">
-                        <input type="email" placeholder="{{ __('Enter your email') }}" class="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm placeholder-gray-500 focus:border-primary-500 focus:outline-none">
-                        <button type="submit" class="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-medium transition-colors">
+                        <input type="email" placeholder="{{ __('Enter your email') }}" class="newsletter-input flex-1 text-sm">
+                        <button type="submit" class="btn-glow px-4 py-2 text-ink rounded-lg text-sm font-medium">
                             {{ __('Subscribe') }}
                         </button>
                     </form>
@@ -659,14 +750,13 @@
             </div>
 
             <!-- Bottom Bar -->
-            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-sm">
-                    &copy; {{ date('Y') }} Mindova. {{ __('All rights reserved.') }}
+            <div class="border-t border-tint-10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-ink-40 text-sm">
+                    &copy; {{ date('Y') }} {{ $siteName ?? 'Mindova' }}. {{ __('All rights reserved.') }}
                 </p>
                 <div class="flex gap-6">
-                    <a href="{{ route('terms') }}" class="text-gray-500 hover:text-white text-sm transition-colors">{{ __('Terms') }}</a>
-                    <a href="{{ route('privacy') }}" class="text-gray-500 hover:text-white text-sm transition-colors">{{ __('Privacy') }}</a>
-                    <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">{{ __('Cookies') }}</a>
+                    <a href="{{ route('terms') }}" class="footer-link text-sm">{{ __('Terms') }}</a>
+                    <a href="{{ route('privacy') }}" class="footer-link text-sm">{{ __('Privacy') }}</a>
                 </div>
             </div>
         </div>
@@ -697,6 +787,53 @@
                 }
             });
         });
+
+        // Navbar scrolled state
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+
+        // Animated counters
+        const counterEls = document.querySelectorAll('.counter-value');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting || entry.target.dataset.animated) return;
+                entry.target.dataset.animated = '1';
+                const el = entry.target;
+                const target = parseInt(el.dataset.target, 10);
+                const suffix = el.dataset.suffix || '';
+                const duration = 1800;
+                const steps = 60;
+                let step = 0;
+                const tick = setInterval(() => {
+                    step++;
+                    const progress = step / steps;
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(eased * target);
+                    el.textContent = current.toLocaleString() + suffix;
+                    if (step >= steps) {
+                        clearInterval(tick);
+                        el.textContent = target.toLocaleString() + suffix;
+                        el.closest('.counter-card')?.classList.add('is-counted');
+                    }
+                }, duration / steps);
+                counterObserver.unobserve(el);
+            });
+        }, { threshold: 0.4 });
+        counterEls.forEach(el => counterObserver.observe(el));
+
+        // Scroll-reveal animations
+        const revealTargets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealTargets.forEach(el => revealObserver.observe(el));
     </script>
 
 </body>

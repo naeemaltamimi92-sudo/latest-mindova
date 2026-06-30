@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-primary-500 py-12 mb-12 rounded-3xl max-w-5xl mx-auto shadow-2xl">
+<div class="relative overflow-hidden bg-aurora-soft py-12 mb-12 rounded-3xl max-w-5xl mx-auto elevation-2xl">
     <!-- Animated Background Effects -->
     <div class="absolute inset-0 overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full "></div>
@@ -37,7 +37,7 @@
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     <!-- Warning Banner -->
     @if($challenge->status !== 'submitted' && $challenge->status !== 'rejected')
-    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
+    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6 elevation-xs">
         <div class="flex items-start gap-3">
             <svg class="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
@@ -53,7 +53,7 @@
     @endif
 
     <!-- Main Form Card -->
-    <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-lg border border-slate-100 dark:border-gray-700 overflow-hidden">
         <form action="{{ route('challenges.update', $challenge) }}" method="POST" enctype="multipart/form-data" class="p-8 md:p-12 space-y-10" id="editChallengeForm">
             @csrf
             @method('PUT')
@@ -61,14 +61,14 @@
             <!-- Step 1: Challenge Title -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">1</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-aurora rounded-2xl flex items-center justify-center text-white text-lg font-bold glow-primary-sm">1</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Challenge Title') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Give your challenge a clear, descriptive name') }}</span>
                     </div>
                 </label>
                 <input type="text" name="title" required
-                       class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-lg text-slate-900 placeholder-slate-400 shadow-sm"
+                       class="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-lg text-slate-900 placeholder-slate-400 elevation-xs transition-premium-fast"
                        value="{{ old('title', $challenge->title) }}"
                        placeholder="{{ __('e.g., Reduce office energy consumption by 30%') }}">
                 @error('title')
@@ -91,7 +91,7 @@
             <!-- Step 2: Description -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">2</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-aurora rounded-2xl flex items-center justify-center text-white text-lg font-bold glow-primary-sm">2</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Description') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Explain your challenge in detail - the more context, the better') }}</span>
@@ -99,7 +99,7 @@
                 </label>
                 <div class="relative">
                     <textarea name="description" rows="12" required
-                              class="w-full px-6 py-5 border-2 border-indigo-200 bg-white rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 placeholder-slate-400 resize-none shadow-sm leading-relaxed"
+                              class="w-full px-6 py-5 border-2 border-indigo-200 bg-white rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 placeholder-slate-400 resize-none elevation-xs leading-relaxed transition-premium-fast"
                               placeholder="{{ __('Describe your challenge in detail...') }}">{{ old('description', $challenge->description ?? $challenge->original_description) }}</textarea>
                     <div class="absolute bottom-4 right-4 text-xs text-slate-400 font-medium bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-lg">
                         {{ __('Min 100 characters') }}
@@ -126,7 +126,7 @@
             @if($challenge->attachments->count() > 0)
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">3</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-aurora rounded-2xl flex items-center justify-center text-white text-lg font-bold glow-primary-sm">3</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Existing Attachments') }}</span>
                         <span class="text-sm text-slate-500">{{ __('Current documents attached to this challenge') }}</span>
@@ -137,9 +137,9 @@
 
                 <div id="existingAttachmentsList" class="space-y-3">
                     @foreach($challenge->attachments as $attachment)
-                    <div class="flex items-center justify-between bg-white border-2 border-slate-200 rounded-xl p-5 shadow-sm" data-attachment-id="{{ $attachment->id }}">
+                    <div class="flex items-center justify-between bg-white dark:bg-gray-800 border-2 border-slate-200 dark:border-gray-700 rounded-xl p-5 elevation-xs" data-attachment-id="{{ $attachment->id }}">
                         <div class="flex items-center gap-4 flex-1">
-                            <div class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center shadow-lg">
+                            <div class="flex-shrink-0 w-12 h-12 bg-aurora rounded-xl flex items-center justify-center glow-primary-sm">
                                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                                 </svg>
@@ -175,7 +175,7 @@
             <!-- Step 4: Upload New Attachments -->
             <div class="space-y-4">
                 <label class="flex items-center gap-4 mb-4">
-                    <span class="flex-shrink-0 w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold shadow-lg">{{ $challenge->attachments->count() > 0 ? '4' : '3' }}</span>
+                    <span class="flex-shrink-0 w-12 h-12 bg-aurora rounded-2xl flex items-center justify-center text-white text-lg font-bold glow-primary-sm">{{ $challenge->attachments->count() > 0 ? '4' : '3' }}</span>
                     <div>
                         <span class="block text-lg font-black text-slate-900">{{ __('Add New Documents') }}</span>
                         <span class="inline-flex items-center gap-2 text-sm text-slate-500">
@@ -186,11 +186,11 @@
                 </label>
 
                 <!-- Upload Zone -->
-                <div id="upload-zone" class="relative border-2 border-dashed border-indigo-300 rounded-2xl p-10 text-center bg-gray-50 hover:border-indigo-400 hover:bg-indigo-50 cursor-pointer group">
+                <div id="upload-zone" class="relative border-2 border-dashed border-indigo-300 rounded-2xl p-10 text-center bg-gray-50 hover:border-indigo-400 hover:bg-indigo-50 cursor-pointer group transition-premium">
                     <input type="file" id="attachment-upload" name="attachments[]" accept=".pdf" multiple class="hidden">
 
                     <div class="space-y-4">
-                        <div class="w-20 h-20 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto shadow-xl">
+                        <div class="w-20 h-20 bg-aurora rounded-2xl flex items-center justify-center mx-auto glow-primary-md">
                             <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                             </svg>
