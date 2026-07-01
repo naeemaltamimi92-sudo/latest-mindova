@@ -89,21 +89,31 @@ class TalentMarketplaceController extends Controller
             ]);
         }
 
-        $volunteers = $query->get();
+        $perPage = 15;
+        $page = $request->integer('page', 1);
 
-        $volunteers = match ($sort) {
-            'stars'    => $volunteers->sortByDesc('reputation_score'),
-            'trust'    => $volunteers->sortByDesc('trust_score'),
-            'projects' => $volunteers->sortByDesc('confirmed_certs_count'),
-            'recent'   => $volunteers->sortByDesc('updated_at'),
-            default    => $this->ranking->rank($volunteers),
-        };
+        // 'ranking' (the default) uses TalentRankingService's composite score,
+        // which isn't a real column - it has to be computed in PHP over the
+        // full matching set, so that path stays in-memory. Every other sort
+        // mode is a plain column and can be ordered + paginated in SQL
+        // instead of loading every matching volunteer per request.
+        if ($sort === 'ranking') {
+            $volunteers = $this->ranking->rank($query->get());
+            $total = $volunteers->count();
+            $paginated = $volunteers->forPage($page, $perPage)->values();
+        } else {
+            match ($sort) {
+                'stars' => $query->orderByDesc('reputation_score'),
+                'trust' => $query->orderByDesc('trust_score'),
+                'projects' => $query->orderByDesc('confirmed_certs_count'),
+                'recent' => $query->orderByDesc('updated_at'),
+                default => $query->orderByDesc('reputation_score'),
+            };
 
-        // Paginate manually (ranking is in-memory)
-        $perPage   = 15;
-        $page      = $request->integer('page', 1);
-        $total     = $volunteers->count();
-        $paginated = $volunteers->forPage($page, $perPage)->values();
+            $sqlPage = $query->paginate($perPage, ['*'], 'page', $page);
+            $total = $sqlPage->total();
+            $paginated = collect($sqlPage->items());
+        }
 
         // Available industries for filter dropdown
         $industries = Certificate::whereNotNull('industry')

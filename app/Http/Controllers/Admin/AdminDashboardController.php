@@ -12,60 +12,75 @@ use App\Models\Certificate;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class AdminDashboardController extends Controller
 {
+    private const CACHE_TTL_SECONDS = 300;
+
     /**
      * Display the admin dashboard.
      */
     public function index()
     {
-        // Platform statistics
-        $stats = [
-            'total_users' => User::count(),
-            'total_volunteers' => Volunteer::count(),
-            'total_companies' => Company::count(),
-            'total_challenges' => Challenge::count(),
-            'active_challenges' => Challenge::where('status', 'active')->count(),
-            'total_tasks' => Task::count(),
-            'total_assignments' => TaskAssignment::count(),
-            'completed_tasks' => TaskAssignment::whereNotNull('completed_at')->count(),
-            'total_certificates' => Certificate::count(),
-        ];
+        // Platform statistics, top volunteers/companies, and the recent-item
+        // pools that feed both the "recent" widgets and the activity feed
+        // below - cached together since they're all cheap-to-go-stale
+        // snapshots, and this dashboard was otherwise running ~9 uncached
+        // aggregate queries plus a second latest()-fetch of the same
+        // challenges/certificates already loaded for the "recent" widgets.
+        $snapshot = Cache::remember('admin.dashboard.snapshot', self::CACHE_TTL_SECONDS, function () {
+            return [
+                'stats' => [
+                    'total_users' => User::count(),
+                    'total_volunteers' => Volunteer::count(),
+                    'total_companies' => Company::count(),
+                    'total_challenges' => Challenge::count(),
+                    'active_challenges' => Challenge::where('status', 'active')->count(),
+                    'total_tasks' => Task::count(),
+                    'total_assignments' => TaskAssignment::count(),
+                    'completed_tasks' => TaskAssignment::whereNotNull('completed_at')->count(),
+                    'total_certificates' => Certificate::count(),
+                ],
+                'latestChallenges' => Challenge::with(['company.user', 'volunteer.user'])
+                    ->latest()
+                    ->limit(15)
+                    ->get(),
+                'latestCertificates' => Certificate::with(['user', 'challenge', 'company'])
+                    ->latest('issued_at')
+                    ->limit(15)
+                    ->get(),
+                'latestCompletedAssignments' => TaskAssignment::with(['task.challenge', 'volunteer.user'])
+                    ->whereNotNull('completed_at')
+                    ->latest('completed_at')
+                    ->limit(15)
+                    ->get(),
+                'topVolunteers' => Volunteer::with('user')
+                    ->orderBy('reputation_score', 'desc')
+                    ->limit(5)
+                    ->get(),
+                'activeCompanies' => Company::with('user')
+                    ->has('challenges')
+                    ->withCount('challenges')
+                    ->orderBy('challenges_count', 'desc')
+                    ->limit(5)
+                    ->get(),
+                'challengesByStatus' => Challenge::select('status', DB::raw('count(*) as total'))
+                    ->groupBy('status')
+                    ->pluck('total', 'status')
+                    ->toArray(),
+            ];
+        });
 
-        // Recent activity
-        $recentChallenges = Challenge::with(['company.user', 'volunteer.user'])
-            ->latest()
-            ->limit(5)
-            ->get();
+        $stats = $snapshot['stats'];
+        $recentChallenges = $snapshot['latestChallenges']->take(5);
+        $recentCertificates = $snapshot['latestCertificates']->take(5);
+        $topVolunteers = $snapshot['topVolunteers'];
+        $activeCompanies = $snapshot['activeCompanies'];
+        $challengesByStatus = $snapshot['challengesByStatus'];
 
-        $recentCertificates = Certificate::with(['user', 'challenge', 'company'])
-            ->latest('issued_at')
-            ->limit(5)
-            ->get();
-
-        // Top volunteers by reputation
-        $topVolunteers = Volunteer::with('user')
-            ->orderBy('reputation_score', 'desc')
-            ->limit(5)
-            ->get();
-
-        // Active companies
-        $activeCompanies = Company::with('user')
-            ->has('challenges')
-            ->withCount('challenges')
-            ->orderBy('challenges_count', 'desc')
-            ->limit(5)
-            ->get();
-
-        // Challenge status breakdown
-        $challengesByStatus = Challenge::select('status', DB::raw('count(*) as total'))
-            ->groupBy('status')
-            ->pluck('total', 'status')
-            ->toArray();
-
-        // Admin notifications (recent activity feed)
+        // Admin notifications (recent activity feed) - per-admin, not cached
         $notifications = Notification::where('user_id', auth()->id())
             ->orderBy('created_at', 'desc')
             ->limit(15)
@@ -75,10 +90,12 @@ class AdminDashboardController extends Controller
             ->where('is_read', false)
             ->count();
 
-        // Real platform activity feed (replaces the previous mocked feed)
+        // Real platform activity feed (replaces the previous mocked feed),
+        // built from the same challenge/certificate/assignment pools above
+        // instead of re-querying them.
         $activityFeed = collect();
 
-        foreach (Challenge::with(['company.user', 'volunteer.user'])->latest()->limit(15)->get() as $challenge) {
+        foreach ($snapshot['latestChallenges'] as $challenge) {
             $activityFeed->push([
                 'type' => 'challenge',
                 'actor_name' => $challenge->company->company_name ?? $challenge->company->user->name ?? $challenge->volunteer->user->name ?? __('Community'),
@@ -91,7 +108,7 @@ class AdminDashboardController extends Controller
             ]);
         }
 
-        foreach (Certificate::with(['user', 'challenge'])->latest('issued_at')->limit(15)->get() as $cert) {
+        foreach ($snapshot['latestCertificates'] as $cert) {
             if (!$cert->user) {
                 continue;
             }
@@ -107,7 +124,7 @@ class AdminDashboardController extends Controller
             ]);
         }
 
-        foreach (TaskAssignment::with(['task.challenge', 'volunteer.user'])->whereNotNull('completed_at')->latest('completed_at')->limit(15)->get() as $assignment) {
+        foreach ($snapshot['latestCompletedAssignments'] as $assignment) {
             if (!$assignment->volunteer || !$assignment->volunteer->user || !$assignment->task || !$assignment->task->challenge) {
                 continue;
             }

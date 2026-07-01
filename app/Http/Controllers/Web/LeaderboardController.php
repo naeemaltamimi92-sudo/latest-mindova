@@ -9,10 +9,13 @@ use App\Models\TaskAssignment;
 use App\Models\Idea;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class LeaderboardController extends Controller
 {
+    private const CACHE_TTL_SECONDS = 300;
+
     /**
      * Show leaderboard.
      */
@@ -21,22 +24,19 @@ class LeaderboardController extends Controller
         $filter = $request->get('filter', 'reputation');
 
         // Get volunteers based on filter
-        $volunteers = $this->getVolunteers($filter);
+        $volunteers = Cache::remember(
+            "leaderboard.volunteers.{$filter}",
+            self::CACHE_TTL_SECONDS,
+            fn () => $this->getVolunteers($filter)
+        );
 
         // Get top companies
-        $topCompanies = Company::withCount('challenges')
-            ->with('challenges.workstreams.tasks')
-            ->get()
-            ->map(function($company) {
-                $company->tasks_count = $company->challenges->sum(function($challenge) {
-                    return $challenge->workstreams->sum(function($workstream) {
-                        return $workstream->tasks->count();
-                    });
-                });
-                return $company;
-            })
-            ->sortByDesc('challenges_count')
-            ->take(6);
+        $topCompanies = Cache::remember('leaderboard.top_companies', self::CACHE_TTL_SECONDS, function () {
+            return Company::withCount(['challenges', 'tasks'])
+                ->orderByDesc('challenges_count')
+                ->take(6)
+                ->get();
+        });
 
         return view('leaderboard.index', compact('volunteers', 'topCompanies', 'filter'));
     }

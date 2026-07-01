@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Company extends Model
 {
@@ -41,5 +42,13 @@ class Company extends Model
     public function challenges()
     {
         return $this->hasMany(Challenge::class);
+    }
+
+    /**
+     * All tasks across every challenge this company has submitted.
+     */
+    public function tasks(): HasManyThrough
+    {
+        return $this->hasManyThrough(Task::class, Challenge::class);
     }
 }

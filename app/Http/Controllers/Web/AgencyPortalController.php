@@ -9,6 +9,7 @@ use App\Models\HireRequest;
 use App\Models\Volunteer;
 use App\Services\TalentRankingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -89,12 +90,7 @@ class AgencyPortalController extends Controller
         ];
 
         // Top-ranked volunteers snapshot (20)
-        $topTalent = $this->ranking->rank(
-            Volunteer::with(['user', 'skills'])
-                ->where('general_nda_signed', true)
-                ->whereHas('user', fn ($q) => $q->whereNotNull('email_verified_at'))
-                ->get()
-        )->take(20);
+        $topTalent = $this->getTopTalent()->take(20);
 
         return view('agency.dashboard', compact('portal', 'hireRequests', 'stats', 'topTalent'));
     }
@@ -106,13 +102,27 @@ class AgencyPortalController extends Controller
     {
         $portal = AgencyPortal::where('slug', $slug)->where('is_active', true)->firstOrFail();
 
-        $topTalent = $this->ranking->rank(
-            Volunteer::with(['user', 'skills'])
-                ->where('general_nda_signed', true)
-                ->whereHas('user', fn ($q) => $q->whereNotNull('email_verified_at'))
-                ->get()
-        )->take(12);
+        $topTalent = $this->getTopTalent()->take(12);
 
         return view('agency.public-portal', compact('portal', 'topTalent'));
+    }
+
+    /**
+     * Ranked list of eligible volunteers, shared by the dashboard and
+     * public portal (which just take() different slice sizes off the
+     * same snapshot). Cached briefly since ranking the full eligible
+     * pool is expensive and both pages would otherwise recompute it
+     * from scratch on every request.
+     */
+    private function getTopTalent()
+    {
+        return Cache::remember('agency.top_talent', 300, function () {
+            return $this->ranking->rank(
+                Volunteer::with(['user', 'skills'])
+                    ->where('general_nda_signed', true)
+                    ->whereHas('user', fn ($q) => $q->whereNotNull('email_verified_at'))
+                    ->get()
+            )->take(20)->values();
+        });
     }
 }
