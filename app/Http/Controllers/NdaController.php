@@ -69,15 +69,17 @@ class NdaController extends Controller
                 ->with('error', 'NDA agreement not available. Please contact support.');
         }
 
-        // Update volunteer record
-        $volunteer->update([
-            'general_nda_signed' => true,
-            'general_nda_signed_at' => now(),
-            'general_nda_version' => $nda->version,
-        ]);
+        DB::transaction(function () use ($volunteer, $nda) {
+            // Update volunteer record
+            $volunteer->update([
+                'general_nda_signed' => true,
+                'general_nda_signed_at' => now(),
+                'general_nda_version' => $nda->version,
+            ]);
 
-        // Award stars for signing the NDA (one-time)
-        app(ReputationService::class)->award($volunteer, 'nda_signed');
+            // Award stars for signing the NDA (one-time)
+            app(ReputationService::class)->award($volunteer, 'nda_signed');
+        });
 
         Log::info('General NDA signed', [
             'user_id' => $user->id,

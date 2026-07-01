@@ -77,23 +77,27 @@ class ReputationService
 
         $stars = (int) round($base * $multiplier);
 
-        $volunteer->increment('reputation_score', $stars);
-        $newTotal = (int) $volunteer->reputation_score;
+        $newTotal = DB::transaction(function () use ($volunteer, $stars, $event, $context) {
+            $volunteer->increment('reputation_score', $stars);
+            $newTotal = (int) $volunteer->reputation_score;
 
-        ReputationHistory::create([
-            'volunteer_id'  => $volunteer->id,
-            'change_amount' => $stars,
-            'new_total'     => $newTotal,
-            'reason'        => $event,
-            'related_type'  => $context['related_type'] ?? null,
-            'related_id'    => $context['related_id'] ?? null,
-            'created_at'    => now(),
-        ]);
+            ReputationHistory::create([
+                'volunteer_id'  => $volunteer->id,
+                'change_amount' => $stars,
+                'new_total'     => $newTotal,
+                'reason'        => $event,
+                'related_type'  => $context['related_type'] ?? null,
+                'related_id'    => $context['related_id'] ?? null,
+                'created_at'    => now(),
+            ]);
 
-        // Unlock expert_available flag when crossing Expert Candidate threshold
-        if ($newTotal >= 500 && !$volunteer->expert_available) {
-            $volunteer->update(['expert_available' => true]);
-        }
+            // Unlock expert_available flag when crossing Expert Candidate threshold
+            if ($newTotal >= 500 && !$volunteer->expert_available) {
+                $volunteer->update(['expert_available' => true]);
+            }
+
+            return $newTotal;
+        });
 
         $this->talentRanking->invalidate($volunteer);
 

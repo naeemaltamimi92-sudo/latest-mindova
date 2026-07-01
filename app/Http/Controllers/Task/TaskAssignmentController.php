@@ -169,16 +169,18 @@ class TaskAssignmentController extends Controller
             ], 422);
         }
 
-        // Accept the assignment
-        $assignment->update([
-            'invitation_status' => 'accepted',
-            'responded_at' => now(),
-        ]);
+        \DB::transaction(function () use ($assignment) {
+            // Accept the assignment
+            $assignment->update([
+                'invitation_status' => 'accepted',
+                'responded_at' => now(),
+            ]);
 
-        // Update task status
-        if ($assignment->task->status === 'pending' || $assignment->task->status === 'matching') {
-            $assignment->task->update(['status' => 'assigned']);
-        }
+            // Update task status
+            if ($assignment->task->status === 'pending' || $assignment->task->status === 'matching') {
+                $assignment->task->update(['status' => 'assigned']);
+            }
+        });
 
         // Notify company
         $this->notificationService->notifyTaskAccepted($assignment);
@@ -312,20 +314,22 @@ class TaskAssignmentController extends Controller
             'completion_notes' => 'nullable|string|max:1000',
         ]);
 
-        $assignment->update([
-            'invitation_status' => 'completed',
-            'completed_at' => now(),
-            'actual_hours' => $validated['actual_hours'],
-        ]);
+        \DB::transaction(function () use ($assignment, $validated) {
+            $assignment->update([
+                'invitation_status' => 'completed',
+                'completed_at' => now(),
+                'actual_hours' => $validated['actual_hours'],
+            ]);
 
-        // Check if all assignments for this task are completed
-        $pendingAssignments = $assignment->task->assignments()
-            ->whereIn('invitation_status', ['pending', 'accepted', 'in_progress'])
-            ->count();
+            // Check if all assignments for this task are completed
+            $pendingAssignments = $assignment->task->assignments()
+                ->whereIn('invitation_status', ['pending', 'accepted', 'in_progress'])
+                ->count();
 
-        if ($pendingAssignments === 0) {
-            $assignment->task->update(['status' => 'completed']);
-        }
+            if ($pendingAssignments === 0) {
+                $assignment->task->update(['status' => 'completed']);
+            }
+        });
 
         // Notify company
         $this->notificationService->notifyTaskCompleted($assignment);
