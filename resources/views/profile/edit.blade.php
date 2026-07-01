@@ -339,8 +339,7 @@
                         ══════════════════════════════════════════ --}}
                         @if(auth()->user()->linkedin_id)
                         {{-- ── Connected state ── --}}
-                        <div class="rounded-xl border border-[#0A66C2]/25 overflow-hidden"
-                             style="background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);">
+                        <div class="rounded-xl border border-[#0A66C2]/25 overflow-hidden bg-blue-50 dark:bg-blue-900/20">
                             <div class="px-4 py-3 flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     {{-- LinkedIn logo --}}
@@ -351,12 +350,11 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-bold text-blue-900">{{ __('LinkedIn Connected') }}</p>
-                                        <p class="text-xs text-blue-600 mt-0.5">{{ __('Account verified via LinkedIn OAuth') }}</p>
+                                        <p class="text-sm font-bold text-blue-900 dark:text-blue-200">{{ __('LinkedIn Connected') }}</p>
+                                        <p class="text-xs text-blue-600 dark:text-blue-400 mt-0.5">{{ __('Account verified via LinkedIn OAuth') }}</p>
                                     </div>
                                 </div>
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold"
-                                      style="background:#DCFCE7;color:#15803D;">
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
                                     <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                                     {{ __('Verified') }}
                                 </span>
@@ -367,11 +365,11 @@
                                 <form action="{{ route('linkedin.url.update') }}" method="POST" class="flex gap-2 items-end">
                                     @csrf
                                     <div class="flex-1">
-                                        <label class="block text-xs font-semibold text-blue-800 mb-1">{{ __('Your LinkedIn Profile URL') }}</label>
+                                        <label class="block text-xs font-semibold text-blue-800 dark:text-blue-300 mb-1">{{ __('Your LinkedIn Profile URL') }}</label>
                                         <input type="url" name="linkedin_profile_url"
                                                value="{{ auth()->user()->linkedin_profile_url }}"
                                                placeholder="https://linkedin.com/in/your-username"
-                                               class="w-full px-3 py-2 rounded-lg border border-[#0A66C2]/30 bg-white text-sm text-gray-800 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2]/30 outline-none">
+                                               class="w-full px-3 py-2 rounded-lg border border-[#0A66C2]/30 bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-200 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2]/30 outline-none">
                                     </div>
                                     <button type="submit"
                                             class="px-3 py-2 rounded-lg text-xs font-bold text-white flex-shrink-0"
@@ -403,16 +401,15 @@
 
                         @else
                         {{-- ── Not connected state ── --}}
-                        <div class="rounded-xl border-2 border-dashed border-[#0A66C2]/30 p-5 text-center"
-                             style="background:linear-gradient(135deg,#F0F9FF 0%,#EFF6FF 100%);">
+                        <div class="rounded-xl border-2 border-dashed border-[#0A66C2]/30 p-5 text-center bg-sky-50 dark:bg-sky-900/10">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3"
                                  style="background:#0A66C2;">
                                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                                 </svg>
                             </div>
-                            <h4 class="font-bold text-gray-900 text-sm mb-1">{{ __('Connect your LinkedIn') }}</h4>
-                            <p class="text-xs text-gray-500 mb-4 max-w-[240px] mx-auto leading-relaxed">
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{{ __('Connect your LinkedIn') }}</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 max-w-[240px] mx-auto leading-relaxed">
                                 {{ __('Verify your identity, auto-import your profile photo, and let companies find you on LinkedIn.') }}
                             </p>
                             <a href="{{ route('linkedin.connect') }}"
@@ -429,11 +426,11 @@
                                 <form action="{{ route('linkedin.url.update') }}" method="POST" class="flex gap-2 items-end text-left">
                                     @csrf
                                     <div class="flex-1">
-                                        <label class="block text-xs font-semibold text-gray-600 mb-1">{{ __('Or add your LinkedIn URL manually') }}</label>
+                                        <label class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">{{ __('Or add your LinkedIn URL manually') }}</label>
                                         <input type="url" name="linkedin_profile_url"
                                                value="{{ auth()->user()->linkedin_profile_url }}"
                                                placeholder="https://linkedin.com/in/your-username"
-                                               class="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-sm text-gray-800 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2]/30 outline-none">
+                                               class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-200 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2]/30 outline-none">
                                     </div>
                                     <button type="submit"
                                             class="px-3 py-2 rounded-lg text-xs font-bold bg-gray-800 text-white flex-shrink-0">

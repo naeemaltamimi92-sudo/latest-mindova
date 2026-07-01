@@ -80,14 +80,14 @@
                 <div class="p-8 space-y-6">
                     @if(auth()->user()->isVolunteer())
                     <!-- Volunteer Notifications -->
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_task_assigned" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Task Assignments') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __("Get notified when you're assigned to a new task") }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Task Assignments') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __("Get notified when you're assigned to a new task") }}</p>
                         </div>
                         <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,14 +96,14 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_task_updated" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Task Updates') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Get notified about changes to your assigned tasks') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Task Updates') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Get notified about changes to your assigned tasks') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,14 +112,14 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_idea_scored" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Idea Feedback') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Get notified when your ideas are scored by AI') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Idea Feedback') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Get notified when your ideas are scored by AI') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,14 +128,14 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_idea_voted" value="1"
                                    class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Idea Votes') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Get notified when someone votes on your ideas') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Idea Votes') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Get notified when someone votes on your ideas') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,14 +144,14 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_reputation_milestone" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Reputation Milestones') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Get notified when you reach reputation milestones') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Reputation Milestones') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Get notified when you reach reputation milestones') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
@@ -163,14 +163,14 @@
 
                     @if(auth()->user()->isCompany())
                     <!-- Company Notifications -->
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_challenge_analyzed" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Challenge Analysis Complete') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Get notified when AI finishes analyzing your challenge') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Challenge Analysis Complete') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Get notified when AI finishes analyzing your challenge') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
@@ -179,14 +179,14 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_task_completed" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Task Completions') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Get notified when tasks in your challenges are completed') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Task Completions') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Get notified when tasks in your challenges are completed') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -195,14 +195,14 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_new_idea" value="1"
                                    checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('New Ideas') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Get notified when someone submits an idea for your challenge') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('New Ideas') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Get notified when someone submits an idea for your challenge') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,14 +211,14 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="email_challenge_progress" value="1"
                                    class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Weekly Progress Reports') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Receive weekly summaries of your challenge progress') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Weekly Progress Reports') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Receive weekly summaries of your challenge progress') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,30 +232,30 @@
                     <div class="border-t border-slate-200 pt-6 mt-6 space-y-4">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-4">{{ __('General Notifications') }}</p>
 
-                        <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                        <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                             <div class="flex items-center h-6 pt-0.5">
                                 <input type="checkbox" name="email_system_updates" value="1"
                                        checked class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                             </div>
                             <div class="flex-1">
-                                <label class="font-bold text-slate-900">{{ __('System Updates') }}</label>
-                                <p class="text-sm text-slate-600 mt-1">{{ __('Important platform updates and announcements') }}</p>
+                                <label class="font-bold text-slate-900 dark:text-white">{{ __('System Updates') }}</label>
+                                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Important platform updates and announcements') }}</p>
                             </div>
                             <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
-                                <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
                                 </svg>
                             </div>
                         </div>
 
-                        <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-slate-200">
+                        <div class="notification-card flex items-start gap-4 p-5 bg-gray-50 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                             <div class="flex items-center h-6 pt-0.5">
                                 <input type="checkbox" name="email_marketing" value="1"
                                        class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 shadow-sm cursor-pointer">
                             </div>
                             <div class="flex-1">
-                                <label class="font-bold text-slate-900">{{ __('Marketing & Tips') }}</label>
-                                <p class="text-sm text-slate-600 mt-1">{{ __('Tips, best practices, and promotional content') }}</p>
+                                <label class="font-bold text-slate-900 dark:text-white">{{ __('Marketing & Tips') }}</label>
+                                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Tips, best practices, and promotional content') }}</p>
                             </div>
                             <div class="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -268,8 +268,8 @@
             </div>
 
             <!-- In-App Notifications -->
-            <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden slide-up" style="animation-delay: 0.2s">
-                <div class="bg-gray-50/30 px-8 py-6 border-b border-slate-200">
+            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-slate-200 dark:border-gray-700 overflow-hidden slide-up" style="animation-delay: 0.2s">
+                <div class="bg-gray-50/30 dark:bg-gray-900/40 px-8 py-6 border-b border-slate-200 dark:border-gray-700">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -277,21 +277,21 @@
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-slate-900">{{ __('In-App Notifications') }}</h2>
-                            <p class="text-sm text-slate-600">{{ __('Configure notifications you see in the platform') }}</p>
+                            <h2 class="text-xl font-bold text-slate-900 dark:text-white">{{ __('In-App Notifications') }}</h2>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('Configure notifications you see in the platform') }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8 space-y-4">
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50/20 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="inapp_all" value="1"
                                    checked class="w-5 h-5 text-violet-600 border-slate-300 rounded focus:ring-violet-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Enable all in-app notifications') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Show notifications in the platform interface') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Enable all in-app notifications') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Show notifications in the platform interface') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -300,14 +300,14 @@
                         </div>
                     </div>
 
-                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200">
+                    <div class="notification-card flex items-start gap-4 p-5 bg-gray-50/20 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700">
                         <div class="flex items-center h-6 pt-0.5">
                             <input type="checkbox" name="inapp_sound" value="1"
                                    class="w-5 h-5 text-violet-600 border-slate-300 rounded focus:ring-violet-500 shadow-sm cursor-pointer">
                         </div>
                         <div class="flex-1">
-                            <label class="font-bold text-slate-900">{{ __('Play sound') }}</label>
-                            <p class="text-sm text-slate-600 mt-1">{{ __('Play a sound when you receive a notification') }}</p>
+                            <label class="font-bold text-slate-900 dark:text-white">{{ __('Play sound') }}</label>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Play a sound when you receive a notification') }}</p>
                         </div>
                         <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -319,8 +319,8 @@
             </div>
 
             <!-- Notification Frequency -->
-            <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden slide-up" style="animation-delay: 0.3s">
-                <div class="bg-gray-50/30 px-8 py-6 border-b border-slate-200">
+            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-slate-200 dark:border-gray-700 overflow-hidden slide-up" style="animation-delay: 0.3s">
+                <div class="bg-gray-50/30 dark:bg-gray-900/40 px-8 py-6 border-b border-slate-200 dark:border-gray-700">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -328,19 +328,19 @@
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-slate-900">{{ __('Email Frequency') }}</h2>
-                            <p class="text-sm text-slate-600">{{ __('How often would you like to receive email notifications?') }}</p>
+                            <h2 class="text-xl font-bold text-slate-900 dark:text-white">{{ __('Email Frequency') }}</h2>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('How often would you like to receive email notifications?') }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8 space-y-4">
-                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300">
+                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700 cursor-pointer hover:border-emerald-300">
                         <input type="radio" name="email_frequency" value="realtime"
                                checked class="w-5 h-5 text-emerald-600 border-slate-300 focus:ring-emerald-500">
                         <div class="flex-1">
-                            <span class="font-bold text-slate-900">{{ __('Real-time') }}</span>
-                            <span class="block text-sm text-slate-600 mt-1">{{ __('Get notified immediately as things happen') }}</span>
+                            <span class="font-bold text-slate-900 dark:text-white">{{ __('Real-time') }}</span>
+                            <span class="block text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Get notified immediately as things happen') }}</span>
                         </div>
                         <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -349,12 +349,12 @@
                         </div>
                     </label>
 
-                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300">
+                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700 cursor-pointer hover:border-emerald-300">
                         <input type="radio" name="email_frequency" value="daily"
                                class="w-5 h-5 text-emerald-600 border-slate-300 focus:ring-emerald-500">
                         <div class="flex-1">
-                            <span class="font-bold text-slate-900">{{ __('Daily digest') }}</span>
-                            <span class="block text-sm text-slate-600 mt-1">{{ __('Receive a daily summary of all notifications') }}</span>
+                            <span class="font-bold text-slate-900 dark:text-white">{{ __('Daily digest') }}</span>
+                            <span class="block text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Receive a daily summary of all notifications') }}</span>
                         </div>
                         <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -363,12 +363,12 @@
                         </div>
                     </label>
 
-                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 rounded-2xl border border-slate-200 cursor-pointer hover:border-emerald-300">
+                    <label class="notification-card flex items-center gap-4 p-5 bg-gray-50/20 dark:bg-gray-900/30 rounded-2xl border border-slate-200 dark:border-gray-700 cursor-pointer hover:border-emerald-300">
                         <input type="radio" name="email_frequency" value="weekly"
                                class="w-5 h-5 text-emerald-600 border-slate-300 focus:ring-emerald-500">
                         <div class="flex-1">
-                            <span class="font-bold text-slate-900">{{ __('Weekly digest') }}</span>
-                            <span class="block text-sm text-slate-600 mt-1">{{ __('Receive a weekly summary of all notifications') }}</span>
+                            <span class="font-bold text-slate-900 dark:text-white">{{ __('Weekly digest') }}</span>
+                            <span class="block text-sm text-slate-600 dark:text-slate-400 mt-1">{{ __('Receive a weekly summary of all notifications') }}</span>
                         </div>
                         <div class="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
