@@ -29,9 +29,11 @@ class ExpertController extends Controller
         abort_unless($volunteer && $volunteer->isExpertCandidate(), 403,
             'Expert access requires 500+ Stars.');
 
+        // FIELD() is MySQL-only and breaks on SQLite (production's actual
+        // driver); CASE WHEN is standard SQL and gives the same custom order.
         $assignments = ExpertChallengeAssignment::where('volunteer_id', $volunteer->id)
             ->with(['challenge.company', 'challenge.tasks'])
-            ->orderByRaw("FIELD(status,'active','accepted','invited','completed','declined') ASC")
+            ->orderByRaw("CASE status WHEN 'active' THEN 1 WHEN 'accepted' THEN 2 WHEN 'invited' THEN 3 WHEN 'completed' THEN 4 WHEN 'declined' THEN 5 ELSE 6 END ASC")
             ->latest()
             ->get();
 

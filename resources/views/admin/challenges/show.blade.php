@@ -641,7 +641,7 @@
                                 @endif
                             </div>
 
-                            @if($analysis->risk_assessment)
+                            @if($analysis->risk_assessment && count((array) $analysis->risk_assessment) > 0)
                             <div class="mt-6 p-5 bg-gray-50 rounded-xl border border-red-100">
                                 <h3 class="text-sm font-bold text-red-700 mb-2 flex items-center gap-2">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -649,7 +649,14 @@
                                     </svg>
                                     {{ __('Risk Assessment') }}
                                 </h3>
-                                <p class="text-sm text-red-900 leading-relaxed">{{ $analysis->risk_assessment }}</p>
+                                <ul class="space-y-1.5">
+                                    @foreach((array) $analysis->risk_assessment as $risk)
+                                    <li class="text-sm text-red-900 leading-relaxed flex items-start gap-2">
+                                        <span class="text-red-500 mt-1">&bull;</span>
+                                        {{ is_array($risk) ? json_encode($risk) : $risk }}
+                                    </li>
+                                    @endforeach
+                                </ul>
                             </div>
                             @endif
 
