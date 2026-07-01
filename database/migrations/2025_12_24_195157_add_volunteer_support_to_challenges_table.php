@@ -40,5 +40,13 @@ return new class extends Migration
             $table->dropForeign(['volunteer_id']);
             $table->dropColumn(['volunteer_id', 'source_type']);
         });
+
+        // Revert company_id back to NOT NULL (separate statement, matching
+        // up()'s split for MySQL compatibility). Any row that used the
+        // nullable window to store a volunteer-only challenge (company_id
+        // NULL) must be resolved before rolling back, or this will fail.
+        Schema::table('challenges', function (Blueprint $table) {
+            $table->unsignedBigInteger('company_id')->nullable(false)->change();
+        });
     }
 };

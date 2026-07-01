@@ -110,7 +110,13 @@ class DashboardController extends Controller
         $newestChallenge = $company->challenges()->latest()->first();
         $challenges = $newestChallenge ? collect([$newestChallenge]) : collect();
 
-        // Calculate progress and estimated time for each challenge
+        // Calculate progress and estimated time for each challenge.
+        // WARNING: this runs ~9 queries per iteration. $challenges is
+        // capped to the single newest challenge above, so this is fine
+        // today - but if that cap is ever widened to show more than one
+        // challenge, this needs to become a bulk query keyed by
+        // challenge_id/task_id (see ChallengeDashboardService for that
+        // pattern) instead of a per-challenge loop.
         foreach ($challenges as $challenge) {
             $totalTasks = $challenge->tasks()->count();
 

@@ -326,21 +326,23 @@ class AdminChallengeController extends Controller
             $query->whereDate('created_at', '<=', $request->date_to);
         }
 
-        $challenges = $query->orderBy('created_at', 'desc')->get();
+        $query->orderBy('created_at', 'desc');
 
         $format = $request->get('format', 'csv');
 
         if ($format === 'json') {
-            return response()->json($challenges);
+            return response()->json($query->get());
         }
 
-        // CSV Export
+        // CSV Export - streamed via lazy() so the whole result set is never
+        // held in memory at once (unlike get()), while still eager-loading
+        // company/volunteer per chunk rather than N+1-ing them.
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="challenges_export_' . now()->format('Y-m-d') . '.csv"',
         ];
 
-        $callback = function() use ($challenges) {
+        $callback = function() use ($query) {
             $file = fopen('php://output', 'w');
 
             // Header row
@@ -350,7 +352,7 @@ class AdminChallengeController extends Controller
                 'Created At', 'Completed At', 'Tasks Count'
             ]);
 
-            foreach ($challenges as $challenge) {
+            foreach ($query->lazy(200) as $challenge) {
                 $submitter = $challenge->company
                     ? ($challenge->company->company_name ?? $challenge->company->user->name ?? 'Unknown')
                     : ($challenge->volunteer->user->name ?? 'Community');

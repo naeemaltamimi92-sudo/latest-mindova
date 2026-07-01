@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\TaskAssignment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TaskWebController extends Controller
 {
@@ -44,14 +45,19 @@ class TaskWebController extends Controller
 
         $tasks = $query->latest()->paginate(15);
 
-        // Get unique skills from all tasks for filter dropdown
-        $allSkills = Task::where('status', 'open')
-            ->get()
-            ->pluck('required_skills')
-            ->flatten()
-            ->unique()
-            ->sort()
-            ->values();
+        // Get unique skills from all tasks for filter dropdown. Only the
+        // required_skills column is selected (not full task rows), and the
+        // result is cached briefly since this dropdown doesn't need to be
+        // real-time and recomputing it on every request is wasteful.
+        $allSkills = Cache::remember('tasks.available.skills', 300, function () {
+            return Task::where('status', 'open')
+                ->get(['required_skills'])
+                ->pluck('required_skills')
+                ->flatten()
+                ->unique()
+                ->sort()
+                ->values();
+        });
 
         return view('tasks.available', compact('tasks', 'allSkills'));
     }
