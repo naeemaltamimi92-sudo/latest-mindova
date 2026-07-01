@@ -159,19 +159,4 @@ class ReputationService
         }
         return null;
     }
-
-    /**
-     * Credit cost to publish a Discovery Challenge, based on star count.
-     * Stars reward loyalty — higher tiers pay less to publish.
-     */
-    public function getPublishingCost(int $stars): int
-    {
-        return match (true) {
-            $stars >= 1500 => 0,
-            $stars >= 700  => 5,
-            $stars >= 300  => 10,
-            $stars >= 100  => 15,
-            default        => 20,
-        };
-    }
 }

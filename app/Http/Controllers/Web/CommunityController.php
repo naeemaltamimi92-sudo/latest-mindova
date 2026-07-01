@@ -11,7 +11,6 @@ use App\Models\IdeaVote;
 use App\Jobs\AnalyzeCommentQuality;
 use App\Jobs\ScoreIdea;
 use App\Models\ReputationHistory;
-use App\Services\CreditsService;
 use App\Services\NotificationService;
 use App\Services\ReputationService;
 use Illuminate\Http\Request;
@@ -415,14 +414,6 @@ class CommunityController extends Controller
             'related_id'      => $idea->id,
             'complexity_score' => $idea->challenge->score,
         ]);
-
-        // Also earn credits for a correct answer
-        app(CreditsService::class)->award(
-            $volunteer->user,
-            10,
-            'Idea marked as correct answer',
-            $idea
-        );
 
         Log::info('Awarded correct-answer stars', [
             'volunteer_id' => $volunteer->id,

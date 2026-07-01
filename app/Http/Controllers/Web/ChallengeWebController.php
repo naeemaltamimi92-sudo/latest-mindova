@@ -9,7 +9,6 @@ use App\Models\Challenge;
 use App\Models\ChallengeAttachment;
 use App\Jobs\AnalyzeChallengeBrief;
 use App\Services\ChallengeDashboardService;
-use App\Services\CreditsService;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -84,9 +83,6 @@ class ChallengeWebController extends Controller
                 'original_description' => $validated['description'],
                 'status' => 'submitted',
             ]);
-
-            // Deduct credits after successful creation
-            app(CreditsService::class)->spend($user, StoreChallengeRequest::PUBLISH_COST, 'Challenge published: ' . $challenge->title, $challenge);
 
             // Update company's total challenges count
             $user->company->increment('total_challenges_submitted');

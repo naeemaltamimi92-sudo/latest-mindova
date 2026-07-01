@@ -66,27 +66,7 @@ class User extends Authenticatable
             'whatsapp_opted_out_at' => 'datetime',
             'two_factor_confirmed_at' => 'datetime',
             'password_changed_at' => 'datetime',
-            'credits_balance' => 'integer',
         ];
-    }
-
-    // -------------------------------------------------------------------------
-    // Credits helpers
-    // -------------------------------------------------------------------------
-
-    public function creditTransactions()
-    {
-        return $this->hasMany(CreditTransaction::class)->latest('created_at');
-    }
-
-    public function getCreditsAttribute(): int
-    {
-        return (int) $this->credits_balance;
-    }
-
-    public function canAfford(int $amount): bool
-    {
-        return $this->credits_balance >= $amount;
     }
 
     // -------------------------------------------------------------------------

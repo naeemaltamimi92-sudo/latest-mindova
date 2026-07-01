@@ -288,7 +288,6 @@ class DemoDataService
                 'is_active'         => true,
                 'is_demo'           => true,
                 'email_verified_at' => now()->subDays(rand(30, 180)),
-                'credits_balance'   => rand(40, 200),
             ]);
 
             $volunteer = Volunteer::create([
@@ -390,7 +389,6 @@ class DemoDataService
                 'is_active'         => true,
                 'is_demo'           => true,
                 'email_verified_at' => now()->subDays(rand(30, 180)),
-                'credits_balance'   => 100,
             ]);
 
             $company = Company::create([

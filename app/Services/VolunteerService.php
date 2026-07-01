@@ -11,7 +11,6 @@ class VolunteerService
 {
     public function __construct(
         private readonly ReputationService $reputation,
-        private readonly CreditsService $credits,
     ) {}
 
     public function updateProfile(User $user, array $data): Volunteer
@@ -52,9 +51,6 @@ class VolunteerService
 
             // Grant profile completion stars (one-time)
             $this->reputation->award($volunteer, 'profile_completed');
-
-            // Grant 20 starter credits so the volunteer can publish one challenge immediately
-            $this->credits->gift($user->fresh(), 20, 'Welcome bonus: starter credits');
         } else {
             $volunteer = $user->volunteer;
 

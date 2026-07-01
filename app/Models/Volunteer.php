@@ -91,11 +91,6 @@ class Volunteer extends Model
         return app(ReputationService::class)->getNextTier($this->stars);
     }
 
-    public function getPublishingCostAttribute(): int
-    {
-        return app(ReputationService::class)->getPublishingCost($this->stars);
-    }
-
     public function isCertifiedExpert(): bool
     {
         return $this->stars >= 1200;

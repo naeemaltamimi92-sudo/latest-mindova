@@ -7,8 +7,6 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreChallengeRequest extends FormRequest
 {
-    public const PUBLISH_COST = 20;
-
     /**
      * Determine if the user is authorized to submit a challenge.
      *
@@ -23,15 +21,6 @@ class StoreChallengeRequest extends FormRequest
         if (!$user->isCompany()) {
             throw new HttpResponseException(
                 redirect()->route('dashboard')->with('error', 'Only companies can submit challenges')
-            );
-        }
-
-        if (!$user->canAfford(self::PUBLISH_COST)) {
-            throw new HttpResponseException(
-                redirect()->route('challenges.create')->with(
-                    'error',
-                    "You need " . self::PUBLISH_COST . " credits to publish a challenge. Your balance: {$user->credits} credits. Purchase credits to continue."
-                )
             );
         }
 

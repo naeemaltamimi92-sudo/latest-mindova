@@ -8,7 +8,6 @@ use App\Models\Challenge;
 use App\Models\WorkSubmission;
 use App\Models\ReputationHistory;
 use App\Jobs\AggregateChallengeCompletion;
-use App\Services\CreditsService;
 use App\Services\NotificationService;
 use App\Services\ReputationService;
 use Illuminate\Support\Facades\Log;
@@ -253,7 +252,7 @@ class CompanyWebController extends Controller
     }
 
     /**
-     * Award stars and credits based on the review decision.
+     * Award stars based on the review decision.
      */
     protected function awardReputationPoints(WorkSubmission $submission, string $decision, int $qualityScore): void
     {
@@ -263,7 +262,6 @@ class CompanyWebController extends Controller
         }
 
         $reputation = app(ReputationService::class);
-        $credits    = app(CreditsService::class);
 
         $complexityScore = $submission->task?->challenge?->score;
 
@@ -285,14 +283,6 @@ class CompanyWebController extends Controller
                     ]);
                     $reputation->adjustTrust($volunteer, 'excellent_delivery');
                 }
-
-                // Earn credits for approved work
-                $earnedCredits = match (true) {
-                    $qualityScore >= 90 => 10,
-                    $qualityScore >= 70 => 5,
-                    default             => 3,
-                };
-                $credits->award($volunteer->user, $earnedCredits, 'Work submission approved', $submission);
             }
         }
     }

@@ -4,12 +4,9 @@ namespace App\Services\Company;
 
 use App\Models\Company;
 use App\Models\User;
-use App\Services\CreditsService;
 
 class CompanyRegistrationService
 {
-    public function __construct(private readonly CreditsService $credits) {}
-
     public function completeProfile(User $user, array $data): Company
     {
         if (!$user->isCompany()) {
@@ -25,9 +22,6 @@ class CompanyRegistrationService
             'logo_path'                  => $data['logo_path'] ?? null,
             'total_challenges_submitted' => 0,
         ]);
-
-        // Grant starter credits so the company can publish its first challenge immediately
-        $this->credits->gift($user->fresh(), 20, 'Welcome bonus: starter credits');
 
         return $company;
     }
