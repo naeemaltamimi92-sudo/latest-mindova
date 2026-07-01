@@ -7,7 +7,7 @@
 @section('content')
 
 {{-- Hero welcome banner --}}
-<div class="adm-reveal relative overflow-hidden rounded-2xl mb-6" style="background: linear-gradient(135deg, #775FEE 0%, #5A3DEB 50%, #4338CA 100%);">
+<div class="adm-reveal relative overflow-hidden rounded-2xl mb-6 bg-aurora">
     <div class="absolute inset-0">
         <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
         <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
@@ -419,8 +419,8 @@
 @media (min-width: 1280px) { .ac-stats-grid { grid-template-columns: repeat(7, 1fr); } }
 
 .ac-pulse-stat {
-    background: #fff;
-    border: 1px solid #e5e7eb;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 14px;
     padding: 14px 12px;
     display: flex;
@@ -435,14 +435,13 @@
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 2px;
-    background: var(--ac-color, #5a3deb);
+    background: var(--ac-color, var(--color-primary-500));
     transform: scaleX(0);
     transform-origin: left;
     transition: transform .3s ease;
 }
-.ac-pulse-stat:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+.ac-pulse-stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
 .ac-pulse-stat:hover::after { transform: scaleX(1); }
-html.dark .ac-pulse-stat { background: #1e293b; border-color: #334155; }
 
 .ac-pulse-stat-icon {
     width: 34px; height: 34px; border-radius: 10px;
@@ -452,11 +451,10 @@ html.dark .ac-pulse-stat { background: #1e293b; border-color: #334155; }
 }
 .ac-pulse-num {
     font-size: 1.2rem; font-weight: 900;
-    color: #111827; line-height: 1;
+    color: var(--color-text-primary); line-height: 1;
     transition: color .35s;
 }
-html.dark .ac-pulse-num { color: #f1f5f9; }
-.ac-pulse-label { font-size: .65rem; color: #9ca3af; font-weight: 600; margin-top: 3px; line-height: 1.2; }
+.ac-pulse-label { font-size: .65rem; color: var(--color-text-light); font-weight: 600; margin-top: 3px; line-height: 1.2; }
 
 .ac-live-dot {
     position: absolute; top: 8px; right: 8px;
@@ -469,24 +467,21 @@ html.dark .ac-pulse-num { color: #f1f5f9; }
 .ac-filter-btn {
     padding: 5px 13px; border-radius: 999px;
     font-size: .73rem; font-weight: 600;
-    background: transparent; color: #6b7280;
+    background: transparent; color: var(--color-text-secondary);
     border: 1px solid transparent;
     cursor: pointer; transition: all .18s ease;
     white-space: nowrap;
 }
-.ac-filter-btn:hover { background: #f3f4f6; color: #374151; border-color: #e5e7eb; }
+.ac-filter-btn:hover { background: var(--color-surface-secondary); color: var(--color-text-primary); border-color: var(--color-border); }
 .ac-filter-btn.ac-active {
-    background: linear-gradient(135deg,#775fee,#5a3deb,#4338ca);
+    background: var(--gradient-aurora);
     color: #fff; border-color: transparent;
-    box-shadow: 0 2px 8px rgba(90,61,235,.3);
+    box-shadow: var(--shadow-glow-primary-sm);
 }
-html.dark .ac-filter-btn { color: #9ca3af; }
-html.dark .ac-filter-btn:hover { background: #334155; color: #e2e8f0; border-color: #475569; }
 
 /* Activity cards */
 .ac-card { transition: background .18s ease; }
-.ac-card:hover { background: #f9fafb; }
-html.dark .ac-card:hover { background: rgba(51,65,85,.4); }
+.ac-card:hover { background: var(--color-surface-secondary); }
 
 /* Skeleton shimmer */
 .ac-skel {

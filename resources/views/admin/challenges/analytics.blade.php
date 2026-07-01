@@ -56,15 +56,15 @@
 
     /* Glassmorphism Cards */
     .glass-card {
-        background: rgba(255, 255, 255, 0.95);
+        background: var(--glass-bg);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid var(--glass-border);
     }
 
     /* Chart Container */
     .chart-container {
         position: relative;
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        background: var(--color-surface);
         border-radius: 1.5rem;
         overflow: hidden;
     }
@@ -122,7 +122,7 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Ultra Premium Hero Header -->
     <div class="relative overflow-hidden bg-primary-500 py-12 mb-10 rounded-b-[3rem] shadow-2xl mx-4 sm:mx-6 lg:mx-8">
         <!-- Animated Background Elements -->
@@ -180,10 +180,10 @@
                     <form method="GET" class="relative">
                         <div class="absolute inset-0 bg-primary-500 rounded-xl blur opacity-30"></div>
                         <select name="period" onchange="this.form.submit()" class="relative rounded-xl bg-white/15 backdrop-blur-md border border-white/30 text-white font-semibold px-5 py-3 focus:border-indigo-400 focus:ring-indigo-400 text-sm cursor-pointer hover:bg-white/25">
-                            <option value="7" {{ $period == '7' ? 'selected' : '' }} class="text-slate-900">{{ __('Last 7 Days') }}</option>
-                            <option value="30" {{ $period == '30' ? 'selected' : '' }} class="text-slate-900">{{ __('Last 30 Days') }}</option>
-                            <option value="90" {{ $period == '90' ? 'selected' : '' }} class="text-slate-900">{{ __('Last 90 Days') }}</option>
-                            <option value="365" {{ $period == '365' ? 'selected' : '' }} class="text-slate-900">{{ __('Last Year') }}</option>
+                            <option value="7" {{ $period == '7' ? 'selected' : '' }} class="text-slate-900 dark:text-white">{{ __('Last 7 Days') }}</option>
+                            <option value="30" {{ $period == '30' ? 'selected' : '' }} class="text-slate-900 dark:text-white">{{ __('Last 30 Days') }}</option>
+                            <option value="90" {{ $period == '90' ? 'selected' : '' }} class="text-slate-900 dark:text-white">{{ __('Last 90 Days') }}</option>
+                            <option value="365" {{ $period == '365' ? 'selected' : '' }} class="text-slate-900 dark:text-white">{{ __('Last Year') }}</option>
                         </select>
                     </form>
 
@@ -295,8 +295,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900">{{ __('Challenges Over Time') }}</h3>
-                            <p class="text-sm text-slate-500">{{ __('Daily submission trends') }}</p>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ __('Challenges Over Time') }}</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Daily submission trends') }}</p>
                         </div>
                     </div>
                     <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-lg text-xs font-bold">{{ __('LIVE') }}</span>
@@ -317,8 +317,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900">{{ __('Status Distribution') }}</h3>
-                            <p class="text-sm text-slate-500">{{ __('Current challenge states') }}</p>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ __('Status Distribution') }}</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Current challenge states') }}</p>
                         </div>
                     </div>
                 </div>
@@ -339,8 +339,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900">{{ __('Challenge Types') }}</h3>
-                        <p class="text-sm text-slate-500">{{ __('Distribution by category') }}</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ __('Challenge Types') }}</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Distribution by category') }}</p>
                     </div>
                 </div>
                 <div class="space-y-5">
@@ -355,16 +355,16 @@
                         <div class="flex items-center justify-between mb-2">
                             <div class="flex items-center gap-3">
                                 <div class="h-3 w-3 rounded-full {{ $colorClass }}"></div>
-                                <span class="text-sm font-semibold text-slate-700 group-hover:text-slate-900">
+                                <span class="text-sm font-semibold text-slate-700 group-hover:text-slate-900 dark:text-white">
                                     {{ __(ucfirst(str_replace('_', ' ', $type->challenge_type ?? 'Unknown'))) }}
                                 </span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="text-sm font-bold text-slate-900">{{ $type->count }}</span>
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs font-semibold">{{ $percentage }}%</span>
+                                <span class="text-sm font-bold text-slate-900 dark:text-white">{{ $type->count }}</span>
+                                <span class="px-2 py-0.5 bg-slate-100 dark:bg-gray-700 text-slate-600 dark:text-slate-400 rounded text-xs font-semibold">{{ $percentage }}%</span>
                             </div>
                         </div>
-                        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div class="w-full bg-slate-100 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
                             <div class="{{ $colorClass }} h-2.5 rounded-full animate-progress group-hover:shadow-lg" style="width: {{ $percentage }}%"></div>
                         </div>
                     </div>
@@ -381,8 +381,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900">{{ __('Top Companies') }}</h3>
-                        <p class="text-sm text-slate-500">{{ __('Most active contributors') }}</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ __('Top Companies') }}</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Most active contributors') }}</p>
                     </div>
                 </div>
                 <div class="space-y-3">
@@ -394,7 +394,7 @@
                                 @if($index === 0) bg-secondary-200 text-yellow-900
                                 @elseif($index === 1) bg-gray-300 text-slate-700
                                 @elseif($index === 2) bg-secondary-300 text-white
-                                @else bg-gray-100 text-slate-600
+                                @else bg-gray-100 text-slate-600 dark:text-slate-400
                                 @endif">
                                 {{ $index + 1 }}
                             </div>
@@ -403,8 +403,8 @@
                                 <span class="text-white text-sm font-bold">{{ strtoupper(substr($company->company_name ?? 'CO', 0, 2)) }}</span>
                             </div>
                             <div>
-                                <p class="font-bold text-slate-900 group-hover:text-indigo-600">{{ $company->company_name ?? $company->user->name ?? __('Unknown') }}</p>
-                                <p class="text-xs text-slate-500">{{ $company->challenges_count }} {{ __('challenges submitted') }}</p>
+                                <p class="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600">{{ $company->company_name ?? $company->user->name ?? __('Unknown') }}</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">{{ $company->challenges_count }} {{ __('challenges submitted') }}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -415,12 +415,12 @@
                     </div>
                     @empty
                     <div class="text-center py-8">
-                        <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <div class="w-16 h-16 bg-slate-100 dark:bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/>
                             </svg>
                         </div>
-                        <p class="text-slate-500">{{ __('No data available') }}</p>
+                        <p class="text-slate-500 dark:text-slate-400">{{ __('No data available') }}</p>
                     </div>
                     @endforelse
                 </div>
@@ -437,18 +437,18 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900">{{ __('Completion Trends') }}</h3>
-                        <p class="text-sm text-slate-500">{{ __('Monthly progress overview') }}</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ __('Completion Trends') }}</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Monthly progress overview') }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="flex items-center gap-2">
                         <div class="h-3 w-3 rounded-full bg-indigo-500"></div>
-                        <span class="text-xs font-medium text-slate-600">{{ __('Total') }}</span>
+                        <span class="text-xs font-medium text-slate-600 dark:text-slate-400">{{ __('Total') }}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="h-3 w-3 rounded-full bg-emerald-500"></div>
-                        <span class="text-xs font-medium text-slate-600">{{ __('Completed') }}</span>
+                        <span class="text-xs font-medium text-slate-600 dark:text-slate-400">{{ __('Completed') }}</span>
                     </div>
                 </div>
             </div>
@@ -467,8 +467,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-slate-900">{{ __('Average Scores by Field') }}</h3>
-                    <p class="text-sm text-slate-500">{{ __('Performance metrics per category') }}</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ __('Average Scores by Field') }}</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Performance metrics per category') }}</p>
                 </div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -478,7 +478,7 @@
                     <!-- Circular Progress -->
                     <div class="circular-progress mx-auto mb-4 relative">
                         <svg class="w-full h-full" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="54" stroke="#e2e8f0" stroke-width="8" fill="none"/>
+                            <circle cx="60" cy="60" r="54" class="stroke-slate-200 dark:stroke-slate-700" stroke-width="8" fill="none"/>
                             <circle cx="60" cy="60" r="54" stroke="url(#gradient{{ $index }})" stroke-width="8" fill="none" class="progress-ring" style="stroke-dashoffset: {{ 339.292 - (339.292 * $field->avg_score / 10) }}"/>
                             <defs>
                                 <linearGradient id="gradient{{ $index }}" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -488,11 +488,11 @@
                             </defs>
                         </svg>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-2xl font-black text-slate-900">{{ number_format($field->avg_score, 1) }}</span>
+                            <span class="text-2xl font-black text-slate-900 dark:text-white">{{ number_format($field->avg_score, 1) }}</span>
                         </div>
                     </div>
-                    <p class="text-sm font-bold text-slate-900 mb-1">{{ $field->field }}</p>
-                    <p class="text-xs text-slate-500">{{ $field->count }} {{ __('challenges') }}</p>
+                    <p class="text-sm font-bold text-slate-900 dark:text-white mb-1">{{ $field->field }}</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ $field->count }} {{ __('challenges') }}</p>
                 </div>
                 @endforeach
             </div>

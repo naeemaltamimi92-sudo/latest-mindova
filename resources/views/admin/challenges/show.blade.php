@@ -45,14 +45,14 @@
         transform: translateX(-50%);
         width: 2px;
         height: 100%;
-        background: linear-gradient(to bottom, #e2e8f0, #cbd5e1);
+        background: var(--color-border-medium);
     }
 
     /* Glassmorphism Card */
     .glass-card {
-        background: rgba(255, 255, 255, 0.9);
+        background: var(--glass-bg);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid var(--glass-border);
     }
 
     /* Pulse Animation */

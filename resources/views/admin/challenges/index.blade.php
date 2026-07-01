@@ -7,7 +7,7 @@
 @section('content')
 <div x-data="challengesManager()">
     <!-- Header banner -->
-    <div class="relative overflow-hidden rounded-2xl mb-6" style="background: linear-gradient(135deg, #775FEE 0%, #5A3DEB 50%, #4338CA 100%)">
+    <div class="relative overflow-hidden rounded-2xl mb-6 bg-aurora">
         <!-- Animated Background -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full "></div>
