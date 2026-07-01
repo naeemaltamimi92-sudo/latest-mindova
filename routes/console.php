@@ -15,3 +15,10 @@ Schedule::command('analysis:retry')
     ->everyFifteenMinutes()
     ->withoutOverlapping()
     ->onOneServer();
+
+// Prunes openai_requests rows past the configured retention window
+// (see config('ai.request_log_retention_days')) - that table stores full
+// AI prompt/response text, which can include PII from uploaded CVs.
+Schedule::command('ai-requests:prune')
+    ->daily()
+    ->onOneServer();

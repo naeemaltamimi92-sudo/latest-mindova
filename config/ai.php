@@ -76,6 +76,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | AI Request Log Retention
+    |--------------------------------------------------------------------------
+    |
+    | openai_requests stores the full prompt/response text of every AI
+    | call (can include CV contents and other PII). Rows older than this
+    | many days are pruned by the ai-requests:prune scheduled command.
+    |
+    */
+
+    'request_log_retention_days' => env('AI_REQUEST_LOG_RETENTION_DAYS', 90),
+
+    /*
+    |--------------------------------------------------------------------------
     | OpenAI API Pricing
     |--------------------------------------------------------------------------
     |

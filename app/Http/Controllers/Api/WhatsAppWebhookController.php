@@ -49,8 +49,8 @@ class WhatsAppWebhookController extends Controller
         }
 
         Log::channel('whatsapp')->warning('Webhook verification failed', [
-            'expected_token' => $verifyToken,
-            'received_token' => $token,
+            'mode' => $mode,
+            'token_match' => $token === $verifyToken,
         ]);
 
         return response('Forbidden', 403);
@@ -75,10 +75,9 @@ class WhatsAppWebhookController extends Controller
             return response('Invalid signature', 401);
         }
 
-        // Log incoming webhook
-        Log::channel('whatsapp')->info('Webhook received', [
-            'payload' => $request->all(),
-        ]);
+        // Log incoming webhook - summary only, not the raw payload, which
+        // contains message text and phone numbers (PII).
+        Log::channel('whatsapp')->info('Webhook received', $this->summarizeWebhook($request->all()));
 
         try {
             // Process the webhook data
@@ -95,6 +94,25 @@ class WhatsAppWebhookController extends Controller
             // Still return 200 to prevent Meta from retrying
             return response('OK', 200);
         }
+    }
+
+    /**
+     * Reduce a WhatsApp Cloud API webhook payload to log-safe metadata -
+     * message/status counts and types - without the message text or
+     * phone numbers the full payload contains.
+     */
+    private function summarizeWebhook(array $data): array
+    {
+        $value = $data['entry'][0]['changes'][0]['value'] ?? [];
+        $messages = $value['messages'] ?? [];
+        $statuses = $value['statuses'] ?? [];
+
+        return [
+            'message_count' => count($messages),
+            'message_types' => array_values(array_unique(array_column($messages, 'type'))),
+            'status_count' => count($statuses),
+            'status_types' => array_values(array_unique(array_column($statuses, 'status'))),
+        ];
     }
 
     /**

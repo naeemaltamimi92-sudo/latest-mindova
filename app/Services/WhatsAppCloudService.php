@@ -752,9 +752,39 @@ class WhatsAppCloudService
         } catch (Exception $e) {
             Log::channel('whatsapp')->error('Webhook processing error', [
                 'error' => $e->getMessage(),
-                'data' => $data,
+                'data' => $this->redactWebhookPii($data),
             ]);
         }
+    }
+
+    /**
+     * Strip phone numbers and message text from a webhook payload before
+     * logging it, keeping the rest of the structure for debugging.
+     */
+    private function redactWebhookPii(array $data): array
+    {
+        $value = $data['entry'][0]['changes'][0]['value'] ?? null;
+
+        if (!is_array($value)) {
+            return $data;
+        }
+
+        foreach ($value['messages'] ?? [] as &$message) {
+            $message['from'] = '[redacted]';
+            if (isset($message['text']['body'])) {
+                $message['text']['body'] = '[redacted]';
+            }
+        }
+        unset($message);
+
+        foreach ($value['contacts'] ?? [] as &$contact) {
+            $contact['wa_id'] = '[redacted]';
+        }
+        unset($contact);
+
+        $data['entry'][0]['changes'][0]['value'] = $value;
+
+        return $data;
     }
 
     /**
