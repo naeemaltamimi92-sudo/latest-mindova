@@ -182,9 +182,9 @@ Include:
 - How would it solve the challenge?
 - What makes it innovative or effective?
 - What are the potential benefits?') }}"
-                                  minlength="100" maxlength="2000"></textarea>
+                                  minlength="100" maxlength="10000"></textarea>
                         <div class="absolute bottom-4 right-4 text-sm font-bold bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700">
-                            <span class="char-counter" :class="{ 'warning': charCount >= 50 && charCount < 100, 'valid': charCount >= 100, 'error': charCount < 50 }" x-text="charCount + ' / 2000'"></span>
+                            <span class="char-counter" :class="{ 'warning': charCount >= 50 && charCount < 100, 'valid': charCount >= 100, 'error': charCount < 50 }" x-text="charCount + ' / 10000'"></span>
                         </div>
                     </div>
                     <div class="flex items-center justify-between">
@@ -192,7 +192,7 @@ Include:
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
-                            {{ __('Minimum 100 characters, maximum 2000 characters') }}
+                            {{ __('Minimum 100 characters, maximum 10000 characters') }}
                         </p>
                         <p class="text-sm font-semibold text-red-600 dark:text-red-400" x-show="charCount < 100 && charCount > 0">
                             {{ __('Need') }} <span x-text="100 - charCount"></span> {{ __('more characters') }}

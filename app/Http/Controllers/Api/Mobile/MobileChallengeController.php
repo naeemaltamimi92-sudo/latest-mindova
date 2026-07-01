@@ -134,7 +134,7 @@ class MobileChallengeController extends Controller
             return response()->json(['message' => 'Volunteer profile required.'], 422);
         }
 
-        $request->validate(['content' => 'required|string|min:10|max:2000']);
+        $request->validate(['content' => 'required|string|min:10|max:10000']);
 
         $idea = Idea::create([
             'challenge_id'  => $challenge->id,

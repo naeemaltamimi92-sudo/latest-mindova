@@ -74,7 +74,7 @@ class IdeaController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string|min:100|max:2000',
+            'description' => 'required|string|min:100|max:10000',
         ]);
 
         // Create idea (combine title and description into content field)

@@ -196,7 +196,7 @@ class CommunityController extends Controller
         }
 
         $validated = $request->validate([
-            'content' => 'required|string|min:10|max:2000',
+            'content' => 'required|string|min:10|max:10000',
         ]);
 
         // Create idea
