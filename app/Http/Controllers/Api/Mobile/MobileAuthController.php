@@ -66,6 +66,17 @@ class MobileAuthController extends Controller
             return response()->json(['message' => 'Registration is disabled during maintenance.'], 503);
         }
 
+        $key = 'register|' . $request->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            $seconds = RateLimiter::availableIn($key);
+            return response()->json([
+                'message' => "Too many registration attempts. Please try again in {$seconds} seconds.",
+            ], 429);
+        }
+
+        RateLimiter::hit($key);
+
         $request->validate([
             'name'                  => 'required|string|max:255',
             'email'                 => 'required|email|max:255|unique:users',
@@ -105,6 +116,17 @@ class MobileAuthController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
+        $key = Str::transliterate(Str::lower($request->email) . '|forgot-password|' . $request->ip());
+
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            $seconds = RateLimiter::availableIn($key);
+            return response()->json([
+                'message' => "Too many attempts. Please try again in {$seconds} seconds.",
+            ], 429);
+        }
+
+        RateLimiter::hit($key);
+
         $status = Password::sendResetLink($request->only('email'));
 
         return response()->json([
@@ -116,6 +138,17 @@ class MobileAuthController extends Controller
 
     public function resetPassword(Request $request): JsonResponse
     {
+        $key = 'reset-password|' . $request->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 10)) {
+            $seconds = RateLimiter::availableIn($key);
+            return response()->json([
+                'message' => "Too many attempts. Please try again in {$seconds} seconds.",
+            ], 429);
+        }
+
+        RateLimiter::hit($key);
+
         $request->validate([
             'token'                 => 'required',
             'email'                 => 'required|email',

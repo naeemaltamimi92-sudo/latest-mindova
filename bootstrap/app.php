@@ -19,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\EnsureTwoFactorVerified::class,
         ]);
 
+        $middleware->api(prepend: [
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
+        ]);
+
         $middleware->alias([
             'nda.general' => \App\Http\Middleware\EnsureGeneralNdaSigned::class,
             'nda.challenge' => \App\Http\Middleware\EnsureChallengeNdaSigned::class,

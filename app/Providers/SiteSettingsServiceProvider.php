@@ -82,7 +82,12 @@ class SiteSettingsServiceProvider extends ServiceProvider
 
                 // Custom code
                 $view->with('customCss', $settings['custom_css'] ?? '');
-                $view->with('customJs', $settings['custom_js'] ?? '');
+                // customJs is embedded inline inside a <script> tag (see
+                // layouts.app), so a literal "</script>" in the stored
+                // setting would close that tag early and let anything
+                // after it be parsed as HTML. Escape the closing sequence
+                // so the JS still executes unchanged but can't break out.
+                $view->with('customJs', str_replace('</script', '<\/script', $settings['custom_js'] ?? ''));
 
                 // Cookie consent
                 $view->with('cookieConsentText', $settings['cookie_consent_text'] ?? 'We use cookies to enhance your experience.');
