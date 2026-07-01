@@ -16,13 +16,13 @@
             </div>
         </div>
 
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ __('403 - Access Denied') }}</h1>
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">{{ __('403 - Access Denied') }}</h1>
 
-        <p class="text-xl text-gray-600 mb-8">
+        <p class="text-xl text-gray-600 dark:text-gray-400 mb-8">
             {{ __('You don\'t have permission to access this resource.') }}
         </p>
 
-        <p class="text-gray-500 mb-12">
+        <p class="text-gray-500 dark:text-gray-400 mb-12">
             {{ $exception->getMessage() ?: __('This action is unauthorized. You may not have the required permissions or your account type may not support this feature.') }}
         </p>
 
@@ -35,9 +35,9 @@
             </x-ui.button>
         </div>
 
-        <div class="mt-12 pt-8 border-t border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ __('Need help?') }}</h3>
-            <p class="text-sm text-gray-600 mb-4">
+        <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ __('Need help?') }}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 {{ __('If you believe this is an error, please contact support or check your account permissions.') }}
             </p>
             <div class="flex justify-center space-x-6 text-sm">
