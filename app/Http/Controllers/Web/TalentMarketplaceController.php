@@ -63,12 +63,15 @@ class TalentMarketplaceController extends Controller
             });
         }
 
-        // Verified projects minimum
+        // Verified projects minimum. withCount()+having() without a
+        // groupBy() is accepted by MySQL's lenient dialect but rejected
+        // outright by SQLite ("HAVING clause on a non-aggregate query");
+        // whereHas() with a count comparison is portable across both.
         if ($minProjects = $request->integer('min_projects', 0)) {
             $query->whereHas('user', function ($q) use ($minProjects) {
-                $q->withCount(['certificates as confirmed_certs_count' => function ($c) {
+                $q->whereHas('certificates', function ($c) {
                     $c->where('company_confirmed', true)->where('is_revoked', false);
-                }])->having('confirmed_certs_count', '>=', $minProjects);
+                }, '>=', $minProjects);
             });
         }
 

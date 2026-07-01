@@ -137,9 +137,11 @@ class AdminChallengeController extends Controller
 
             $growthRate = $lastMonth > 0 ? round((($thisMonth - $lastMonth) / $lastMonth) * 100, 1) : 0;
 
+            // TIMESTAMPDIFF() is MySQL-only syntax; computing the average in
+            // PHP via Carbon keeps this portable across database drivers.
             $avgCompletionTime = Challenge::whereNotNull('completed_at')
-                ->selectRaw('AVG(TIMESTAMPDIFF(DAY, created_at, completed_at)) as avg_days')
-                ->value('avg_days') ?? 0;
+                ->get(['created_at', 'completed_at'])
+                ->avg(fn ($c) => $c->created_at->diffInDays($c->completed_at)) ?? 0;
 
             $totalTasks = \App\Models\Task::count();
             $completedTasks = \App\Models\Task::where('status', 'completed')->count();
@@ -404,23 +406,29 @@ class AdminChallengeController extends Controller
             ->groupBy('challenge_type')
             ->get();
 
-        // Top companies
+        // Top companies. HAVING without GROUP BY is accepted by MySQL's
+        // lenient dialect but rejected outright by SQLite ("HAVING clause
+        // on a non-aggregate query"); whereHas() is portable across both.
         $topCompanies = Company::withCount('challenges')
-            ->having('challenges_count', '>', 0)
+            ->whereHas('challenges')
             ->orderByDesc('challenges_count')
             ->limit(10)
             ->get();
 
-        // Completion rate over time
-        $completionStats = Challenge::selectRaw('
-                DATE_FORMAT(created_at, "%Y-%m") as month,
-                COUNT(*) as total,
-                SUM(CASE WHEN status IN ("completed", "delivered") THEN 1 ELSE 0 END) as completed
-            ')
-            ->where('created_at', '>=', now()->subMonths(6))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+        // Completion rate over time. DATE_FORMAT() is MySQL-only syntax;
+        // grouping by month in PHP keeps this portable across DB drivers.
+        $completionStats = Challenge::where('created_at', '>=', now()->subMonths(6))
+            ->get(['created_at', 'status'])
+            ->groupBy(fn ($c) => $c->created_at->format('Y-m'))
+            ->map(function ($group, $month) {
+                return (object) [
+                    'month' => $month,
+                    'total' => $group->count(),
+                    'completed' => $group->whereIn('status', ['completed', 'delivered'])->count(),
+                ];
+            })
+            ->sortKeys()
+            ->values();
 
         // Average scores by field
         $scoresByField = Challenge::selectRaw('field, AVG(score) as avg_score, COUNT(*) as count')
@@ -488,9 +496,11 @@ class AdminChallengeController extends Controller
      */
     protected function getAverageAnalysisTime(): float
     {
+        // TIMESTAMPDIFF() is MySQL-only syntax; computed in PHP for
+        // portability across DB drivers.
         $avg = Challenge::whereNotNull('ai_analyzed_at')
-            ->selectRaw('AVG(TIMESTAMPDIFF(HOUR, created_at, ai_analyzed_at)) as avg_hours')
-            ->value('avg_hours');
+            ->get(['created_at', 'ai_analyzed_at'])
+            ->avg(fn ($c) => $c->created_at->diffInHours($c->ai_analyzed_at));
 
         return round($avg ?? 0, 1);
     }
@@ -501,8 +511,8 @@ class AdminChallengeController extends Controller
     protected function getAverageCompletionTime(): float
     {
         $avg = Challenge::whereNotNull('completed_at')
-            ->selectRaw('AVG(TIMESTAMPDIFF(DAY, created_at, completed_at)) as avg_days')
-            ->value('avg_days');
+            ->get(['created_at', 'completed_at'])
+            ->avg(fn ($c) => $c->created_at->diffInDays($c->completed_at));
 
         return round($avg ?? 0, 1);
     }
