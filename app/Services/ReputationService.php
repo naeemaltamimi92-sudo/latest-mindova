@@ -114,10 +114,12 @@ class ReputationService
             return;
         }
 
-        DB::statement(
-            'UPDATE volunteers SET trust_score = GREATEST(0, LEAST(100, trust_score + ?)) WHERE id = ?',
-            [$delta, $volunteer->id]
-        );
+        // GREATEST()/LEAST() are MySQL-only and break on SQLite (production's
+        // actual driver) - clamp in PHP inside a locked transaction instead.
+        DB::transaction(function () use ($volunteer, $delta) {
+            $locked = Volunteer::lockForUpdate()->find($volunteer->id);
+            $locked->update(['trust_score' => max(0, min(100, $locked->trust_score + $delta))]);
+        });
         $volunteer->refresh();
 
         $this->talentRanking->invalidate($volunteer);
