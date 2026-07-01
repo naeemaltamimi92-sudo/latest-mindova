@@ -192,7 +192,7 @@
                             <div class="flex flex-col items-center">
                                 <div class="relative w-16 h-16">
                                     <svg class="w-16 h-16" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="42" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                                        <circle cx="50" cy="50" r="42" fill="none" class="stroke-gray-200 dark:stroke-gray-700" stroke-width="8"/>
                                         <circle cx="50" cy="50" r="42" fill="none" stroke-width="8"
                                             stroke="{{ $assignment->match_score >= 80 ? '#10b981' : ($assignment->match_score >= 60 ? '#f59e0b' : '#6366f1') }}"
                                             stroke-linecap="round"
