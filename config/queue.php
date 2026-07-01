@@ -40,7 +40,14 @@ return [
             'connection' => env('DB_QUEUE_CONNECTION'),
             'table' => env('DB_QUEUE_TABLE', 'jobs'),
             'queue' => env('DB_QUEUE', 'default'),
-            'retry_after' => (int) env('DB_QUEUE_RETRY_AFTER', 90),
+            // Must exceed the longest-running job's own $timeout (the AI
+            // pipeline jobs range 180-900s - see FormTeamsForChallenge/
+            // MatchVolunteersToTasks) or a slow/interrupted job becomes
+            // eligible for a second, concurrent worker to pick up before
+            // the first one finishes or properly fails - confirmed causing
+            // jobs to be re-attempted past their own $tries limit in
+            // production with the framework's 90s default.
+            'retry_after' => (int) env('DB_QUEUE_RETRY_AFTER', 960),
             'after_commit' => false,
         ],
 
