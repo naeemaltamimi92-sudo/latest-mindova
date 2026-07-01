@@ -2,15 +2,15 @@
 deployment:
   tasks:
     # ==========================================================================
-    # cPanel account: mndvafva. Node.js App configured at Application root
+    # cPanel account: mindipus. Node.js App configured at Application root
     # "mindova-app" running Node 20, activated via NODE_ACTIVATE below.
     # PHP/Composer binaries are auto-detected with a fallback path (step 0)
     # but verify with `which php` / `which composer` in Terminal if the
     # fail-fast check below ever triggers.
     # ==========================================================================
-    - export APPPATH=/home/mndvafva/mindova-app
-    - export PUBLICPATH=/home/mndvafva/public_html
-    - export NODE_ACTIVATE=/home/mndvafva/nodevenv/mindova-app/20/bin/activate
+    - export APPPATH=/home/mindipus/mindova-app
+    - export PUBLICPATH=/home/mindipus/public_html
+    - export NODE_ACTIVATE=/home/mindipus/nodevenv/mindova-app/20/bin/activate
 
     # --------------------------------------------------------------------
     # 0. Resolve PHP/Composer binaries: prefer whatever's already on PATH
