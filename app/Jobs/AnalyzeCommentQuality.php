@@ -150,18 +150,6 @@ class AnalyzeCommentQuality implements ShouldQueue, ShouldBeUnique
             return;
         }
 
-        // Guard against double-awarding on job retry/duplicate dispatch
-        $alreadyAwarded = ReputationHistory::where('related_type', ChallengeComment::class)
-            ->where('related_id', $this->comment->id)
-            ->exists();
-
-        if ($alreadyAwarded) {
-            Log::info('Reputation already awarded for this comment, skipping', [
-                'comment_id' => $this->comment->id,
-            ]);
-            return;
-        }
-
         // Determine points based on score
         $points = match (true) {
             $score >= 9 => 10,  // Excellent comment: 10 points
@@ -169,16 +157,32 @@ class AnalyzeCommentQuality implements ShouldQueue, ShouldBeUnique
             default => 0,
         };
 
-        if ($points > 0) {
-            // Update volunteer's reputation score
-            $oldScore = $volunteer->reputation_score ?? 50;
-            $newScore = $oldScore + $points;
+        if ($points <= 0) {
+            return;
+        }
 
-            $volunteer->update(['reputation_score' => $newScore]);
+        \DB::transaction(function () use ($volunteer, $points, $score) {
+            // Lock the volunteer row so a retried/duplicate job dispatch
+            // serializes against this block instead of racing between the
+            // "already awarded?" check and the reputation update below.
+            $lockedVolunteer = \App\Models\Volunteer::whereKey($volunteer->id)->lockForUpdate()->first();
 
-            // Record in reputation history
+            $alreadyAwarded = ReputationHistory::where('related_type', ChallengeComment::class)
+                ->where('related_id', $this->comment->id)
+                ->exists();
+
+            if ($alreadyAwarded) {
+                Log::info('Reputation already awarded for this comment, skipping', [
+                    'comment_id' => $this->comment->id,
+                ]);
+                return;
+            }
+
+            $newScore = ($lockedVolunteer->reputation_score ?? 50) + $points;
+            $lockedVolunteer->update(['reputation_score' => $newScore]);
+
             ReputationHistory::create([
-                'volunteer_id' => $volunteer->id,
+                'volunteer_id' => $lockedVolunteer->id,
                 'change_amount' => $points,
                 'new_total' => $newScore,
                 'reason' => "High-quality community comment (AI score: {$score}/10)",
@@ -188,12 +192,12 @@ class AnalyzeCommentQuality implements ShouldQueue, ShouldBeUnique
             ]);
 
             Log::info('Reputation points awarded', [
-                'volunteer_id' => $volunteer->id,
+                'volunteer_id' => $lockedVolunteer->id,
                 'comment_id' => $this->comment->id,
                 'points' => $points,
                 'new_score' => $newScore,
             ]);
-        }
+        });
     }
 
     /**

@@ -246,38 +246,59 @@ SYSTEM;
      */
     public function storeResults(Volunteer $volunteer, array $analysis): void
     {
-        VolunteerSkill::where('volunteer_id', $volunteer->id)
-            ->where('source', 'cv_analysis')
-            ->delete();
+        \DB::transaction(function () use ($volunteer, $analysis) {
+            VolunteerSkill::where('volunteer_id', $volunteer->id)
+                ->where('source', 'cv_analysis')
+                ->delete();
 
-        $volunteer->update([
-            'experience_level' => $analysis['experience_level'],
-            'years_of_experience' => $analysis['years_of_experience'],
-            'education' => $analysis['education'],
-            'work_experience' => $analysis['work_experience'],
-            'professional_domains' => $analysis['professional_domains'],
-            'ai_analysis_confidence' => $analysis['confidence_score'],
-            'ai_analysis_status' => 'completed',
-            'ai_analyzed_at' => now(),
-            'validation_status' => $this->meetsConfidenceThreshold($analysis['confidence_score'])
-                ? 'passed'
-                : 'needs_review',
-        ]);
-
-        foreach ($analysis['skills'] as $skillData) {
-            $proficiency = $this->mapProficiencyLevel($skillData['proficiency_level'] ?? 'intermediate');
-
-            VolunteerSkill::create([
-                'volunteer_id' => $volunteer->id,
-                'skill_name' => $skillData['skill_name'],
-                'category' => $skillData['skill_category'] ?? null,
-                'proficiency_level' => $proficiency,
-                'years_of_experience' => $skillData['years_of_experience'] ?? 0,
-                'source' => 'cv_analysis',
+            $volunteer->update([
+                'experience_level' => $analysis['experience_level'],
+                'years_of_experience' => $analysis['years_of_experience'],
+                'education' => $this->normalizeToArray($analysis['education']),
+                'work_experience' => $this->normalizeToArray($analysis['work_experience']),
+                'professional_domains' => $this->normalizeToArray($analysis['professional_domains']),
+                'ai_analysis_confidence' => $analysis['confidence_score'],
+                'ai_analysis_status' => 'completed',
+                'ai_analyzed_at' => now(),
+                'validation_status' => $this->meetsConfidenceThreshold($analysis['confidence_score'])
+                    ? 'passed'
+                    : 'needs_review',
             ]);
+
+            foreach ($this->normalizeToArray($analysis['skills']) as $skillData) {
+                if (!is_array($skillData) || !isset($skillData['skill_name'])) {
+                    continue;
+                }
+
+                $proficiency = $this->mapProficiencyLevel($skillData['proficiency_level'] ?? 'intermediate');
+
+                VolunteerSkill::create([
+                    'volunteer_id' => $volunteer->id,
+                    'skill_name' => $skillData['skill_name'],
+                    'category' => $skillData['skill_category'] ?? null,
+                    'proficiency_level' => $proficiency,
+                    'years_of_experience' => $skillData['years_of_experience'] ?? 0,
+                    'source' => 'cv_analysis',
+                ]);
+            }
+
+            $volunteer->update(['skills_normalized' => true]);
+        });
+    }
+
+    /**
+     * The AI response schema is not strictly enforced, so list fields
+     * occasionally come back as a single string/object instead of an
+     * array. Normalize before persisting so array casts don't store a
+     * shape that later breaks count()/foreach() on display.
+     */
+    private function normalizeToArray(mixed $value): array
+    {
+        if (is_array($value)) {
+            return $value;
         }
 
-        $volunteer->update(['skills_normalized' => true]);
+        return $value === null || $value === '' ? [] : [$value];
     }
 
     /**

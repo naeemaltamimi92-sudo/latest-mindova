@@ -290,22 +290,7 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
             return;
         }
 
-        // Guard against double-awarding on job retry/duplicate dispatch
-        $alreadyAwarded = ReputationHistory::where('related_type', WorkSubmission::class)
-            ->where('related_id', $this->submission->id)
-            ->exists();
-
-        if ($alreadyAwarded) {
-            Log::info('Reputation already awarded for this submission, skipping', [
-                'submission_id' => $this->submission->id,
-            ]);
-            return;
-        }
-
         // Determine points based on quality score and whether it solves the task
-        $points = 0;
-        $reason = '';
-
         if ($solvesTask) {
             $points = match (true) {
                 $qualityScore >= 90 => 20,  // Excellent solution: 20 points
@@ -323,16 +308,33 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
             $reason = "Task solution submitted (needs revision, quality score: {$qualityScore}/100)";
         }
 
-        if ($points > 0) {
-            // Update volunteer's reputation score
-            $oldScore = $volunteer->reputation_score ?? 50;
-            $newScore = $oldScore + $points;
+        if ($points <= 0) {
+            return;
+        }
 
-            $volunteer->update(['reputation_score' => $newScore]);
+        \DB::transaction(function () use ($volunteer, $points, $reason) {
+            // Lock the volunteer row so a retried/duplicate job dispatch
+            // serializes against this block instead of racing between the
+            // "already awarded?" check and the reputation update below.
+            $lockedVolunteer = \App\Models\Volunteer::whereKey($volunteer->id)->lockForUpdate()->first();
 
-            // Record in reputation history
+            // Guard against double-awarding on job retry/duplicate dispatch
+            $alreadyAwarded = ReputationHistory::where('related_type', WorkSubmission::class)
+                ->where('related_id', $this->submission->id)
+                ->exists();
+
+            if ($alreadyAwarded) {
+                Log::info('Reputation already awarded for this submission, skipping', [
+                    'submission_id' => $this->submission->id,
+                ]);
+                return;
+            }
+
+            $newScore = ($lockedVolunteer->reputation_score ?? 50) + $points;
+            $lockedVolunteer->update(['reputation_score' => $newScore]);
+
             ReputationHistory::create([
-                'volunteer_id' => $volunteer->id,
+                'volunteer_id' => $lockedVolunteer->id,
                 'change_amount' => $points,
                 'new_total' => $newScore,
                 'reason' => $reason,
@@ -342,12 +344,12 @@ class AnalyzeSolutionQuality implements ShouldQueue, ShouldBeUnique
             ]);
 
             Log::info('Reputation points awarded for solution', [
-                'volunteer_id' => $volunteer->id,
+                'volunteer_id' => $lockedVolunteer->id,
                 'submission_id' => $this->submission->id,
                 'points' => $points,
                 'new_score' => $newScore,
             ]);
-        }
+        });
     }
 
     /**
