@@ -3,42 +3,102 @@ deployment:
   tasks:
     # ==========================================================================
     # BEFORE FIRST DEPLOY: replace USERNAME below with your actual cPanel
-    # username, and verify the PHP/Composer binary paths further down
-    # (run `which php` and `which composer` in cPanel Terminal to confirm).
+    # username. PHP/Composer binaries are auto-detected with a fallback path
+    # (see step 0) but verify with `which php` / `which composer` in Terminal
+    # if the fail-fast check below ever triggers.
+    #
+    # NODE/NPM SETUP (one-time, in cPanel UI, needed for the asset build in
+    # step 1a): cPanel > Software > Setup Node.js App > Create Application,
+    # set "Application root" to mindova-app (matching APPPATH below), pick a
+    # Node version, then click "Enter to the virtual environment" - cPanel
+    # will show you the EXACT activation command for your account. Copy that
+    # exact path into NODE_ACTIVATE below (the guess here is very likely
+    # wrong - it depends on your chosen Node version and cPanel account).
+    # If NODE_ACTIVATE doesn't exist, this pipeline WARNS and skips the
+    # asset build rather than failing the whole deploy - see step 1a.
     # ==========================================================================
     - export APPPATH=/home/USERNAME/mindova-app
     - export PUBLICPATH=/home/USERNAME/public_html
-    - export PHP_BIN=/usr/local/bin/php
-    - export COMPOSER_BIN=/opt/cpanel/composer/bin/composer
+    - export NODE_ACTIVATE=/home/USERNAME/nodevenv/mindova-app/20/bin/activate
+
+    # --------------------------------------------------------------------
+    # 0. Resolve PHP/Composer binaries: prefer whatever's already on PATH
+    #    (matches the account's configured PHP version), fall back to
+    #    cPanel's standard paths, then fail loudly instead of silently
+    #    running the wrong version or doing nothing.
+    # --------------------------------------------------------------------
+    - export PHP_BIN=$(command -v php || echo /usr/local/bin/php)
+    - export COMPOSER_BIN=$(command -v composer || echo /opt/cpanel/composer/bin/composer)
+    - test -x "$PHP_BIN" || (echo "DEPLOY ABORTED - no working PHP binary found at $PHP_BIN - set PHP_BIN manually in .cpanel.yml" && exit 1)
+    - test -x "$COMPOSER_BIN" || (echo "DEPLOY ABORTED - no working Composer binary found at $COMPOSER_BIN - set COMPOSER_BIN manually in .cpanel.yml" && exit 1)
 
     # --------------------------------------------------------------------
     # 1. Sync the full repo into a private directory OUTSIDE the webroot.
-    #    .env, storage/, and .git are preserved/excluded so a deploy never
-    #    wipes your production config, uploaded files, or logs.
+    #    No --delete flag is ever used anywhere in this file, so nothing
+    #    already on the server is ever removed by a deploy - only added
+    #    or updated. Excludes are root-anchored (leading "/") so they only
+    #    match the actual top-level paths, not any similarly-named nested
+    #    file elsewhere in the tree.
+    #    /.env        - production config, never touched by a deploy
+    #    /storage      - user uploads, logs, cached views/sessions
+    #    /public/storage - the storage:link symlink itself (handled in step 5)
     # --------------------------------------------------------------------
     - /bin/mkdir -p $APPPATH
-    - /usr/bin/rsync -a --exclude=".git" --exclude=".github" --exclude="node_modules" --exclude=".env" --exclude="storage" ./ $APPPATH/
+    - /usr/bin/rsync -a --exclude="/.git" --exclude="/.github" --exclude="/node_modules" --exclude="/.env" --exclude="/storage" --exclude="/public/storage" ./ $APPPATH/
 
     # --------------------------------------------------------------------
-    # 2. Publish only the contents of Laravel's public/ folder to the live
-    #    webroot. Skip this whole step (and the sed line below) if your
-    #    cPanel plan lets you set a custom Document Root — in that
-    #    case just point the domain's Document Root at $APPPATH/public
-    #    once in cPanel > Domains, and delete steps 2 onward here.
+    # 1a. Build front-end assets (public/build/*) BEFORE publishing public/
+    #     to the webroot in step 2, since Vite writes its output there and
+    #     Blade's @vite(...) calls will throw if the manifest is missing.
+    #     If Node isn't set up yet (see NODE_ACTIVATE note above), this
+    #     warns and continues rather than blocking migrations/cache below -
+    #     the site would already be broken either way until Node is set up,
+    #     but DB migrations for an unrelated urgent fix shouldn't be blocked
+    #     by a missing frontend toolchain. A real build FAILURE (as opposed
+    #     to npm being entirely absent) does abort the deploy.
     # --------------------------------------------------------------------
-    - /usr/bin/rsync -a --exclude=".htaccess" $APPPATH/public/ $PUBLICPATH/
+    - if [ -f "$NODE_ACTIVATE" ]; then source "$NODE_ACTIVATE"; fi
+    - export NPM_BIN=$(command -v npm || echo "")
+    - if [ -n "$NPM_BIN" ]; then cd $APPPATH && $NPM_BIN ci --no-audit --no-fund && $NPM_BIN run build || (echo "DEPLOY ABORTED - npm build failed, see log above" && exit 1); else echo "WARNING - npm not found, skipping asset build - set up cPanel Setup Node.js App and fix NODE_ACTIVATE in .cpanel.yml"; fi
+
+    # --------------------------------------------------------------------
+    # 2. Publish Laravel's public/ folder to the live webroot, EXCEPT the
+    #    storage symlink (excluded below - see step 5 for why copying it
+    #    with rsync would silently break it). Skip this whole step, and
+    #    the sed line, if your cPanel plan lets you set a custom Document
+    #    Root - in that case point the domain's Document Root directly at
+    #    $APPPATH/public once in cPanel > Domains, and delete step 2/3.
+    # --------------------------------------------------------------------
+    - /usr/bin/rsync -a --exclude=".htaccess" --exclude="storage" $APPPATH/public/ $PUBLICPATH/
+
+    # --------------------------------------------------------------------
+    # 3. Point the deployed index.php at the app directory living outside
+    #    the webroot (rewrites every __DIR__.'/..' path: autoloader,
+    #    bootstrap/app.php, and the maintenance-mode check).
+    # --------------------------------------------------------------------
     - /bin/sed -i "s#__DIR__\.'/\.\.#'$APPPATH#g" $PUBLICPATH/index.php
 
     # --------------------------------------------------------------------
-    # 3. Laravel production build/optimization (safe to re-run every deploy)
+    # 4. Laravel production build/optimization (safe to re-run every deploy)
     # --------------------------------------------------------------------
     - cd $APPPATH && $COMPOSER_BIN install --no-dev --optimize-autoloader --no-interaction
-    - cd $APPPATH && /bin/mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
+    - cd $APPPATH && /bin/mkdir -p storage/app/public storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
     - cd $APPPATH && /bin/chmod -R 775 storage bootstrap/cache
     - cd $APPPATH && $PHP_BIN artisan migrate --force
-    - cd $APPPATH && $PHP_BIN artisan storage:link || true
     - cd $APPPATH && $PHP_BIN artisan config:clear
     - cd $APPPATH && $PHP_BIN artisan config:cache
     - cd $APPPATH && $PHP_BIN artisan route:cache
     - cd $APPPATH && $PHP_BIN artisan view:cache
     - cd $APPPATH && $PHP_BIN artisan event:cache
+
+    # --------------------------------------------------------------------
+    # 5. Symlink for uploaded files, created directly in the LIVE webroot
+    #    with an absolute target (not via `artisan storage:link`, which
+    #    would create a relative symlink inside $APPPATH/public - the
+    #    wrong location, since the live webroot is $PUBLICPATH here).
+    #    Guarded so it only acts when $PUBLICPATH/storage is missing or is
+    #    already a symlink; if it's ever a real directory (e.g. a legacy
+    #    manual upload folder), this step leaves it completely untouched
+    #    rather than risk deleting live user files.
+    # --------------------------------------------------------------------
+    - if [ ! -e "$PUBLICPATH/storage" ] || [ -L "$PUBLICPATH/storage" ]; then /bin/ln -sfn "$APPPATH/storage/app/public" "$PUBLICPATH/storage"; else echo "NOTICE - $PUBLICPATH/storage exists and is a real directory - left untouched, verify manually"; fi
