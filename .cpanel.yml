@@ -1,0 +1,44 @@
+---
+deployment:
+  tasks:
+    # ==========================================================================
+    # BEFORE FIRST DEPLOY: replace USERNAME below with your actual cPanel
+    # username, and verify the PHP/Composer binary paths further down
+    # (run `which php` and `which composer` in cPanel Terminal to confirm).
+    # ==========================================================================
+    - export APPPATH=/home/USERNAME/mindova-app
+    - export PUBLICPATH=/home/USERNAME/public_html
+    - export PHP_BIN=/usr/local/bin/php
+    - export COMPOSER_BIN=/opt/cpanel/composer/bin/composer
+
+    # --------------------------------------------------------------------
+    # 1. Sync the full repo into a private directory OUTSIDE the webroot.
+    #    .env, storage/, and .git are preserved/excluded so a deploy never
+    #    wipes your production config, uploaded files, or logs.
+    # --------------------------------------------------------------------
+    - /bin/mkdir -p $APPPATH
+    - /usr/bin/rsync -a --exclude=".git" --exclude=".github" --exclude="node_modules" --exclude=".env" --exclude="storage" ./ $APPPATH/
+
+    # --------------------------------------------------------------------
+    # 2. Publish only the contents of Laravel's public/ folder to the live
+    #    webroot. Skip this whole step (and the sed line below) if your
+    #    cPanel plan lets you set a custom Document Root — in that
+    #    case just point the domain's Document Root at $APPPATH/public
+    #    once in cPanel > Domains, and delete steps 2 onward here.
+    # --------------------------------------------------------------------
+    - /usr/bin/rsync -a --exclude=".htaccess" $APPPATH/public/ $PUBLICPATH/
+    - /bin/sed -i "s#__DIR__\.'/\.\.#'$APPPATH#g" $PUBLICPATH/index.php
+
+    # --------------------------------------------------------------------
+    # 3. Laravel production build/optimization (safe to re-run every deploy)
+    # --------------------------------------------------------------------
+    - cd $APPPATH && $COMPOSER_BIN install --no-dev --optimize-autoloader --no-interaction
+    - cd $APPPATH && /bin/mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
+    - cd $APPPATH && /bin/chmod -R 775 storage bootstrap/cache
+    - cd $APPPATH && $PHP_BIN artisan migrate --force
+    - cd $APPPATH && $PHP_BIN artisan storage:link || true
+    - cd $APPPATH && $PHP_BIN artisan config:clear
+    - cd $APPPATH && $PHP_BIN artisan config:cache
+    - cd $APPPATH && $PHP_BIN artisan route:cache
+    - cd $APPPATH && $PHP_BIN artisan view:cache
+    - cd $APPPATH && $PHP_BIN artisan event:cache
