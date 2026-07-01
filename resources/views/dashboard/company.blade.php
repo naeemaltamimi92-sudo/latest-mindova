@@ -177,10 +177,28 @@
                     $hasComplexity = $challenge->score !== null;
                     $hasTasks = $challenge->tasks()->count() > 0;
                     $hasAssignments = $challenge->tasks()->whereHas('assignments')->count() > 0;
+                    // Low-complexity challenges are routed to community discussion instead of
+                    // task decomposition (see EvaluateChallengeComplexity) - they never get
+                    // tasks, so that is a valid completed state, not a stuck pipeline.
+                    $isCommunityDiscussion = $challenge->challenge_type === 'community_discussion';
+                    $workflowComplete = $isCommunityDiscussion
+                        ? $challenge->ai_analysis_status === 'completed'
+                        : $hasAssignments;
                 @endphp
 
+                {{-- Community discussion challenges finish at the complexity step --}}
+                @if($isCommunityDiscussion && $workflowComplete)
+                <div class="bg-emerald-50 rounded-lg border border-emerald-200 p-4 mb-4">
+                    <div class="flex items-center text-sm">
+                        <svg class="w-4 h-4 text-emerald-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span class="text-emerald-700 font-medium">{{ __('Ready for Community Discussion (Complexity: :score)', ['score' => $challenge->score]) }}</span>
+                    </div>
+                    <p class="text-xs text-emerald-700 mt-1 ml-6">{{ __('AI judged this challenge best suited for open community brainstorming. Volunteers can now submit and vote on ideas.') }}</p>
+                </div>
+                @endif
+
                 {{-- AI Workflow Progress --}}
-                @if($challenge->status === 'analyzing' || $challenge->status === 'submitted' || !$hasTasks)
+                @if(!$workflowComplete && ($challenge->status === 'analyzing' || $challenge->status === 'submitted' || !$hasTasks))
                 <div class="bg-gray-50 rounded-lg border border-gray-200 p-4 mb-4">
                     <h4 class="text-sm font-medium text-gray-900 mb-3 flex items-center gap-2">
                         <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -210,6 +228,7 @@
                                 <span class="text-gray-500">{{ __('Complexity Evaluation (Pending)') }}</span>
                             @endif
                         </div>
+                        @unless($isCommunityDiscussion)
                         <div class="flex items-center text-sm">
                             @if($hasTasks)
                                 <svg class="w-4 h-4 text-emerald-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
@@ -234,6 +253,7 @@
                                 <span class="text-gray-500">{{ __('Volunteer Matching (Pending)') }}</span>
                             @endif
                         </div>
+                        @endunless
                     </div>
                 </div>
                 @endif
