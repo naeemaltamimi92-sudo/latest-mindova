@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Nda\RevokeNdaRequest;
+use App\Http\Requests\Nda\SignNdaRequest;
 use App\Models\ChallengeNdaSigning;
 use App\Models\NdaAgreement;
 use App\Models\Challenge;
 use App\Models\Volunteer;
 use App\Services\ReputationService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -50,13 +51,8 @@ class NdaController extends Controller
     /**
      * Process the general NDA signature.
      */
-    public function signGeneralNda(Request $request)
+    public function signGeneralNda(SignNdaRequest $request)
     {
-        $request->validate([
-            'full_name' => 'required|string|max:255',
-            'agree' => 'required|accepted',
-        ]);
-
         $user = Auth::user();
         $volunteer = Volunteer::where('user_id', $user->id)->firstOrFail();
 
@@ -141,13 +137,8 @@ class NdaController extends Controller
     /**
      * Process the challenge-specific NDA signature.
      */
-    public function signChallengeNda(Request $request, Challenge $challenge)
+    public function signChallengeNda(SignNdaRequest $request, Challenge $challenge)
     {
-        $request->validate([
-            'full_name' => 'required|string|max:255',
-            'agree' => 'required|accepted',
-        ]);
-
         $user = Auth::user();
         $volunteer = Volunteer::where('user_id', $user->id)->firstOrFail();
 
@@ -300,16 +291,8 @@ class NdaController extends Controller
     /**
      * Revoke an NDA signing (admin only).
      */
-    public function revokeNda(Request $request, ChallengeNdaSigning $signing)
+    public function revokeNda(RevokeNdaRequest $request, ChallengeNdaSigning $signing)
     {
-        if (!Auth::user()->isAdmin()) {
-            abort(403, __('Unauthorized'));
-        }
-
-        $request->validate([
-            'reason' => 'required|string|max:1000',
-        ]);
-
         $signing->update([
             'is_valid' => false,
             'revoked_at' => now(),

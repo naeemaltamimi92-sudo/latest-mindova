@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Challenge\StoreChallengeRequest;
+use App\Http\Requests\Challenge\UpdateChallengeRequest;
 use App\Models\Challenge;
 use App\Models\ChallengeAttachment;
 use App\Jobs\AnalyzeChallengeBrief;
@@ -175,25 +177,10 @@ class ChallengeWebController extends Controller
         return view('challenges.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreChallengeRequest $request)
     {
         $user = auth()->user();
-
-        if (!$user->isCompany()) {
-            return redirect()->route('dashboard')->with('error', 'Only companies can submit challenges');
-        }
-
-        // Credit gate: publishing a Discovery Challenge costs 20 credits
-        $cost = 20;
-        if (!$user->canAfford($cost)) {
-            return redirect()->route('challenges.create')
-                ->with('error', "You need {$cost} credits to publish a challenge. Your balance: {$user->credits} credits. Purchase credits to continue.");
-        }
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|min:100|max:5000',
-        ]);
+        $validated = $request->validated();
 
         // Create the challenge
         $challenge = Challenge::create([
@@ -205,7 +192,7 @@ class ChallengeWebController extends Controller
         ]);
 
         // Deduct credits after successful creation
-        app(CreditsService::class)->spend($user, $cost, 'Challenge published: ' . $challenge->title, $challenge);
+        app(CreditsService::class)->spend($user, StoreChallengeRequest::PUBLISH_COST, 'Challenge published: ' . $challenge->title, $challenge);
 
         // Update company's total challenges count
         $user->company->increment('total_challenges_submitted');
@@ -434,41 +421,9 @@ class ChallengeWebController extends Controller
     /**
      * Update a challenge.
      */
-    public function update(Request $request, Challenge $challenge)
+    public function update(UpdateChallengeRequest $request, Challenge $challenge)
     {
-        // Check ownership
-        if (!auth()->user()->isCompany() || auth()->user()->company->id !== $challenge->company_id) {
-            if ($request->expectsJson()) {
-                return response()->json(['success' => false, 'message' => 'You do not have permission to edit this challenge.'], 403);
-            }
-            abort(403, 'You do not have permission to edit this challenge.');
-        }
-
-        // Check if challenge can be edited
-        if (in_array($challenge->status, ['completed', 'delivered'])) {
-            if ($request->expectsJson()) {
-                return response()->json(['success' => false, 'message' => 'This challenge cannot be edited because it has been completed.'], 422);
-            }
-            return redirect()->route('challenges.show', $challenge)
-                ->with('error', 'This challenge cannot be edited because it has been completed.');
-        }
-
-        // Check for active tasks
-        $hasActiveTasks = $challenge->tasks()->whereIn('status', ['in_progress', 'completed'])->exists();
-        if ($hasActiveTasks) {
-            if ($request->expectsJson()) {
-                return response()->json(['success' => false, 'message' => 'This challenge cannot be edited because it has active or completed tasks.'], 422);
-            }
-            return redirect()->route('challenges.show', $challenge)
-                ->with('error', 'This challenge cannot be edited because it has active or completed tasks.');
-        }
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|min:100|max:5000',
-            'attachments.*' => 'nullable|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,png,jpg,jpeg,gif,zip,txt,csv',
-            'remove_attachments' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         // Handle attachment removal
         if (!empty($request->remove_attachments)) {
