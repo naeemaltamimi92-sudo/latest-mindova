@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class HireRequest extends Model
 {
+    use HasFactory;
+
+
     protected $fillable = [
         'company_user_id', 'volunteer_id', 'agency_portal_id',
         'type', 'status', 'position_title', 'message',

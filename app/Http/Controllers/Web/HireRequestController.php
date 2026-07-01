@@ -116,31 +116,33 @@ class HireRequestController extends Controller
         abort_unless($hireRequest->volunteer_id === $volunteer?->id, 403);
         abort_unless($hireRequest->isPending(), 422, 'Request already responded to.');
 
-        $hireRequest->update(['status' => 'converted', 'responded_at' => now()]);
+        \DB::transaction(function () use ($hireRequest, $volunteer) {
+            $hireRequest->update(['status' => 'converted', 'responded_at' => now()]);
 
-        // Snapshot the volunteer's current verified history
-        $certificates = Certificate::where('user_id', $volunteer->user_id)
-            ->where('company_confirmed', true)
-            ->where('is_revoked', false)
-            ->pluck('id')
-            ->toArray();
+            // Snapshot the volunteer's current verified history
+            $certificates = Certificate::where('user_id', $volunteer->user_id)
+                ->where('company_confirmed', true)
+                ->where('is_revoked', false)
+                ->pluck('id')
+                ->toArray();
 
-        $skills = $volunteer->skills->pluck('skill_name')->toArray();
+            $skills = $volunteer->skills->pluck('skill_name')->toArray();
 
-        HiringRecord::create([
-            'hire_request_id'          => $hireRequest->id,
-            'company_user_id'          => $hireRequest->company_user_id,
-            'volunteer_id'             => $volunteer->id,
-            'position_title'           => $hireRequest->position_title,
-            'engagement_type'          => in_array($hireRequest->type, ['full_time','part_time','consulting','project'])
-                                            ? $hireRequest->type : 'project',
-            'hired_at'                 => now(),
-            'skills_used'              => $skills,
-            'verified_certificate_ids' => $certificates,
-            'professional_level'       => $volunteer->tier_name,
-            'reputation_stars_at_hire' => $volunteer->stars ?? $volunteer->reputation_score,
-            'trust_score_at_hire'      => $volunteer->trust_score ?? 100.0,
-        ]);
+            HiringRecord::create([
+                'hire_request_id'          => $hireRequest->id,
+                'company_user_id'          => $hireRequest->company_user_id,
+                'volunteer_id'             => $volunteer->id,
+                'position_title'           => $hireRequest->position_title,
+                'engagement_type'          => in_array($hireRequest->type, ['full_time','part_time','consulting','project'])
+                                                ? $hireRequest->type : 'project',
+                'hired_at'                 => now(),
+                'skills_used'              => $skills,
+                'verified_certificate_ids' => $certificates,
+                'professional_level'       => $volunteer->tier_name,
+                'reputation_stars_at_hire' => $volunteer->stars ?? $volunteer->reputation_score,
+                'trust_score_at_hire'      => $volunteer->trust_score ?? 100.0,
+            ]);
+        });
 
         $this->notifications->send(
             user: $hireRequest->company,

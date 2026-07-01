@@ -182,20 +182,24 @@ class ChallengeWebController extends Controller
         $user = auth()->user();
         $validated = $request->validated();
 
-        // Create the challenge
-        $challenge = Challenge::create([
-            'company_id' => $user->company->id,
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'original_description' => $validated['description'],
-            'status' => 'submitted',
-        ]);
+        $challenge = \DB::transaction(function () use ($user, $validated) {
+            // Create the challenge
+            $challenge = Challenge::create([
+                'company_id' => $user->company->id,
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'original_description' => $validated['description'],
+                'status' => 'submitted',
+            ]);
 
-        // Deduct credits after successful creation
-        app(CreditsService::class)->spend($user, StoreChallengeRequest::PUBLISH_COST, 'Challenge published: ' . $challenge->title, $challenge);
+            // Deduct credits after successful creation
+            app(CreditsService::class)->spend($user, StoreChallengeRequest::PUBLISH_COST, 'Challenge published: ' . $challenge->title, $challenge);
 
-        // Update company's total challenges count
-        $user->company->increment('total_challenges_submitted');
+            // Update company's total challenges count
+            $user->company->increment('total_challenges_submitted');
+
+            return $challenge;
+        });
 
         // Dispatch AI analysis job
         AnalyzeChallengeBrief::dispatch($challenge);
