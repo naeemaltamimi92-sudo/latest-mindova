@@ -5,20 +5,23 @@
 @push('styles')
 <style>
 /* ═══════════════════════════════════════════════════════════
-   Dashboard — Facebook-style · Mindova palette
-   Background : #F0F2F5   Surface: #FFFFFF   Primary: #5A3DEB
+   Dashboard — token-driven (Mindova design system)
+   All colors resolve through CSS custom properties defined in
+   theme.css, so light/dark mode is handled automatically by
+   the cascade — no separate `.dark` overrides needed except
+   for the semantic badge/chip/achievement scales below, which
+   don't have dedicated dark variants in theme.css.
 ═══════════════════════════════════════════════════════════ */
 
 /* Page background */
-main { background-color: #F0F2F5; }
-html.dark main { background-color: #18191A; }
+main { background-color: var(--color-background); }
 
 /* ── Hero banner ─────────────────────────────────────────── */
 .dash-hero {
-    background: linear-gradient(135deg, #3730A3 0%, #4B32C9 40%, #5A3DEB 72%, #775FEE 100%);
+    background: var(--gradient-aurora);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(90,61,235,0.20);
+    box-shadow: var(--shadow-glow-primary-sm);
 }
 .dash-hero-mesh {
     position: absolute; inset: 0;
@@ -34,11 +37,11 @@ html.dark main { background-color: #18191A; }
     background-size: 40px 40px;
 }
 .dash-avatar-ring {
-    background: linear-gradient(135deg, #E0E7FF, #C7D2FE, #A5B4FC, #818CF8);
+    background: linear-gradient(135deg, var(--color-primary-100), var(--color-primary-200), var(--color-primary-300), var(--color-primary-400));
     padding: 3px; border-radius: 50%;
 }
 .dash-avatar-inner {
-    background: linear-gradient(135deg, #4B32C9, #5A3DEB);
+    background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-500));
     border-radius: 50%; width: 80px; height: 80px;
     display: flex; align-items: center; justify-content: center;
 }
@@ -58,9 +61,9 @@ html.dark main { background-color: #18191A; }
 }
 .dash-stat-value { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
 .dash-stat-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.65); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
-.dash-stat-pending .dash-stat-value { color: #FCD34D; }
+.dash-stat-pending .dash-stat-value { color: var(--color-warning-300); }
 .dash-rep-track { background: rgba(255,255,255,0.15); border-radius: 99px; height: 5px; overflow: hidden; }
-.dash-rep-fill  { background: linear-gradient(90deg, #FCD34D, #FBBF24); border-radius: 99px; height: 100%; transition: width 1s ease; }
+.dash-rep-fill  { background: linear-gradient(90deg, var(--color-warning-300), var(--color-warning-400)); border-radius: 99px; height: 100%; transition: width 1s ease; }
 .dash-level-badge {
     display: inline-flex; align-items: center; gap: 5px;
     background: rgba(255,255,255,0.18);
@@ -74,16 +77,16 @@ html.dark main { background-color: #18191A; }
 .dash-qa-card {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     padding: 18px 10px; gap: 10px;
-    background: #FFFFFF;
-    border: 1px solid #E4E6EB;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-sm);
     text-decoration: none;
     transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 .dash-qa-card:hover {
-    border-color: #B5A6F6;
-    box-shadow: 0 4px 16px rgba(90,61,235,0.14);
+    border-color: var(--color-primary-200);
+    box-shadow: var(--shadow-glow-primary-sm);
     transform: translateY(-3px);
 }
 .dash-qa-icon {
@@ -92,31 +95,31 @@ html.dark main { background-color: #18191A; }
     transition: transform 0.2s;
 }
 .dash-qa-card:hover .dash-qa-icon { transform: scale(1.08); }
-.dash-qa-label { font-size: 11.5px; font-weight: 700; color: #1C1E21; text-align: center; line-height: 1.3; }
+.dash-qa-label { font-size: 11.5px; font-weight: 700; color: var(--color-text-primary); text-align: center; line-height: 1.3; }
 
 /* ── Section cards ────────────────────────────────────────── */
 .dash-section-card {
-    background: #FFFFFF;
-    border: 1px solid #E4E6EB;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-sm);
 }
 .dash-section-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 20px 14px;
-    border-bottom: 1px solid #E4E6EB;
+    border-bottom: 1px solid var(--color-border);
 }
-.dash-section-title { font-size: 15px; font-weight: 700; color: #1C1E21; display: flex; align-items: center; gap: 8px; }
-.dash-section-link  { font-size: 12px; font-weight: 600; color: #5A3DEB; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
-.dash-section-link:hover { color: #4B32C9; }
+.dash-section-title { font-size: 15px; font-weight: 700; color: var(--color-text-primary); display: flex; align-items: center; gap: 8px; }
+.dash-section-link  { font-size: 12px; font-weight: 600; color: var(--color-primary-500); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+.dash-section-link:hover { color: var(--color-primary-600); }
 
 /* ── Task cards ───────────────────────────────────────────── */
 .dash-task-card {
     display: flex; flex-direction: column; gap: 10px;
     padding: 16px;
-    background: #F7F8FA;
-    border: 1px solid #E4E6EB;
+    background: var(--color-surface-secondary);
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     position: relative; overflow: hidden;
     transition: border-color 0.2s, box-shadow 0.2s;
@@ -124,10 +127,10 @@ html.dark main { background-color: #18191A; }
 .dash-task-card::before {
     content: '';
     position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-    background: linear-gradient(180deg, #5A3DEB, #775FEE);
+    background: linear-gradient(180deg, var(--color-primary-500), var(--color-primary-400));
     border-radius: 3px 0 0 3px;
 }
-.dash-task-card:hover { border-color: #B5A6F6; box-shadow: 0 2px 12px rgba(90,61,235,0.10); }
+.dash-task-card:hover { border-color: var(--color-primary-200); box-shadow: var(--shadow-glow-primary-sm); }
 
 /* ── Badges ───────────────────────────────────────────────── */
 .dash-badge {
@@ -136,32 +139,32 @@ html.dark main { background-color: #18191A; }
     font-size: 10.5px; font-weight: 700;
     text-transform: capitalize; border: 1px solid;
 }
-.dash-badge-blue   { background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE; }
-.dash-badge-green  { background: #F0FDF4; color: #15803D; border-color: #BBF7D0; }
-.dash-badge-violet { background: #EDE9FD; color: #5A3DEB; border-color: #C4B5FD; }
-.dash-badge-amber  { background: #FFFBEB; color: #92400E; border-color: #FDE68A; }
+.dash-badge-blue   { background: var(--color-info-50); color: var(--color-info-700); border-color: var(--color-info-200); }
+.dash-badge-green  { background: var(--color-success-50); color: var(--color-success-700); border-color: var(--color-success-200); }
+.dash-badge-violet { background: var(--color-primary-50); color: var(--color-primary-500); border-color: var(--color-primary-100); }
+.dash-badge-amber  { background: var(--color-warning-50); color: var(--color-warning-800); border-color: var(--color-warning-200); }
 
 /* ── Challenge rows ───────────────────────────────────────── */
 .dash-challenge-row {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 20px;
-    border-bottom: 1px solid #F0F2F5;
+    border-bottom: 1px solid var(--color-border);
     text-decoration: none;
     transition: background 0.15s;
 }
 .dash-challenge-row:last-child { border-bottom: none; }
-.dash-challenge-row:hover { background: #EDE9FD; }
+.dash-challenge-row:hover { background: var(--color-primary-50); }
 
 /* ── Profile sidebar ──────────────────────────────────────── */
 .dash-profile-card {
-    background: #FFFFFF;
-    border: 1px solid #E4E6EB;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 12px; overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-sm);
 }
 .dash-profile-hero {
     padding: 22px;
-    background: linear-gradient(135deg, #3730A3 0%, #5A3DEB 100%);
+    background: var(--gradient-aurora);
     position: relative; overflow: hidden;
 }
 .dash-profile-hero::after {
@@ -172,18 +175,18 @@ html.dark main { background-color: #18191A; }
 }
 .dash-profile-stat-row {
     display: flex; gap: 0;
-    border-top: 1px solid #E4E6EB;
-    border-bottom: 1px solid #E4E6EB;
-    background: #FFFFFF;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
 }
 .dash-profile-stat {
     flex: 1; text-align: center;
     padding: 14px 8px;
-    border-right: 1px solid #E4E6EB;
+    border-right: 1px solid var(--color-border);
 }
 .dash-profile-stat:last-child { border-right: none; }
-.dash-profile-stat-val { font-size: 20px; font-weight: 800; color: #1C1E21; }
-.dash-profile-stat-lbl { font-size: 10px; font-weight: 600; color: #65676B; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+.dash-profile-stat-val { font-size: 20px; font-weight: 800; color: var(--color-text-primary); }
+.dash-profile-stat-lbl { font-size: 10px; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
 
 /* ── Skill chips ──────────────────────────────────────────── */
 .dash-skill-chip {
@@ -194,27 +197,27 @@ html.dark main { background-color: #18191A; }
     transition: transform 0.15s;
 }
 .dash-skill-chip:hover { transform: scale(1.04); }
-.skill-expert       { background: #EDE9FD; color: #5A3DEB; border-color: #C4B5FD; }
-.skill-advanced     { background: #EEF2FF; color: #3730A3; border-color: #C7D2FE; }
-.skill-intermediate { background: #F0FDF4; color: #166534; border-color: #BBF7D0; }
-.skill-beginner     { background: #F7F8FA; color: #65676B; border-color: #E4E6EB; }
+.skill-expert       { background: var(--color-primary-50); color: var(--color-primary-500); border-color: var(--color-primary-100); }
+.skill-advanced     { background: var(--color-info-50); color: var(--color-info-700); border-color: var(--color-info-200); }
+.skill-intermediate { background: var(--color-success-50); color: var(--color-success-700); border-color: var(--color-success-200); }
+.skill-beginner     { background: var(--color-surface-secondary); color: var(--color-text-muted); border-color: var(--color-border); }
 
 /* ── Action alert ─────────────────────────────────────────── */
 .dash-action-alert {
-    background: #FFFBEB;
-    border: 1px solid #FDE68A;
+    background: var(--color-warning-50);
+    border: 1px solid var(--color-warning-200);
     border-radius: 12px; overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    box-shadow: var(--shadow-sm);
 }
 .dash-action-alert-header {
     display: flex; align-items: center; gap: 10px;
     padding: 16px 20px;
-    background: rgba(251,191,36,0.10);
-    border-bottom: 1px solid #FDE68A;
+    background: rgba(245,158,11,0.10);
+    border-bottom: 1px solid var(--color-warning-200);
 }
 .dash-action-item {
-    background: #FFFFFF;
-    border: 1px solid #FEF3C7;
+    background: var(--color-surface);
+    border: 1px solid var(--color-warning-100);
     border-radius: 10px; padding: 14px 16px;
 }
 .dash-action-item + .dash-action-item { margin-top: 10px; }
@@ -224,12 +227,12 @@ html.dark main { background-color: #18191A; }
     display: flex; align-items: center; gap: 12px;
     padding: 12px 14px; border-radius: 10px; border: 1px solid;
     transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-xs);
 }
-.dash-ach-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-.dash-ach-gold   { background: #FFFBEB; border-color: #FDE68A; }
-.dash-ach-green  { background: #F0FDF4; border-color: #BBF7D0; }
-.dash-ach-violet { background: #EDE9FD; border-color: #C4B5FD; }
+.dash-ach-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.dash-ach-gold   { background: var(--color-warning-50); border-color: var(--color-warning-200); }
+.dash-ach-green  { background: var(--color-success-50); border-color: var(--color-success-200); }
+.dash-ach-violet { background: var(--color-primary-50); border-color: var(--color-primary-100); }
 
 /* ── Empty state ──────────────────────────────────────────── */
 .dash-empty {
@@ -238,60 +241,34 @@ html.dark main { background-color: #18191A; }
 }
 .dash-empty-icon {
     width: 64px; height: 64px; border-radius: 18px;
-    background: #EDE9FD;
+    background: var(--color-primary-50);
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 16px;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   Dark Mode — Facebook Dark (#18191A bg, #242526 surface)
+   Dark mode — targeted overrides only.
+   Surfaces/borders/text above already flip automatically via
+   theme.css's `.dark { ... }` variable block. These semantic
+   50/200/700 scales (badges, skill chips, achievement cards)
+   aren't redefined per-theme in theme.css, so they need an
+   explicit dark palette to stay legible on a dark background.
 ═══════════════════════════════════════════════════════════ */
-html.dark main { background-color: #18191A; }
+.dark .dash-badge-blue   { background: rgba(59,130,246,0.15); color: var(--color-info-300); border-color: rgba(59,130,246,0.35); }
+.dark .dash-badge-green  { background: rgba(16,185,129,0.15); color: var(--color-success-300); border-color: rgba(16,185,129,0.35); }
+.dark .dash-badge-violet { background: rgba(90,61,235,0.18); color: var(--color-primary-300); border-color: rgba(90,61,235,0.4); }
+.dark .dash-badge-amber  { background: rgba(245,158,11,0.15); color: var(--color-warning-300); border-color: rgba(245,158,11,0.35); }
 
-.dark .dash-hero {
-    background: linear-gradient(135deg, #1A1650 0%, #2A2490 40%, #3B30C0 72%, #5A3DEB 100%);
-    box-shadow: 0 2px 8px rgba(90,61,235,0.30);
-}
+.dark .skill-expert       { background: rgba(90,61,235,0.18); color: var(--color-primary-300); border-color: rgba(90,61,235,0.4); }
+.dark .skill-advanced     { background: rgba(59,130,246,0.15); color: var(--color-info-300); border-color: rgba(59,130,246,0.35); }
+.dark .skill-intermediate { background: rgba(16,185,129,0.15); color: var(--color-success-300); border-color: rgba(16,185,129,0.35); }
+.dark .skill-beginner     { background: var(--color-surface-tertiary); color: var(--color-text-muted); border-color: var(--color-border); }
 
-.dark .dash-qa-card         { background: #242526; border-color: rgba(255,255,255,0.10); box-shadow: none; }
-.dark .dash-qa-card:hover   { border-color: #5A3DEB; box-shadow: 0 4px 16px rgba(90,61,235,0.22); }
-.dark .dash-qa-label        { color: #E4E6EB; }
+.dark .dash-ach-gold   { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.3); }
+.dark .dash-ach-green  { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); }
+.dark .dash-ach-violet { background: rgba(90,61,235,0.15); border-color: rgba(90,61,235,0.35); }
 
-.dark .dash-section-card    { background: #242526; border-color: rgba(255,255,255,0.08); box-shadow: none; }
-.dark .dash-section-header  { border-color: rgba(255,255,255,0.08); }
-.dark .dash-section-title   { color: #E4E6EB; }
-
-.dark .dash-task-card       { background: #18191A; border-color: rgba(255,255,255,0.08); }
-.dark .dash-task-card:hover { border-color: #5A3DEB; }
-
-.dark .dash-challenge-row        { border-color: rgba(255,255,255,0.06); }
-.dark .dash-challenge-row:hover  { background: #3A3B3C; }
-
-.dark .dash-profile-card    { background: #242526; border-color: rgba(255,255,255,0.08); box-shadow: none; }
-.dark .dash-profile-stat-row,
-.dark .dash-profile-stat    { border-color: rgba(255,255,255,0.08); background: #242526; }
-.dark .dash-profile-stat-val { color: #E4E6EB; }
-.dark .dash-profile-stat-lbl { color: #B0B3B8; }
-
-.dark .dash-action-alert         { background: #2A1F00; border-color: #78350F; }
-.dark .dash-action-alert-header  { background: rgba(251,191,36,0.08); border-color: #78350F; }
-.dark .dash-action-item          { background: #242526; border-color: rgba(120,53,15,0.4); }
-
-.dark .dash-ach-gold   { background: #2A1F00; border-color: #78350F; }
-.dark .dash-ach-green  { background: #052E16; border-color: #166534; }
-.dark .dash-ach-violet { background: #1A1244; border-color: #4C1D95; }
-
-.dark .dash-empty-icon { background: #1A1244; }
-
-.dark .dash-badge-blue   { background: #1E3A5F; color: #93C5FD; border-color: #1D4ED8; }
-.dark .dash-badge-green  { background: #052E16; color: #6EE7B7; border-color: #166534; }
-.dark .dash-badge-violet { background: #1A1244; color: #C4B5FD; border-color: #4C1D95; }
-.dark .dash-badge-amber  { background: #2A1F00; color: #FCD34D; border-color: #78350F; }
-
-.dark .skill-expert       { background: #1A1244; color: #C4B5FD; border-color: #4C1D95; }
-.dark .skill-advanced     { background: #131633; color: #A5B4FC; border-color: #3730A3; }
-.dark .skill-intermediate { background: #052E16; color: #6EE7B7; border-color: #166534; }
-.dark .skill-beginner     { background: #242526; color: #B0B3B8; border-color: rgba(255,255,255,0.12); }
+.dark .dash-empty-icon { background: rgba(90,61,235,0.15); }
 </style>
 @endpush
 
@@ -409,7 +386,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                             @if(auth()->user()->profile_picture_url ?? false)
                                 <img src="{{ auth()->user()->profile_picture_url }}" alt="" class="w-full h-full rounded-full object-cover">
                             @else
-                                <span style="font-size:32px;font-weight:800;color:white;line-height:1;">
+                                <span class="text-[32px] font-extrabold text-white leading-none">
                                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                                 </span>
                             @endif
@@ -455,7 +432,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         <div class="dash-stat-value">{{ $stats['completed_tasks'] ?? 0 }}</div>
                         <div class="dash-stat-label">{{ __('Completed') }}</div>
                     </div>
-                    <button type="button" onclick="openSkillsModal()" class="dash-stat-card" style="cursor:pointer;">
+                    <button type="button" onclick="openSkillsModal()" class="dash-stat-card cursor-pointer">
                         <div class="dash-stat-value">{{ $volunteer->skills?->count() ?? 0 }}</div>
                         <div class="dash-stat-label">{{ __('Skills') }}</div>
                     </button>
@@ -484,43 +461,43 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
     <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-6">
 
         <a href="{{ route('assignments.my') }}" class="dash-qa-card">
-            <div class="dash-qa-icon" style="background: linear-gradient(135deg, #EEF2FF, #E0E7FF);">
-                <svg class="w-6 h-6" style="color:#4338CA" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            <div class="dash-qa-icon bg-indigo-50 dark:bg-indigo-900/30">
+                <svg class="w-6 h-6 text-indigo-700 dark:text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
             </div>
             <span class="dash-qa-label">{{ __('My Tasks') }}</span>
         </a>
 
         <a href="{{ route('teams.my') }}" class="dash-qa-card">
-            <div class="dash-qa-icon" style="background: linear-gradient(135deg, #F5F3FF, #EDE9FE);">
-                <svg class="w-6 h-6" style="color:#7C3AED" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <div class="dash-qa-icon bg-violet-50 dark:bg-violet-900/30">
+                <svg class="w-6 h-6 text-violet-600 dark:text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </div>
             <span class="dash-qa-label">{{ __('My Teams') }}</span>
         </a>
 
         <a href="{{ route('challenges.index') }}" class="dash-qa-card">
-            <div class="dash-qa-icon" style="background: linear-gradient(135deg, #FFF7ED, #FFEDD5);">
-                <svg class="w-6 h-6" style="color:#EA580C" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <div class="dash-qa-icon bg-orange-50 dark:bg-orange-900/30">
+                <svg class="w-6 h-6 text-orange-600 dark:text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
             </div>
             <span class="dash-qa-label">{{ __('Challenges') }}</span>
         </a>
 
         <a href="{{ route('community.index') }}" class="dash-qa-card">
-            <div class="dash-qa-icon" style="background: linear-gradient(135deg, #F0FDF4, #DCFCE7);">
-                <svg class="w-6 h-6" style="color:#16A34A" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            <div class="dash-qa-icon bg-green-50 dark:bg-green-900/30">
+                <svg class="w-6 h-6 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
             </div>
             <span class="dash-qa-label">{{ __('Community') }}</span>
         </a>
 
         <a href="{{ route('certificates.index') }}" class="dash-qa-card">
-            <div class="dash-qa-icon" style="background: linear-gradient(135deg, #FFFBEB, #FEF3C7);">
-                <svg class="w-6 h-6" style="color:#D97706" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+            <div class="dash-qa-icon bg-amber-50 dark:bg-amber-900/30">
+                <svg class="w-6 h-6 text-amber-600 dark:text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
             </div>
             <span class="dash-qa-label">{{ __('Certificates') }}</span>
         </a>
 
         <a href="{{ route('profile.edit') }}" class="dash-qa-card">
-            <div class="dash-qa-icon" style="background: linear-gradient(135deg, #F8FAFC, #F1F5F9);">
-                <svg class="w-6 h-6" style="color:#475569" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <div class="dash-qa-icon bg-slate-50 dark:bg-slate-800">
+                <svg class="w-6 h-6 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
             </div>
             <span class="dash-qa-label">{{ __('Profile') }}</span>
         </a>
@@ -637,11 +614,11 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             <div class="dash-section-card">
                 <div class="dash-section-header">
                     <div class="dash-section-title">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#D1FAE5,#A7F3D0)">
-                            <svg class="w-4 h-4" style="color:#059669" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                        <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/30">
+                            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
                         </div>
                         {{ __('Active Work') }}
-                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full" style="background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;">{{ $activeTasks->count() }}</span>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800">{{ $activeTasks->count() }}</span>
                     </div>
                     <a href="{{ route('assignments.my') }}" class="dash-section-link">
                         {{ __('All tasks') }}
@@ -668,8 +645,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         </div>
                         @endif
                         <a href="{{ route('tasks.show', $task->id) }}"
-                           class="inline-flex items-center gap-1.5 text-xs font-bold mt-auto"
-                           style="color:#5A3DEB;">
+                           class="inline-flex items-center gap-1.5 text-xs font-bold mt-auto text-primary-600 dark:text-primary-400">
                             {{ __('Open task') }}
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                         </a>
@@ -682,8 +658,8 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             <div class="dash-section-card">
                 <div class="dash-section-header">
                     <div class="dash-section-title">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#D1FAE5,#A7F3D0)">
-                            <svg class="w-4 h-4" style="color:#059669" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/30">
+                            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                         </div>
                         {{ __('My Tasks') }}
                     </div>
@@ -691,13 +667,12 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                 </div>
                 <div class="dash-empty">
                     <div class="dash-empty-icon">
-                        <svg class="w-8 h-8" style="color:#a5b4fc" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        <svg class="w-8 h-8 text-primary-400 dark:text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                     </div>
                     <p class="font-bold text-gray-900 dark:text-white text-sm mb-1">{{ __('No active tasks yet') }}</p>
                     <p class="text-xs text-gray-500 mb-5 max-w-xs">{{ __('Browse open challenges and get matched to tasks that fit your skills.') }}</p>
                     <a href="{{ route('challenges.index') }}"
-                       class="inline-flex items-center gap-2 px-5 py-2.5 text-white text-sm font-bold rounded-xl"
-                       style="background:linear-gradient(135deg,#5A3DEB,#7C3AED);">
+                       class="inline-flex items-center gap-2 px-5 py-2.5 text-white text-sm font-bold rounded-xl bg-aurora">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                         {{ __('Browse Challenges') }}
                     </a>
@@ -710,19 +685,19 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             <div class="dash-section-card">
                 <div class="dash-section-header">
                     <div class="dash-section-title">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7)">
-                            <svg class="w-4 h-4" style="color:#16A34A" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-green-50 dark:bg-green-900/30">
+                            <svg class="w-4 h-4 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                         </div>
                         {{ __('Community Challenges') }}
-                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;">{{ __('Live') }}</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800">{{ __('Live') }}</span>
                     </div>
                     <a href="{{ route('community.index') }}" class="dash-section-link">{{ __('View all') }} →</a>
                 </div>
                 <div>
                     @foreach($communityChallenges->take(5) as $challenge)
                     <a href="{{ route('community.challenge', $challenge->id) }}" class="dash-challenge-row group">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7)">
-                            <svg class="w-5 h-5" style="color:#16A34A" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-green-50 dark:bg-green-900/30">
+                            <svg class="w-5 h-5 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-bold text-gray-900 dark:text-white text-sm group-hover:text-indigo-700 transition-colors truncate">{{ $challenge->title }}</p>
@@ -782,8 +757,8 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         <div class="dash-profile-stat-val">{{ $stats['completed_tasks'] ?? 0 }}</div>
                         <div class="dash-profile-stat-lbl">{{ __('Done') }}</div>
                     </div>
-                    <button type="button" onclick="openSkillsModal()" class="dash-profile-stat" style="cursor:pointer;background:none;border:none;width:100%;">
-                        <div class="dash-profile-stat-val" style="color:#5A3DEB;">{{ $volunteer->skills?->count() ?? 0 }}</div>
+                    <button type="button" onclick="openSkillsModal()" class="dash-profile-stat cursor-pointer bg-transparent border-0 w-full">
+                        <div class="dash-profile-stat-val text-primary-600 dark:text-primary-400">{{ $volunteer->skills?->count() ?? 0 }}</div>
                         <div class="dash-profile-stat-lbl">{{ __('Skills') }}</div>
                     </button>
                     @if($volunteer->years_of_experience)
@@ -798,8 +773,8 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                 <div class="p-5 space-y-3">
                     @if($volunteer->field)
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#EEF2FF">
-                            <svg class="w-4 h-4" style="color:#4338CA" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-indigo-50 dark:bg-indigo-900/30">
+                            <svg class="w-4 h-4 text-indigo-700 dark:text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         </div>
                         <div>
                             <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">{{ __('Field') }}</p>
@@ -809,8 +784,8 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                     @endif
                     @if($volunteer->years_of_experience)
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#F0FDF4">
-                            <svg class="w-4 h-4" style="color:#16A34A" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-green-50 dark:bg-green-900/30">
+                            <svg class="w-4 h-4 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                         <div>
                             <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">{{ __('Experience') }}</p>
@@ -825,7 +800,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                 <div class="px-5 pb-4 border-t border-gray-100 dark:border-gray-800 pt-4">
                     <div class="flex items-center justify-between mb-3">
                         <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">{{ __('Skills') }}</p>
-                        <button type="button" onclick="openSkillsModal()" class="text-[10px] font-bold px-2 py-0.5 rounded-full cursor-pointer transition-all hover:scale-105" style="background:#EDE9FD;color:#5A3DEB;border:1px solid #C4B5FD;">{{ $volunteer->skills->count() }}</button>
+                        <button type="button" onclick="openSkillsModal()" class="text-[10px] font-bold px-2 py-0.5 rounded-full cursor-pointer transition-all hover:scale-105 bg-primary-50 dark:bg-primary-500/15 text-primary-600 dark:text-primary-300 border border-primary-100 dark:border-primary-500/30">{{ $volunteer->skills->count() }}</button>
                     </div>
                     <div class="flex flex-wrap gap-1.5">
                         @foreach($volunteer->skills->take(10) as $skill)
@@ -838,7 +813,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         </span>
                         @endforeach
                         @if($volunteer->skills->count() > 10)
-                        <button type="button" onclick="openSkillsModal()" class="dash-skill-chip skill-beginner" style="cursor:pointer;border-style:dashed;">
+                        <button type="button" onclick="openSkillsModal()" class="dash-skill-chip skill-beginner cursor-pointer border-dashed">
                             +{{ $volunteer->skills->count() - 10 }} {{ __('more') }}
                         </button>
                         @endif
@@ -848,8 +823,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                 <div class="px-5 pb-5 border-t border-gray-100 dark:border-gray-800 pt-4 text-center">
                     <p class="text-xs text-gray-500 mb-3">{{ __('Upload your CV to auto-extract 30+ skills with AI.') }}</p>
                     <a href="{{ route('complete-profile') }}"
-                       class="inline-flex items-center gap-1.5 px-4 py-2.5 text-white text-xs font-bold rounded-xl w-full justify-center"
-                       style="background:linear-gradient(135deg,#5A3DEB,#7C3AED);">
+                       class="inline-flex items-center gap-1.5 px-4 py-2.5 text-white text-xs font-bold rounded-xl w-full justify-center bg-aurora">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                         {{ __('Upload CV') }}
                     </a>
@@ -859,8 +833,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                 {{-- LinkedIn connection status --}}
                 <div class="px-5 pb-3">
                     @if(auth()->user()->linkedin_id)
-                    <div class="flex items-center justify-between px-3 py-2 rounded-lg"
-                         style="background:#EFF6FF;border:1px solid #BFDBFE;">
+                    <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
                         <div class="flex items-center gap-2">
                             <svg class="w-4 h-4 flex-shrink-0" style="color:#0A66C2" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -900,16 +873,16 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
             <div class="dash-section-card">
                 <div class="dash-section-header">
                     <div class="dash-section-title">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7)">
-                            <svg class="w-4 h-4" style="color:#D97706" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-amber-50 dark:bg-amber-900/30">
+                            <svg class="w-4 h-4 text-amber-600 dark:text-amber-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
                         {{ __('Achievements') }}
                     </div>
                 </div>
                 <div class="p-4 space-y-2.5">
                     <div class="dash-ach-card dash-ach-gold">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#FEF3C7">
-                            <svg class="w-5 h-5" style="color:#D97706" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-amber-100 dark:bg-amber-900/30">
+                            <svg class="w-5 h-5 text-amber-600 dark:text-amber-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
                         <div class="flex-1">
                             <p class="font-extrabold text-amber-900 dark:text-amber-300 text-base leading-tight">{{ $volunteer->reputation_score ?? 50 }}</p>
@@ -917,23 +890,23 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         </div>
                     </div>
                     <div class="dash-ach-card dash-ach-green">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#D1FAE5">
-                            <svg class="w-5 h-5" style="color:#059669" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-emerald-100 dark:bg-emerald-900/30">
+                            <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                         <div class="flex-1">
                             <p class="font-extrabold text-emerald-900 dark:text-emerald-300 text-base leading-tight">{{ $stats['completed_tasks'] ?? 0 }}</p>
                             <p class="text-xs text-emerald-700 dark:text-emerald-500 font-medium">{{ __('Tasks Completed') }}</p>
                         </div>
                     </div>
-                    <a href="{{ route('certificates.index') }}" class="dash-ach-card dash-ach-violet" style="text-decoration:none;">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#EDE9FE">
-                            <svg class="w-5 h-5" style="color:#7C3AED" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    <a href="{{ route('certificates.index') }}" class="dash-ach-card dash-ach-violet no-underline">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-violet-100 dark:bg-violet-900/30">
+                            <svg class="w-5 h-5 text-violet-600 dark:text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
                         </div>
                         <div class="flex-1">
-                            <p class="text-xs font-bold" style="color:#5B21B6">{{ __('View Certificates') }}</p>
+                            <p class="text-xs font-bold text-violet-800 dark:text-violet-300">{{ __('View Certificates') }}</p>
                             <p class="text-[10px] text-violet-500 dark:text-violet-400">{{ __('Your earned credentials') }}</p>
                         </div>
-                        <svg class="w-4 h-4" style="color:#a78bfa" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <svg class="w-4 h-4 text-violet-400 dark:text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
                 </div>
             </div>
@@ -954,8 +927,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
         <div class="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
 
             {{-- Header --}}
-            <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between"
-                 style="background:linear-gradient(135deg,#3730A3 0%,#5A3DEB 100%);">
+            <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between bg-aurora">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(255,255,255,0.18);">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -985,10 +957,10 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                     $grouped = $volunteer->skills?->groupBy('proficiency_level') ?? collect();
                     $order   = ['expert', 'advanced', 'intermediate', 'beginner'];
                     $levelMeta = [
-                        'expert'       => ['label' => __('Expert'),       'bg' => '#EDE9FD', 'color' => '#5A3DEB', 'border' => '#C4B5FD', 'dot' => '#5A3DEB'],
-                        'advanced'     => ['label' => __('Advanced'),     'bg' => '#EEF2FF', 'color' => '#3730A3', 'border' => '#C7D2FE', 'dot' => '#3730A3'],
-                        'intermediate' => ['label' => __('Intermediate'), 'bg' => '#F0FDF4', 'color' => '#166534', 'border' => '#BBF7D0', 'dot' => '#16A34A'],
-                        'beginner'     => ['label' => __('Beginner'),     'bg' => '#F7F8FA', 'color' => '#65676B', 'border' => '#E4E6EB', 'dot' => '#9CA3AF'],
+                        'expert'       => ['label' => __('Expert'),       'chip' => 'bg-primary-50 dark:bg-primary-500/15 text-primary-600 dark:text-primary-300 border-primary-100 dark:border-primary-500/30',  'text' => 'text-primary-600 dark:text-primary-300',  'dot' => 'bg-primary-500'],
+                        'advanced'     => ['label' => __('Advanced'),     'chip' => 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-100 dark:border-indigo-500/30',     'text' => 'text-indigo-700 dark:text-indigo-300',    'dot' => 'bg-indigo-700'],
+                        'intermediate' => ['label' => __('Intermediate'), 'chip' => 'bg-green-50 dark:bg-green-500/15 text-green-700 dark:text-green-300 border-green-100 dark:border-green-500/30',        'text' => 'text-green-700 dark:text-green-300',      'dot' => 'bg-green-600'],
+                        'beginner'     => ['label' => __('Beginner'),     'chip' => 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700',                    'text' => 'text-gray-500 dark:text-gray-400',        'dot' => 'bg-gray-400'],
                     ];
                 @endphp
 
@@ -999,19 +971,15 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         @php $meta = $levelMeta[$level]; @endphp
                         <div>
                             <div class="flex items-center gap-2 mb-2.5">
-                                <span class="w-2 h-2 rounded-full flex-shrink-0"
-                                      style="background:{{ $meta['dot'] }}"></span>
-                                <span class="text-xs font-700 font-bold uppercase tracking-wider"
-                                      style="color:{{ $meta['color'] }}">{{ $meta['label'] }}</span>
-                                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                                      style="background:{{ $meta['bg'] }};color:{{ $meta['color'] }};border:1px solid {{ $meta['border'] }}">
+                                <span class="w-2 h-2 rounded-full flex-shrink-0 {{ $meta['dot'] }}"></span>
+                                <span class="text-xs font-bold uppercase tracking-wider {{ $meta['text'] }}">{{ $meta['label'] }}</span>
+                                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full border {{ $meta['chip'] }}">
                                     {{ $skills->count() }}
                                 </span>
                             </div>
                             <div class="flex flex-wrap gap-2">
                                 @foreach($skills as $skill)
-                                <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-600 font-semibold"
-                                      style="background:{{ $meta['bg'] }};color:{{ $meta['color'] }};border:1px solid {{ $meta['border'] }}">
+                                <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold border {{ $meta['chip'] }}">
                                     {{ $skill->skill_name }}
                                 </span>
                                 @endforeach
@@ -1041,8 +1009,8 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
 
                 @else
                     <div class="text-center py-10">
-                        <div class="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center" style="background:#EDE9FD">
-                            <svg class="w-7 h-7" style="color:#5A3DEB" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-primary-50 dark:bg-primary-500/15">
+                            <svg class="w-7 h-7 text-primary-600 dark:text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                       d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                             </svg>
@@ -1071,8 +1039,7 @@ setTimeout(() => { if (modal.style.display !== 'none') closeModal(); }, 10000);
                         {{ __('Close') }}
                     </button>
                     <a href="{{ route('profile.edit') }}"
-                       class="px-4 py-2 text-sm font-bold text-white rounded-xl transition-colors"
-                       style="background:linear-gradient(135deg,#5A3DEB,#775FEE);">
+                       class="px-4 py-2 text-sm font-bold text-white rounded-xl transition-colors bg-aurora">
                         {{ __('Edit Profile') }}
                     </a>
                 </div>

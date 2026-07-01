@@ -17,7 +17,7 @@
 <div class="max-w-7xl mx-auto px-4 lg:px-8 pb-12 pt-6">
 
     {{-- ═══ HERO: Welcome Back ═══ --}}
-    <div class="relative overflow-hidden rounded-2xl mb-6" style="background: linear-gradient(135deg, #775FEE 0%, #5A3DEB 50%, #4338CA 100%);">
+    <div class="relative overflow-hidden rounded-2xl mb-6 bg-aurora">
         <div class="absolute inset-0 opacity-10">
             <svg class="w-full h-full" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="650" cy="100" r="200" stroke="white" stroke-width="1"/>
