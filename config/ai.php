@@ -53,6 +53,7 @@ return [
         'team_formation' => env('AI_MODEL_TEAM_FORMATION', 'claude-sonnet-4-6'),
         'comment_analysis' => env('AI_MODEL_COMMENT_ANALYSIS', 'claude-sonnet-4-6'),
         'solution_analysis' => env('AI_MODEL_SOLUTION_ANALYSIS', 'claude-sonnet-4-6'),
+        'mindy_chat' => env('AI_MODEL_MINDY_CHAT', 'claude-sonnet-4-6'),
     ],
 
     /*

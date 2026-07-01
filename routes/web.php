@@ -163,6 +163,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/guidance/progress', [App\Http\Controllers\GuidanceController::class, 'getProgress'])->name('guidance.progress');
     Route::post('/api/guidance/reset', [App\Http\Controllers\GuidanceController::class, 'resetProgress'])->name('guidance.reset');
 
+    // Mindy AI Guide
+    Route::get('/api/mindy/history', [App\Http\Controllers\MindyController::class, 'history'])->name('mindy.history');
+    Route::post('/api/mindy/chat', [App\Http\Controllers\MindyController::class, 'chat'])->middleware('throttle:mindy-chat')->name('mindy.chat');
+
     // Challenge Attachments Routes
     Route::post('/challenges/{challenge}/attachments', [App\Http\Controllers\ChallengeAttachmentController::class, 'upload'])->name('challenges.attachments.upload');
     Route::get('/challenges/{challenge}/attachments', [App\Http\Controllers\ChallengeAttachmentController::class, 'index'])->name('challenges.attachments.index');

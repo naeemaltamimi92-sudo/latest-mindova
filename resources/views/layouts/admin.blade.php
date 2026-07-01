@@ -419,6 +419,9 @@ function toggleDarkMode() {
 
 </script>
 
+{{-- Mindy - Mindova's AI Guide (real conversational assistant) --}}
+@include('components.mindy-chat-widget')
+
 @stack('scripts')
 </body>
 </html>

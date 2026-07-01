@@ -262,6 +262,87 @@ abstract class AnthropicService
     }
 
     /**
+     * Make a multi-turn conversational request to Anthropic Claude, returning
+     * plain text instead of forcing JSON parsing (unlike makeRequest()/
+     * makeDocumentRequest(), which assume every caller wants a structured
+     * response). Used by chat-style assistants where the reply is prose.
+     *
+     * @param array $messages Ordered list of ['role' => 'user'|'assistant', 'content' => string]
+     */
+    protected function makeChatRequest(
+        array $messages,
+        string $systemPrompt,
+        array $options = [],
+        ?string $relatedType = null,
+        ?int $relatedId = null
+    ): string {
+        $startTime = microtime(true);
+        $model = $this->getModel();
+        $promptForLog = end($messages)['content'] ?? '';
+
+        try {
+            $response = Http::withHeaders([
+                'x-api-key' => $this->apiKey,
+                'anthropic-version' => '2023-06-01',
+                'content-type' => 'application/json',
+            ])
+            ->timeout(config('ai.anthropic.timeout', 120))
+            ->withOptions(['curl' => [CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4]])
+            ->post("{$this->baseUrl}/v1/messages", [
+                'model'      => $model,
+                'max_tokens' => (int) ($options['max_tokens'] ?? config('ai.anthropic.max_tokens', 8192)),
+                'system'     => $systemPrompt,
+                'messages'   => $messages,
+            ]);
+
+            if (!$response->successful()) {
+                throw new \Exception('Anthropic API error: ' . $response->body());
+            }
+
+            $duration = (microtime(true) - $startTime) * 1000;
+            $responseData = $response->json();
+            $reply = trim($responseData['content'][0]['text'] ?? '');
+
+            $this->logRequest(
+                prompt: $promptForLog,
+                response: $reply,
+                tokensPrompt: $responseData['usage']['input_tokens'] ?? 0,
+                tokensCompletion: $responseData['usage']['output_tokens'] ?? 0,
+                tokensTotal: ($responseData['usage']['input_tokens'] ?? 0) + ($responseData['usage']['output_tokens'] ?? 0),
+                durationMs: $duration,
+                status: 'success',
+                relatedType: $relatedType,
+                relatedId: $relatedId
+            );
+
+            return $reply;
+
+        } catch (\Exception $e) {
+            $duration = (microtime(true) - $startTime) * 1000;
+
+            $this->logRequest(
+                prompt: $promptForLog,
+                response: null,
+                tokensPrompt: 0,
+                tokensCompletion: 0,
+                tokensTotal: 0,
+                durationMs: $duration,
+                status: 'failed',
+                relatedType: $relatedType,
+                relatedId: $relatedId,
+                errorMessage: $e->getMessage()
+            );
+
+            Log::error('Anthropic chat request failed', [
+                'service' => static::class,
+                'error' => $e->getMessage(),
+            ]);
+
+            throw $e;
+        }
+    }
+
+    /**
      * Get the media type for a file.
      */
     protected function getMediaType(string $filePath): string

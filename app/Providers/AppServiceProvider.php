@@ -24,5 +24,11 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+
+        // Each Mindy message triggers a real Anthropic API call - cap volume
+        // per user to keep runaway/scripted usage from driving up cost.
+        RateLimiter::for('mindy-chat', function (Request $request) {
+            return Limit::perMinute(15)->by($request->user()?->id ?: $request->ip());
+        });
     }
 }

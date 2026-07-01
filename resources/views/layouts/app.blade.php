@@ -632,6 +632,9 @@
     {{-- Contextual Page Assistant - Lightweight UI guide (NOT a chatbot/helpdesk/tutorial) --}}
     <x-contextual-assistant />
 
+    {{-- Mindy - Mindova's AI Guide (real conversational assistant) --}}
+    @include('components.mindy-chat-widget')
+
     {{-- Guided Tour System - Context-aware onboarding --}}
     <x-guided-tour />
 
