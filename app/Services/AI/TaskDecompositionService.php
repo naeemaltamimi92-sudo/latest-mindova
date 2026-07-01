@@ -12,7 +12,7 @@ class TaskDecompositionService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.task_generation', 'claude-sonnet-4-6');
+        return config('ai.models.task_generation');
     }
 
     protected function getRequestType(): string
@@ -242,10 +242,7 @@ SYSTEM;
                 'constraints' => null,
                 'success_criteria' => null,
                 'confidence_score' => $decomposition['confidence_score'],
-                'validation_status' => $this->meetsConfidenceThreshold($decomposition['confidence_score'])
-                    ? 'passed'
-                    : 'needs_review',
-                'requires_human_review' => !$this->meetsConfidenceThreshold($decomposition['confidence_score']),
+                ...$this->confidenceValidationFields($decomposition['confidence_score']),
                 'validation_errors' => isset($decomposition['validation_notes']) && !empty($decomposition['validation_notes'])
                     ? ['notes' => $decomposition['validation_notes']]
                     : null,

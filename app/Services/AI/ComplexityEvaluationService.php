@@ -9,7 +9,7 @@ class ComplexityEvaluationService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.challenge_analysis', 'claude-sonnet-4-6');
+        return config('ai.models.challenge_analysis');
     }
 
     protected function getRequestType(): string
@@ -194,10 +194,7 @@ SYSTEM;
             'constraints' => null,
             'success_criteria' => null,
             'confidence_score' => $evaluation['confidence_score'],
-            'validation_status' => $this->meetsConfidenceThreshold($evaluation['confidence_score'])
-                ? 'passed'
-                : 'needs_review',
-            'requires_human_review' => !$this->meetsConfidenceThreshold($evaluation['confidence_score']),
+            ...$this->confidenceValidationFields($evaluation['confidence_score']),
             'validation_errors' => isset($evaluation['validation_notes']) && !empty($evaluation['validation_notes'])
                 ? [
                     'notes' => $evaluation['validation_notes'],

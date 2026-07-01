@@ -11,7 +11,7 @@ class CVAnalysisService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.cv_analysis', 'claude-sonnet-4-6');
+        return config('ai.models.cv_analysis');
     }
 
     protected function getRequestType(): string
@@ -260,9 +260,9 @@ SYSTEM;
                 'ai_analysis_confidence' => $analysis['confidence_score'],
                 'ai_analysis_status' => 'completed',
                 'ai_analyzed_at' => now(),
-                'validation_status' => $this->meetsConfidenceThreshold($analysis['confidence_score'])
-                    ? 'passed'
-                    : 'needs_review',
+                // Volunteer has no requires_human_review column (unlike
+                // ChallengeAnalysis), so only validation_status is used here.
+                'validation_status' => $this->confidenceValidationFields($analysis['confidence_score'])['validation_status'],
             ]);
 
             foreach ($this->normalizeToArray($analysis['skills']) as $skillData) {

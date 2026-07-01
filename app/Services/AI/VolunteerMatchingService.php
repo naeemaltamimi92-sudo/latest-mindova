@@ -11,7 +11,7 @@ class VolunteerMatchingService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.volunteer_matching', 'claude-sonnet-4-6');
+        return config('ai.models.volunteer_matching');
     }
 
     protected function getRequestType(): string

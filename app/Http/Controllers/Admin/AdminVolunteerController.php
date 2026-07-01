@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminVolunteerController extends Controller
 {
+    use \App\Http\Controllers\Admin\Concerns\FiltersAdminIndex;
+
     /**
      * Display all volunteers.
      */
@@ -18,27 +20,30 @@ class AdminVolunteerController extends Controller
             ->withCount(['taskAssignments', 'certificates']);
 
         // Search
-        if ($request->has('search') && $request->search !== '') {
-            $query->whereHas('user', function($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%');
-            });
-        }
+        $this->applySearch(
+            $query,
+            $request->filled('search') ? $request->search : null,
+            [],
+            ['user' => ['name', 'email']]
+        );
 
         // Filter by field
-        if ($request->has('field') && $request->field !== '') {
+        if ($request->filled('field')) {
             $query->where('field', $request->field);
         }
 
         // Filter by experience level
-        if ($request->has('experience_level') && $request->experience_level !== '') {
+        if ($request->filled('experience_level')) {
             $query->where('experience_level', $request->experience_level);
         }
 
         // Sort
-        $sortBy = $request->get('sort_by', 'reputation_score');
-        $sortOrder = $request->get('sort_order', 'desc');
-        $query->orderBy($sortBy, $sortOrder);
+        $this->applySort(
+            $query,
+            $request,
+            ['reputation_score', 'trust_score', 'created_at', 'field', 'experience_level', 'task_assignments_count', 'certificates_count'],
+            'reputation_score'
+        );
 
         $volunteers = $query->paginate(20);
 

@@ -15,7 +15,7 @@ class TeamFormationService extends AnthropicService
      */
     protected function getModel(): string
     {
-        return config('ai.models.team_formation', 'claude-sonnet-4-6');
+        return config('ai.models.team_formation');
     }
 
     /**

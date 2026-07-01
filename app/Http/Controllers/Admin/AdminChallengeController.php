@@ -14,6 +14,8 @@ use Carbon\Carbon;
 
 class AdminChallengeController extends Controller
 {
+    use \App\Http\Controllers\Admin\Concerns\FiltersAdminIndex;
+
     /**
      * Challenge statuses with labels and colors.
      */
@@ -74,26 +76,20 @@ class AdminChallengeController extends Controller
         }
 
         // Search
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('title', 'like', '%' . $search . '%')
-                  ->orWhere('original_description', 'like', '%' . $search . '%')
-                  ->orWhere('refined_brief', 'like', '%' . $search . '%')
-                  ->orWhere('field', 'like', '%' . $search . '%')
-                  ->orWhereHas('company', function($cq) use ($search) {
-                      $cq->where('company_name', 'like', '%' . $search . '%');
-                  });
-            });
-        }
+        $this->applySearch(
+            $query,
+            $request->filled('search') ? $request->search : null,
+            ['title', 'original_description', 'refined_brief', 'field'],
+            ['company' => ['company_name']]
+        );
 
         // Sorting
-        $sortBy = $request->get('sort_by', 'created_at');
-        $sortOrder = $request->get('sort_order', 'desc');
-        $allowedSorts = ['created_at', 'updated_at', 'title', 'status', 'complexity_level', 'score'];
-        if (in_array($sortBy, $allowedSorts)) {
-            $query->orderBy($sortBy, $sortOrder);
-        }
+        $this->applySort(
+            $query,
+            $request,
+            ['created_at', 'updated_at', 'title', 'status', 'complexity_level', 'score'],
+            'created_at'
+        );
 
         $challenges = $query->paginate(20)->withQueryString();
 

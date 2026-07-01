@@ -10,7 +10,7 @@ class ChallengeBriefService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.challenge_analysis', 'claude-sonnet-4-6');
+        return config('ai.models.challenge_analysis');
     }
 
     protected function getRequestType(): string
@@ -278,10 +278,7 @@ SYSTEM;
             'risk_assessment' => $this->normalizeToArray($analysis['potential_risks'] ?? []),
             'recommended_approach' => $analysis['recommended_approach'] ?? null,
             'confidence_score' => $analysis['confidence_score'],
-            'validation_status' => $this->meetsConfidenceThreshold($analysis['confidence_score'])
-                ? 'passed'
-                : 'needs_review',
-            'requires_human_review' => !$this->meetsConfidenceThreshold($analysis['confidence_score']),
+            ...$this->confidenceValidationFields($analysis['confidence_score']),
             'validation_errors' => isset($analysis['validation_notes']) && !empty($analysis['validation_notes'])
                 ? ['notes' => $analysis['validation_notes']]
                 : null,

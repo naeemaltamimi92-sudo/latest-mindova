@@ -9,7 +9,7 @@ class IdeaScoringService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.idea_scoring', 'claude-sonnet-4-6');
+        return config('ai.models.idea_scoring');
     }
 
     protected function getRequestType(): string

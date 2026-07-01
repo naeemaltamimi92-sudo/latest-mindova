@@ -353,6 +353,23 @@ abstract class AnthropicService
     }
 
     /**
+     * The validation_status/requires_human_review pair derived from a
+     * confidence score, identical across every AI service's storeResults().
+     * Each service still builds its own validation_errors payload since
+     * those genuinely differ (e.g. ComplexityEvaluationService always
+     * includes complexity_reasoning regardless of validation notes).
+     */
+    protected function confidenceValidationFields(float $confidence): array
+    {
+        $passed = $this->meetsConfidenceThreshold($confidence);
+
+        return [
+            'validation_status' => $passed ? 'passed' : 'needs_review',
+            'requires_human_review' => !$passed,
+        ];
+    }
+
+    /**
      * Sanitize JSON string by escaping control characters within string values.
      *
      * Claude sometimes returns JSON with unescaped control characters (newlines, tabs)

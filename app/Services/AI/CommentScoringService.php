@@ -9,7 +9,7 @@ class CommentScoringService extends AnthropicService
 {
     protected function getModel(): string
     {
-        return config('ai.models.comment_analysis', 'claude-sonnet-4-6');
+        return config('ai.models.comment_analysis');
     }
 
     protected function getRequestType(): string

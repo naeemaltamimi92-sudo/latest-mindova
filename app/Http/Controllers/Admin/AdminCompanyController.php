@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class AdminCompanyController extends Controller
 {
+    use \App\Http\Controllers\Admin\Concerns\FiltersAdminIndex;
+
     /**
      * Display all companies.
      */
@@ -16,23 +18,25 @@ class AdminCompanyController extends Controller
         $query = Company::with('user')
             ->withCount('challenges');
 
-        // Search
-        if ($request->has('search') && $request->search !== '') {
-            $query->whereHas('user', function($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%');
-            })->orWhere('company_name', 'like', '%' . $request->search . '%');
-        }
+        // Search. Previously an unwrapped orWhere('company_name', ...)
+        // chained after whereHas('user', ...), which applies to the WHOLE
+        // query rather than just the search - harmless today since there's
+        // no other top-level where() before it, but fragile. applySearch()
+        // wraps the whole thing in one closure.
+        $this->applySearch(
+            $query,
+            $request->filled('search') ? $request->search : null,
+            ['company_name'],
+            ['user' => ['name', 'email']]
+        );
 
         // Sort
-        $sortBy = $request->get('sort_by', 'created_at');
-        $sortOrder = $request->get('sort_order', 'desc');
-
-        if ($sortBy === 'challenges_count') {
-            $query->orderBy('challenges_count', $sortOrder);
-        } else {
-            $query->orderBy($sortBy, $sortOrder);
-        }
+        $this->applySort(
+            $query,
+            $request,
+            ['created_at', 'challenges_count', 'company_name'],
+            'created_at'
+        );
 
         $companies = $query->paginate(20);
 
