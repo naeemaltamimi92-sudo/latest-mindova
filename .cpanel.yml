@@ -15,13 +15,18 @@ deployment:
     # --------------------------------------------------------------------
     # 0. Resolve PHP/Composer binaries: prefer whatever's already on PATH
     #    (matches the account's configured PHP version), fall back to
-    #    cPanel's standard paths, then fail loudly instead of silently
-    #    running the wrong version or doing nothing.
+    #    cPanel's standard path, and if neither exists self-install
+    #    Composer into $HOME/bin (persists across deploys, only downloads
+    #    once) using the official signature-verified installer rather than
+    #    trusting a raw .phar download.
     # --------------------------------------------------------------------
     - export PHP_BIN=$(command -v php || echo /usr/local/bin/php)
-    - export COMPOSER_BIN=$(command -v composer || echo /opt/cpanel/composer/bin/composer)
     - test -x "$PHP_BIN" || (echo "DEPLOY ABORTED - no working PHP binary found at $PHP_BIN - set PHP_BIN manually in .cpanel.yml" && exit 1)
-    - test -x "$COMPOSER_BIN" || (echo "DEPLOY ABORTED - no working Composer binary found at $COMPOSER_BIN - set COMPOSER_BIN manually in .cpanel.yml" && exit 1)
+    - /bin/mkdir -p "$HOME/bin"
+    - export COMPOSER_EXE=$( ( [ -x "$HOME/bin/composer.phar" ] && echo "$HOME/bin/composer.phar" ) || command -v composer || ( [ -x /opt/cpanel/composer/bin/composer ] && echo /opt/cpanel/composer/bin/composer ) || true )
+    - if [ -z "$COMPOSER_EXE" ]; then $PHP_BIN -r "copy('https://getcomposer.org/installer', '$HOME/bin/composer-setup.php');" && EXPECTED_SIG=$(curl -fsS https://composer.github.io/installer.sig) && ACTUAL_SIG=$($PHP_BIN -r "echo hash_file('sha384', '$HOME/bin/composer-setup.php');") && [ "$EXPECTED_SIG" = "$ACTUAL_SIG" ] && $PHP_BIN "$HOME/bin/composer-setup.php" --quiet --install-dir="$HOME/bin" --filename=composer.phar; INSTALL_STATUS=$?; rm -f "$HOME/bin/composer-setup.php"; (exit $INSTALL_STATUS) && export COMPOSER_EXE="$HOME/bin/composer.phar"; fi
+    - test -n "$COMPOSER_EXE" && [ -e "$COMPOSER_EXE" ] || (echo "DEPLOY ABORTED - could not find or install a working Composer binary" && exit 1)
+    - case "$COMPOSER_EXE" in *.phar) export COMPOSER_BIN="$PHP_BIN $COMPOSER_EXE" ;; *) export COMPOSER_BIN="$COMPOSER_EXE" ;; esac
 
     # --------------------------------------------------------------------
     # 1. Sync the full repo into a private directory OUTSIDE the webroot.
