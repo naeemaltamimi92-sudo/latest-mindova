@@ -197,18 +197,9 @@ Route::middleware('auth')->group(function () {
     });
 
     // Ideas
-    Route::get('/ideas/{idea}', function (\App\Models\Idea $idea) {
-        $idea->load([
-            'volunteer.user',
-            'challenge.company',
-            'challenge.ideas.volunteer.user'
-        ]);
-        return view('ideas.show', compact('idea'));
-    })->name('ideas.show');
+    Route::get('/ideas/{idea}', [App\Http\Controllers\Idea\IdeaController::class, 'showPage'])->name('ideas.show');
 
-    Route::get('/challenges/{challenge}/ideas/create', function (\App\Models\Challenge $challenge) {
-        return view('ideas.create', compact('challenge'));
-    })->name('ideas.create');
+    Route::get('/challenges/{challenge}/ideas/create', [App\Http\Controllers\Idea\IdeaController::class, 'createPage'])->name('ideas.create');
 
     // Public Profiles
     Route::get('/volunteers/{id}', [VolunteerWebController::class, 'show'])->name('volunteers.show');

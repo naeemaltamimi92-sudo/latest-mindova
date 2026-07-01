@@ -107,6 +107,28 @@ class IdeaController extends Controller
     }
 
     /**
+     * Show the idea detail web page.
+     */
+    public function showPage(Idea $idea)
+    {
+        $idea->load([
+            'volunteer.user',
+            'challenge.company',
+            'challenge.ideas.volunteer.user',
+        ]);
+
+        return view('ideas.show', compact('idea'));
+    }
+
+    /**
+     * Show the "submit an idea" web page for a challenge.
+     */
+    public function createPage(Challenge $challenge)
+    {
+        return view('ideas.create', compact('challenge'));
+    }
+
+    /**
      * Vote on an idea.
      */
     public function vote(Request $request, Idea $idea)

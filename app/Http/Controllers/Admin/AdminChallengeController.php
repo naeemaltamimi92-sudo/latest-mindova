@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Challenge;
 use App\Models\Company;
-use App\Models\Notification;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -300,18 +300,7 @@ class AdminChallengeController extends Controller
     protected function sendDeletionNotification($user, string $challengeTitle, string $reason): void
     {
         try {
-            Notification::create([
-                'user_id' => $user->id,
-                'type' => 'challenge_deleted',
-                'title' => __('Challenge Deleted'),
-                'message' => __('Your challenge ":title" has been removed by the platform administrator.', ['title' => $challengeTitle]),
-                'data' => json_encode([
-                    'challenge_title' => $challengeTitle,
-                    'deletion_reason' => $reason,
-                    'deleted_at' => now()->toISOString(),
-                    'deleted_by' => auth()->user()->name,
-                ]),
-            ]);
+            app(NotificationService::class)->notifyChallengeDeleted($user, $challengeTitle, $reason);
         } catch (\Exception $e) {
             Log::error('Failed to send deletion notification', [
                 'user_id' => $user->id,

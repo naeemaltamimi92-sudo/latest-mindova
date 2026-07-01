@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Services\TwoFactorAuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
-use PragmaRX\Google2FA\Google2FA;
 
 class SecurityController extends Controller
 {
+    public function __construct(private readonly TwoFactorAuthService $twoFactor) {}
+
     /**
      * Change user password.
      */
@@ -87,28 +88,17 @@ class SecurityController extends Controller
     public function enableTwoFactor(Request $request)
     {
         $user = Auth::user();
-        $google2fa = new Google2FA();
 
         // Generate secret key
-        $secretKey = $google2fa->generateSecretKey();
+        $secretKey = $this->twoFactor->generateSecretKey();
 
         // Store secret temporarily in session (not in DB until confirmed)
         session(['2fa_secret' => $secretKey]);
 
-        // Generate QR code URL
-        $qrCodeUrl = $google2fa->getQRCodeUrl(
-            config('app.name'),
-            $user->email,
-            $secretKey
-        );
-
-        // Generate QR code image using inline SVG
-        $qrCode = $this->generateQRCodeSvg($qrCodeUrl);
-
         return response()->json([
             'success' => true,
             'secret' => $secretKey,
-            'qr_code' => $qrCode,
+            'qr_code' => $this->twoFactor->generateQrCodeSvg($user, $secretKey),
         ]);
     }
 
@@ -122,7 +112,6 @@ class SecurityController extends Controller
         ]);
 
         $user = Auth::user();
-        $google2fa = new Google2FA();
         $secret = session('2fa_secret');
 
         if (!$secret) {
@@ -132,25 +121,16 @@ class SecurityController extends Controller
             ], 400);
         }
 
-        // Verify the code
-        $valid = $google2fa->verifyKey($secret, $request->code);
-
-        if (!$valid) {
+        if (!$this->twoFactor->verifyCode($secret, $request->code)) {
             return response()->json([
                 'success' => false,
                 'message' => __('Invalid verification code. Please try again.'),
             ], 400);
         }
 
-        // Generate recovery codes
-        $recoveryCodes = $this->generateRecoveryCodes();
-
-        // Save 2FA settings
-        $user->update([
-            'two_factor_secret' => encrypt($secret),
-            'two_factor_recovery_codes' => encrypt(json_encode($recoveryCodes)),
-            'two_factor_confirmed_at' => now(),
-        ]);
+        // Generate recovery codes and save 2FA settings
+        $recoveryCodes = $this->twoFactor->generateRecoveryCodes();
+        $this->twoFactor->enableForUser($user, $secret, $recoveryCodes);
 
         // Clear session
         session()->forget('2fa_secret');
@@ -181,12 +161,7 @@ class SecurityController extends Controller
             ], 400);
         }
 
-        // Disable 2FA
-        $user->update([
-            'two_factor_secret' => null,
-            'two_factor_recovery_codes' => null,
-            'two_factor_confirmed_at' => null,
-        ]);
+        $this->twoFactor->disableForUser($user);
 
         return response()->json([
             'success' => true,
@@ -220,12 +195,7 @@ class SecurityController extends Controller
             ], 400);
         }
 
-        // Generate new recovery codes
-        $recoveryCodes = $this->generateRecoveryCodes();
-
-        $user->update([
-            'two_factor_recovery_codes' => encrypt(json_encode($recoveryCodes)),
-        ]);
+        $recoveryCodes = $this->twoFactor->regenerateRecoveryCodes($user);
 
         return response()->json([
             'success' => true,
@@ -252,11 +222,10 @@ class SecurityController extends Controller
             ], 400);
         }
 
-        $google2fa = new Google2FA();
         $secret = decrypt($user->two_factor_secret);
 
         // First, try to verify as a TOTP code
-        if (strlen($request->code) === 6 && $google2fa->verifyKey($secret, $request->code)) {
+        if (strlen($request->code) === 6 && $this->twoFactor->verifyCode($secret, $request->code)) {
             session(['2fa_verified' => true]);
             return response()->json([
                 'success' => true,
@@ -265,22 +234,13 @@ class SecurityController extends Controller
         }
 
         // If not a valid TOTP, check if it's a recovery code
-        $recoveryCodes = json_decode(decrypt($user->two_factor_recovery_codes), true);
-
-        if (in_array($request->code, $recoveryCodes)) {
-            // Remove used recovery code
-            $recoveryCodes = array_values(array_filter($recoveryCodes, fn($code) => $code !== $request->code));
-
-            $user->update([
-                'two_factor_recovery_codes' => encrypt(json_encode($recoveryCodes)),
-            ]);
-
+        if ($this->twoFactor->consumeRecoveryCodeIfValid($user, $request->code)) {
             session(['2fa_verified' => true]);
             return response()->json([
                 'success' => true,
                 'message' => __('Verification successful. Recovery code used.'),
                 'recovery_code_used' => true,
-                'remaining_codes' => count($recoveryCodes),
+                'remaining_codes' => count($this->twoFactor->getRecoveryCodes($user)),
             ]);
         }
 
@@ -297,42 +257,10 @@ class SecurityController extends Controller
     {
         $user = Auth::user();
 
-        $recoveryCodes = [];
-        if ($user->two_factor_recovery_codes) {
-            $recoveryCodes = json_decode(decrypt($user->two_factor_recovery_codes), true);
-        }
-
         return response()->json([
             'enabled' => (bool) $user->two_factor_confirmed_at,
             'confirmed_at' => $user->two_factor_confirmed_at?->format('F j, Y'),
-            'recovery_codes_count' => count($recoveryCodes),
+            'recovery_codes_count' => count($this->twoFactor->getRecoveryCodes($user)),
         ]);
-    }
-
-    /**
-     * Generate recovery codes.
-     */
-    private function generateRecoveryCodes(int $count = 8): array
-    {
-        $codes = [];
-        for ($i = 0; $i < $count; $i++) {
-            $codes[] = Str::upper(Str::random(4) . '-' . Str::random(4));
-        }
-        return $codes;
-    }
-
-    /**
-     * Generate QR code as SVG.
-     */
-    private function generateQRCodeSvg(string $data): string
-    {
-        $renderer = new \BaconQrCode\Renderer\ImageRenderer(
-            new \BaconQrCode\Renderer\RendererStyle\RendererStyle(200),
-            new \BaconQrCode\Renderer\Image\SvgImageBackEnd()
-        );
-
-        $writer = new \BaconQrCode\Writer($renderer);
-
-        return $writer->writeString($data);
     }
 }

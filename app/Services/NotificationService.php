@@ -296,6 +296,22 @@ class NotificationService
     }
 
     /**
+     * Notify a challenge owner that their challenge was removed by an admin.
+     */
+    public function notifyChallengeDeleted(User $user, string $challengeTitle, string $reason): void
+    {
+        $this->send(
+            user: $user,
+            type: 'challenge_deleted',
+            title: __('Challenge Deleted'),
+            message: __('Your challenge ":title" has been removed by the platform administrator. Reason: :reason', [
+                'title' => $challengeTitle,
+                'reason' => $reason,
+            ]),
+        );
+    }
+
+    /**
      * Mark all notifications as read for a user.
      */
     public function markAllAsRead(User $user): int
