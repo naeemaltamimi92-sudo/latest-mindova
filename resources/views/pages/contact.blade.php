@@ -4,18 +4,18 @@
 
 @section('content')
 <!-- Hero Section -->
-<div class="bg-gray-50 pt-24 pb-16">
+<div class="bg-gray-50 dark:bg-gray-900 pt-24 pb-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-            <div class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 mb-6">
+            <div class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full px-4 py-2 mb-6">
                 <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                <span class="text-sm font-medium text-gray-700">{{ __('We\'re Here to Help') }}</span>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('We\'re Here to Help') }}</span>
             </div>
 
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 {{ __('Get In') }} <span class="text-primary-600">{{ __('Touch') }}</span>
             </h1>
-            <p class="text-lg text-gray-600 max-w-xl mx-auto">
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
                 {{ __('Have questions, feedback, or need support? We\'d love to hear from you!') }}
             </p>
         </div>
@@ -23,15 +23,15 @@
 </div>
 
 <!-- Contact Content Section -->
-<section class="py-16 bg-white border-t border-gray-200">
+<section class="py-16 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Contact Information -->
             <div>
-                <h2 class="text-xl font-bold text-gray-900 mb-6">{{ __('Contact Information') }}</h2>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">{{ __('Contact Information') }}</h2>
 
                 <div class="space-y-3">
-                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center border border-primary-200 flex-shrink-0">
                                 <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,13 +39,13 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900 text-sm mb-1">{{ __('General Inquiries') }}</h3>
+                                <h3 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">{{ __('General Inquiries') }}</h3>
                                 <a href="mailto:mindova.ai@gmail.com" class="text-primary-600 hover:text-primary-700 text-sm font-medium">mindova.ai@gmail.com</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center border border-emerald-200 flex-shrink-0">
                                 <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,13 +53,13 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900 text-sm mb-1">{{ __('Support') }}</h3>
+                                <h3 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">{{ __('Support') }}</h3>
                                 <a href="mailto:mindova.ai@gmail.com" class="text-primary-600 hover:text-primary-700 text-sm font-medium">mindova.ai@gmail.com</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center border border-violet-200 flex-shrink-0">
                                 <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,13 +67,13 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900 text-sm mb-1">{{ __('Business Partnerships') }}</h3>
+                                <h3 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">{{ __('Business Partnerships') }}</h3>
                                 <a href="mailto:mindova.ai@gmail.com" class="text-primary-600 hover:text-primary-700 text-sm font-medium">mindova.ai@gmail.com</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center border border-amber-200 flex-shrink-0">
                                 <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,15 +81,15 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900 text-sm mb-1">{{ __('Privacy & Legal') }}</h3>
+                                <h3 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">{{ __('Privacy & Legal') }}</h3>
                                 <a href="mailto:mindova.ai@gmail.com" class="text-primary-600 hover:text-primary-700 text-sm font-medium">mindova.ai@gmail.com</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-5">
-                    <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2 text-sm">
+                <div class="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2 text-sm">
                         <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
@@ -98,11 +98,11 @@
                     <div class="space-y-2">
                         <p class="text-sm">
                             <a href="{{ route('help') }}" class="text-primary-600 hover:text-primary-700 font-medium">{{ __('Help Center →') }}</a>
-                            <span class="text-gray-600">{{ __('FAQs and guides') }}</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ __('FAQs and guides') }}</span>
                         </p>
                         <p class="text-sm">
                             <a href="{{ route('guidelines') }}" class="text-primary-600 hover:text-primary-700 font-medium">{{ __('Community Guidelines →') }}</a>
-                            <span class="text-gray-600">{{ __('Best practices') }}</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ __('Best practices') }}</span>
                         </p>
                     </div>
                 </div>
@@ -110,23 +110,23 @@
 
             <!-- Contact Form -->
             <div>
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-6">{{ __('Send us a Message') }}</h2>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">{{ __('Send us a Message') }}</h2>
                     <form action="#" method="POST" class="space-y-4">
                         @csrf
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">{{ __('Name') }}</label>
-                            <input type="text" name="name" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm" placeholder="{{ __('Your name') }}">
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">{{ __('Name') }}</label>
+                            <input type="text" name="name" required class="w-full px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm" placeholder="{{ __('Your name') }}">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">{{ __('Email') }}</label>
-                            <input type="email" name="email" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm" placeholder="{{ __('your@email.com') }}">
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">{{ __('Email') }}</label>
+                            <input type="email" name="email" required class="w-full px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm" placeholder="{{ __('your@email.com') }}">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">{{ __('Subject') }}</label>
-                            <select name="subject" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm">
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">{{ __('Subject') }}</label>
+                            <select name="subject" class="w-full px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm">
                                 <option>{{ __('General Inquiry') }}</option>
                                 <option>{{ __('Technical Support') }}</option>
                                 <option>{{ __('Business Partnership') }}</option>
@@ -136,8 +136,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">{{ __('Message') }}</label>
-                            <textarea name="message" rows="5" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg resize-none text-sm" placeholder="{{ __('Tell us how we can help...') }}"></textarea>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">{{ __('Message') }}</label>
+                            <textarea name="message" rows="5" required class="w-full px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg resize-none text-sm" placeholder="{{ __('Tell us how we can help...') }}"></textarea>
                         </div>
 
                         <x-ui.button as="submit" variant="primary" size="sm" fullWidth>

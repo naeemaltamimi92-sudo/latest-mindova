@@ -355,7 +355,7 @@
                         <div class="flex items-center justify-between mb-2">
                             <div class="flex items-center gap-3">
                                 <div class="h-3 w-3 rounded-full {{ $colorClass }}"></div>
-                                <span class="text-sm font-semibold text-slate-700 group-hover:text-slate-900 dark:text-white">
+                                <span class="text-sm font-semibold text-slate-700 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white">
                                     {{ __(ucfirst(str_replace('_', ' ', $type->challenge_type ?? 'Unknown'))) }}
                                 </span>
                             </div>
