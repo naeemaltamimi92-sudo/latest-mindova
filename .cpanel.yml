@@ -43,6 +43,15 @@ deployment:
     - /usr/bin/rsync -a --exclude="/.git" --exclude="/.github" --exclude="/node_modules" --exclude="/.env" --exclude="/storage" --exclude="/public/storage" ./ $APPPATH/
 
     # --------------------------------------------------------------------
+    # 1z. storage/ is excluded above (it holds runtime-only content: logs,
+    #     sessions, cached views, user uploads). But storage/app/nda/*.md
+    #     is application content tracked in git (the NDA text volunteers
+    #     sign), so it needs its own explicit sync into the live app.
+    # --------------------------------------------------------------------
+    - /bin/mkdir -p $APPPATH/storage/app/nda
+    - /usr/bin/rsync -a ./storage/app/nda/ $APPPATH/storage/app/nda/
+
+    # --------------------------------------------------------------------
     # 1a. Build front-end assets (public/build/*) BEFORE publishing public/
     #     to the webroot in step 2, since Vite writes its output there and
     #     Blade's @vite(...) calls will throw if the manifest is missing.
