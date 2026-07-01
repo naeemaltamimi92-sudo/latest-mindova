@@ -341,10 +341,31 @@
                 </div>
             </div>
 
-            {{-- User avatar --}}
-            <div class="h-8 w-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center flex-shrink-0">
-                <span class="text-white font-bold text-xs">{{ substr(auth()->user()->name ?? 'A', 0, 1) }}</span>
-            </div>
+            {{-- User avatar / logout menu --}}
+            <x-ui.dropdown-menu align="right" width="48">
+                <x-slot:trigger>
+                    <button type="button" class="h-8 w-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center flex-shrink-0">
+                        <span class="text-white font-bold text-xs">{{ substr(auth()->user()->name ?? 'A', 0, 1) }}</span>
+                    </button>
+                </x-slot:trigger>
+
+                <x-ui.dropdown-menu-item href="{{ route('profile.edit') }}">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    {{ __('Profile') }}
+                </x-ui.dropdown-menu-item>
+                <x-ui.dropdown-menu-separator />
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <x-ui.dropdown-menu-item as="submit" danger>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        {{ __('Logout') }}
+                    </x-ui.dropdown-menu-item>
+                </form>
+            </x-ui.dropdown-menu>
         </div>
     </header>
 
