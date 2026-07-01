@@ -156,16 +156,11 @@
 
                     {{-- Workstream Progress Bar --}}
                     <div class="mt-3">
-                        @php
-                            $progress = $workstream->tasks->count() > 0
-                                ? round(($workstream->tasks->where('status', 'completed')->count() / $workstream->tasks->count()) * 100)
-                                : 0;
-                        @endphp
                         <div class="flex items-center gap-3">
                             <div class="flex-1 bg-gray-200 rounded-full h-2">
-                                <div class="h-full bg-primary-500 rounded-full" style="width: {{ $progress }}%"></div>
+                                <div class="h-full bg-primary-500 rounded-full" style="width: {{ $workstream->progress_percentage }}%"></div>
                             </div>
-                            <span class="text-xs font-semibold text-gray-700 w-10 text-right">{{ $progress }}%</span>
+                            <span class="text-xs font-semibold text-gray-700 w-10 text-right">{{ $workstream->progress_percentage }}%</span>
                         </div>
                     </div>
                 </div>

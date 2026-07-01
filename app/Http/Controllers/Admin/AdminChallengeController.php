@@ -141,8 +141,8 @@ class AdminChallengeController extends Controller
                 ->selectRaw('AVG(TIMESTAMPDIFF(DAY, created_at, completed_at)) as avg_days')
                 ->value('avg_days') ?? 0;
 
-            $totalTasks = DB::table('tasks')->count();
-            $completedTasks = DB::table('tasks')->where('status', 'completed')->count();
+            $totalTasks = \App\Models\Task::count();
+            $completedTasks = \App\Models\Task::where('status', 'completed')->count();
             $taskCompletionRate = $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100, 1) : 0;
 
             $recentActivity = Challenge::where('updated_at', '>=', now()->subDays(7))->count();
@@ -430,7 +430,7 @@ class AdminChallengeController extends Controller
             ->get();
 
         // Task completion trends
-        $taskStats = DB::table('tasks')
+        $taskStats = \App\Models\Task::query()
             ->selectRaw('
                 DATE(created_at) as date,
                 COUNT(*) as created,

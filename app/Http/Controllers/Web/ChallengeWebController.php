@@ -8,6 +8,7 @@ use App\Http\Requests\Challenge\UpdateChallengeRequest;
 use App\Models\Challenge;
 use App\Models\ChallengeAttachment;
 use App\Jobs\AnalyzeChallengeBrief;
+use App\Services\ChallengeDashboardService;
 use App\Services\CreditsService;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
@@ -49,121 +50,13 @@ class ChallengeWebController extends Controller
             return redirect()->route('complete-profile');
         }
 
-        $query = Challenge::where('company_id', $company->id)
-            ->with(['tasks', 'workstreams'])
-            ->withCount([
-                'tasks',
-                'tasks as completed_tasks_count' => fn ($q) => $q->where('status', 'completed'),
-                'tasks as in_progress_tasks_count' => fn ($q) => $q->where('status', 'in_progress'),
-            ])
-            ->withSum('tasks', 'estimated_hours');
-
-        // Status filter
-        if ($request->has('status') && $request->status && $request->status !== 'all') {
-            $query->where('status', $request->status);
-        }
-
-        // Type filter
-        if ($request->has('type') && $request->type && $request->type !== 'all') {
-            $query->where('challenge_type', $request->type);
-        }
-
-        // Search filter
-        if ($request->has('search') && $request->search) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('refined_brief', 'like', "%{$search}%");
-            });
-        }
-
-        // Sorting
-        $sortBy = $request->get('sort', 'newest');
-        switch ($sortBy) {
-            case 'oldest':
-                $query->oldest();
-                break;
-            case 'title':
-                $query->orderBy('title', 'asc');
-                break;
-            case 'status':
-                $query->orderBy('status', 'asc');
-                break;
-            default:
-                $query->latest();
-        }
-
-        $challenges = $query->paginate(12)->withQueryString();
-
-        // Collect task IDs for the current page in one shot to avoid N+1
-        $taskIdsByChallenge = [];
-        foreach ($challenges as $challenge) {
-            $taskIdsByChallenge[$challenge->id] = $challenge->tasks->pluck('id')->toArray();
-        }
-        $allTaskIds = array_merge(...array_values($taskIdsByChallenge));
-
-        $activeVolunteers = [];
-        $submissionCounts = [];
-        $approvedCounts   = [];
-
-        if (!empty($allTaskIds)) {
-            $activeVolunteers = \App\Models\TaskAssignment::whereIn('task_id', $allTaskIds)
-                ->whereIn('invitation_status', ['accepted', 'in_progress'])
-                ->selectRaw('task_id, COUNT(DISTINCT volunteer_id) as cnt')
-                ->groupBy('task_id')
-                ->pluck('cnt', 'task_id')
-                ->toArray();
-
-            $submissionCounts = \App\Models\WorkSubmission::whereIn('task_id', $allTaskIds)
-                ->selectRaw('task_id, COUNT(*) as cnt')
-                ->groupBy('task_id')
-                ->pluck('cnt', 'task_id')
-                ->toArray();
-
-            $approvedCounts = \App\Models\WorkSubmission::whereIn('task_id', $allTaskIds)
-                ->where('solves_task', true)
-                ->selectRaw('task_id, COUNT(*) as cnt')
-                ->groupBy('task_id')
-                ->pluck('cnt', 'task_id')
-                ->toArray();
-        }
-
-        // Calculate stats for each challenge using already-loaded data
-        foreach ($challenges as $challenge) {
-            $totalTasks = $challenge->tasks_count ?? 0;
-
-            if ($totalTasks > 0) {
-                $completedTasks = $challenge->completed_tasks_count ?? 0;
-                $challenge->progress_percentage = round(($completedTasks / $totalTasks) * 100);
-                $challenge->total_tasks = $totalTasks;
-                $challenge->completed_tasks = $completedTasks;
-                $challenge->in_progress_tasks = $challenge->in_progress_tasks_count ?? 0;
-                $challenge->total_estimated_hours = $challenge->tasks_sum_estimated_hours ?? 0;
-
-                $ids = $taskIdsByChallenge[$challenge->id] ?? [];
-                $challenge->active_volunteers = array_sum(array_intersect_key($activeVolunteers, array_flip($ids)));
-                $challenge->submissions_count  = array_sum(array_intersect_key($submissionCounts,  array_flip($ids)));
-                $challenge->approved_count     = array_sum(array_intersect_key($approvedCounts,    array_flip($ids)));
-            } else {
-                $challenge->progress_percentage = 0;
-                $challenge->total_tasks = 0;
-                $challenge->completed_tasks = 0;
-                $challenge->in_progress_tasks = 0;
-                $challenge->total_estimated_hours = 0;
-                $challenge->active_volunteers = 0;
-                $challenge->submissions_count = 0;
-                $challenge->approved_count = 0;
-            }
-        }
-
-        // Get overall stats
-        $stats = [
-            'total' => $company->challenges()->count(),
-            'active' => $company->challenges()->where('status', 'active')->count(),
-            'completed' => $company->challenges()->where('status', 'completed')->count(),
-            'analyzing' => $company->challenges()->whereIn('status', ['submitted', 'analyzing'])->count(),
-        ];
+        ['challenges' => $challenges, 'stats' => $stats] = app(ChallengeDashboardService::class)
+            ->companyChallenges($company, [
+                'status' => $request->input('status'),
+                'type' => $request->input('type'),
+                'search' => $request->input('search'),
+                'sort' => $request->get('sort', 'newest'),
+            ]);
 
         return view('challenges.my-challenges', compact('challenges', 'company', 'stats'));
     }
