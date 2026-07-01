@@ -9,26 +9,34 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: TEMP DEBUG - check secret presence (values never printed)
-        run: |
-          check() {
-            name="$1"; val="$2"
-            if [ -z "$val" ]; then
-              echo "::error::$name is EMPTY or NOT SET"
-            else
-              echo "::notice::$name is SET (length ${#val})"
-            fi
-          }
-          check "CPANEL_HOSTNAME" "${{ secrets.CPANEL_HOSTNAME }}"
-          check "CPANEL_USERNAME" "${{ secrets.CPANEL_USERNAME }}"
-          check "CPANEL_TOKEN" "${{ secrets.CPANEL_TOKEN }}"
-          check "CPANEL_REPO_ROOT" "${{ secrets.CPANEL_REPO_ROOT }}"
-
-      - name: Trigger cPanel git pull + .cpanel.yml deployment
-        uses: pinkasey/cpanel-deploy-action@v1.0.0
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          hostname: ${{ secrets.CPANEL_HOSTNAME }}
-          cpanel_username: ${{ secrets.CPANEL_USERNAME }}
-          cpanel_token: ${{ secrets.CPANEL_TOKEN }}
-          repository_root: ${{ secrets.CPANEL_REPO_ROOT }}
-          branch: main
+          fetch-depth: 0
+
+      - name: Install sshpass
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+
+      - name: Push to cPanel git remote to trigger auto-deploy
+        env:
+          CPANEL_SSH_PASSWORD: ${{ secrets.CPANEL_SSH_PASSWORD }}
+        run: |
+          if [ -z "$CPANEL_SSH_PASSWORD" ]; then
+            echo "::error::CPANEL_SSH_PASSWORD secret is not set. Add it under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+          mkdir -p ~/.ssh
+          ssh-keyscan -p 21098 server402.web-hosting.com >> ~/.ssh/known_hosts 2>/dev/null
+
+          export GIT_SSH_COMMAND="sshpass -p \"$CPANEL_SSH_PASSWORD\" ssh -p 21098 -o StrictHostKeyChecking=accept-new"
+
+          # Pushing directly to the cPanel-hosted git repo (rather than using
+          # cPanel's UAPI to trigger a pull) because that UAPI path was
+          # unreliable: repeated retriggers left the server-side repo stuck
+          # on a stale commit despite the API reporting success. A direct
+          # push, on the other hand, hits cPanel's built-in Git Version
+          # Control post-receive hook directly, which reliably runs
+          # .cpanel.yml on every push - this is the exact method used to
+          # manually recover the last two deploys.
+          git push "ssh://mindipus@server402.web-hosting.com/home/mindipus/repositories/latest-mindova" "HEAD:main"
