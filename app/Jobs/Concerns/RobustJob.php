@@ -272,12 +272,4 @@ trait RobustJob
         ], now()->addDay());
     }
 
-    /**
-     * Get the failure reason if previously stored.
-     */
-    protected function getStoredFailureReason(): ?array
-    {
-        $key = 'job_failure:' . $this->getJobIdentifier();
-        return Cache::get($key);
-    }
 }

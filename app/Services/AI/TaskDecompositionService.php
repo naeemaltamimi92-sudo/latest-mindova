@@ -73,11 +73,13 @@ class TaskDecompositionService extends AnthropicService
      */
     protected function validateDecompositionSchema(array $decomposition): void
     {
+        $limits = config('ai.decomposition_limits');
+
         $workstreamCount = count($decomposition['workstreams']);
 
-        // Validate workstream count (2-5)
-        if ($workstreamCount < 2 || $workstreamCount > 5) {
-            throw new \Exception("Invalid workstream count: {$workstreamCount}. Expected 2-5 workstreams.");
+        // Validate workstream count
+        if ($workstreamCount < $limits['min_workstreams'] || $workstreamCount > $limits['max_workstreams']) {
+            throw new \Exception("Invalid workstream count: {$workstreamCount}. Expected {$limits['min_workstreams']}-{$limits['max_workstreams']} workstreams.");
         }
 
         $validExperienceLevels = ['Junior', 'Mid', 'Expert', 'Manager'];
@@ -94,9 +96,9 @@ class TaskDecompositionService extends AnthropicService
 
             $taskCount = count($workstream['tasks']);
 
-            // Validate task count per workstream (2-8)
-            if ($taskCount < 2 || $taskCount > 8) {
-                throw new \Exception("Workstream '{$workstream['title']}' has {$taskCount} tasks. Expected 2-8 tasks.");
+            // Validate task count per workstream
+            if ($taskCount < $limits['min_tasks_per_workstream'] || $taskCount > $limits['max_tasks_per_workstream']) {
+                throw new \Exception("Workstream '{$workstream['title']}' has {$taskCount} tasks. Expected {$limits['min_tasks_per_workstream']}-{$limits['max_tasks_per_workstream']} tasks.");
             }
 
             foreach ($workstream['tasks'] as $taskIndex => $task) {
@@ -108,17 +110,17 @@ class TaskDecompositionService extends AnthropicService
                     }
                 }
 
-                // Validate estimated_hours range (4-40)
+                // Validate estimated_hours range
                 $hours = $task['estimated_hours'];
-                if (!is_numeric($hours) || $hours < 4 || $hours > 40) {
-                    throw new \Exception("Task '{$task['title']}' has invalid estimated_hours: {$hours}. Expected 4-40.");
+                if (!is_numeric($hours) || $hours < $limits['min_task_hours'] || $hours > $limits['max_task_hours']) {
+                    throw new \Exception("Task '{$task['title']}' has invalid estimated_hours: {$hours}. Expected {$limits['min_task_hours']}-{$limits['max_task_hours']}.");
                 }
 
-                // Validate complexity_score range (1-10) if provided
+                // Validate complexity_score range if provided
                 if (isset($task['complexity_score'])) {
                     $complexity = $task['complexity_score'];
-                    if (!is_numeric($complexity) || $complexity < 1 || $complexity > 10) {
-                        throw new \Exception("Task '{$task['title']}' has invalid complexity_score: {$complexity}. Expected 1-10.");
+                    if (!is_numeric($complexity) || $complexity < $limits['min_complexity_score'] || $complexity > $limits['max_complexity_score']) {
+                        throw new \Exception("Task '{$task['title']}' has invalid complexity_score: {$complexity}. Expected {$limits['min_complexity_score']}-{$limits['max_complexity_score']}.");
                     }
                 }
 
@@ -143,6 +145,7 @@ class TaskDecompositionService extends AnthropicService
         $objectives = json_encode($briefAnalysis->objectives);
         $constraints = json_encode($briefAnalysis->constraints);
         $complexityData = json_encode($complexityAnalysis->validation_errors);
+        $limits = config('ai.decomposition_limits');
 
         return <<<PROMPT
 Break down this challenge into workstreams and actionable tasks for volunteer execution.
@@ -181,7 +184,7 @@ Decompose this challenge into workstreams and tasks. Provide your decomposition 
           "expected_output": "<what deliverable is expected from this task>",
           "acceptance_criteria": ["<criterion 1>", "<criterion 2>"],
           "estimated_hours": <integer>,
-          "complexity_score": <integer 1-10>
+          "complexity_score": <integer {$limits['min_complexity_score']}-{$limits['max_complexity_score']}>
         }
       ]
     }
@@ -192,10 +195,10 @@ Decompose this challenge into workstreams and tasks. Provide your decomposition 
 }
 
 Guidelines:
-- Create 2-5 workstreams that represent major areas of work
-- Each workstream should have 2-8 tasks
+- Create {$limits['min_workstreams']}-{$limits['max_workstreams']} workstreams that represent major areas of work
+- Each workstream should have {$limits['min_tasks_per_workstream']}-{$limits['max_tasks_per_workstream']} tasks
 - Tasks should be concrete, measurable, and achievable
-- Estimated hours should be realistic (typically 4-40 hours per task)
+- Estimated hours should be realistic (typically {$limits['min_task_hours']}-{$limits['max_task_hours']} hours per task)
 - Complexity score: 1-3 (simple), 4-6 (moderate), 7-10 (complex)
 - Required skills should be specific (e.g., "Python Programming", "UI/UX Design", "Market Research")
 - Required experience level: Junior (0-2 years), Mid (2-5 years), Expert (5+ years), Manager (leadership role)

@@ -89,6 +89,28 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Task Decomposition Limits
+    |--------------------------------------------------------------------------
+    |
+    | Bounds enforced by TaskDecompositionService::validateDecompositionSchema()
+    | AND interpolated into its prompt, so the model is asked for the same
+    | limits the validator will actually enforce.
+    |
+    */
+
+    'decomposition_limits' => [
+        'min_workstreams' => 2,
+        'max_workstreams' => 5,
+        'min_tasks_per_workstream' => 2,
+        'max_tasks_per_workstream' => 8,
+        'min_task_hours' => 4,
+        'max_task_hours' => 40,
+        'min_complexity_score' => 1,
+        'max_complexity_score' => 10,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | OpenAI API Pricing
     |--------------------------------------------------------------------------
     |

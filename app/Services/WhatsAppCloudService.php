@@ -726,65 +726,34 @@ class WhatsAppCloudService
      */
     public function processWebhook(array $data): void
     {
-        try {
-            $entry = $data['entry'][0] ?? null;
-            if (!$entry) return;
+        // Deliberately no try/catch here: WhatsAppWebhookController::handle()
+        // is the only caller and already wraps this call in its own
+        // catch block (which logs and returns 200 regardless, as WhatsApp's
+        // webhook contract requires). A catch here previously swallowed
+        // every exception silently, making that outer catch dead code -
+        // failures never surfaced anywhere.
+        $entry = $data['entry'][0] ?? null;
+        if (!$entry) return;
 
-            $changes = $entry['changes'][0] ?? null;
-            if (!$changes) return;
+        $changes = $entry['changes'][0] ?? null;
+        if (!$changes) return;
 
-            $value = $changes['value'] ?? null;
-            if (!$value) return;
+        $value = $changes['value'] ?? null;
+        if (!$value) return;
 
-            // Process messages
-            if (isset($value['messages'])) {
-                foreach ($value['messages'] as $message) {
-                    $this->processIncomingMessage($message, $value['contacts'][0] ?? null);
-                }
-            }
-
-            // Process status updates
-            if (isset($value['statuses'])) {
-                foreach ($value['statuses'] as $status) {
-                    $this->processStatusUpdate($status);
-                }
-            }
-        } catch (Exception $e) {
-            Log::channel('whatsapp')->error('Webhook processing error', [
-                'error' => $e->getMessage(),
-                'data' => $this->redactWebhookPii($data),
-            ]);
-        }
-    }
-
-    /**
-     * Strip phone numbers and message text from a webhook payload before
-     * logging it, keeping the rest of the structure for debugging.
-     */
-    private function redactWebhookPii(array $data): array
-    {
-        $value = $data['entry'][0]['changes'][0]['value'] ?? null;
-
-        if (!is_array($value)) {
-            return $data;
-        }
-
-        foreach ($value['messages'] ?? [] as &$message) {
-            $message['from'] = '[redacted]';
-            if (isset($message['text']['body'])) {
-                $message['text']['body'] = '[redacted]';
+        // Process messages
+        if (isset($value['messages'])) {
+            foreach ($value['messages'] as $message) {
+                $this->processIncomingMessage($message, $value['contacts'][0] ?? null);
             }
         }
-        unset($message);
 
-        foreach ($value['contacts'] ?? [] as &$contact) {
-            $contact['wa_id'] = '[redacted]';
+        // Process status updates
+        if (isset($value['statuses'])) {
+            foreach ($value['statuses'] as $status) {
+                $this->processStatusUpdate($status);
+            }
         }
-        unset($contact);
-
-        $data['entry'][0]['changes'][0]['value'] = $value;
-
-        return $data;
     }
 
     /**

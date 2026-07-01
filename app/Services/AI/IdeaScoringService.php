@@ -7,6 +7,9 @@ use App\Models\Challenge;
 
 class IdeaScoringService extends AnthropicService
 {
+    private const AI_SCORE_WEIGHT = 0.4;
+    private const COMMUNITY_VOTE_WEIGHT = 0.6;
+
     protected function getModel(): string
     {
         return config('ai.models.idea_scoring');
@@ -215,15 +218,11 @@ SYSTEM;
      */
     protected function updateFinalScore(Idea $idea): void
     {
-        // AI score weight: 40%, Community votes weight: 60%
-        $aiWeight = 0.4;
-        $communityWeight = 0.6;
-
         // Normalize community votes to 0-100 scale
         // Assuming votes range from -10 to +10 per voter on average
         $normalizedCommunityScore = max(0, min(100, 50 + ($idea->community_votes * 5)));
 
-        $finalScore = ($idea->ai_score * $aiWeight) + ($normalizedCommunityScore * $communityWeight);
+        $finalScore = ($idea->ai_score * self::AI_SCORE_WEIGHT) + ($normalizedCommunityScore * self::COMMUNITY_VOTE_WEIGHT);
 
         $idea->update(['final_score' => $finalScore]);
     }
