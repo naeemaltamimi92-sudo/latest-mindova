@@ -271,11 +271,11 @@ SYSTEM;
         ChallengeAnalysis::create([
             'challenge_id' => $challenge->id,
             'stage' => 'brief',
-            'objectives' => $analysis['objectives'],
-            'constraints' => $analysis['constraints'],
-            'success_criteria' => $analysis['success_criteria'],
-            'stakeholders' => $analysis['key_stakeholders'] ?? [],
-            'risk_assessment' => $analysis['potential_risks'] ?? [],
+            'objectives' => $this->normalizeToArray($analysis['objectives']),
+            'constraints' => $this->normalizeToArray($analysis['constraints']),
+            'success_criteria' => $this->normalizeToArray($analysis['success_criteria']),
+            'stakeholders' => $this->normalizeToArray($analysis['key_stakeholders'] ?? []),
+            'risk_assessment' => $this->normalizeToArray($analysis['potential_risks'] ?? []),
             'recommended_approach' => $analysis['recommended_approach'] ?? null,
             'confidence_score' => $analysis['confidence_score'],
             'validation_status' => $this->meetsConfidenceThreshold($analysis['confidence_score'])
@@ -286,5 +286,20 @@ SYSTEM;
                 ? ['notes' => $analysis['validation_notes']]
                 : null,
         ]);
+    }
+
+    /**
+     * The AI response schema is not strictly enforced, so list fields
+     * (objectives, constraints, etc.) occasionally come back as a single
+     * string instead of an array. Normalize before persisting so the
+     * 'array' cast doesn't store a scalar that later breaks count().
+     */
+    private function normalizeToArray(mixed $value): array
+    {
+        if (is_array($value)) {
+            return $value;
+        }
+
+        return $value === null || $value === '' ? [] : [$value];
     }
 }

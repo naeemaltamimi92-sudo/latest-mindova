@@ -532,7 +532,7 @@
                         <!-- Objectives Tab -->
                         <div x-show="activeTab === 'objectives'"   >
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                @if($analysis->objectives && count($analysis->objectives) > 0)
+                                @if($analysis->objectives && count((array) $analysis->objectives) > 0)
                                 <div class="p-5 bg-green-50 rounded-xl border border-green-100">
                                     <h3 class="text-sm font-bold text-green-700 mb-4 flex items-center gap-2">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -541,7 +541,7 @@
                                         {{ __('Objectives') }}
                                     </h3>
                                     <ul class="space-y-3">
-                                        @foreach($analysis->objectives as $obj)
+                                        @foreach((array) $analysis->objectives as $obj)
                                         <li class="flex items-start gap-3 text-sm text-green-900">
                                             <span class="h-5 w-5 rounded-full bg-green-200 flex items-center justify-center flex-shrink-0 mt-0.5">
                                                 <svg class="h-3 w-3 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -555,7 +555,7 @@
                                 </div>
                                 @endif
 
-                                @if($analysis->success_criteria && count($analysis->success_criteria) > 0)
+                                @if($analysis->success_criteria && count((array) $analysis->success_criteria) > 0)
                                 <div class="p-5 bg-emerald-50 rounded-xl border border-emerald-100">
                                     <h3 class="text-sm font-bold text-emerald-700 mb-4 flex items-center gap-2">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -564,7 +564,7 @@
                                         {{ __('Success Criteria') }}
                                     </h3>
                                     <ul class="space-y-3">
-                                        @foreach($analysis->success_criteria as $criteria)
+                                        @foreach((array) $analysis->success_criteria as $criteria)
                                         <li class="flex items-start gap-3 text-sm text-emerald-900">
                                             <span class="h-5 w-5 rounded-full bg-emerald-200 flex items-center justify-center flex-shrink-0 mt-0.5">
                                                 <svg class="h-3 w-3 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -579,7 +579,7 @@
                                 @endif
                             </div>
 
-                            @if($analysis->assumptions && count($analysis->assumptions) > 0)
+                            @if($analysis->assumptions && count((array) $analysis->assumptions) > 0)
                             <div class="mt-6 p-5 bg-blue-50 rounded-xl border border-blue-100">
                                 <h3 class="text-sm font-bold text-blue-700 mb-4 flex items-center gap-2">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -588,7 +588,7 @@
                                     {{ __('Assumptions') }}
                                 </h3>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    @foreach($analysis->assumptions as $assumption)
+                                    @foreach((array) $analysis->assumptions as $assumption)
                                     <div class="flex items-start gap-2 text-sm text-blue-900">
                                         <span class="text-blue-500 mt-1">&#8226;</span>
                                         {{ $assumption }}
@@ -602,7 +602,7 @@
                         <!-- Risks Tab -->
                         <div x-show="activeTab === 'risks'"   >
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                @if($analysis->constraints && count($analysis->constraints) > 0)
+                                @if($analysis->constraints && count((array) $analysis->constraints) > 0)
                                 <div class="p-5 bg-red-50 rounded-xl border border-red-100">
                                     <h3 class="text-sm font-bold text-red-700 mb-4 flex items-center gap-2">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -611,7 +611,7 @@
                                         {{ __('Constraints') }}
                                     </h3>
                                     <ul class="space-y-3">
-                                        @foreach($analysis->constraints as $constraint)
+                                        @foreach((array) $analysis->constraints as $constraint)
                                         <li class="flex items-start gap-3 text-sm text-red-900">
                                             <span class="text-red-500 mt-1">&#8226;</span>
                                             {{ $constraint }}
@@ -621,7 +621,7 @@
                                 </div>
                                 @endif
 
-                                @if($analysis->missing_information && count($analysis->missing_information) > 0)
+                                @if($analysis->missing_information && count((array) $analysis->missing_information) > 0)
                                 <div class="p-5 bg-yellow-50 rounded-xl border border-yellow-100">
                                     <h3 class="text-sm font-bold text-yellow-700 mb-4 flex items-center gap-2">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -630,7 +630,7 @@
                                         {{ __('Missing Information') }}
                                     </h3>
                                     <ul class="space-y-3">
-                                        @foreach($analysis->missing_information as $info)
+                                        @foreach((array) $analysis->missing_information as $info)
                                         <li class="flex items-start gap-3 text-sm text-yellow-900">
                                             <span class="text-yellow-500 mt-1">!</span>
                                             {{ $info }}
@@ -653,11 +653,11 @@
                             </div>
                             @endif
 
-                            @if($analysis->validation_errors && count($analysis->validation_errors) > 0)
+                            @if($analysis->validation_errors && count((array) $analysis->validation_errors) > 0)
                             <div class="mt-6 p-5 bg-red-100 rounded-xl border-2 border-red-200">
                                 <h3 class="text-sm font-bold text-red-800 mb-2">{{ __('Validation Errors') }}</h3>
                                 <ul class="space-y-2">
-                                    @foreach($analysis->validation_errors as $error)
+                                    @foreach((array) $analysis->validation_errors as $error)
                                     <li class="text-sm text-red-700 flex items-start gap-2">
                                         <span class="text-red-600 mt-1">&#10007;</span>
                                         {{ $error }}
@@ -670,9 +670,9 @@
 
                         <!-- Stakeholders Tab -->
                         <div x-show="activeTab === 'stakeholders'"   >
-                            @if($analysis->stakeholders && count($analysis->stakeholders) > 0)
+                            @if($analysis->stakeholders && count((array) $analysis->stakeholders) > 0)
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                @foreach($analysis->stakeholders as $stakeholder)
+                                @foreach((array) $analysis->stakeholders as $stakeholder)
                                 <div class="p-4 bg-purple-50 rounded-xl border border-purple-100 flex items-center gap-3">
                                     <div class="h-10 w-10 rounded-full bg-secondary-400 flex items-center justify-center flex-shrink-0">
                                         <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
