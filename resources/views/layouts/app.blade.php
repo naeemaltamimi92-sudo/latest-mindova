@@ -70,60 +70,15 @@
         .bg-brand-secondary { background-color: var(--brand-secondary); }
         .from-brand-primary { --tw-gradient-from: var(--brand-primary); }
         .to-brand-secondary { --tw-gradient-to: var(--brand-secondary); }
-
-        /* Dark Mode Styles */
-        @if($darkModeEnabled ?? false)
-        html.dark body {
-            background-color: #0f172a;
-            color: #e2e8f0;
-        }
-        html.dark nav {
-            background-color: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        html.dark .bg-white {
-            background-color: #1e293b !important;
-        }
-        html.dark .bg-gray-50, html.dark .bg-slate-50 {
-            background-color: #0f172a !important;
-        }
-        html.dark .bg-gray-100, html.dark .bg-slate-100 {
-            background-color: #1e293b !important;
-        }
-        html.dark .text-gray-900, html.dark .text-slate-900 {
-            color: #f1f5f9 !important;
-        }
-        html.dark .text-gray-700, html.dark .text-slate-700 {
-            color: #cbd5e1 !important;
-        }
-        html.dark .text-gray-600, html.dark .text-slate-600 {
-            color: #94a3b8 !important;
-        }
-        html.dark .text-gray-500, html.dark .text-slate-500 {
-            color: #64748b !important;
-        }
-        html.dark .border-gray-200, html.dark .border-slate-200 {
-            border-color: #334155 !important;
-        }
-        html.dark .border-gray-300, html.dark .border-slate-300 {
-            border-color: #475569 !important;
-        }
-        html.dark input, html.dark textarea, html.dark select {
-            background-color: #1e293b !important;
-            border-color: #475569 !important;
-            color: #e2e8f0 !important;
-        }
-        html.dark input:focus, html.dark textarea:focus, html.dark select:focus {
-            border-color: var(--brand-primary) !important;
-        }
-        html.dark .shadow-md, html.dark .shadow-lg, html.dark .shadow-xl {
-            --tw-shadow-color: rgba(0, 0, 0, 0.3);
-        }
-        html.dark footer {
-            background: linear-gradient(to bottom right, #020617, #0f172a, #1e293b) !important;
-        }
-        @endif
     </style>
+    {{-- Dark mode theming lives entirely in app.css's html.dark {} system
+         now - it already applies universally whenever .dark is present on
+         <html>, regardless of whether that came from the user's saved
+         localStorage preference or this page's $darkModeEnabled flag (see
+         the class="" attribute on <html> above). A second, hand-written
+         dark-mode block used to live here with a different, conflicting
+         color palette (#0f172a/#1e293b vs. app.css's #070C15/#0E1523) -
+         removed rather than fixed in place, since it was pure duplication. --}}
 
     <!-- Custom CSS from Settings -->
     @if(!empty($customCss ?? ''))
@@ -435,16 +390,18 @@
     <main class="pt-16 {{ request()->routeIs('login') || request()->routeIs('register') || request()->routeIs('community.challenge') || request()->routeIs('profile.edit') ? '' : 'py-8' }}">
         @if(session('success'))
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
-            <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
-                {{ session('success') }}
+            <div class="flex items-start gap-3 bg-success-50 dark:bg-success-500/10 border border-success-200 dark:border-success-500/30 text-success-800 dark:text-success-300 px-4 py-3 rounded-xl">
+                <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>{{ session('success') }}</span>
             </div>
         </div>
         @endif
 
         @if(session('error'))
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
-            <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
-                {{ session('error') }}
+            <div class="flex items-start gap-3 bg-danger-50 dark:bg-danger-500/10 border border-danger-200 dark:border-danger-500/30 text-danger-800 dark:text-danger-300 px-4 py-3 rounded-xl">
+                <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span>{{ session('error') }}</span>
             </div>
         </div>
         @endif

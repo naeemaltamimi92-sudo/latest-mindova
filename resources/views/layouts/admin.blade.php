@@ -14,7 +14,9 @@
             --brand-secondary: {{ $brandSecondaryColor ?? '#8b5cf6' }};
             --sidebar-w: 260px;
             --topbar-h: 64px;
-            --aurora: linear-gradient(135deg, #775FEE 0%, #5A3DEB 50%, #4338CA 100%);
+            /* Single-sourced from the real token instead of a duplicated
+               raw gradient that could drift out of sync with .bg-aurora. */
+            --aurora: var(--gradient-aurora);
         }
         [x-cloak] { display: none !important; }
 
@@ -77,13 +79,13 @@
 
         /* ── Stat cards ── */
         .adm-stat {
-            background: #fff;
+            background: var(--color-surface);
             border-radius: 16px;
             padding: 20px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--color-border);
             transition: all 0.25s ease;
         }
-        .adm-stat:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(90,61,235,0.12); }
+        .adm-stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow-primary-sm); }
 
         /* ── Glass badge ── */
         .glass-badge {
@@ -106,10 +108,12 @@
         }
         #sidebar-overlay.active { display: block; }
 
-        /* Dark mode */
-        html.dark .adm-stat { background: #1e293b; border-color: #334155; color: #f1f5f9; }
-        html.dark #admin-topbar { background: #0f172a; border-color: #1e293b; }
-        html.dark #admin-main > div { background: #0f172a; }
+        /* Dark mode: .adm-stat now reads var(--color-surface)/var(--color-border)
+           directly (theme.css already swaps these under html.dark {}), so it
+           no longer needs its own override here. #admin-topbar/#admin-main
+           still need one since they use Tailwind bg-white/bg-gray-50 utility
+           classes in the markup, which the global html.dark .bg-white {}
+           system in app.css already re-themes - nothing left to add here. */
 
         /* Entrance animation — pure CSS, runs automatically on paint.
            Content must NEVER depend on JS to become visible: if any script

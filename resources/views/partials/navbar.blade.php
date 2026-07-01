@@ -67,22 +67,22 @@
                 @endif
             @else
                 {{-- Guest Navigation --}}
-                <a href="{{ route('how-it-works') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
+                <a href="{{ route('how-it-works') }}" class="text-sm font-medium px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-premium-fast">
                     {{ __('How it works') }}
                 </a>
-                <a href="{{ route('challenges.index') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
+                <a href="{{ route('challenges.index') }}" class="text-sm font-medium px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-premium-fast">
                     {{ __('Challenges') }}
                 </a>
-                <a href="{{ route('community.index') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
+                <a href="{{ route('community.index') }}" class="text-sm font-medium px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-premium-fast">
                     {{ __('Community') }}
                 </a>
-                <a href="{{ route('success-stories') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
+                <a href="{{ route('success-stories') }}" class="text-sm font-medium px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-premium-fast">
                     {{ __('Success Stories') }}
                 </a>
-                <a href="{{ route('feedback.index') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
+                <a href="{{ route('feedback.index') }}" class="text-sm font-medium px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-premium-fast">
                     {{ __('Feedback') }}
                 </a>
-                <a href="{{ route('help') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
+                <a href="{{ route('help') }}" class="text-sm font-medium px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-premium-fast">
                     {{ __('Help') }}
                 </a>
             @endauth
@@ -116,23 +116,24 @@
                 x-transition:leave="transition ease-in duration-100"
                 x-transition:leave-start="opacity-100 scale-100"
                 x-transition:leave-end="opacity-0 scale-95"
-                class="absolute right-0 mt-2 w-80 bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden z-50" style="display: none;">
-                <div class="px-4 py-3 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
-                    <h3 class="text-sm font-semibold text-gray-900">{{ __('Notifications') }}</h3>
-                    <button @click="markAllRead" class="text-xs text-primary-600 hover:text-primary-700 font-medium">
+                class="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 elevation-lg overflow-hidden z-50" style="display: none;">
+                <div class="px-4 py-3 bg-gray-50 dark:bg-gray-900/40 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">{{ __('Notifications') }}</h3>
+                    <button @click="markAllRead" class="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 font-medium">
                         {{ __('Mark all as read') }}
                     </button>
                 </div>
                 <div class="max-h-96 overflow-y-auto">
                     <template x-for="notification in notifications" :key="notification.id">
-                        <div :class="{'bg-primary-50': !notification.is_read}" class="px-4 py-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer" @click="handleNotificationClick(notification)">
-                            <p class="text-sm font-medium text-gray-900" x-text="notification.title"></p>
-                            <p class="text-xs text-gray-600 mt-0.5" x-text="notification.message"></p>
-                            <p class="text-xs text-gray-400 mt-1" x-text="timeAgo(notification.created_at)"></p>
+                        <div :class="{'bg-primary-50 dark:bg-primary-500/10': !notification.is_read}" class="px-4 py-3 border-b border-gray-100 dark:border-gray-700/60 hover:bg-gray-50 dark:hover:bg-gray-700/40 cursor-pointer transition-premium-fast" @click="handleNotificationClick(notification)">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white" x-text="notification.title"></p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5" x-text="notification.message"></p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1" x-text="timeAgo(notification.created_at)"></p>
                         </div>
                     </template>
-                    <div x-show="notifications.length === 0" class="px-4 py-8 text-center text-gray-500 text-sm">
-                        {{ __('No notifications') }}
+                    <div x-show="notifications.length === 0" class="px-4 py-10 text-center">
+                        <svg class="w-10 h-10 mx-auto mb-2 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ __('No notifications') }}</p>
                     </div>
                 </div>
             </div>
@@ -180,7 +181,7 @@
         @else
         {{-- Guest Actions --}}
         <div class="hidden sm:flex items-center gap-3">
-            <a href="{{ route('login') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#94a3b8;" onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">
+            <a href="{{ route('login') }}" class="text-sm font-medium px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-premium-fast">
                 {{ __('Sign In') }}
             </a>
             <a href="{{ route('register') }}" class="px-4 py-2 bg-primary-500 text-white text-sm font-medium rounded-lg hover:bg-primary-600">
