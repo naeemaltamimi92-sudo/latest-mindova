@@ -9,30 +9,10 @@
     $flexDir = $isRTL ? 'flex-row-reverse' : 'flex-row';
 @endphp
 
-@push('styles')
-<style>
-    [data-auth-page] input[type="email"],
-    [data-auth-page] input[type="password"],
-    [data-auth-page] input[type="text"] {
-        background-color: #ffffff !important;
-        border-color: #D1D5DB !important;
-        color: #111827 !important;
-    }
-    [data-auth-page] input::placeholder { color: #9CA3AF !important; }
-    [data-auth-page] input:focus {
-        border-color: #5A3DEB !important;
-        box-shadow: 0 0 0 3px rgba(90,61,235,0.12) !important;
-        outline: none !important;
-    }
-    [data-auth-page] label { color: #374151 !important; }
-    [data-auth-page] .text-gray-700 { color: #374151 !important; }
-</style>
-@endpush
-
 @section('content')
 <div class="min-h-[calc(100vh-5rem)] flex" data-auth-page="true" style="flex-direction: row !important;">
     <!-- Left Side - Visual Section (Hidden on mobile) -->
-    <div class="hidden lg:flex lg:w-1/2 min-h-full relative overflow-hidden" style="background:linear-gradient(135deg,#5A3DEB 0%,#4B32C9 100%);">
+    <div class="hidden lg:flex lg:w-1/2 bg-premium-dark min-h-full relative overflow-hidden">
         <div class="absolute inset-0 interactive-map-container">
             <div class="absolute top-1/4 left-1/3 w-2 h-2 rounded-full bg-primary-400/60 animate-glow"></div>
             <div class="absolute top-2/3 left-1/2 w-1.5 h-1.5 rounded-full bg-primary-300/50 animate-glow" style="animation-delay: 0.8s;"></div>
@@ -89,22 +69,22 @@
     </div>
 
     <!-- Right Side - Login Form -->
-    <div class="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12" style="background:#F0F2F5;">
+    <div class="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-md w-full" dir="{{ $dir }}">
-            <div class="rounded-2xl px-6 py-8 bg-white" style="border:1px solid #E4E6EB;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-lg px-6 py-8">
                 <!-- Header -->
                 <div class="text-center mb-6">
                     <!-- Mobile Logo -->
                     <div class="lg:hidden mb-5">
-                        <div class="inline-flex items-center gap-2">
+                        <div class="inline-flex items-center gap-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2">
                             <x-brand.logo size="sm" href="{{ url('/') }}" />
                         </div>
                     </div>
 
-                    <h2 class="text-2xl font-bold mb-2" style="color:#111827;">
-                        {{ __('Welcome') }} <span style="color:#5A3DEB;">{{ __('Back') }}</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                        {{ __('Welcome') }} <span class="text-primary-600">{{ __('Back') }}</span>
                     </h2>
-                    <p class="text-sm" style="color:#6B7280;">{{ __('Sign in to continue your innovation journey') }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Sign in to continue your innovation journey') }}</p>
                 </div>
 
                 <!-- Login Form -->
@@ -133,13 +113,13 @@
                     <div class="flex items-center justify-between text-sm {{ $flexDir }}">
                         <div class="flex items-center gap-2 {{ $flexDir }}">
                             <input id="remember" type="checkbox" name="remember"
-                                   class="h-4 w-4 text-primary-500 focus:ring-primary-400 border-gray-300 rounded cursor-pointer">
-                            <label for="remember" class="cursor-pointer" style="color:#374151;">
+                                   class="h-4 w-4 text-primary-500 focus:ring-primary-400 border-gray-300 dark:border-gray-600 rounded cursor-pointer">
+                            <label for="remember" class="cursor-pointer text-gray-700 dark:text-gray-300">
                                 {{ __('Remember me') }}
                             </label>
                         </div>
 
-                        <a href="{{ route('password.request') }}" class="font-medium" style="color:#5A3DEB;">
+                        <a href="{{ route('password.request') }}" class="font-medium text-primary-600 hover:text-primary-700">
                             {{ __('Forgot password?') }}
                         </a>
                     </div>
@@ -159,16 +139,16 @@
 
                     <!-- Register Link -->
                     <div class="text-center pt-2">
-                        <p class="text-sm" style="color:#6B7280;">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
                             {{ __("Don't have an account?") }}
-                            <a href="{{ route('register') }}" class="font-semibold" style="color:#5A3DEB;">
+                            <a href="{{ route('register') }}" class="font-semibold text-primary-600 hover:text-primary-700">
                                 {{ __('Sign up for free') }}
                             </a>
                         </p>
                     </div>
 
-                    <div class="text-center text-xs" style="color:#9CA3AF;">
-                        <p>{{ __('By continuing, you agree to our') }} <a href="{{ route('terms') }}" class="hover:underline" style="color:#5A3DEB;">{{ __('Terms') }}</a> {{ __('and') }} <a href="{{ route('privacy') }}" class="hover:underline" style="color:#5A3DEB;">{{ __('Privacy Policy') }}</a></p>
+                    <div class="text-center text-xs text-gray-400 dark:text-gray-500">
+                        <p>{{ __('By continuing, you agree to our') }} <a href="{{ route('terms') }}" class="hover:underline text-primary-600">{{ __('Terms') }}</a> {{ __('and') }} <a href="{{ route('privacy') }}" class="hover:underline text-primary-600">{{ __('Privacy Policy') }}</a></p>
                     </div>
                 </form>
             </div>
@@ -176,17 +156,17 @@
             <!-- Trust Indicators -->
             <div class="mt-4">
                 <div class="grid grid-cols-3 gap-3">
-                    <div class="text-center p-3 rounded-xl" style="background:#ffffff;border:1px solid #E4E6EB;">
-                        <div class="text-xl font-bold mb-0.5" style="color:#5A3DEB;">1000+</div>
-                        <div class="text-xs" style="color:#6B7280;">{{ __('Contributors') }}</div>
+                    <div class="text-center p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <div class="text-xl font-bold mb-0.5 text-primary-600">1000+</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ __('Contributors') }}</div>
                     </div>
-                    <div class="text-center p-3 rounded-xl" style="background:#ffffff;border:1px solid #E4E6EB;">
-                        <div class="text-xl font-bold mb-0.5" style="color:#5A3DEB;">500+</div>
-                        <div class="text-xs" style="color:#6B7280;">{{ __('Challenges') }}</div>
+                    <div class="text-center p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <div class="text-xl font-bold mb-0.5 text-primary-600">500+</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ __('Challenges') }}</div>
                     </div>
-                    <div class="text-center p-3 rounded-xl" style="background:#ffffff;border:1px solid #E4E6EB;">
-                        <div class="text-xl font-bold mb-0.5" style="color:#5A3DEB;">2000+</div>
-                        <div class="text-xs" style="color:#6B7280;">{{ __('Tasks Done') }}</div>
+                    <div class="text-center p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <div class="text-xl font-bold mb-0.5 text-primary-600">2000+</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ __('Tasks Done') }}</div>
                     </div>
                 </div>
             </div>

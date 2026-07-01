@@ -11,32 +11,10 @@
     $pl = $isRTL ? 'pr' : 'pl';
 @endphp
 
-@push('styles')
-<style>
-    [data-auth-page] input[type="email"],
-    [data-auth-page] input[type="password"],
-    [data-auth-page] input[type="text"] {
-        background-color: #ffffff !important;
-        border-color: #D1D5DB !important;
-        color: #111827 !important;
-    }
-    [data-auth-page] input::placeholder { color: #9CA3AF !important; }
-    [data-auth-page] input:focus {
-        border-color: #5A3DEB !important;
-        box-shadow: 0 0 0 3px rgba(90,61,235,0.12) !important;
-        outline: none !important;
-    }
-    [data-auth-page] label { color: #374151 !important; }
-    [data-auth-page] .text-gray-700 { color: #374151 !important; }
-    [data-auth-page] .text-gray-600 { color: #4B5563 !important; }
-    [data-auth-page] .text-gray-500 { color: #6B7280 !important; }
-</style>
-@endpush
-
 @section('content')
 <div class="min-h-[calc(100vh-5rem)] flex" data-auth-page="true" style="flex-direction: row !important;">
     <!-- Left Side - Visual Section -->
-    <div class="hidden lg:flex lg:w-1/2 min-h-full relative overflow-hidden" style="background:linear-gradient(135deg,#5A3DEB 0%,#4B32C9 100%);">
+    <div class="hidden lg:flex lg:w-1/2 bg-premium-dark min-h-full relative overflow-hidden">
         <div class="absolute inset-0 interactive-map-container">
             <div class="absolute top-1/4 left-1/3 w-2 h-2 rounded-full bg-primary-400/60 animate-glow"></div>
             <div class="absolute top-2/3 left-1/2 w-1.5 h-1.5 rounded-full bg-primary-300/50 animate-glow" style="animation-delay: 0.8s;"></div>
@@ -93,22 +71,22 @@
     </div>
 
     <!-- Right Side - Registration Form -->
-    <div class="w-full lg:w-1/2 flex items-start justify-center px-4 sm:px-6 lg:px-8 xl:px-12 py-8" style="background:#F0F2F5;">
+    <div class="w-full lg:w-1/2 flex items-start justify-center px-4 sm:px-6 lg:px-8 xl:px-12 py-8 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-md w-full animate-fade-in" dir="{{ $dir }}">
-            <div class="rounded-2xl px-6 py-8 bg-white" style="border:1px solid #E4E6EB;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl elevation-lg px-6 py-8">
                 <!-- Header -->
                 <div class="text-center mb-6">
                     <!-- Mobile Logo -->
                     <div class="lg:hidden mb-5">
-                        <div class="inline-flex items-center gap-2">
+                        <div class="inline-flex items-center gap-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2">
                             <x-brand.logo size="sm" href="{{ url('/') }}" />
                         </div>
                     </div>
 
-                    <h2 class="text-2xl font-bold mb-2" style="color:#111827;">
-                        {{ __('Create') }} <span style="color:#5A3DEB;">{{ __('Account') }}</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                        {{ __('Create') }} <span class="text-primary-600">{{ __('Account') }}</span>
                     </h2>
-                    <p class="text-sm" style="color:#6B7280;">{{ __('Join Mindova to start solving challenges or finding talented contributors') }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Join Mindova to start solving challenges or finding talented contributors') }}</p>
                 </div>
 
                 <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
@@ -223,9 +201,9 @@
 
                     <!-- Login Link -->
                     <div class="text-center pt-2">
-                        <p class="text-sm" style="color:#6B7280;">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
                             {{ __('Already have an account?') }}
-                            <a href="{{ route('login') }}" class="font-semibold" style="color:#5A3DEB;">
+                            <a href="{{ route('login') }}" class="font-semibold text-primary-600 hover:text-primary-700">
                                 {{ __('Sign in') }}
                             </a>
                         </p>
@@ -236,17 +214,17 @@
             <!-- Trust Indicators -->
             <div class="mt-4">
                 <div class="grid grid-cols-3 gap-3">
-                    <div class="text-center p-3 rounded-xl" style="background:#ffffff;border:1px solid #E4E6EB;">
-                        <div class="text-xl font-bold mb-0.5" style="color:#5A3DEB;">450+</div>
-                        <div class="text-xs" style="color:#6B7280;">{{ __('Contributors') }}</div>
+                    <div class="text-center p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <div class="text-xl font-bold mb-0.5 text-primary-600">450+</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ __('Contributors') }}</div>
                     </div>
-                    <div class="text-center p-3 rounded-xl" style="background:#ffffff;border:1px solid #E4E6EB;">
-                        <div class="text-xl font-bold mb-0.5" style="color:#5A3DEB;">85%</div>
-                        <div class="text-xs" style="color:#6B7280;">{{ __('Success Rate') }}</div>
+                    <div class="text-center p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <div class="text-xl font-bold mb-0.5 text-primary-600">85%</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ __('Success Rate') }}</div>
                     </div>
-                    <div class="text-center p-3 rounded-xl" style="background:#ffffff;border:1px solid #E4E6EB;">
-                        <div class="text-xl font-bold mb-0.5" style="color:#5A3DEB;">100%</div>
-                        <div class="text-xs" style="color:#6B7280;">{{ __('Secure') }}</div>
+                    <div class="text-center p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <div class="text-xl font-bold mb-0.5 text-primary-600">100%</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ __('Secure') }}</div>
                     </div>
                 </div>
             </div>
