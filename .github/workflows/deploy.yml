@@ -9,6 +9,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: TEMP DEBUG - check secret presence (values never printed)
+        run: |
+          check() {
+            name="$1"; val="$2"
+            if [ -z "$val" ]; then
+              echo "::error::$name is EMPTY or NOT SET"
+            else
+              echo "::notice::$name is SET (length ${#val})"
+            fi
+          }
+          check "CPANEL_HOSTNAME" "${{ secrets.CPANEL_HOSTNAME }}"
+          check "CPANEL_USERNAME" "${{ secrets.CPANEL_USERNAME }}"
+          check "CPANEL_TOKEN" "${{ secrets.CPANEL_TOKEN }}"
+          check "CPANEL_REPO_ROOT" "${{ secrets.CPANEL_REPO_ROOT }}"
+
       - name: Trigger cPanel git pull + .cpanel.yml deployment
         uses: pinkasey/cpanel-deploy-action@v1.0.0
         with:
