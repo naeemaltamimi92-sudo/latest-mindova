@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api\Mobile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Mobile\ActiveTaskAssignmentResource;
+use App\Http\Resources\Mobile\CompanyDashboardChallengeResource;
+use App\Http\Resources\Mobile\PendingAssignmentResource;
 use App\Models\Challenge;
 use App\Models\Task;
 use App\Models\TaskAssignment;
@@ -43,20 +46,7 @@ class MobileDashboardController extends Controller
             ->latest()
             ->take(5)
             ->get()
-            ->map(fn($a) => [
-                'id'          => $a->id,
-                'match_score' => $a->match_score,
-                'task'        => [
-                    'id'              => $a->task->id,
-                    'title'           => $a->task->title,
-                    'description'     => $a->task->description,
-                    'estimated_hours' => $a->task->estimated_hours,
-                    'challenge'       => [
-                        'id'    => $a->task->challenge->id,
-                        'title' => $a->task->challenge->title,
-                    ],
-                ],
-            ]);
+            ->map(fn($a) => (new PendingAssignmentResource($a))->resolve());
 
         $activeTasks = TaskAssignment::where('volunteer_id', $volunteer->id)
             ->whereIn('invitation_status', ['accepted', 'in_progress'])
@@ -64,18 +54,7 @@ class MobileDashboardController extends Controller
             ->latest()
             ->take(5)
             ->get()
-            ->map(fn($a) => [
-                'id'     => $a->id,
-                'status' => $a->invitation_status,
-                'task'   => [
-                    'id'        => $a->task->id,
-                    'title'     => $a->task->title,
-                    'challenge' => [
-                        'id'    => $a->task->challenge->id,
-                        'title' => $a->task->challenge->title,
-                    ],
-                ],
-            ]);
+            ->map(fn($a) => (new ActiveTaskAssignmentResource($a))->resolve());
 
         $completedCount  = TaskAssignment::where('volunteer_id', $volunteer->id)
             ->where('invitation_status', 'completed')->count();
@@ -110,14 +89,7 @@ class MobileDashboardController extends Controller
             ->latest()
             ->take(5)
             ->get()
-            ->map(fn($c) => [
-                'id'          => $c->id,
-                'title'       => $c->title,
-                'status'      => $c->status,
-                'description' => str($c->refined_brief ?? $c->original_description)->limit(120)->toString(),
-                'created_at'  => $c->created_at,
-                'task_count'  => $c->tasks()->count(),
-            ]);
+            ->map(fn($c) => (new CompanyDashboardChallengeResource($c))->resolve());
 
         $unreadCount = Notification::where('user_id', $user->id)->where('is_read', false)->count();
 
