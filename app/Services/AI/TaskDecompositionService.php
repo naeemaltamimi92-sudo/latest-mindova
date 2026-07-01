@@ -233,67 +233,69 @@ SYSTEM;
      */
     public function storeResults(Challenge $challenge, array $decomposition): void
     {
-        // Create challenge analysis record for stage 3
-        ChallengeAnalysis::create([
-            'challenge_id' => $challenge->id,
-            'stage' => 'decomposition',
-            'objectives' => null,
-            'constraints' => null,
-            'success_criteria' => null,
-            'confidence_score' => $decomposition['confidence_score'],
-            'validation_status' => $this->meetsConfidenceThreshold($decomposition['confidence_score'])
-                ? 'passed'
-                : 'needs_review',
-            'requires_human_review' => !$this->meetsConfidenceThreshold($decomposition['confidence_score']),
-            'validation_errors' => isset($decomposition['validation_notes']) && !empty($decomposition['validation_notes'])
-                ? ['notes' => $decomposition['validation_notes']]
-                : null,
-        ]);
-
-        // Create workstreams and tasks
-        foreach ($decomposition['workstreams'] as $workstreamData) {
-            $workstream = Workstream::create([
+        \DB::transaction(function () use ($challenge, $decomposition) {
+            // Create challenge analysis record for stage 3
+            ChallengeAnalysis::create([
                 'challenge_id' => $challenge->id,
-                'title' => $workstreamData['title'],
-                'description' => $workstreamData['description'],
-                'objectives' => $workstreamData['objectives'],
-                'dependencies' => $workstreamData['dependencies'] ?? null,
-                'status' => 'pending',
+                'stage' => 'decomposition',
+                'objectives' => null,
+                'constraints' => null,
+                'success_criteria' => null,
+                'confidence_score' => $decomposition['confidence_score'],
+                'validation_status' => $this->meetsConfidenceThreshold($decomposition['confidence_score'])
+                    ? 'passed'
+                    : 'needs_review',
+                'requires_human_review' => !$this->meetsConfidenceThreshold($decomposition['confidence_score']),
+                'validation_errors' => isset($decomposition['validation_notes']) && !empty($decomposition['validation_notes'])
+                    ? ['notes' => $decomposition['validation_notes']]
+                    : null,
             ]);
 
-            // Create tasks for this workstream
-            foreach ($workstreamData['tasks'] as $taskData) {
-                // Require all critical fields - no dangerous defaults
-                if (!isset($taskData['required_experience_level'])) {
-                    throw new \Exception("Task '{$taskData['title']}' is missing required_experience_level");
-                }
-                if (!isset($taskData['complexity_score'])) {
-                    throw new \Exception("Task '{$taskData['title']}' is missing complexity_score");
-                }
-
-                $taskAttributes = [
+            // Create workstreams and tasks
+            foreach ($decomposition['workstreams'] as $workstreamData) {
+                $workstream = Workstream::create([
                     'challenge_id' => $challenge->id,
-                    'workstream_id' => $workstream->id,
-                    'title' => $taskData['title'],
-                    'description' => $taskData['description'],
-                    'required_skills' => $taskData['required_skills'],
-                    'required_experience_level' => $taskData['required_experience_level'],
-                    'expected_output' => $taskData['expected_output'] ?? 'Completed task deliverable',
-                    'acceptance_criteria' => $taskData['acceptance_criteria'] ?? [],
-                    'estimated_hours' => $taskData['estimated_hours'],
-                    'complexity_score' => $taskData['complexity_score'],
+                    'title' => $workstreamData['title'],
+                    'description' => $workstreamData['description'],
+                    'objectives' => $workstreamData['objectives'],
+                    'dependencies' => $workstreamData['dependencies'] ?? null,
                     'status' => 'pending',
-                ];
+                ]);
 
-                \Log::info('Creating task with attributes', $taskAttributes);
-                Task::create($taskAttributes);
+                // Create tasks for this workstream
+                foreach ($workstreamData['tasks'] as $taskData) {
+                    // Require all critical fields - no dangerous defaults
+                    if (!isset($taskData['required_experience_level'])) {
+                        throw new \Exception("Task '{$taskData['title']}' is missing required_experience_level");
+                    }
+                    if (!isset($taskData['complexity_score'])) {
+                        throw new \Exception("Task '{$taskData['title']}' is missing complexity_score");
+                    }
+
+                    $taskAttributes = [
+                        'challenge_id' => $challenge->id,
+                        'workstream_id' => $workstream->id,
+                        'title' => $taskData['title'],
+                        'description' => $taskData['description'],
+                        'required_skills' => $taskData['required_skills'],
+                        'required_experience_level' => $taskData['required_experience_level'],
+                        'expected_output' => $taskData['expected_output'] ?? 'Completed task deliverable',
+                        'acceptance_criteria' => $taskData['acceptance_criteria'] ?? [],
+                        'estimated_hours' => $taskData['estimated_hours'],
+                        'complexity_score' => $taskData['complexity_score'],
+                        'status' => 'pending',
+                    ];
+
+                    \Log::info('Creating task with attributes', $taskAttributes);
+                    Task::create($taskAttributes);
+                }
             }
-        }
 
-        // Update challenge status to active
-        $challenge->update(['status' => 'active']);
+            // Update challenge status to active
+            $challenge->update(['status' => 'active']);
+        });
 
-        // Dispatch volunteer matching job
+        // Dispatch volunteer matching job only after the transaction commits
         MatchVolunteersToTasks::dispatch($challenge);
     }
 }

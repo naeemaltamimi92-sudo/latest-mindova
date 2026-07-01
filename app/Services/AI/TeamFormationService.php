@@ -224,44 +224,46 @@ PROMPT;
      */
     public function createTeamsFromAIResponse(Challenge $challenge, array $teamFormationData): Collection
     {
-        $createdTeams = collect();
+        return \DB::transaction(function () use ($challenge, $teamFormationData) {
+            $createdTeams = collect();
 
-        foreach ($teamFormationData['teams'] as $teamData) {
-            $teamMatchScore = $teamData['team_match_score'] ?? null;
+            foreach ($teamFormationData['teams'] as $teamData) {
+                $teamMatchScore = $teamData['team_match_score'] ?? null;
 
-            if ($teamMatchScore !== null && ($teamMatchScore < 0 || $teamMatchScore > 100)) {
-                throw new \Exception("Invalid team_match_score: must be 0-100, got {$teamMatchScore}");
-            }
+                if ($teamMatchScore !== null && ($teamMatchScore < 0 || $teamMatchScore > 100)) {
+                    throw new \Exception("Invalid team_match_score: must be 0-100, got {$teamMatchScore}");
+                }
 
-            // Create team
-            $team = Team::create([
-                'challenge_id' => $challenge->id,
-                'name' => $teamData['name'],
-                'description' => $teamData['description'],
-                'status' => 'forming',
-                'leader_id' => $teamData['leader_volunteer_id'],
-                'objectives' => $teamData['objectives'] ?? [],
-                'skills_coverage' => $teamData['skills_coverage'] ?? [],
-                'team_match_score' => $teamMatchScore,
-                'estimated_total_hours' => $teamData['estimated_total_hours'] ?? null,
-            ]);
-
-            // Create team members
-            foreach ($teamData['members'] as $memberData) {
-                TeamMember::create([
-                    'team_id' => $team->id,
-                    'volunteer_id' => $memberData['volunteer_id'],
-                    'role' => $memberData['role'],
-                    'status' => 'invited',
-                    'role_description' => $memberData['role_description'] ?? null,
-                    'assigned_skills' => $memberData['assigned_skills'] ?? [],
-                    'invited_at' => now(),
+                // Create team
+                $team = Team::create([
+                    'challenge_id' => $challenge->id,
+                    'name' => $teamData['name'],
+                    'description' => $teamData['description'],
+                    'status' => 'forming',
+                    'leader_id' => $teamData['leader_volunteer_id'],
+                    'objectives' => $teamData['objectives'] ?? [],
+                    'skills_coverage' => $teamData['skills_coverage'] ?? [],
+                    'team_match_score' => $teamMatchScore,
+                    'estimated_total_hours' => $teamData['estimated_total_hours'] ?? null,
                 ]);
+
+                // Create team members
+                foreach ($teamData['members'] as $memberData) {
+                    TeamMember::create([
+                        'team_id' => $team->id,
+                        'volunteer_id' => $memberData['volunteer_id'],
+                        'role' => $memberData['role'],
+                        'status' => 'invited',
+                        'role_description' => $memberData['role_description'] ?? null,
+                        'assigned_skills' => $memberData['assigned_skills'] ?? [],
+                        'invited_at' => now(),
+                    ]);
+                }
+
+                $createdTeams->push($team);
             }
 
-            $createdTeams->push($team);
-        }
-
-        return $createdTeams;
+            return $createdTeams;
+        });
     }
 }
