@@ -532,10 +532,10 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(ctx1, {
         type: 'line',
         data: {
-            labels: {!! json_encode($challengesOverTime->pluck('date')) !!},
+            labels: {!! json_encode($challengesOverTime->pluck('date'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) !!},
             datasets: [{
                 label: '{{ __("Challenges") }}',
-                data: {!! json_encode($challengesOverTime->pluck('count')) !!},
+                data: {!! json_encode($challengesOverTime->pluck('count'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) !!},
                 borderColor: chartPrimary,
                 backgroundColor: gradient1,
                 borderWidth: 3,
@@ -580,9 +580,9 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(document.getElementById('statusDistributionChart'), {
         type: 'doughnut',
         data: {
-            labels: {!! json_encode($statusDistribution->pluck('status')->map(fn($s) => __(ucfirst($s)))) !!},
+            labels: {!! json_encode($statusDistribution->pluck('status')->map(fn($s) => __(ucfirst($s))), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) !!},
             datasets: [{
-                data: {!! json_encode($statusDistribution->pluck('count')) !!},
+                data: {!! json_encode($statusDistribution->pluck('count'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) !!},
                 backgroundColor: [
                     chartAmber,
                     chartBlue,
@@ -625,10 +625,10 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(ctx3, {
         type: 'bar',
         data: {
-            labels: {!! json_encode($completionStats->pluck('month')) !!},
+            labels: {!! json_encode($completionStats->pluck('month'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) !!},
             datasets: [{
                 label: '{{ __("Total") }}',
-                data: {!! json_encode($completionStats->pluck('total')) !!},
+                data: {!! json_encode($completionStats->pluck('total'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) !!},
                 backgroundColor: chartPrimary.replace('rgb', 'rgba').replace(')', ', 0.8)'),
                 borderColor: chartPrimary,
                 borderWidth: 0,
@@ -636,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 barThickness: 20
             }, {
                 label: '{{ __("Completed") }}',
-                data: {!! json_encode($completionStats->pluck('completed')) !!},
+                data: {!! json_encode($completionStats->pluck('completed'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) !!},
                 backgroundColor: chartSuccess.replace('rgb', 'rgba').replace(')', ', 0.8)'),
                 borderColor: chartSuccess,
                 borderWidth: 0,

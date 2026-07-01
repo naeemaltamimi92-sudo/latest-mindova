@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate;
 use App\Models\Company;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,7 @@ class AdminCompanyController extends Controller
 
         // Count certificates issued for all challenges of this company
         $challengeIds = $company->challenges()->pluck('id');
-        $certificatesIssued = \App\Models\Certificate::whereIn('challenge_id', $challengeIds)->count();
+        $certificatesIssued = Certificate::whereIn('challenge_id', $challengeIds)->count();
 
         $stats = [
             'total_challenges' => $company->challenges()->count(),

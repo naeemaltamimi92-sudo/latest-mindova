@@ -18,6 +18,18 @@ return new class extends Migration
 
     public function down(): void
     {
+        // Guard against narrowing back to TINYINT (max 255) if any row
+        // accumulated more attempts than that while the wider column was
+        // live - that's the exact overflow up() exists to prevent, so
+        // silently truncating it back on rollback would reintroduce the bug.
+        $overflowing = \DB::table('jobs')->where('attempts', '>', 255)->count();
+
+        if ($overflowing > 0) {
+            throw new \RuntimeException(
+                "Cannot roll back: {$overflowing} job(s) have attempts > 255, which would overflow TINYINT UNSIGNED."
+            );
+        }
+
         Schema::table('jobs', function (Blueprint $table) {
             $table->unsignedTinyInteger('attempts')->default(0)->change();
         });

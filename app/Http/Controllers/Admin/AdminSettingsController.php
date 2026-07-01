@@ -469,16 +469,22 @@ class AdminSettingsController extends Controller
         $imported = 0;
         $skipped = 0;
 
-        foreach ($request->settings as $key => $data) {
-            $setting = SiteSetting::where('key', $key)->first();
+        // Pre-fetch which keys actually exist in one query instead of a
+        // where()->first() per key (SiteSetting::set() below does its own
+        // existence check too, but this avoids doubling that N+1).
+        $existingKeys = SiteSetting::whereIn('key', array_keys($request->settings))
+            ->pluck('key')
+            ->flip();
 
-            if ($setting) {
-                $value = is_array($data) ? ($data['value'] ?? $data) : $data;
-                SiteSetting::set($key, $value);
-                $imported++;
-            } else {
+        foreach ($request->settings as $key => $data) {
+            if (!isset($existingKeys[$key])) {
                 $skipped++;
+                continue;
             }
+
+            $value = is_array($data) ? ($data['value'] ?? $data) : $data;
+            SiteSetting::set($key, $value);
+            $imported++;
         }
 
         SiteSetting::clearCache();
@@ -584,9 +590,11 @@ class AdminSettingsController extends Controller
             ]);
         }
 
-        $settings = SiteSetting::where('key', 'like', "%{$query}%")
-            ->orWhere('label', 'like', "%{$query}%")
-            ->orWhere('description', 'like', "%{$query}%")
+        $settings = SiteSetting::where(function ($q) use ($query) {
+                $q->where('key', 'like', "%{$query}%")
+                  ->orWhere('label', 'like', "%{$query}%")
+                  ->orWhere('description', 'like', "%{$query}%");
+            })
             ->limit(20)
             ->get()
             ->map(function ($setting) {
