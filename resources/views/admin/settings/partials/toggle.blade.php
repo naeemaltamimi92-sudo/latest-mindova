@@ -26,12 +26,12 @@
             });
         "
         :class="enabled ? '{{ $color }}' : 'bg-slate-300'"
-        class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50"
+        class="relative inline-flex h-7 w-14 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
         :disabled="loading"
     >
         <span
             :class="enabled ? 'ltr:translate-x-6 rtl:-translate-x-6' : 'translate-x-0'"
-            class="pointer-events-none relative inline-block h-7 w-7 transform rounded-full bg-white shadow-lg ring-0-out"
+            class="pointer-events-none relative inline-block h-6 w-6 transform rounded-full bg-white shadow-sm transition-transform"
         >
             <span
                 :class="enabled ? 'opacity-0' : 'opacity-100'"
