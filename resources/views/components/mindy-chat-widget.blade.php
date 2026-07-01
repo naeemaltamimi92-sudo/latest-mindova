@@ -1,5 +1,5 @@
 @auth
-<div x-data="mindyChat()" x-init="init()" class="fixed bottom-4 {{ app()->getLocale() === 'ar' ? 'left-4' : 'right-4' }} z-40">
+<div x-data="mindyChat()" x-init="init()" class="fixed bottom-4 left-4 z-40">
     {{-- Launcher bubble --}}
     <button
         x-show="!open"
