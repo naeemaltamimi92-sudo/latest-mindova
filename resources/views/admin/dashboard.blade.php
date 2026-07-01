@@ -52,7 +52,7 @@
     ];
     @endphp
     @foreach($primaryStats as $i => $stat)
-    <div class="adm-stat adm-reveal" style="transition-delay: {{ $i * 60 }}ms">
+    <div class="adm-stat adm-reveal" style="animation-delay: {{ $i * 60 }}ms">
         <div class="flex items-start justify-between mb-4">
             <div class="h-11 w-11 rounded-xl bg-gradient-to-br {{ $stat['color'] }} flex items-center justify-center shadow-lg">
                 <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +78,7 @@
     ];
     @endphp
     @foreach($secondaryStats as $i => $s)
-    <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-gray-100 dark:border-slate-700 hover:shadow-md transition adm-reveal" style="transition-delay: {{ ($i + 4) * 60 }}ms">
+    <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-gray-100 dark:border-slate-700 hover:shadow-md transition adm-reveal" style="animation-delay: {{ ($i + 4) * 60 }}ms">
         <div class="flex items-center gap-3">
             <div class="h-10 w-10 rounded-xl {{ $s['icon_bg'] }} flex items-center justify-center flex-shrink-0">
                 <svg class="h-5 w-5 {{ $s['icon_color'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -304,100 +304,43 @@
 
     {{-- Section header --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 adm-reveal">
-        <div class="flex items-center gap-3">
-            <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700/40">
-                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">{{ __('Live') }}</span>
-            </div>
-            <div>
-                <h3 class="text-base font-black text-gray-900 dark:text-white leading-tight">{{ __('Activity Center') }}</h3>
-                <p class="text-xs text-gray-400 dark:text-gray-500">{{ __('Engineering command center — real-time platform pulse') }}</p>
-            </div>
+        <div>
+            <h3 class="text-base font-black text-gray-900 dark:text-white leading-tight">{{ __('Activity Center') }}</h3>
+            <p class="text-xs text-gray-400 dark:text-gray-500">{{ __('Recent platform activity') }}</p>
         </div>
-        <div class="flex items-center gap-2">
-            <span id="ac-last-updated" class="text-xs text-gray-400 dark:text-gray-500">{{ __('Updated just now') }}</span>
-            <button onclick="AC.refresh()" id="ac-refresh-btn"
-                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-600 dark:text-gray-300 text-xs font-semibold hover:border-violet-300 hover:text-violet-600 dark:hover:text-violet-400 transition">
-                <svg id="ac-refresh-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                </svg>
-                {{ __('Refresh') }}
-            </button>
-        </div>
+        <button onclick="location.reload()"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-600 dark:text-gray-300 text-xs font-semibold hover:border-violet-300 hover:text-violet-600 dark:hover:text-violet-400 transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+            {{ __('Refresh') }}
+        </button>
     </div>
 
-    {{-- Live pulse stats --}}
+    {{-- Platform stats --}}
     <div class="ac-stats-grid mb-5 adm-reveal">
-        <div class="ac-pulse-stat" style="--ac-color:#10b981">
-            <div class="ac-pulse-stat-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        @php
+        $pulseStats = [
+            ['label' => __('Contributors'), 'value' => $stats['total_volunteers'], 'color' => '#10b981', 'grad' => 'linear-gradient(135deg,#10b981,#059669)', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z'],
+            ['label' => __('Companies'), 'value' => $stats['total_companies'], 'color' => '#3b82f6', 'grad' => 'linear-gradient(135deg,#3b82f6,#0ea5e9)', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5'],
+            ['label' => __('Active Challenges'), 'value' => $stats['active_challenges'], 'color' => '#8b5cf6', 'grad' => 'linear-gradient(135deg,#8b5cf6,#5a3deb)', 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
+            ['label' => __('Total Tasks'), 'value' => $stats['total_tasks'] ?? 0, 'color' => '#f59e0b', 'grad' => 'linear-gradient(135deg,#f59e0b,#d97706)', 'icon' => 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01'],
+            ['label' => __('Certificates Issued'), 'value' => $stats['total_certificates'], 'color' => '#14b8a6', 'grad' => 'linear-gradient(135deg,#14b8a6,#0d9488)', 'icon' => 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z'],
+            ['label' => __('Completed Tasks'), 'value' => $stats['completed_tasks'], 'color' => '#a855f7', 'grad' => 'linear-gradient(135deg,#a855f7,#7c3aed)', 'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
+            ['label' => __('Total Users'), 'value' => $stats['total_users'], 'color' => '#06b6d4', 'grad' => 'linear-gradient(135deg,#06b6d4,#0891b2)', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'],
+        ];
+        @endphp
+        @foreach($pulseStats as $i => $ps)
+        <div class="ac-pulse-stat" style="--ac-color:{{ $ps['color'] }}">
+            <div class="ac-pulse-stat-icon" style="background:{{ $ps['grad'] }}">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $ps['icon'] }}"/></svg>
             </div>
             <div class="flex-1 min-w-0">
-                <p class="ac-pulse-num" data-target="24" id="ac-stat-0">0</p>
-                <p class="ac-pulse-label">{{ __('Experts Online') }}</p>
+                <p class="ac-pulse-num" data-target="{{ $ps['value'] }}" id="ac-stat-{{ $i }}">0</p>
+                <p class="ac-pulse-label">{{ $ps['label'] }}</p>
             </div>
-            <span class="ac-live-dot" style="background:#10b981"></span>
         </div>
-        <div class="ac-pulse-stat" style="--ac-color:#3b82f6">
-            <div class="ac-pulse-stat-icon" style="background:linear-gradient(135deg,#3b82f6,#0ea5e9)">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="ac-pulse-num" data-target="8" id="ac-stat-1">0</p>
-                <p class="ac-pulse-label">{{ __('Companies Active') }}</p>
-            </div>
-            <span class="ac-live-dot" style="background:#3b82f6"></span>
-        </div>
-        <div class="ac-pulse-stat" style="--ac-color:#8b5cf6">
-            <div class="ac-pulse-stat-icon" style="background:linear-gradient(135deg,#8b5cf6,#5a3deb)">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="ac-pulse-num" data-target="31" id="ac-stat-2">0</p>
-                <p class="ac-pulse-label">{{ __('In Progress') }}</p>
-            </div>
-            <span class="ac-live-dot" style="background:#8b5cf6"></span>
-        </div>
-        <div class="ac-pulse-stat" style="--ac-color:#f59e0b">
-            <div class="ac-pulse-stat-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="ac-pulse-num" data-target="12" id="ac-stat-3">0</p>
-                <p class="ac-pulse-label">{{ __('Under Review') }}</p>
-            </div>
-            <span class="ac-live-dot" style="background:#f59e0b"></span>
-        </div>
-        <div class="ac-pulse-stat" style="--ac-color:#14b8a6">
-            <div class="ac-pulse-stat-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="ac-pulse-num" data-target="5" id="ac-stat-4">0</p>
-                <p class="ac-pulse-label">{{ __('Certs Today') }}</p>
-            </div>
-            <span class="ac-live-dot" style="background:#14b8a6"></span>
-        </div>
-        <div class="ac-pulse-stat" style="--ac-color:#a855f7">
-            <div class="ac-pulse-stat-icon" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="ac-pulse-num" data-target="47" id="ac-stat-5">0</p>
-                <p class="ac-pulse-label">{{ __('AI Analyses') }}</p>
-            </div>
-            <span class="ac-live-dot" style="background:#a855f7"></span>
-        </div>
-        <div class="ac-pulse-stat" style="--ac-color:#06b6d4">
-            <div class="ac-pulse-stat-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="ac-pulse-num" data-target="183" id="ac-stat-6">0</p>
-                <p class="ac-pulse-label">{{ __('Community Online') }}</p>
-            </div>
-            <span class="ac-live-dot" style="background:#06b6d4"></span>
-        </div>
+        @endforeach
     </div>
 
     {{-- Feed container --}}
@@ -407,65 +350,57 @@
         <div class="px-5 py-3 border-b border-gray-100 dark:border-slate-700 flex items-center gap-2 overflow-x-auto" style="scrollbar-width:none;-webkit-overflow-scrolling:touch">
             <span class="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 flex-shrink-0 pr-2">{{ __('Filter') }}</span>
             <div class="flex items-center gap-1.5 flex-nowrap">
-                <button onclick="AC.setFilter('all')"         data-filter="all"         class="ac-filter-btn ac-active">{{ __('All') }}</button>
-                <button onclick="AC.setFilter('company')"     data-filter="company"     class="ac-filter-btn">{{ __('Companies') }}</button>
-                <button onclick="AC.setFilter('expert')"      data-filter="expert"      class="ac-filter-btn">{{ __('Experts') }}</button>
-                <button onclick="AC.setFilter('community')"   data-filter="community"   class="ac-filter-btn">{{ __('Community') }}</button>
-                <button onclick="AC.setFilter('ai')"          data-filter="ai"          class="ac-filter-btn">{{ __('AI') }}</button>
-                <button onclick="AC.setFilter('certificate')" data-filter="certificate" class="ac-filter-btn">{{ __('Certificates') }}</button>
-                <button onclick="AC.setFilter('challenge')"   data-filter="challenge"   class="ac-filter-btn">{{ __('Challenges') }}</button>
+                <button onclick="acSetFilter('all')"         data-filter="all"         class="ac-filter-btn ac-active">{{ __('All') }}</button>
+                <button onclick="acSetFilter('challenge')"   data-filter="challenge"   class="ac-filter-btn">{{ __('Challenges') }}</button>
+                <button onclick="acSetFilter('certificate')" data-filter="certificate" class="ac-filter-btn">{{ __('Certificates') }}</button>
+                <button onclick="acSetFilter('task')"        data-filter="task"        class="ac-filter-btn">{{ __('Tasks') }}</button>
             </div>
         </div>
 
-        {{-- Skeleton loader --}}
-        <div id="ac-skeleton" class="divide-y divide-gray-50 dark:divide-slate-700/60">
-            @for ($sk = 0; $sk < 4; $sk++)
-            <div class="flex items-center gap-4 px-5 py-4">
-                <div class="ac-skel w-10 h-10 rounded-full flex-shrink-0"></div>
-                <div class="flex-1 space-y-2">
-                    <div class="ac-skel h-3 rounded-lg" style="width:{{ 120 + $sk * 30 }}px"></div>
-                    <div class="ac-skel h-3 rounded-lg" style="width:{{ 220 + $sk * 20 }}px"></div>
-                    <div class="ac-skel h-3 rounded-lg" style="width:{{ 90 + $sk * 10 }}px"></div>
+        {{-- Activity feed (server-rendered, real data) --}}
+        <div id="ac-feed" class="divide-y divide-gray-50 dark:divide-slate-700/60">
+            @forelse($activityFeed as $item)
+            @php
+            $acIcons = [
+                'challenge'   => ['bg' => 'from-violet-600 to-indigo-600', 'path' => 'M13 10V3L4 14h7v7l9-11h-7z'],
+                'certificate' => ['bg' => 'from-amber-500 to-yellow-500', 'path' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
+                'task'        => ['bg' => 'from-emerald-500 to-teal-600', 'path' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
+            ];
+            $acIcon = $acIcons[$item['type']] ?? $acIcons['challenge'];
+            @endphp
+            <div class="ac-card flex items-start gap-4 px-5 py-4" data-type="{{ $item['type'] }}">
+                <div class="relative flex-shrink-0">
+                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br {{ $acIcon['bg'] }} flex items-center justify-center shadow-sm">
+                        <span class="text-white font-black text-sm">{{ strtoupper(substr($item['actor_name'], 0, 2)) }}</span>
+                    </div>
                 </div>
-                <div class="ac-skel h-6 w-20 rounded-lg flex-shrink-0"></div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between gap-2 flex-wrap">
+                        <div>
+                            <span class="font-bold text-gray-900 dark:text-white text-sm">{{ $item['actor_name'] }}</span>
+                            <span class="text-gray-300 dark:text-gray-600 mx-1.5">&bull;</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">{{ $item['actor_role'] }}</span>
+                        </div>
+                        <span class="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">{{ $item['created_at']->diffForHumans() }}</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1 leading-snug">
+                        {{ $item['verb'] }} <span class="font-semibold text-gray-800 dark:text-white">&ldquo;{{ $item['title'] }}&rdquo;</span>
+                    </p>
+                    @if($item['url'])
+                    <a href="{{ $item['url'] }}" class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold hover:underline inline-flex items-center gap-1 mt-2">
+                        {{ __('View') }} <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    @endif
+                </div>
             </div>
-            @endfor
-        </div>
-
-        {{-- Activity feed --}}
-        <div id="ac-feed" class="hidden divide-y divide-gray-50 dark:divide-slate-700/60"></div>
-
-        {{-- Empty state --}}
-        <div id="ac-empty" class="hidden py-14 text-center">
-            <div class="h-12 w-12 rounded-2xl bg-gray-100 dark:bg-slate-700 flex items-center justify-center mx-auto mb-3">
-                <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            @empty
+            <div class="py-14 text-center">
+                <div class="h-12 w-12 rounded-2xl bg-gray-100 dark:bg-slate-700 flex items-center justify-center mx-auto mb-3">
+                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">{{ __('No activity yet') }}</p>
             </div>
-            <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">{{ __('No activities found') }}</p>
-            <p class="text-xs text-gray-400 mt-1">{{ __('Try a different filter') }}</p>
-        </div>
-
-        {{-- Load more --}}
-        <div id="ac-loadmore" class="hidden px-5 py-4 border-t border-gray-100 dark:border-slate-700 text-center">
-            <button onclick="AC.loadMore()"
-                    class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/60 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-300 text-sm font-semibold hover:bg-violet-50 dark:hover:bg-violet-900/20 hover:border-violet-200 hover:text-violet-600 dark:hover:text-violet-400 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                {{ __('Load More Activities') }}
-            </button>
-        </div>
-    </div>
-</div>
-
-{{-- Live-activity toast (bottom-right) --}}
-<div id="ac-toast" class="fixed bottom-6 right-6 z-[60] w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-violet-100 dark:border-violet-900/40 p-4 pointer-events-none"
-     style="transform:translateY(120px);opacity:0;transition:transform 0.45s cubic-bezier(.4,0,.2,1),opacity 0.45s ease">
-    <div class="flex items-start gap-3">
-        <div class="h-8 w-8 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center flex-shrink-0 relative">
-            <span class="absolute h-8 w-8 rounded-xl bg-violet-500 opacity-30 animate-ping"></span>
-            <span class="h-2 w-2 rounded-full bg-white relative"></span>
-        </div>
-        <div class="flex-1 min-w-0">
-            <p class="text-[10px] font-black text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-0.5">{{ __('New Activity') }}</p>
-            <p id="ac-toast-msg" class="text-sm text-gray-700 dark:text-gray-300 leading-snug"></p>
+            @endforelse
         </div>
     </div>
 </div>
@@ -569,253 +504,26 @@ html.dark .ac-skel {
 
 @push('scripts')
 <script>
-const AC = (() => {
-    const PAGE = 8;
-    let filter = 'all', visible = PAGE;
-
-    const ICONS = {
-        ai:          '<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"/></svg>',
-        company:     '<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg>',
-        expert:      '<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>',
-        community:   '<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V10a2 2 0 012-2h6z"/></svg>',
-        certificate: '<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
-        challenge:   '<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
-    };
-    const ICON_BG = {
-        ai:'from-purple-500 to-violet-600', company:'from-blue-500 to-cyan-600',
-        expert:'from-emerald-500 to-teal-600', community:'from-teal-500 to-cyan-600',
-        certificate:'from-amber-500 to-yellow-500', challenge:'from-violet-600 to-indigo-600',
-    };
-    const BADGE = {
-        live:    'text-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 dark:text-emerald-400',
-        active:  'text-blue-700 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400',
-        review:  'text-amber-700 bg-amber-50 dark:bg-amber-900/30 dark:text-amber-400',
-        ai:      'text-purple-700 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-400',
-        done:    'text-indigo-700 bg-indigo-50 dark:bg-indigo-900/30 dark:text-indigo-400',
-        cert:    'text-teal-700 bg-teal-50 dark:bg-teal-900/30 dark:text-teal-400',
-        submit:  'text-sky-700 bg-sky-50 dark:bg-sky-900/30 dark:text-sky-400',
-    };
-
-    let DATA = [
-        // AI
-        {id:1,  type:'ai',          actor:{name:'Mindova AI',      role:'AI Engine',          initials:'AI', grad:'from-purple-500 to-violet-600'}, verb:'completed analysis of',           meta:'Confidence: 94% · 1,247 tokens processed',            challenge:'Predictive Maintenance System',  badge:'ai',     status:'AI Processing', min:2  },
-        {id:2,  type:'ai',          actor:{name:'Mindova AI',      role:'AI Engine',          initials:'AI', grad:'from-purple-500 to-violet-600'}, verb:'generated insights for',           meta:'Score: 8.7/10 · 12 recommendations produced',         challenge:'Smart Grid Optimization',        badge:'ai',     status:'AI Processing', min:18 },
-        {id:3,  type:'ai',          actor:{name:'Mindova AI',      role:'AI Engine',          initials:'AI', grad:'from-purple-500 to-violet-600'}, verb:'started analyzing',                meta:'Processing submission #47',                            challenge:'Carbon Capture Analytics',       badge:'ai',     status:'AI Processing', min:34 },
-        {id:4,  type:'ai',          actor:{name:'Mindova AI',      role:'AI Engine',          initials:'AI', grad:'from-purple-500 to-violet-600'}, verb:'matched volunteers for',           meta:'23 experts evaluated · Top match: 96% fit',           challenge:'Industrial IoT Platform',        badge:'done',   status:'Completed',     min:51 },
-        {id:5,  type:'ai',          actor:{name:'Mindova AI',      role:'AI Engine',          initials:'AI', grad:'from-purple-500 to-violet-600'}, verb:'decomposed tasks for',             meta:'7 tasks created · Estimated 42 hours total',          challenge:'Digital Twin Architecture',      badge:'done',   status:'Completed',     min:89 },
-        // Company
-        {id:6,  type:'company',     actor:{name:'Siemens Energy',  role:'Enterprise Company', initials:'SE', grad:'from-blue-500 to-cyan-600'},    verb:'published a new challenge',        meta:'Budget: $15,000 · Deadline: 45 days',                 challenge:'Smart Grid Optimization',        badge:'live',   status:'Live',          min:5  },
-        {id:7,  type:'company',     actor:{name:'SABIC',           role:'Enterprise Company', initials:'SA', grad:'from-blue-600 to-indigo-600'},  verb:'accepted the final solution for',  meta:'Rating: 9.4/10 · Full budget released',               challenge:'Carbon Capture Analytics',       badge:'done',   status:'Completed',     min:23 },
-        {id:8,  type:'company',     actor:{name:'ABB Technologies', role:'Enterprise Company', initials:'AB', grad:'from-sky-500 to-blue-600'},    verb:'published a new challenge',        meta:'Budget: $8,500 · Deadline: 30 days',                  challenge:'Autonomous Quality Control',     badge:'live',   status:'Live',          min:47 },
-        {id:9,  type:'company',     actor:{name:'General Electric', role:'Enterprise Company', initials:'GE', grad:'from-blue-700 to-violet-600'}, verb:'requested a revision for',         meta:'Feedback: 3 points to address',                       challenge:'Predictive Maintenance System',  badge:'review', status:'Reviewing',     min:72 },
-        {id:10, type:'company',     actor:{name:'Honeywell',       role:'Enterprise Company', initials:'HW', grad:'from-indigo-500 to-blue-600'},  verb:'published a new challenge',        meta:'Budget: $22,000 · Deadline: 60 days',                 challenge:'Renewable Energy Forecasting',   badge:'live',   status:'Live',          min:105},
-        {id:11, type:'company',     actor:{name:'Bosch Industries', role:'Enterprise Company', initials:'BI', grad:'from-cyan-500 to-blue-500'},   verb:'approved milestone 2 for',         meta:'$4,200 paid out · Milestone 3 unlocked',              challenge:'Digital Twin Architecture',      badge:'active', status:'Active Now',    min:148},
-        {id:12, type:'company',     actor:{name:'Samsung SDI',     role:'Enterprise Company', initials:'SS', grad:'from-blue-500 to-teal-600'},    verb:'published a new challenge',        meta:'Budget: $11,000 · Deadline: 35 days',                 challenge:'Supply Chain Resilience',        badge:'live',   status:'Live',          min:193},
-        // Expert
-        {id:13, type:'expert',      actor:{name:'Ahmed Al-Rashidi', role:'ML Engineer',       initials:'AA', grad:'from-emerald-500 to-teal-600'}, verb:'submitted a solution to',          meta:'Score estimate: 89% · 340 hours tracked',             challenge:'Predictive Maintenance System',  badge:'submit', status:'Just Submitted', min:8  },
-        {id:14, type:'expert',      actor:{name:'Sarah Johnson',   role:'Systems Architect',  initials:'SJ', grad:'from-teal-500 to-emerald-600'}, verb:'approved Solution #14 for',        meta:'Final review complete · Delivery recommended',        challenge:'Industrial IoT Platform',        badge:'review', status:'Reviewing',     min:15 },
-        {id:15, type:'expert',      actor:{name:'Omar Al-Hassan',  role:'Data Scientist',     initials:'OH', grad:'from-violet-500 to-purple-600'}, verb:'earned +25 reputation stars on',  meta:'Milestone: 1,250 total points',                       challenge:'Carbon Capture Analytics',       badge:'active', status:'Active Now',    min:29 },
-        {id:16, type:'expert',      actor:{name:'Fatima Al-Zahraa','role':'IoT Specialist',   initials:'FZ', grad:'from-rose-500 to-pink-600'},    verb:'joined the challenge team for',    meta:'Match score: 96% · 3rd team member added',           challenge:'Smart Grid Optimization',        badge:'active', status:'Active Now',    min:42 },
-        {id:17, type:'expert',      actor:{name:'Michael Chen',    role:'DevOps Engineer',    initials:'MC', grad:'from-amber-500 to-orange-500'}, verb:'submitted a solution to',          meta:'Score estimate: 91% · Full architecture delivered',   challenge:'Digital Twin Architecture',      badge:'submit', status:'Just Submitted', min:63 },
-        {id:18, type:'expert',      actor:{name:'Elena Petrova',   role:'Embedded Systems',   initials:'EP', grad:'from-cyan-500 to-teal-600'},    verb:'started working on',               meta:'Assignment accepted · SLA: 14 days',                  challenge:'Autonomous Quality Control',     badge:'active', status:'Active Now',    min:91 },
-        {id:19, type:'expert',      actor:{name:'Yusuf Ibrahim',   role:'Energy Consultant',  initials:'YI', grad:'from-emerald-600 to-green-500'}, verb:'completed all tasks for',         meta:'7/7 tasks done · On-time delivery',                   challenge:'Renewable Energy Forecasting',   badge:'done',   status:'Completed',     min:127},
-        {id:20, type:'expert',      actor:{name:'Layla Mansouri',  role:'AI Research Lead',   initials:'LM', grad:'from-violet-600 to-indigo-500'}, verb:'submitted a solution to',         meta:'Score estimate: 94% · Novel ML approach used',        challenge:'Supply Chain Resilience',        badge:'submit', status:'Just Submitted', min:162},
-        // Community
-        {id:21, type:'community',   actor:{name:'Community Hub',   role:'Community',          initials:'CH', grad:'from-teal-500 to-cyan-600'},    verb:'published a success story on',     meta:'4.8★ rating · 1,200+ views this week',               challenge:'Carbon Capture Analytics',       badge:'done',   status:'Published',     min:38 },
-        {id:22, type:'community',   actor:{name:'Khalid Al-Otaibi', role:'Member',            initials:'KA', grad:'from-sky-500 to-blue-600'},     verb:'started a discussion on',          meta:'12 replies · Technical Q&A thread',                   challenge:'Predictive Maintenance System',  badge:'active', status:'Active Now',    min:55 },
-        {id:23, type:'community',   actor:{name:'Nour Hassan',     role:'Member',             initials:'NH', grad:'from-pink-500 to-rose-600'},    verb:'shared an expert insight on',      meta:'Upvoted by 18 community members',                     challenge:'Smart Grid Optimization',        badge:'review', status:'Recently Updated', min:80},
-        {id:24, type:'community',   actor:{name:'Community Hub',   role:'Community',          initials:'CH', grad:'from-teal-500 to-cyan-600'},    verb:'featured a success story on',      meta:'4.9★ rating · Pinned by Mindova team',               challenge:'Industrial IoT Platform',        badge:'done',   status:'Published',     min:140},
-        // Certificates
-        {id:25, type:'certificate', actor:{name:'Mindova Platform', role:'Certification',     initials:'MP', grad:'from-amber-500 to-yellow-500'}, verb:'issued a certificate to Omar Al-Hassan for', meta:'Level: Advanced Engineering · Verified', challenge:'Carbon Capture Analytics',       badge:'cert',   status:'Issued',        min:12 },
-        {id:26, type:'certificate', actor:{name:'Mindova Platform', role:'Certification',     initials:'MP', grad:'from-amber-500 to-yellow-500'}, verb:'issued a certificate to Sarah Johnson for',  meta:'Level: Systems Architecture · Verified', challenge:'Industrial IoT Platform',        badge:'cert',   status:'Issued',        min:68 },
-        {id:27, type:'certificate', actor:{name:'Mindova Platform', role:'Certification',     initials:'MP', grad:'from-amber-500 to-yellow-500'}, verb:'issued a certificate to Yusuf Ibrahim for',  meta:'Level: Energy & Sustainability · Verified', challenge:'Renewable Energy Forecasting', badge:'cert',   status:'Issued',        min:132},
-        // Challenge events
-        {id:28, type:'challenge',   actor:{name:'Challenge System', role:'Platform',          initials:'CS', grad:'from-violet-600 to-indigo-600'}, verb:'marked as completed:',            meta:'Final delivery accepted · Success story pending',     challenge:'Carbon Capture Analytics',       badge:'done',   status:'Completed',     min:25 },
-        {id:29, type:'challenge',   actor:{name:'Challenge System', role:'Platform',          initials:'CS', grad:'from-violet-600 to-indigo-600'}, verb:'entered review phase:',           meta:'3 solutions submitted · Voting now open',             challenge:'Predictive Maintenance System',  badge:'review', status:'Reviewing',     min:60 },
-        {id:30, type:'challenge',   actor:{name:'Challenge System', role:'Platform',          initials:'CS', grad:'from-violet-600 to-indigo-600'}, verb:'deadline extended for',           meta:'Extended by 7 days · Company requested',              challenge:'Digital Twin Architecture',      badge:'active', status:'Active Now',    min:115},
-        {id:31, type:'challenge',   actor:{name:'Challenge System', role:'Platform',          initials:'CS', grad:'from-violet-600 to-indigo-600'}, verb:'entered delivery phase:',         meta:'Deployment checklist activated',                      challenge:'Smart Grid Optimization',        badge:'active', status:'Active Now',    min:178},
-        {id:32, type:'challenge',   actor:{name:'Challenge System', role:'Platform',          initials:'CS', grad:'from-violet-600 to-indigo-600'}, verb:'reached milestone 2:',            meta:'66% complete · On schedule',                          challenge:'Autonomous Quality Control',     badge:'active', status:'Active Now',    min:225},
-    ];
-
-    DATA.sort((a,b) => a.min - b.min);
-
-    function fmtTime(m) {
-        if (m < 1)  return 'Just now';
-        if (m < 60) return m + 'm ago';
-        const h = Math.floor(m / 60);
-        if (h < 24) return h + 'h ago';
-        return Math.floor(h / 24) + 'd ago';
-    }
-
-    function card(a) {
-        const pulse = a.min < 6 ? '<span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>' : '';
-        const pulseBadge = ['Live','Active Now','Just Submitted','AI Processing'].includes(a.status)
-            ? '<span class="h-1.5 w-1.5 rounded-full bg-current opacity-70 mr-1 inline-block" style="animation:ac-blink 2s ease-in-out infinite"></span>' : '';
-        return `<div class="ac-card flex items-start gap-4 px-5 py-4 group" data-type="${a.type}">
-            <div class="relative flex-shrink-0">
-                <div class="h-10 w-10 rounded-xl bg-gradient-to-br ${a.actor.grad} flex items-center justify-center shadow-sm">
-                    <span class="text-white font-black text-sm">${a.actor.initials}</span>
-                </div>
-                <div class="absolute -bottom-1 -right-1 h-5 w-5 rounded-lg bg-gradient-to-br ${ICON_BG[a.type]} flex items-center justify-center border-2 border-white dark:border-slate-800 shadow-sm">
-                    ${ICONS[a.type]}
-                </div>
-            </div>
-            <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-2 flex-wrap">
-                    <div>
-                        <span class="font-bold text-gray-900 dark:text-white text-sm">${a.actor.name}</span>
-                        <span class="text-gray-300 dark:text-gray-600 mx-1.5">·</span>
-                        <span class="text-xs text-gray-500 dark:text-gray-400">${a.actor.role}</span>
-                    </div>
-                    <div class="flex items-center gap-1.5 flex-shrink-0">
-                        ${pulse}
-                        <span class="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">${fmtTime(a.min)}</span>
-                    </div>
-                </div>
-                <p class="text-sm text-gray-600 dark:text-gray-300 mt-1 leading-snug">
-                    ${a.verb} <span class="font-semibold text-gray-800 dark:text-white">&ldquo;${a.challenge}&rdquo;</span>
-                </p>
-                <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">${a.meta}</p>
-                <div class="flex items-center gap-2 mt-2.5">
-                    <span class="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-lg ${BADGE[a.badge]}">
-                        ${pulseBadge}${a.status}
-                    </span>
-                    <a href="#" class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold hover:underline inline-flex items-center gap-1">
-                        View <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </div>
-        </div>`;
-    }
-
-    function getFiltered() {
-        return filter === 'all' ? DATA : DATA.filter(a => a.type === filter);
-    }
-
-    function renderFeed() {
-        const items = getFiltered();
-        const feed  = document.getElementById('ac-feed');
-        const empty = document.getElementById('ac-empty');
-        const more  = document.getElementById('ac-loadmore');
-        if (!feed) return;
-        if (items.length === 0) {
-            feed.classList.add('hidden'); empty.classList.remove('hidden'); more.classList.add('hidden'); return;
-        }
-        empty.classList.add('hidden'); feed.classList.remove('hidden');
-        const slice = items.slice(0, visible);
-        feed.innerHTML = slice.map(card).join('');
-        feed.querySelectorAll('.ac-card').forEach((el, i) => {
-            el.style.cssText = 'opacity:0;transform:translateY(8px)';
-            setTimeout(() => {
-                el.style.cssText = 'transition:opacity .3s ease,transform .3s ease;opacity:1;transform:translateY(0)';
-            }, i * 45);
-        });
-        visible < items.length ? more.classList.remove('hidden') : more.classList.add('hidden');
-    }
-
-    function animateCounter(el) {
-        const target = parseInt(el.dataset.target, 10);
-        const dur = 1100, start = performance.now();
+document.addEventListener('DOMContentLoaded', () => {
+    // Count up the real stat numbers on load (purely cosmetic, no fake data).
+    document.querySelectorAll('.ac-pulse-num').forEach(el => {
+        const target = parseInt(el.dataset.target, 10) || 0;
+        const dur = 900, start = performance.now();
         const step = now => {
             const p = Math.min((now - start) / dur, 1);
             el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
             if (p < 1) requestAnimationFrame(step);
         };
-        setTimeout(() => requestAnimationFrame(step), 400);
-    }
+        requestAnimationFrame(step);
+    });
+});
 
-    function showToast(msg) {
-        const t = document.getElementById('ac-toast');
-        document.getElementById('ac-toast-msg').textContent = msg;
-        t.style.transform = 'translateY(0)'; t.style.opacity = '1';
-        clearTimeout(t._timer);
-        t._timer = setTimeout(() => { t.style.transform = 'translateY(120px)'; t.style.opacity = '0'; }, 4500);
-    }
-
-    let liveIdx = 0;
-    const LIVE = [
-        {type:'ai',          actor:{name:'Mindova AI',       role:'AI Engine',         initials:'AI', grad:'from-purple-500 to-violet-600'}, verb:'started analyzing',               meta:'New submission queued for processing',       challenge:'Smart Grid Optimization',       badge:'ai',     status:'AI Processing'},
-        {type:'expert',      actor:{name:'Ahmed Al-Rashidi', role:'ML Engineer',        initials:'AA', grad:'from-emerald-500 to-teal-600'}, verb:'submitted a solution to',         meta:'Score estimate: 87% · Peer review pending',  challenge:'Renewable Energy Forecasting',  badge:'submit', status:'Just Submitted'},
-        {type:'company',     actor:{name:'Siemens Energy',   role:'Enterprise Company', initials:'SE', grad:'from-blue-500 to-cyan-600'},    verb:'reviewed a submission for',       meta:'Detailed technical feedback provided',        challenge:'Predictive Maintenance System', badge:'review', status:'Reviewing'},
-        {type:'certificate', actor:{name:'Mindova Platform', role:'Certification',      initials:'MP', grad:'from-amber-500 to-yellow-500'}, verb:'issued a certificate to Michael Chen for', meta:'Level: Full-Stack Engineering · Verified', challenge:'Digital Twin Architecture', badge:'cert', status:'Issued'},
-    ];
-
-    function startLive() {
-        setInterval(() => {
-            const tpl = LIVE[liveIdx++ % LIVE.length];
-            const a = Object.assign({}, tpl, {id: Date.now(), min: 0});
-            DATA.unshift(a);
-            showToast(a.actor.name + ' ' + a.verb + ' "' + a.challenge + '"');
-            if (filter === 'all' || filter === a.type) {
-                const feed = document.getElementById('ac-feed');
-                if (feed && !feed.classList.contains('hidden')) {
-                    const el = document.createElement('div');
-                    el.innerHTML = card(a);
-                    const newCard = el.firstElementChild;
-                    newCard.style.cssText = 'opacity:0;transform:translateY(-8px)';
-                    feed.insertBefore(newCard, feed.firstChild);
-                    requestAnimationFrame(() => {
-                        newCard.style.cssText = 'transition:opacity .4s ease,transform .4s ease;opacity:1;transform:translateY(0)';
-                    });
-                }
-            }
-        }, 22000);
-    }
-
-    function startTicker() {
-        setInterval(() => {
-            document.querySelectorAll('.ac-pulse-num').forEach(el => {
-                if (Math.random() > 0.55) return;
-                const d = Math.random() > 0.45 ? 1 : -1;
-                const v = Math.max(1, parseInt(el.textContent) + d);
-                el.textContent = v;
-                el.style.color = d > 0 ? '#10b981' : '#ef4444';
-                setTimeout(() => el.style.color = '', 700);
-            });
-        }, 5500);
-    }
-
-    function init() {
-        document.querySelectorAll('.ac-pulse-num').forEach(animateCounter);
-        setTimeout(() => {
-            const sk = document.getElementById('ac-skeleton');
-            if (sk) sk.style.display = 'none';
-            renderFeed();
-            document.getElementById('ac-feed').classList.remove('hidden');
-        }, 750);
-        startLive();
-        startTicker();
-    }
-
-    function setFilter(f) {
-        filter = f; visible = PAGE;
-        document.querySelectorAll('.ac-filter-btn').forEach(b => b.classList.toggle('ac-active', b.dataset.filter === f));
-        renderFeed();
-    }
-
-    function loadMore() { visible += PAGE; renderFeed(); }
-
-    function refresh() {
-        const icon = document.getElementById('ac-refresh-icon');
-        const btn  = document.getElementById('ac-refresh-btn');
-        btn.disabled = true;
-        icon.style.cssText = 'transform:rotate(360deg);transition:transform .6s ease';
-        const sk = document.getElementById('ac-skeleton');
-        const fd = document.getElementById('ac-feed');
-        sk.style.display = 'block'; fd.classList.add('hidden');
-        document.getElementById('ac-loadmore').classList.add('hidden');
-        setTimeout(() => {
-            sk.style.display = 'none'; fd.classList.remove('hidden');
-            renderFeed(); btn.disabled = false;
-            icon.style.cssText = '';
-            const ts = document.getElementById('ac-last-updated');
-            if (ts) ts.textContent = 'Updated just now';
-        }, 800);
-    }
-
-    return { init, setFilter, loadMore, refresh };
-})();
-
-document.addEventListener('DOMContentLoaded', () => AC.init());
+function acSetFilter(type) {
+    document.querySelectorAll('.ac-filter-btn').forEach(b => b.classList.toggle('ac-active', b.dataset.filter === type));
+    document.querySelectorAll('#ac-feed .ac-card').forEach(card => {
+        card.classList.toggle('hidden', type !== 'all' && card.dataset.type !== type);
+    });
+}
 </script>
 @endpush
+

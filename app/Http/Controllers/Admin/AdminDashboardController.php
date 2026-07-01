@@ -75,6 +75,56 @@ class AdminDashboardController extends Controller
             ->where('is_read', false)
             ->count();
 
+        // Real platform activity feed (replaces the previous mocked feed)
+        $activityFeed = collect();
+
+        foreach (Challenge::with(['company.user', 'volunteer.user'])->latest()->limit(15)->get() as $challenge) {
+            $activityFeed->push([
+                'type' => 'challenge',
+                'actor_name' => $challenge->company->company_name ?? $challenge->company->user->name ?? $challenge->volunteer->user->name ?? __('Community'),
+                'actor_role' => $challenge->company ? __('Company') : ($challenge->volunteer ? __('Contributor') : __('Community')),
+                'verb' => __('created the challenge'),
+                'title' => $challenge->title,
+                'status' => $challenge->status,
+                'created_at' => $challenge->created_at,
+                'url' => route('admin.challenges.show', $challenge),
+            ]);
+        }
+
+        foreach (Certificate::with(['user', 'challenge'])->latest('issued_at')->limit(15)->get() as $cert) {
+            if (!$cert->user) {
+                continue;
+            }
+            $activityFeed->push([
+                'type' => 'certificate',
+                'actor_name' => $cert->user->name,
+                'actor_role' => __('Certified'),
+                'verb' => __('earned a certificate for'),
+                'title' => $cert->challenge->title ?? __('a challenge'),
+                'status' => 'issued',
+                'created_at' => $cert->issued_at ?? $cert->created_at,
+                'url' => $cert->challenge ? route('admin.challenges.show', $cert->challenge) : null,
+            ]);
+        }
+
+        foreach (TaskAssignment::with(['task.challenge', 'volunteer.user'])->whereNotNull('completed_at')->latest('completed_at')->limit(15)->get() as $assignment) {
+            if (!$assignment->volunteer || !$assignment->volunteer->user || !$assignment->task || !$assignment->task->challenge) {
+                continue;
+            }
+            $activityFeed->push([
+                'type' => 'task',
+                'actor_name' => $assignment->volunteer->user->name,
+                'actor_role' => __('Contributor'),
+                'verb' => __('completed a task on'),
+                'title' => $assignment->task->challenge->title,
+                'status' => 'completed',
+                'created_at' => $assignment->completed_at,
+                'url' => route('admin.challenges.show', $assignment->task->challenge),
+            ]);
+        }
+
+        $activityFeed = $activityFeed->sortByDesc('created_at')->values()->take(20);
+
         return view('admin.dashboard', compact(
             'stats',
             'recentChallenges',
@@ -83,7 +133,8 @@ class AdminDashboardController extends Controller
             'activeCompanies',
             'challengesByStatus',
             'notifications',
-            'unreadNotificationsCount'
+            'unreadNotificationsCount',
+            'activityFeed'
         ));
     }
 

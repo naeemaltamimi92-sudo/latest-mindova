@@ -111,9 +111,22 @@
         html.dark #admin-topbar { background: #0f172a; border-color: #1e293b; }
         html.dark #admin-main > div { background: #0f172a; }
 
-        /* Scroll reveal */
-        .adm-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-        .adm-reveal.visible { opacity: 1; transform: translateY(0); }
+        /* Entrance animation — pure CSS, runs automatically on paint.
+           Content must NEVER depend on JS to become visible: if any script
+           on the page throws (ad blocker, extension conflict, race
+           condition), a JS-gated opacity:0 pattern leaves the entire
+           content area permanently blank while its flex/min-h containers
+           still reserve full viewport height, producing a large empty gap. */
+        @keyframes adm-fade-in {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .adm-reveal {
+            animation: adm-fade-in 0.45s cubic-bezier(.4,0,.2,1) both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .adm-reveal { animation: none; }
+        }
     </style>
     @if(!empty($customCss ?? '')) <style>{{ $customCss }}</style> @endif
     @stack('styles')
@@ -383,18 +396,6 @@ function toggleDarkMode() {
     localStorage.setItem('mindova-theme', isDark ? 'dark' : 'light');
 }
 
-// Scroll reveal
-document.addEventListener('DOMContentLoaded', function() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => entry.target.classList.add('visible'), i * 60);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.adm-reveal').forEach(el => observer.observe(el));
-});
 </script>
 
 @stack('scripts')
