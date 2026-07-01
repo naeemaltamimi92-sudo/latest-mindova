@@ -144,7 +144,7 @@
 <div id="sidebar-overlay" :class="{ 'active': sidebarOpen }" @click="sidebarOpen = false"></div>
 
 {{-- ═══ SIDEBAR ═══ --}}
-<aside id="admin-sidebar" :class="{ 'collapsed': !sidebarOpen }" class="fixed top-0 left-0 h-full z-40 flex flex-col lg:translate-x-0 lg:static lg:z-auto">
+<aside id="admin-sidebar" :class="{ 'collapsed': !sidebarOpen }" class="fixed top-0 left-0 h-full z-40 flex flex-col lg:translate-x-0">
 
     {{-- Logo --}}
     <div class="flex items-center gap-3 px-5 py-5 border-b border-white/10">
