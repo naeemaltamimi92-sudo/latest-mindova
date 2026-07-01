@@ -32,54 +32,24 @@ class NdaAgreement extends Model
     }
 
     /**
-     * Get the active general NDA from file storage.
+     * Get the active general NDA.
      */
     public static function getActiveGeneralNda()
     {
-        $filePath = storage_path('app/nda/general_nda.md');
-
-        if (!file_exists($filePath)) {
-            \Log::error('General NDA file not found', ['path' => $filePath]);
-            return null;
-        }
-
-        $content = file_get_contents($filePath);
-
-        // Create or retrieve the actual database record
-        return self::firstOrCreate(
-            ['type' => 'general', 'is_active' => true],
-            [
-                'title' => 'Mindova Platform General Non-Disclosure Agreement',
-                'version' => '1.0',
-                'content' => $content,
-                'effective_date' => now(),
-            ]
-        );
+        return self::where('type', 'general')
+            ->where('is_active', true)
+            ->latest('effective_date')
+            ->first();
     }
 
     /**
-     * Get the active challenge-specific NDA template from file storage.
+     * Get the active challenge-specific NDA template.
      */
     public static function getActiveChallengeNda()
     {
-        $filePath = storage_path('app/nda/challenge_nda.md');
-
-        if (!file_exists($filePath)) {
-            \Log::error('Challenge NDA file not found', ['path' => $filePath]);
-            return null;
-        }
-
-        $content = file_get_contents($filePath);
-
-        // Create or retrieve the actual database record
-        return self::firstOrCreate(
-            ['type' => 'challenge_specific', 'is_active' => true],
-            [
-                'title' => 'Mindova Challenge-Specific Non-Disclosure Agreement',
-                'version' => '1.0',
-                'content' => $content,
-                'effective_date' => now(),
-            ]
-        );
+        return self::where('type', 'challenge_specific')
+            ->where('is_active', true)
+            ->latest('effective_date')
+            ->first();
     }
 }
