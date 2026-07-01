@@ -96,6 +96,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/nda/challenge/{challenge}/status', [NdaController::class, 'checkNdaStatus'])->name('nda.challenge.status');
 });
 
+// Feedback & Ideas Board - public read (guests can browse), auth-gated write.
+// /feedback/create and /feedback/{feedbackItem}/edit MUST be registered
+// before /feedback/{feedbackItem}, or the wildcard would capture "create"/
+// "edit" as a route-model-binding ID (same ordering issue as challenges).
+Route::get('/feedback', [App\Http\Controllers\Web\FeedbackController::class, 'index'])->name('feedback.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/feedback/create', [App\Http\Controllers\Web\FeedbackController::class, 'create'])->name('feedback.create');
+    Route::post('/feedback', [App\Http\Controllers\Web\FeedbackController::class, 'store'])->name('feedback.store');
+    Route::get('/feedback/{feedbackItem}/edit', [App\Http\Controllers\Web\FeedbackController::class, 'edit'])->name('feedback.edit');
+    Route::put('/feedback/{feedbackItem}', [App\Http\Controllers\Web\FeedbackController::class, 'update'])->name('feedback.update');
+    Route::delete('/feedback/{feedbackItem}', [App\Http\Controllers\Web\FeedbackController::class, 'destroy'])->name('feedback.destroy');
+    Route::post('/feedback/{feedbackItem}/vote', [App\Http\Controllers\Web\FeedbackController::class, 'vote'])->name('feedback.vote');
+    Route::post('/feedback/{feedbackItem}/comments', [App\Http\Controllers\Web\FeedbackController::class, 'storeComment'])->name('feedback.comments.store');
+});
+Route::get('/feedback/{feedbackItem}', [App\Http\Controllers\Web\FeedbackController::class, 'show'])->name('feedback.show');
+
 // Protected Routes
 Route::middleware('auth')->group(function () {
     // Dashboard
@@ -331,6 +347,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         ->name('settings.search');
     Route::post('/settings/bulk-update', [App\Http\Controllers\Admin\AdminSettingsController::class, 'bulkUpdate'])
         ->name('settings.bulkUpdate');
+
+    // Feedback & Ideas Board
+    Route::get('/feedback', [App\Http\Controllers\Admin\AdminFeedbackController::class, 'index'])
+        ->name('feedback.index');
+    Route::post('/feedback/{feedbackItem}/status', [App\Http\Controllers\Admin\AdminFeedbackController::class, 'updateStatus'])
+        ->name('feedback.updateStatus');
+    Route::post('/feedback/{feedbackItem}/duplicate', [App\Http\Controllers\Admin\AdminFeedbackController::class, 'markDuplicate'])
+        ->name('feedback.markDuplicate');
 });
 
 // Public Agency White-Label Portal — intentionally no auth; external visitors browse company talent portals

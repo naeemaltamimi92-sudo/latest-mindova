@@ -47,6 +47,9 @@
                         {{ __('My Challenges') }}
                     </x-ui.navbar-link>
                     @endif
+                    <x-ui.navbar-link href="{{ route('feedback.index') }}" :active="request()->routeIs('feedback.*')">
+                        {{ __('Feedback') }}
+                    </x-ui.navbar-link>
                 @elseif(auth()->user()->isCompany())
                     {{-- Company Navigation --}}
                     <x-ui.navbar-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
@@ -57,6 +60,9 @@
                     </x-ui.navbar-link>
                     <x-ui.navbar-link href="{{ route('company.submissions.index') }}" :active="request()->routeIs('company.submissions.*')">
                         {{ __('Work Submissions') }}
+                    </x-ui.navbar-link>
+                    <x-ui.navbar-link href="{{ route('feedback.index') }}" :active="request()->routeIs('feedback.*')">
+                        {{ __('Feedback') }}
                     </x-ui.navbar-link>
                 @endif
             @else
@@ -72,6 +78,9 @@
                 </a>
                 <a href="{{ route('success-stories') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
                     {{ __('Success Stories') }}
+                </a>
+                <a href="{{ route('feedback.index') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
+                    {{ __('Feedback') }}
                 </a>
                 <a href="{{ route('help') }}" class="text-sm font-medium px-3 py-2 transition-colors" style="color:#4B5563;" onmouseover="this.style.color='#5A3DEB'" onmouseout="this.style.color='#4B5563'">
                     {{ __('Help') }}
@@ -226,6 +235,9 @@
                         {{ __('My Challenges') }}
                     </x-ui.navbar-mobile-link>
                     @endif
+                    <x-ui.navbar-mobile-link href="{{ route('feedback.index') }}" :active="request()->routeIs('feedback.*')">
+                        {{ __('Feedback') }}
+                    </x-ui.navbar-mobile-link>
                 @elseif(auth()->user()->isCompany())
                     <x-ui.navbar-mobile-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -235,6 +247,9 @@
                     </x-ui.navbar-mobile-link>
                     <x-ui.navbar-mobile-link href="{{ route('company.submissions.index') }}" :active="request()->routeIs('company.submissions.*')">
                         {{ __('Work Submissions') }}
+                    </x-ui.navbar-mobile-link>
+                    <x-ui.navbar-mobile-link href="{{ route('feedback.index') }}" :active="request()->routeIs('feedback.*')">
+                        {{ __('Feedback') }}
                     </x-ui.navbar-mobile-link>
                 @endif
 
@@ -255,6 +270,7 @@
                 <a href="{{ route('challenges.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Challenges') }}</a>
                 <a href="{{ route('community.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Community') }}</a>
                 <a href="{{ route('success-stories') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Success Stories') }}</a>
+                <a href="{{ route('feedback.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Feedback') }}</a>
                 <a href="{{ route('help') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">{{ __('Help') }}</a>
 
                 <div class="border-t border-gray-200 my-2"></div>
