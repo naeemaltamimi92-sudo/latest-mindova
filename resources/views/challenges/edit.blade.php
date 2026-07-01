@@ -3,48 +3,31 @@
 @section('title', __('Edit Challenge'))
 
 @section('content')
-<!-- Premium Hero Section -->
-<div class="relative overflow-hidden bg-aurora-soft py-12 mb-12 rounded-3xl max-w-5xl mx-auto elevation-2xl">
-    <!-- Animated Background Effects -->
-    <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full "></div>
-        <div class="absolute bottom-0 right-0 w-full h-full "></div>
-        <div class="floating-element absolute top-10 -left-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl"></div>
-        <div class="floating-element absolute bottom-10 right-10 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
-    </div>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-    <div class="relative max-w-4xl mx-auto px-6 sm:px-8 text-center">
-        <!-- Status Badge -->
-        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5 mb-6 shadow-lg">
-            <div class="relative">
-                <div class="w-2.5 h-2.5 bg-amber-400 rounded-full"></div>
-                <div class="absolute inset-0 w-2.5 h-2.5 bg-amber-400 rounded-full"></div>
+        {{-- Header --}}
+        <div class="mb-6">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-lg text-xs font-medium text-amber-700 dark:text-amber-300">
+                    <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                    {{ __('Editing Challenge') }}
+                </span>
             </div>
-            <span class="text-sm font-semibold text-white/90">{{ __('Editing Challenge') }}</span>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ __('Edit Challenge') }}</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('Update your challenge details. Changes will trigger a new AI analysis.') }}</p>
         </div>
 
-        <!-- Main Heading -->
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight tracking-tight">
-            {{ __('Edit') }}
-            <span class="text-secondary-200">{{ __('Challenge') }}</span>
-        </h1>
-        <p class="text-lg text-white/80 font-medium leading-relaxed max-w-2xl mx-auto">
-            {{ __('Update your challenge details. Changes will trigger a new AI analysis.') }}
-        </p>
-    </div>
-</div>
-
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-    <!-- Warning Banner -->
+    {{-- Warning Banner --}}
     @if($challenge->status !== 'submitted' && $challenge->status !== 'rejected')
-    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6 elevation-xs">
+    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-4 mb-6 elevation-xs">
         <div class="flex items-start gap-3">
-            <svg class="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
             </svg>
             <div>
-                <p class="font-bold text-amber-800">{{ __('Important Notice') }}</p>
-                <p class="text-sm text-amber-700 mt-1">
+                <p class="font-bold text-amber-800 dark:text-amber-300">{{ __('Important Notice') }}</p>
+                <p class="text-sm text-amber-700 dark:text-amber-400 mt-1">
                     {{ __('Editing this challenge will reset its status and trigger a new AI analysis. All existing tasks and workstreams will be regenerated.') }}
                 </p>
             </div>
@@ -52,8 +35,8 @@
     </div>
     @endif
 
-    <!-- Main Form Card -->
-    <div class="bg-white dark:bg-gray-800 rounded-3xl elevation-lg border border-slate-100 dark:border-gray-700 overflow-hidden">
+    {{-- Main Form Card --}}
+    <div class="bg-white dark:bg-gray-800 rounded-2xl elevation-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
         <form action="{{ route('challenges.update', $challenge) }}" method="POST" enctype="multipart/form-data" class="p-8 md:p-12 space-y-10" id="editChallengeForm">
             @csrf
             @method('PUT')
@@ -243,6 +226,7 @@
                 </x-ui.button>
             </div>
         </form>
+    </div>
     </div>
 </div>
 
