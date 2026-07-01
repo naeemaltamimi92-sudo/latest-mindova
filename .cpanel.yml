@@ -2,24 +2,15 @@
 deployment:
   tasks:
     # ==========================================================================
-    # BEFORE FIRST DEPLOY: replace USERNAME below with your actual cPanel
-    # username. PHP/Composer binaries are auto-detected with a fallback path
-    # (see step 0) but verify with `which php` / `which composer` in Terminal
-    # if the fail-fast check below ever triggers.
-    #
-    # NODE/NPM SETUP (one-time, in cPanel UI, needed for the asset build in
-    # step 1a): cPanel > Software > Setup Node.js App > Create Application,
-    # set "Application root" to mindova-app (matching APPPATH below), pick a
-    # Node version, then click "Enter to the virtual environment" - cPanel
-    # will show you the EXACT activation command for your account. Copy that
-    # exact path into NODE_ACTIVATE below (the guess here is very likely
-    # wrong - it depends on your chosen Node version and cPanel account).
-    # If NODE_ACTIVATE doesn't exist, this pipeline WARNS and skips the
-    # asset build rather than failing the whole deploy - see step 1a.
+    # cPanel account: mndvafva. Node.js App configured at Application root
+    # "mindova-app" running Node 20, activated via NODE_ACTIVATE below.
+    # PHP/Composer binaries are auto-detected with a fallback path (step 0)
+    # but verify with `which php` / `which composer` in Terminal if the
+    # fail-fast check below ever triggers.
     # ==========================================================================
-    - export APPPATH=/home/USERNAME/mindova-app
-    - export PUBLICPATH=/home/USERNAME/public_html
-    - export NODE_ACTIVATE=/home/USERNAME/nodevenv/mindova-app/20/bin/activate
+    - export APPPATH=/home/mndvafva/mindova-app
+    - export PUBLICPATH=/home/mndvafva/public_html
+    - export NODE_ACTIVATE=/home/mndvafva/nodevenv/mindova-app/20/bin/activate
 
     # --------------------------------------------------------------------
     # 0. Resolve PHP/Composer binaries: prefer whatever's already on PATH
